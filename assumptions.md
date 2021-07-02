@@ -2,10 +2,6 @@
 *   The game supports **ONE** player at most.
 *   Only **ONE** character is provided in the game.
 *   At the start of the game, the character uses their **FISTS** to fight the enemies (without equipment).
-*   Goal of game victory
-    - Obtaining **1000** EXP.
-    - Obtaining **500** gold.
-    - The Character completing **100** number of cycles of the path.
 *   The initial map is fixed, consisting of path tiles, non-path tiles, and **ONE** Hero castle.
 *   The map has two slugs moving randomly at initial map.
 *   The character can only move clockwise through the path.
