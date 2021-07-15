@@ -402,7 +402,10 @@ public class LoopManiaWorldController {
         // react to character defeating an enemy
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
-
+        // a type of card is randomly generated from the purpose of simulating
+        int index = new Random().nextInt(7);
+        loadCardByType(CARDS_TYPE.values()[index]);
+        
         int[] itmemsProbabilityValue = {30, 15, 10, 10, 10, 10, 5, 10};
 
         int rd = new Random().nextInt(100);
@@ -422,10 +425,6 @@ public class LoopManiaWorldController {
             //loadItemByType(ITEMS_TYPE.values()[itmemsProbabilityValue.length - 1]);
             //use potion
         }
-
-        // a type of card is randomly generated from the purpose of simulating
-        int index = new Random().nextInt(7);
-        loadCardByType(CARDS_TYPE.values()[index]);
     }
 
     /**
@@ -966,9 +965,9 @@ public class LoopManiaWorldController {
      * EventHandlers will run on the application thread.
      */
     private void printThreadingNotes(String currentMethodLabel){
-        System.out.println("\n###########################################");
-        System.out.println("current method = "+currentMethodLabel);
-        System.out.println("In application thread? = "+Platform.isFxApplicationThread());
-        System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
+        //System.out.println("\n###########################################");
+        //System.out.println("current method = "+currentMethodLabel);
+        //System.out.println("In application thread? = "+Platform.isFxApplicationThread());
+        //System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
     }
 }
