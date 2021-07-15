@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.javatuples.Pair;
+import org.junit.platform.console.options.Theme;
 
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -179,11 +180,10 @@ public class LoopManiaWorld {
     }
 
     /**
-     * spawn a sword in the world and return the sword entity
-     * @return a sword to be spawned in the controller as a JavaFX node
+     * spawn a item in the world and return the item entity
+     * @return a item to be spawned in the controller as a JavaFX node
      */
-    public Sword addUnequippedSword(){
-        // TODO = expand this - we would like to be able to add multiple types of items, apart from swords
+    public Item addUnequippedItem(ITEMS_TYPE itemType){
         Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
         if (firstAvailableSlot == null){
             // eject the oldest unequipped item and replace it... oldest item is that at beginning of items
@@ -191,12 +191,45 @@ public class LoopManiaWorld {
             removeItemByPositionInUnequippedInventoryItems(0);
             firstAvailableSlot = getFirstAvailableSlotForItem();
         }
-        
-        // now we insert the new sword, as we know we have at least made a slot available...
-        Sword sword = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-        unequippedInventoryItems.add(sword);
-        return sword;
+        Item item = null;
+        switch(itemType) {
+            case SWORD:{
+                item = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 6, 0, 10);
+                break;
+            }
+            case STAKE:{
+                item = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 4, 0, 10);
+                break;
+            }
+            case STAFF:{
+                item = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 2, 0, 15);
+                break;
+            }
+            case ARMOUR:{
+                item = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 3, 20);
+                break;
+            }
+            case SHIELD:{
+                item = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 1, 20);
+                break;
+            }
+            case HELMET:{
+                item = new Helmet(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 1, 20);
+                break;
+            }
+            case THEONERING:{
+                item = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 0);
+                break;
+            }
+            default:
+                break;
+        }
+        unequippedInventoryItems.add(item);
+        // TODO: add to character
+        return item;
     }
+
+ 
 
     /**
      * remove an item by x,y coordinates

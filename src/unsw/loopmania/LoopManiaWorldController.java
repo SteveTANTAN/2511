@@ -1,7 +1,9 @@
 package unsw.loopmania;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
+import java.util.Random;
 
 import org.codefx.libfx.listener.handle.ListenerHandle;
 import org.codefx.libfx.listener.handle.ListenerHandles;
@@ -42,6 +44,13 @@ import java.io.IOException;
 enum DRAGGABLE_TYPE{
     CARD,
     ITEM
+}
+
+/**
+ * equiment type
+ */ 
+enum ITEMS_TYPE{
+    SWORD, STAKE, STAFF, ARMOUR, SHIELD, HELMET, THEONERING, HEALTHPOTION
 }
 
 /**
@@ -117,7 +126,14 @@ public class LoopManiaWorldController {
     private Image vampireCastleCardImage;
     private Image basicEnemyImage;
     private Image swordImage;
+    private Image stakeImage;
+    private Image staffImage;
+    private Image armourImage;
+    private Image shieldImage;
+    private Image helmetImage;
+    private Image theOneRingImage;
     private Image basicBuildingImage;
+    
 
     /**
      * the image currently being dragged, if there is one, otherwise null.
@@ -157,6 +173,7 @@ public class LoopManiaWorldController {
      */
     private MenuSwitcher mainMenuSwitcher;
 
+
     /**
      * @param world world object loaded from file
      * @param initialEntities the initial JavaFX nodes (ImageViews) which should be loaded into the GUI
@@ -167,6 +184,12 @@ public class LoopManiaWorldController {
         vampireCastleCardImage = new Image((new File("src/images/vampire_castle_card.png")).toURI().toString());
         basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
         swordImage = new Image((new File("src/images/basic_sword.png")).toURI().toString());
+        stakeImage = new Image((new File("src/images/stake.png")).toURI().toString());
+        staffImage = new Image((new File("src/images/staff.png")).toURI().toString());
+        armourImage = new Image((new File("src/images/armour.png")).toURI().toString());
+        shieldImage = new Image((new File("src/images/shield.png")).toURI().toString());
+        helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
+        theOneRingImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
         basicBuildingImage = new Image((new File("src/images/vampire_castle_building_purple_background.png")).toURI().toString());
         currentlyDraggedImage = null;
         currentlyDraggedType = null;
@@ -282,14 +305,14 @@ public class LoopManiaWorldController {
     }
 
     /**
-     * load a sword from the world, and pair it with an image in the GUI
+     * load a item from the world, and pair it with an image in the GUI
      */
-    private void loadSword(){
-        // TODO = load more types of weapon
+    private void loadItemByType(ITEMS_TYPE itemType) {
         // start by getting first available coordinates
-        Sword sword = world.addUnequippedSword();
-        onLoad(sword);
+        Item item = world.addUnequippedItem(itemType);
+        onLoad(item);
     }
+
 
     /**
      * run GUI events after an enemy is defeated, such as spawning items/experience/gold
@@ -299,7 +322,27 @@ public class LoopManiaWorldController {
         // react to character defeating an enemy
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
-        loadSword();
+
+        int[] itmemsProbabilityValue = {30, 15, 10, 10, 10, 10, 5, 10};
+
+        int rd = new Random().nextInt(100);
+        int i = 0;
+        boolean isReacted = false;
+        while (i < itmemsProbabilityValue.length) {
+            if (rd < itmemsProbabilityValue[i]) {
+                loadItemByType(ITEMS_TYPE.values()[i]);
+                isReacted = true;
+                break;
+            } else {
+                rd -= itmemsProbabilityValue[i];
+                i++;
+            }
+        }
+        if (!isReacted) {
+            //loadItemByType(ITEMS_TYPE.values()[itmemsProbabilityValue.length - 1]);
+            //use potion
+        }
+
         loadVampireCard();
     }
 
@@ -321,15 +364,31 @@ public class LoopManiaWorldController {
     }
 
     /**
-     * load a sword into the GUI.
+     * load a item into the GUI.
      * Particularly, we must connect to the drag detection event handler,
      * and load the image into the unequippedInventory GridPane.
-     * @param sword
+     * @param item
      */
-    private void onLoad(Sword sword) {
-        ImageView view = new ImageView(swordImage);
+    private void onLoad(Item item) {
+        ImageView view = null;
+        if (item instanceof Sword) {
+            view = new ImageView(swordImage);
+        } else if (item instanceof Stake) {
+            view = new ImageView(stakeImage);
+        } else if (item instanceof Staff) {
+            view = new ImageView(staffImage);
+        } else if (item instanceof Armour) {
+            view = new ImageView(armourImage);
+        } else if (item instanceof Shield) {
+            view = new ImageView(shieldImage);
+        } else if (item instanceof Helmet) {
+            view = new ImageView(helmetImage);
+        } else if (item instanceof TheOneRing) {
+            view = new ImageView(theOneRingImage);
+        }
+
         addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
-        addEntity(sword, view);
+        addEntity(item, view);
         unequippedInventory.getChildren().add(view);
     }
 
