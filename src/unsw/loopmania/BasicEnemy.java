@@ -7,8 +7,18 @@ import java.util.Random;
  */
 public class BasicEnemy extends MovingEntity {
     // TODO = modify this, and add additional forms of enemy
-    public BasicEnemy(PathPosition position) {
+    private String name;
+    private int aggressivity;
+    private int health;
+    private int attackRange;
+    private int supportRange;
+    public BasicEnemy(PathPosition position, int aggressivity, int health, int attackRange, int supportRange, String name) {
         super(position);
+        this.name = name;
+        this.aggressivity = aggressivity;
+        this.health = health;
+        this.attackRange = attackRange;
+        this.supportRange = supportRange;
     }
 
     /**
@@ -25,4 +35,46 @@ public class BasicEnemy extends MovingEntity {
             moveDownPath();
         }
     }
+
+    public int getAggressivity() {
+        return this.aggressivity;
+    }
+
+    public void setAggressivity(int aggressivity) {
+        this.aggressivity = aggressivity;
+    }
+
+    public int getHealth() {
+        return this.health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getAttackRange() {
+        return this.attackRange;
+    }
+
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
+    }
+
+    public int getSupportRange() {
+        return this.supportRange;
+    }
+
+    public void setSupportRange(int supportRange) {
+        this.supportRange = supportRange;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
+

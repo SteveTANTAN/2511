@@ -11,6 +11,7 @@ import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Slug;
 import unsw.loopmania.Zombie;
+import unsw.loopmania.Vampire;
 
 import org.javatuples.Pair;
 
