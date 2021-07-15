@@ -34,6 +34,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+
 import java.util.EnumMap;
 
 import java.io.File;
@@ -142,6 +143,8 @@ public class LoopManiaWorldController {
     private Image trapCardImage;
     private Image campfireCardImage;
     private Image basicEnemyImage;
+    private Image zombieImage;
+    private Image vampireImage;
     private Image swordImage;
 
     private Image towerBuildingImage;
@@ -209,6 +212,8 @@ public class LoopManiaWorldController {
     private boolean hasShowStore = false;
 
     private CardDescription cardDescription;
+
+    
     /**
      * @param world world object loaded from file
      * @param initialEntities the initial JavaFX nodes (ImageViews) which should be loaded into the GUI
@@ -224,6 +229,8 @@ public class LoopManiaWorldController {
         trapCardImage = new Image((new File("src/images/trap_card.png")).toURI().toString());
         campfireCardImage = new Image((new File("src/images/campfire_card.png")).toURI().toString());
         basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
+        zombieImage = new Image((new File("src/images/zombie.png")).toURI().toString());
+        vampireImage = new Image((new File("src/images/vampire.png")).toURI().toString());
         swordImage = new Image((new File("src/images/basic_sword.png")).toURI().toString());
 
         towerBuildingImage = new Image((new File("src/images/tower.png")).toURI().toString());
@@ -308,15 +315,24 @@ public class LoopManiaWorldController {
         if(timeline == null){
             timeline = new Timeline(new KeyFrame(Duration.seconds(0.3), event -> {
                 // check whether the position is in the Hero's Castle
-                if(world.characterIsInHerosCastle()){
-                    if(!hasShowStore){
-                        // show the store
-                        pause();
-                        store.show();
-                        hasShowStore = true;
-                        return;
-                    }else{
-                        hasShowStore = false;
+                if(world.getRoundsNum()== 0){
+                    world.addRoundsNum();
+                }else{
+                    if(world.characterIsInHerosCastle()){
+                        if(!hasShowStore){
+                            // show the store
+                            pause();
+                            store.show();
+                            hasShowStore = true;
+                            return;
+                        }else{
+                            hasShowStore = false;
+                            world.addRoundsNum();
+                        }
+                        List<BasicEnemy> retList = world.spawnEnemiesByBuilding();
+                        for(BasicEnemy enemy : retList){
+                            onLoad(enemy);
+                        }
                     }
                 }
                 world.runTickMoves();
@@ -335,7 +351,7 @@ public class LoopManiaWorldController {
             // build up the store
             store = new MStore(100,100,this);
 
-            // build up the carddescripton
+            // build up the card descripton
             cardDescription = new CardDescription(300, 150);
         }
         timeline.play();
@@ -403,29 +419,48 @@ public class LoopManiaWorldController {
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
 
-        int[] itmemsProbabilityValue = {30, 15, 10, 10, 10, 10, 5, 10};
-
-        int rd = new Random().nextInt(100);
-        int i = 0;
-        boolean isReacted = false;
-        while (i < itmemsProbabilityValue.length) {
-            if (rd < itmemsProbabilityValue[i]) {
-                loadItemByType(ITEMS_TYPE.values()[i]);
-                isReacted = true;
-                break;
-            } else {
-                rd -= itmemsProbabilityValue[i];
-                i++;
-            }
-        }
-        if (!isReacted) {
-            //loadItemByType(ITEMS_TYPE.values()[itmemsProbabilityValue.length - 1]);
-            //use potion
-        }
-
         // a type of card is randomly generated from the purpose of simulating
         int index = new Random().nextInt(7);
         loadCardByType(CARDS_TYPE.values()[index]);
+
+        int rd = new Random().nextInt(100);
+        if (rd <= 30) {
+            loadItemByType(ITEMS_TYPE.SWORD);   
+        } else if (rd > 30 && rd <= 45) {
+            loadItemByType(ITEMS_TYPE.STAKE);  
+        } else if (rd > 45 && rd <= 56) {
+            loadItemByType(ITEMS_TYPE.STAFF);  
+        } else if (rd > 56 && rd <= 67) {
+            loadItemByType(ITEMS_TYPE.ARMOUR);  
+        } else if (rd > 67 && rd <= 78) {
+            loadItemByType(ITEMS_TYPE.SHIELD);  
+        } else if (rd > 78 && rd <= 89) {
+            loadItemByType(ITEMS_TYPE.HELMET);  
+        } else if (rd > 89 && rd <= 90) {
+            loadItemByType(ITEMS_TYPE.THEONERING);  
+        } else if (rd > 90 && rd <= 100) {
+            // TODO
+        }
+        
+        ///int[] itmemsProbabilityValue = {30, 15, 10, 10, 10, 10, 5, 10};
+
+        //int rd = new Random().nextInt(100);
+        //int i = 0;
+        //boolean isReacted = false;
+        //while (i < itmemsProbabilityValue.length) {
+        //    if (rd < itmemsProbabilityValue[i]) {
+        //        loadItemByType(ITEMS_TYPE.values()[i]);
+        //        isReacted = true;
+        //        break;
+        //    } else {
+        //        rd -= itmemsProbabilityValue[i];
+        //        i++;
+        //    }
+        //}
+        //if (!isReacted) {
+            //loadItemByType(ITEMS_TYPE.values()[itmemsProbabilityValue.length - 1]);
+            //use potion
+        //}
     }
 
     /**
@@ -502,7 +537,16 @@ public class LoopManiaWorldController {
      * @param enemy
      */
     private void onLoad(BasicEnemy enemy) {
-        ImageView view = new ImageView(basicEnemyImage);
+        ImageView view = null;
+        if(enemy instanceof Zombie){
+            view = new ImageView(zombieImage);
+        }
+        else if(enemy instanceof Vampire){
+            view = new ImageView(vampireImage);
+        }
+        else if(enemy instanceof BasicEnemy){
+            view = new ImageView(basicEnemyImage);
+        }
         addEntity(enemy, view);
         squares.getChildren().add(view);
     }
@@ -948,7 +992,7 @@ public class LoopManiaWorldController {
     }
 
     /**
-     * eventhandler used to respond to view the description of the card
+     * eventhandler used to respond to close the description of the card
      */
     private  class CardMouseLeaveHandler implements EventHandler<MouseEvent>{
         @Override
@@ -966,9 +1010,9 @@ public class LoopManiaWorldController {
      * EventHandlers will run on the application thread.
      */
     private void printThreadingNotes(String currentMethodLabel){
-        System.out.println("\n###########################################");
-        System.out.println("current method = "+currentMethodLabel);
-        System.out.println("In application thread? = "+Platform.isFxApplicationThread());
-        System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
+        // System.out.println("\n###########################################");
+        // System.out.println("current method = "+currentMethodLabel);
+        // System.out.println("In application thread? = "+Platform.isFxApplicationThread());
+        // System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
     }
 }
