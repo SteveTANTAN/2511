@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.text.StyledEditorKit;
+
 import org.javatuples.Pair;
 import org.junit.platform.console.options.Theme;
 
@@ -44,7 +46,7 @@ public class LoopManiaWorld {
     // TODO = expand the range of enemies
     private List<BasicEnemy> enemies;
 
-    // TODO = expand the range of cards
+    // DONE = expand the range of cards
     private List<Card> cardEntities;
 
     // TODO = expand the range of items
@@ -58,6 +60,10 @@ public class LoopManiaWorld {
      */
     private List<Pair<Integer, Integer>> orderedPath;
 
+    /**
+     * the number of rounds
+     */
+    private int roundsNum = 0;
     /**
      * create the world (constructor)
      * 
@@ -503,5 +509,97 @@ public class LoopManiaWorld {
      */
     public List<Entity> getUnequippedInventoryItems(){
         return unequippedInventoryItems;
+    }
+
+    /**
+     * spawn a zombie
+     */
+    public BasicEnemy spawnAZombie(int x, int y){
+
+        // find a adjacent position in the path
+        int[] dx = {0, 1, 0, -1};
+        int[] dy = {-1, 0, 1, 0};
+        boolean isFind = false;
+        for(Pair<Integer, Integer> pair : orderedPath){
+            int mx = (Integer)pair.getValue(0);
+            int my = (Integer)pair.getValue(1);
+            for(int i = 0; i < 4; i++){
+                if(x+dx[i] == mx && y+dy[i] == my){
+                    x = mx;
+                    y = my;
+                    isFind = true;
+                    break;
+                }
+            }
+            if(isFind) break;
+        }
+
+        // spawn a zombie in the position (x,y)
+        Pair<Integer, Integer> pos = new Pair<>(x, y);
+        int indexInPath = orderedPath.indexOf(pos);
+        Zombie zombie= new Zombie(new PathPosition(indexInPath, orderedPath));
+        enemies.add(zombie);
+        return zombie;
+    }
+
+     /**
+     * spawn a vampire
+     */
+    public Vampire spawnAVampire(int x, int y){
+        // find a adjacent position in the path
+        int[] dx = {0, 1, 0, -1};
+        int[] dy = {-1, 0, 1, 0};
+        boolean isFind = false;
+        for(Pair<Integer, Integer> pair : orderedPath){
+            int mx = (Integer)pair.getValue(0);
+            int my = (Integer)pair.getValue(1);
+            for(int i = 0; i < 4; i++){
+                if(x+dx[i] == mx && y+dy[i] == my){
+                    x = mx;
+                    y = my;
+                    isFind = true;
+                    break;
+                }
+            }
+            if(isFind) break;
+        }
+
+        // spawn a zombie in the position (x,y)
+        Pair<Integer, Integer> pos = new Pair<>(x, y);
+        int indexInPath = orderedPath.indexOf(pos);
+        Vampire vampire= new Vampire(new PathPosition(indexInPath, orderedPath));
+        enemies.add(vampire);
+        return vampire;
+    }
+
+    /**
+     * Generate enemies according to building characteristics
+     */
+    public List<BasicEnemy> spawnEnemiesByBuilding(){
+        List<BasicEnemy> retList = new ArrayList<>();
+        if(buildingEntities == null) return retList;
+        for(Building building : buildingEntities){
+            if(building instanceof ZombiePitBuilding){
+                List<BasicEnemy> tmp = ((ZombiePitBuilding)building).spawnZombie(this);
+                if(tmp.size() > 0){
+                    retList.addAll(tmp);
+                }
+            }
+            else if(building instanceof VampireCastleBuilding){
+                List<BasicEnemy> tmp = ((VampireCastleBuilding)building).spawnVampires(this);
+                if(tmp.size() > 0){
+                    retList.addAll(tmp);
+                }
+            }
+        }
+        return retList;
+    }
+
+    public void addRoundsNum(){
+        roundsNum++;
+    }
+
+    public int getRoundsNum(){
+        return roundsNum;
     }
 }

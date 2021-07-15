@@ -1,12 +1,10 @@
 package unsw.loopmania;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -35,7 +33,7 @@ public class MStore {
     private ImageView[] unequippedImageView;
     private VBox mBox;
     private enum ITEM_TYPE{
-        ARMOUR, SHIELD, HELMET, SWORD, THEONERING, ARMOUR_SLOT, SHIELD_SLOT,HELMET_SLOT,SWORD_SLOT,EMPTY_SLOT
+        ARMOUR, SHIELD, HELMET,STAKE,STAFF, SWORD,HEALTHPOTION, THEONERING, ARMOUR_SLOT, SHIELD_SLOT,HELMET_SLOT,SWORD_SLOT,EMPTY_SLOT
     };
     private Map<ITEM_TYPE,Image> itemsImages;
     static Image[] images = {
@@ -47,7 +45,7 @@ public class MStore {
         new Image((new File("src/images/stake.png")).toURI().toString()),
         new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString()),
         new Image((new File("src/images/the_one_ring.png")).toURI().toString()),
-        new Image((new File("src/images/armour.png")).toURI().toString()),
+        new Image((new File("src/images/amour_slot.png")).toURI().toString()),
         new Image((new File("src/images/helmet_slot.png")).toURI().toString()),
         new Image((new File("src/images/sword_unequipped.png")).toURI().toString()),
         new Image((new File("src/images/shield_unequipped.png")).toURI().toString()),
@@ -61,6 +59,9 @@ public class MStore {
         itemsImages.put(ITEM_TYPE.SHIELD, images[1]);
         itemsImages.put(ITEM_TYPE.HELMET, images[2]);
         itemsImages.put(ITEM_TYPE.SWORD, images[3]);
+        itemsImages.put(ITEM_TYPE.STAFF, images[4]);
+        itemsImages.put(ITEM_TYPE.STAKE, images[5]);
+        itemsImages.put(ITEM_TYPE.HEALTHPOTION, images[6]);
         itemsImages.put(ITEM_TYPE.THEONERING, images[7]);
         itemsImages.put(ITEM_TYPE.ARMOUR_SLOT, images[8]);
         itemsImages.put(ITEM_TYPE.HELMET_SLOT, images[9]);
@@ -212,7 +213,7 @@ public class MStore {
         equippedGridPane.add(equippedImageView[2], 1, 1);
 
         equippedImageView[3] = new ImageView();
-        equippedImageView[3].setImage(itemsImages.get(ITEM_TYPE.ARMOUR));
+        equippedImageView[3].setImage(itemsImages.get(ITEM_TYPE.ARMOUR_SLOT));
         equippedGridPane.add(equippedImageView[3], 2, 1);
         mBox.getChildren().add(equippedGridPane);
         
@@ -274,8 +275,26 @@ public class MStore {
         for(int i =  0; i < 16; i++){
             if(i < unequippedInventoryItems.size()){
                 Entity entity = unequippedInventoryItems.get(i);
-                if(entity instanceof Sword){
+                if(entity instanceof Armour){
+                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.ARMOUR));
+                }
+                else if(entity instanceof Sword){
                     unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.SWORD));
+                }
+                else if(entity instanceof Shield){
+                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.SHIELD));
+                }
+                else if(entity instanceof Helmet){
+                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.HELMET));
+                }
+                else if(entity instanceof Staff){
+                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.STAFF));
+                }
+                else if(entity instanceof Stake){
+                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.STAKE));
+                }
+                else if(entity instanceof TheOneRing){
+                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.THEONERING));
                 }
             }else{
                 unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.EMPTY_SLOT));
