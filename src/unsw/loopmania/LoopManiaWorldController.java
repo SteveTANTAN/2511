@@ -1,6 +1,7 @@
 package unsw.loopmania;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
 import java.util.Random;
 
@@ -48,8 +49,8 @@ enum DRAGGABLE_TYPE{
 /**
  * equiment type
  */ 
-enum EQUIPMENTS_TYPE{
-    SWORD, STAKE, STAFF, ARMOUR, SHIELD, HELMET
+enum ITEMS_TYPE{
+    SWORD, STAKE, STAFF, ARMOUR, SHIELD, HELMET, THEONERING, HEALTHPOTION
 }
 
 /**
@@ -130,7 +131,9 @@ public class LoopManiaWorldController {
     private Image armourImage;
     private Image shieldImage;
     private Image helmetImage;
+    private Image theOneRingImage;
     private Image basicBuildingImage;
+    
 
     /**
      * the image currently being dragged, if there is one, otherwise null.
@@ -186,6 +189,7 @@ public class LoopManiaWorldController {
         armourImage = new Image((new File("src/images/armour.png")).toURI().toString());
         shieldImage = new Image((new File("src/images/shield.png")).toURI().toString());
         helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
+        theOneRingImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
         basicBuildingImage = new Image((new File("src/images/vampire_castle_building_purple_background.png")).toURI().toString());
         currentlyDraggedImage = null;
         currentlyDraggedType = null;
@@ -301,12 +305,12 @@ public class LoopManiaWorldController {
     }
 
     /**
-     * load a equipment from the world, and pair it with an image in the GUI
+     * load a item from the world, and pair it with an image in the GUI
      */
-    private void loadEquipemntByType(EQUIPMENTS_TYPE equipmentType) {
+    private void loadItemByType(ITEMS_TYPE itemType) {
         // start by getting first available coordinates
-        Equipment equipment = world.addUnequippedEquipment(equipmentType);
-        onLoad(equipment);
+        Item item = world.addUnequippedItem(itemType);
+        onLoad(item);
     }
 
 
@@ -319,8 +323,26 @@ public class LoopManiaWorldController {
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
 
-        int index = new Random().nextInt(6);
-        loadEquipemntByType(EQUIPMENTS_TYPE.values()[index]);
+        int[] itmemsProbabilityValue = {30, 15, 10, 10, 10, 10, 5, 10};
+
+        int rd = new Random().nextInt(100);
+        int i = 0;
+        boolean isReacted = false;
+        while (i < itmemsProbabilityValue.length) {
+            if (rd < itmemsProbabilityValue[i]) {
+                loadItemByType(ITEMS_TYPE.values()[i]);
+                isReacted = true;
+                break;
+            } else {
+                rd -= itmemsProbabilityValue[i];
+                i++;
+            }
+        }
+        if (!isReacted) {
+            //loadItemByType(ITEMS_TYPE.values()[itmemsProbabilityValue.length - 1]);
+            //use potion
+        }
+
         loadVampireCard();
     }
 
@@ -342,29 +364,31 @@ public class LoopManiaWorldController {
     }
 
     /**
-     * load a sword into the GUI.
+     * load a item into the GUI.
      * Particularly, we must connect to the drag detection event handler,
      * and load the image into the unequippedInventory GridPane.
-     * @param sword
+     * @param item
      */
-    private void onLoad(Equipment equipment) {
+    private void onLoad(Item item) {
         ImageView view = null;
-        if (equipment instanceof Sword) {
+        if (item instanceof Sword) {
             view = new ImageView(swordImage);
-        } else if (equipment instanceof Stake) {
+        } else if (item instanceof Stake) {
             view = new ImageView(stakeImage);
-        } else if (equipment instanceof Staff) {
+        } else if (item instanceof Staff) {
             view = new ImageView(staffImage);
-        } else if (equipment instanceof Armour) {
+        } else if (item instanceof Armour) {
             view = new ImageView(armourImage);
-        } else if (equipment instanceof Shield) {
+        } else if (item instanceof Shield) {
             view = new ImageView(shieldImage);
-        } else if (equipment instanceof Helmet) {
+        } else if (item instanceof Helmet) {
             view = new ImageView(helmetImage);
+        } else if (item instanceof TheOneRing) {
+            view = new ImageView(theOneRingImage);
         }
 
         addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
-        addEntity(equipment, view);
+        addEntity(item, view);
         unequippedInventory.getChildren().add(view);
     }
 

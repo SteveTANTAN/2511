@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.javatuples.Pair;
+import org.junit.platform.console.options.Theme;
 
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -179,10 +180,10 @@ public class LoopManiaWorld {
     }
 
     /**
-     * spawn a equipment in the world and return the equipment entity
-     * @return a equipment to be spawned in the controller as a JavaFX node
+     * spawn a item in the world and return the item entity
+     * @return a item to be spawned in the controller as a JavaFX node
      */
-    public Equipment addUnequippedEquipment(EQUIPMENTS_TYPE equipmentType){
+    public Item addUnequippedItem(ITEMS_TYPE itemType){
         Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
         if (firstAvailableSlot == null){
             // eject the oldest unequipped item and replace it... oldest item is that at beginning of items
@@ -190,38 +191,42 @@ public class LoopManiaWorld {
             removeItemByPositionInUnequippedInventoryItems(0);
             firstAvailableSlot = getFirstAvailableSlotForItem();
         }
-        Equipment equipment = null;
-        switch(equipmentType) {
+        Item item = null;
+        switch(itemType) {
             case SWORD:{
-                equipment = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 6, 0, 10);
+                item = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 6, 0, 10);
                 break;
             }
             case STAKE:{
-                equipment = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 4, 0, 10);
+                item = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 4, 0, 10);
                 break;
             }
             case STAFF:{
-                equipment = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 2, 0, 15);
+                item = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 2, 0, 15);
                 break;
             }
             case ARMOUR:{
-                equipment = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 3, 20);
+                item = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 3, 20);
                 break;
             }
             case SHIELD:{
-                equipment = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 1, 20);
+                item = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 1, 20);
                 break;
             }
             case HELMET:{
-                equipment = new Helmet(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 1, 20);
+                item = new Helmet(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 1, 20);
+                break;
+            }
+            case THEONERING:{
+                item = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 0);
                 break;
             }
             default:
                 break;
         }
-        unequippedInventoryItems.add(equipment);
+        unequippedInventoryItems.add(item);
         // TODO: add to character
-        return equipment;
+        return item;
     }
 
  

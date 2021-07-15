@@ -5,9 +5,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 /**
  * represents an equipped or unequipped Stake in the backend world
  */
-public class Stake extends Equipment {
+public class Stake extends Item {
     public Stake(SimpleIntegerProperty x, SimpleIntegerProperty y, int damageValue, int defenseValue, int price) {
-        super(x, y, 4, 0, 10);
+        super(x, y, damageValue, defenseValue, price);
+        setDamageValue(damageValue);
+        setDefenseValue(defenseValue);
+        setPrice(price);
     }
 
 }

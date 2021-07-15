@@ -5,12 +5,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 /**
  * represents an equipped or unequipped armour in the backend world
  */
-public class Equipment extends StaticEntity {
+public class Item extends StaticEntity {
     private int damageValue;
     private int defenseValue;
     private int price;
 
-    public Equipment (SimpleIntegerProperty x, SimpleIntegerProperty y, int damageValue, int defenseValue, int price) {
+    public Item (SimpleIntegerProperty x, SimpleIntegerProperty y, int damageValue, int defenseValue, int price) {
         super(x, y);
         this.damageValue = damageValue;
         this.defenseValue = defenseValue;
