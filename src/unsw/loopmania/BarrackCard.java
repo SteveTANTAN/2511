@@ -8,5 +8,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class BarrackCard extends Card {
     public BarrackCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
+        String name = "BARRACK";
+        String description = "Character obtains one allied soldier for free when they pass through Barracks.";
+        super.init(name, description);
     }    
 }

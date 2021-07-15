@@ -201,12 +201,14 @@ public class LoopManiaWorldController {
     /**
      * store
      */
-    MStore store;
+    private MStore store;
 
     /**
      * It means whether the store has benn shown
      */
-    boolean hasShowStore = false;
+    private boolean hasShowStore = false;
+
+    private CardDescription cardDescription;
     /**
      * @param world world object loaded from file
      * @param initialEntities the initial JavaFX nodes (ImageViews) which should be loaded into the GUI
@@ -329,7 +331,12 @@ public class LoopManiaWorldController {
                 printThreadingNotes("HANDLED TIMER");
             }));
             timeline.setCycleCount(Animation.INDEFINITE);
-            store = new MStore(100,100,timeline);
+ 
+            // build up the store
+            store = new MStore(100,100,this);
+
+            // build up the carddescripton
+            cardDescription = new CardDescription(300, 150);
         }
         timeline.play();
     }
@@ -457,6 +464,8 @@ public class LoopManiaWorldController {
 
         addEntity(card, view);
         cards.getChildren().add(view);
+        view.setOnMouseEntered(new CardMouseHoverHandler(card.getName(),card.getDescription()));
+        view.setOnMouseExited(new CardMouseLeaveHandler());
     }
 
     /**
@@ -904,6 +913,49 @@ public class LoopManiaWorldController {
                 handleY.detach();
             }
         });
+    }
+    
+    /**
+     * getter of timeline
+     * @return timeline
+     */
+    public Timeline getTimeLine(){
+        return timeline;
+    }
+
+    /**
+     * getter of loopmaniaword
+     * @return loopmaniaword
+     */
+    public LoopManiaWorld getLoopManiaWorld(){
+        return world;
+    }
+    
+    /**
+     * eventhandler used to respond to view the description of the card
+     */
+    private  class CardMouseHoverHandler implements EventHandler<MouseEvent>{
+        private String name;
+        private String description;
+        public CardMouseHoverHandler(String name, String description){
+            this.name = name;
+            this.description = description;
+        }
+        @Override
+        public void handle(MouseEvent e) {
+            cardDescription.show(name, description);
+        } 
+    }
+
+    /**
+     * eventhandler used to respond to view the description of the card
+     */
+    private  class CardMouseLeaveHandler implements EventHandler<MouseEvent>{
+        @Override
+        public void handle(MouseEvent e) {
+            cardDescription.close();
+        }
+        
     }
 
     /**

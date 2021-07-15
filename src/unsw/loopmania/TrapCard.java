@@ -8,5 +8,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class TrapCard extends Card {
     public TrapCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
+        String name = "TRAP";
+        String description = "If the enemies would be damaged if they touch those instruments.";
+        super.init(name, description);
     }    
 }

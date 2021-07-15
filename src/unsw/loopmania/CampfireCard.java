@@ -8,5 +8,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class CampfireCard extends Card {
     public CampfireCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
+        String name = "CAMPFIRE";
+        String description = "There is a kind of radius attacking bonus, within its radius all kinds of attacking will be doubled.";
+        super.init(name, description);
     }    
 }

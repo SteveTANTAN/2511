@@ -8,5 +8,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class ZombiePitCard extends Card {
     public ZombiePitCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
+        String name = "ZOMBIEPIT";
+        String description = "Character acquires more resources.";
+        super.init(name, description);
     }    
 }

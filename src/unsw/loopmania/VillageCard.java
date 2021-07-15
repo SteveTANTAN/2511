@@ -8,5 +8,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class VillageCard extends Card {
     public VillageCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
+        String name = "VILLAGE";
+        String description = "Character regains health when passing through.";
+        super.init(name, description);
     }    
 }

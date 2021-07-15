@@ -496,4 +496,12 @@ public class LoopManiaWorld {
     public boolean characterIsInHerosCastle(){
         return character.getX() == 0 && character.getY() == 0;
     }
+
+    /**
+     * getter of unequippedInventoryItems
+     * @return unequippedInventoryItems
+     */
+    public List<Entity> getUnequippedInventoryItems(){
+        return unequippedInventoryItems;
+    }
 }
