@@ -8,6 +8,7 @@ import org.javatuples.Pair;
 import org.junit.platform.console.options.Theme;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.ListChangeListener.Change;
 
 /**
  * A backend world.
@@ -50,7 +51,7 @@ public class LoopManiaWorld {
     private List<Entity> unequippedInventoryItems;
 
     // TODO = expand the range of buildings
-    private List<VampireCastleBuilding> buildingEntities;
+    private List<Building> buildingEntities;
 
     /**
      * list of x,y coordinate pairs in the order by which moving entities traverse them
@@ -156,16 +157,63 @@ public class LoopManiaWorld {
      * spawn a card in the world and return the card entity
      * @return a card to be spawned in the controller as a JavaFX node
      */
-    public VampireCastleCard loadVampireCard(){
+    public Card loadCard(CARDS_TYPE cards_TYPE){
         // if adding more cards than have, remove the first card...
         if (cardEntities.size() >= getWidth()){
             // TODO = give some cash/experience/item rewards for the discarding of the oldest card
             removeCard(0);
         }
-        VampireCastleCard vampireCastleCard = new VampireCastleCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
-        cardEntities.add(vampireCastleCard);
-        return vampireCastleCard;
+        Card card = null;
+        switch(cards_TYPE){
+            case TOWER:{
+                card = new TowerCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                break;
+            }
+            case ZOMBIEPIT:{
+                card = new ZombiePitCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                break;
+            }
+            case VAMPIRECASTLE:{
+                card = new VampireCastleCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                break;
+            }
+            case BARRACK:{
+                card = new BarrackCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                break;
+            }
+            case VILLAGE:{
+                card = new VillageCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                break;
+            }
+            case TRAP:{
+                card = new TrapCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                break;
+            }
+            case CAMPFIRE:{
+                card = new CampfireCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                break;
+            }
+            default:
+                break;
+        }
+        cardEntities.add(card);
+        return card;
     }
+    
+    // /**
+    //  * spawn a card in the world and return the card entity
+    //  * @return a card to be spawned in the controller as a JavaFX node
+    //  */
+    // public VampireCastleCard loadVampireCard(){
+    //     // if adding more cards than have, remove the first card...
+    //     if (cardEntities.size() >= getWidth()){
+    //         // TODO = give some cash/experience/item rewards for the discarding of the oldest card
+    //         removeCard(0);
+    //     }
+    //     VampireCastleCard vampireCastleCard = new VampireCastleCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+    //     cardEntities.add(vampireCastleCard);
+    //     return vampireCastleCard;
+    // }
 
     /**
      * remove card at a particular index of cards (position in gridpane of unplayed cards)
@@ -360,7 +408,7 @@ public class LoopManiaWorld {
      * @param buildingNodeX x index from 0 to width-1 of building to be added
      * @param buildingNodeY y index from 0 to height-1 of building to be added
      */
-    public VampireCastleBuilding convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX, int buildingNodeY) {
+    public Building convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX, int buildingNodeY) {
         // start by getting card
         Card card = null;
         for (Card c: cardEntities){
@@ -369,9 +417,30 @@ public class LoopManiaWorld {
                 break;
             }
         }
-        
         // now spawn building
-        VampireCastleBuilding newBuilding = new VampireCastleBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+        Building newBuilding = null;
+        if(card instanceof TowerCard){
+            newBuilding = new TowerBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+        }
+        else if(card instanceof ZombiePitCard){
+            newBuilding = new ZombiePitBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+        }
+        else if(card instanceof VampireCastleCard){
+            newBuilding = new VampireCastleBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+        }
+        else if(card instanceof BarrackCard){
+            newBuilding = new BarrackBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+        }
+        else if(card instanceof VillageCard){
+            newBuilding = new VillageBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+        }
+        else if(card instanceof TrapCard){
+            newBuilding = new TrapBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+        }
+        else if(card instanceof CampfireCard){
+            newBuilding = new CampfireBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+        }
+        
         buildingEntities.add(newBuilding);
 
         // destroy the card
@@ -380,5 +449,59 @@ public class LoopManiaWorld {
         shiftCardsDownFromXCoordinate(cardNodeX);
 
         return newBuilding;
+    }
+    /**
+     * check whether the position is in the path
+     * @param x x of the position
+     * @param y y of the position
+     * @return the result
+     */
+    public boolean checkInPath(Integer x, Integer y){
+        boolean ret = false;
+        for(Pair<Integer, Integer> pair : orderedPath){
+            if(pair.getValue(0) == x && pair.getValue(1) == y){
+                ret = true;
+                break;
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * check whether the position is adjacent to the path
+     * @param x x of the position
+     * @param y y of the position
+     * @return the result
+     */
+    public boolean checkAdjacentPath(Integer x, Integer y){
+        if(checkInPath(x, y)) return false;
+        boolean ret = false;
+        int[] dx = {0, 1, 0, -1};
+        int[] dy = {-1, 0, 1, 0};
+        for(Pair<Integer, Integer> pair : orderedPath){
+            int mx = (Integer)pair.getValue(0);
+            int my = (Integer)pair.getValue(1);
+            for(int i = 0; i < 4; i++){
+                if(mx+dx[i] == x && my+dy[i] == y){
+                    ret = true;
+                    break;
+                }
+            }
+        }
+        return ret;
+    }
+    /**
+     * check whether the position is in the Hero's Castle
+     */
+    public boolean characterIsInHerosCastle(){
+        return character.getX() == 0 && character.getY() == 0;
+    }
+
+    /**
+     * getter of unequippedInventoryItems
+     * @return unequippedInventoryItems
+     */
+    public List<Entity> getUnequippedInventoryItems(){
+        return unequippedInventoryItems;
     }
 }

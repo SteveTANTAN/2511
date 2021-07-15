@@ -7,8 +7,22 @@ import javafx.beans.property.SimpleIntegerProperty;
  * which doesn't move
  */
 public abstract class Card extends StaticEntity {
-    // TODO = implement other varieties of card than VampireCastleCard
+    public String name;
+    public String description;
     public Card(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
+    }
+
+    public void init( String name, String description){
+        this.name = name;
+        this.description = description;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public String getDescription(){
+        return description;
     }
 }
