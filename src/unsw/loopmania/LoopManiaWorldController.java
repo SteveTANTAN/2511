@@ -323,24 +323,23 @@ public class LoopManiaWorldController {
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
 
-        int[] itmemsProbabilityValue = {30, 15, 10, 10, 10, 10, 5, 10};
-
         int rd = new Random().nextInt(100);
-        int i = 0;
-        boolean isReacted = false;
-        while (i < itmemsProbabilityValue.length) {
-            if (rd < itmemsProbabilityValue[i]) {
-                loadItemByType(ITEMS_TYPE.values()[i]);
-                isReacted = true;
-                break;
-            } else {
-                rd -= itmemsProbabilityValue[i];
-                i++;
-            }
-        }
-        if (!isReacted) {
-            //loadItemByType(ITEMS_TYPE.values()[itmemsProbabilityValue.length - 1]);
-            //use potion
+        if (rd <= 30) {
+            loadItemByType(ITEMS_TYPE.SWORD);   
+        } else if (rd > 30 && rd <= 45) {
+            loadItemByType(ITEMS_TYPE.STAKE);  
+        } else if (rd > 45 && rd <= 56) {
+            loadItemByType(ITEMS_TYPE.STAFF);  
+        } else if (rd > 56 && rd <= 67) {
+            loadItemByType(ITEMS_TYPE.ARMOUR);  
+        } else if (rd > 67 && rd <= 78) {
+            loadItemByType(ITEMS_TYPE.SHIELD);  
+        } else if (rd > 78 && rd <= 89) {
+            loadItemByType(ITEMS_TYPE.HELMET);  
+        } else if (rd > 89 && rd <= 90) {
+            loadItemByType(ITEMS_TYPE.THEONERING);  
+        } else if (rd > 90 && rd <= 100) {
+            // TODO
         }
 
         loadVampireCard();
