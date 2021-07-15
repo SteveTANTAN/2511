@@ -24,7 +24,7 @@ public class LoopManiaApplication extends Application {
     public void start(Stage primaryStage) throws IOException {
         // set title on top of window bar
         primaryStage.setTitle("Loop Mania");
-
+        
         // prevent human player resizing game window (since otherwise would see white space)
         // alternatively, you could allow rescaling of the game (you'd have to program resizing of the JavaFX nodes)
         primaryStage.setResizable(false);
