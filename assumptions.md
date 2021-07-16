@@ -41,24 +41,27 @@
 
 |	                  | Loot from enemies | Pick up from tiles | Oldest card replaced |	Oldest item replaced |
 | :-----------------: | :---------------: | :----------------: | :------------------: | :------------------: |
-| Vampire castle card |	        6%	      |         4%         |	       -          |	          -          |
-|   Zombie pit card   |	        6%	      |         4%         |	       -	      |	          -	         |
+| Vampire castle card |	        6%	      |         2%         |	       -          |	          -          |
+|   Zombie pit card   |	        6%	      |         2%         |	       -	      |	          -	         |
 |     Tower card      |	        6%	      |         2%         |	       -	      |	          -	         |
 |    Village card     |		    6%		  |         2%         |	       -		  |	          -	         |
 |    Barracks card    |		    6%	      |         2%         |	       -	      |	          -	         |
-|      Trap card      |		    6%	      |         3%	       |	       -	      |	          -	         |
+|      Trap card      |		    6%	      |         2%	       |	       -	      |	          -	         |
 |   Camp fire card    |		    6%	      |         2%	       |	       -	      |	          -	         |
 
 |	                  | Loot from enemies | Pick up from tiles | Oldest card replaced |	Oldest item replaced |
 | :-----------------: | :---------------: | :----------------: | :------------------: | :------------------: |
-|    Health potion    |		    10%	      |         4%	       |	       10%	      |	          -	         |
-|        Sword        |		    15%       |         1%	       |	       10%	      |	          -	         |
-|        Stake        |		    15%	      |         1%	       |	       10%	      |	          -	         |
-|        Staff 	      | 		15%	      |         1%	       |	       10%	      |	          -	         |
-|        Armour       |		    10%	      |         1%	       |	       10%        |	          -	         |
-|        Shield       |		    15%	      |         1%	       |	       10%	      |	          -	         |
-|        Helmet       |		    15%	      |         1%	       |	       10%	      |	          -	         |
+|    Health potion    |		    10%	      |         3%	       |	       10%	      |	          -	         |
+|        Sword        |		    15%       |         2%	       |	       10%	      |	          -	         |
+|        Stake        |		    15%	      |         2%	       |	       10%	      |	          -	         |
+|        Staff 	      | 		15%	      |         2%	       |	       10%	      |	          -	         |
+|        Armour       |		    10%	      |         2%	       |	       10%        |	          -	         |
+|        Shield       |		    15%	      |         2%	       |	       10%	      |	          -	         |
+|        Helmet       |		    15%	      |         2%	       |	       10%	      |	          -	         |
 |    The one ring     |		    5%        |         -	       |	       -		  |	          -	         |
+|         gold        |		    -         |         2%	       |	       -		  |	          -	         |
+|         EXP         |		    -         |         2%	       |	       -		  |	          -	         |
+|       nothing       |		    -         |         67%	       |	       -		  |	          -	         |
 
 
 <br/><br/>
