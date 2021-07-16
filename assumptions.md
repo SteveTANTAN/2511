@@ -2,10 +2,6 @@
 *   The game supports **ONE** player at most.
 *   Only **ONE** character is provided in the game.
 *   At the start of the game, the character uses their **FISTS** to fight the enemies (without equipment).
-*   Goal of game victory
-    - Obtaining **1000** EXP.
-    - Obtaining **500** gold.
-    - The Character completing **100** number of cycles of the path.
 *   The initial map is fixed, consisting of path tiles, non-path tiles, and **ONE** Hero castle.
 *   The map has two slugs moving randomly at initial map.
 *   The character can only move clockwise through the path.
@@ -45,28 +41,32 @@
 
 |	                  | Loot from enemies | Pick up from tiles | Oldest card replaced |	Oldest item replaced |
 | :-----------------: | :---------------: | :----------------: | :------------------: | :------------------: |
-| Vampire castle card |	        6%	      |         4%         |	       -          |	          -          |
-|   Zombie pit card   |	        6%	      |         4%         |	       -	      |	          -	         |
-|     Tower card      |	        5%	      |         2%         |	       -	      |	          -	         |
-|    Village card     |		    5%		  |         2%         |	       -		  |	          -	         |
-|    Barracks card    |		    5%	      |         2%         |	       -	      |	          -	         |
-|      Trap card      |		    6%	      |         3%	       |	       -	      |	          -	         |
-|   Camp fire card    |		    5%	      |         2%	       |	       -	      |	          -	         |
-|        Gold         |		    15%	      |         10%	       |	       10%	      |	          50%	     |
-|    Health potion    |		    10%	      |         4%	       |	       10%	      |	          -	         |
-|        Sword        |		    5%     	  |         1%	       |	       10%	      |	          -	         |
-|        Stake        |		    5%	      |         1%	       |	       10%	      |	          -	         |
-|        Staff 	      | 		5%	      |         1%	       |	       10%	      |	          -	         |
-|        Armour       |		    5%	      |         1%	       |	       10%        |	          -	         |
-|        Shield       |		    5%	      |         1%	       |	       10%	      |	          -	         |
-|        Helmet       |		    5%	      |         1%	       |	       10%	      |	          -	         |
-|    The one ring     |		    2%        |         -	       |	       -		  |	          -	         |
-|         EXP         |			-	      |         -	       |	       10%	      |	          50%	     |
-|        Nothing      |			5%	      |         60%        |	       10%		  |	          -	         |
+| Vampire castle card |	        6%	      |         2%         |	       -          |	          -          |
+|   Zombie pit card   |	        6%	      |         2%         |	       -	      |	          -	         |
+|     Tower card      |	        6%	      |         2%         |	       -	      |	          -	         |
+|    Village card     |		    6%		  |         2%         |	       -		  |	          -	         |
+|    Barracks card    |		    6%	      |         2%         |	       -	      |	          -	         |
+|      Trap card      |		    6%	      |         2%	       |	       -	      |	          -	         |
+|   Camp fire card    |		    6%	      |         2%	       |	       -	      |	          -	         |
+
+|	                  | Loot from enemies | Pick up from tiles | Oldest card replaced |	Oldest item replaced |
+| :-----------------: | :---------------: | :----------------: | :------------------: | :------------------: |
+|    Health potion    |		    10%	      |         3%	       |	       10%	      |	          -	         |
+|        Sword        |		    15%       |         2%	       |	       10%	      |	          -	         |
+|        Stake        |		    15%	      |         2%	       |	       10%	      |	          -	         |
+|        Staff 	      | 		15%	      |         2%	       |	       10%	      |	          -	         |
+|        Armour       |		    10%	      |         2%	       |	       10%        |	          -	         |
+|        Shield       |		    15%	      |         2%	       |	       10%	      |	          -	         |
+|        Helmet       |		    15%	      |         2%	       |	       10%	      |	          -	         |
+|    The one ring     |		    5%        |         -	       |	       -		  |	          -	         |
+|         gold        |		    -         |         2%	       |	       -		  |	          -	         |
+|         EXP         |		    -         |         2%	       |	       -		  |	          -	         |
+|       nothing       |		    -         |         67%	       |	       -		  |	          -	         |
+
 
 <br/><br/>
 *   When selling equipment at Hero's Castle, the character can only get **40%** of gold when normally purchasing.
-*   When the oldest equipment is replaced in the unequipped inventory, the character can only get **20%**of gold when normally purchasing.
+*   When the oldest equipment is replaced in the unequipped inventory, the character can only get **20%** of gold when normally purchasing.
 *   When the oldest card is replaced, the character can get **1-5** golds.
 *	When the oldest card/equipment is replaced, the character can get **2** points of EXP.
 *	When the character defeat one enemy, the character can get **2** points of EXP.
