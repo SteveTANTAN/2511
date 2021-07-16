@@ -98,7 +98,7 @@ public class LoopManiaWorld {
     public void setCharacter(Character character) {
         this.character = character;
     }
-
+    
     /**
      * add a generic entity (without it's own dedicated method for adding to the world)
      * @param entity
@@ -108,7 +108,7 @@ public class LoopManiaWorld {
         // TODO = if more specialised types being added from main menu, add more methods like this with specific input types...
         nonSpecifiedEntities.add(entity);
     }
-
+    
     /**
      * spawns enemies if the conditions warrant it, adds to world
      * @return list of the enemies to be displayed on screen
@@ -125,7 +125,7 @@ public class LoopManiaWorld {
         }
         return spawningEnemies;
     }
-
+    
     /**
      * kill an enemy
      * @param enemy enemy to be killed
@@ -134,7 +134,7 @@ public class LoopManiaWorld {
         enemy.destroy();
         enemies.remove(enemy);
     }
-
+    
     /**
      * run the expected battles in the world, based on current world state
      * @return list of enemies which have been killed
@@ -158,7 +158,7 @@ public class LoopManiaWorld {
         }
         return defeatedEnemies;
     }
-
+    
     /**
      * spawn a card in the world and return the card entity
      * @return a card to be spawned in the controller as a JavaFX node
@@ -201,7 +201,7 @@ public class LoopManiaWorld {
             }
             default:
                 break;
-        }
+            }
         cardEntities.add(card);
         return card;
     }
@@ -211,59 +211,59 @@ public class LoopManiaWorld {
     //  * @return a card to be spawned in the controller as a JavaFX node
     //  */
     // public VampireCastleCard loadVampireCard(){
-    //     // if adding more cards than have, remove the first card...
-    //     if (cardEntities.size() >= getWidth()){
-    //         // TODO = give some cash/experience/item rewards for the discarding of the oldest card
-    //         removeCard(0);
-    //     }
-    //     VampireCastleCard vampireCastleCard = new VampireCastleCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
-    //     cardEntities.add(vampireCastleCard);
-    //     return vampireCastleCard;
-    // }
-
-    /**
-     * remove card at a particular index of cards (position in gridpane of unplayed cards)
-     * @param index the index of the card, from 0 to length-1
-     */
-    private void removeCard(int index){
-        Card c = cardEntities.get(index);
-        int x = c.getX();
-        c.destroy();
-        cardEntities.remove(index);
-        shiftCardsDownFromXCoordinate(x);
-    }
-
-    /**
-     * spawn a item in the world and return the item entity
-     * @return a item to be spawned in the controller as a JavaFX node
-     */
-    public Item addUnequippedItem(ITEMS_TYPE itemType){
-        Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
-        if (firstAvailableSlot == null){
-            // eject the oldest unequipped item and replace it... oldest item is that at beginning of items
-            // TODO = give some cash/experience rewards for the discarding of the oldest sword
-            removeItemByPositionInUnequippedInventoryItems(0);
-            firstAvailableSlot = getFirstAvailableSlotForItem();
-        }
-        Item item = null;
-        switch(itemType) {
-            case SWORD:{
-                item = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 6, 0, 10);
-                break;
+        //     // if adding more cards than have, remove the first card...
+        //     if (cardEntities.size() >= getWidth()){
+            //         // TODO = give some cash/experience/item rewards for the discarding of the oldest card
+            //         removeCard(0);
+            //     }
+            //     VampireCastleCard vampireCastleCard = new VampireCastleCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+            //     cardEntities.add(vampireCastleCard);
+            //     return vampireCastleCard;
+            // }
+            
+            /**
+             * remove card at a particular index of cards (position in gridpane of unplayed cards)
+             * @param index the index of the card, from 0 to length-1
+             */
+            private void removeCard(int index){
+                Card c = cardEntities.get(index);
+                int x = c.getX();
+                c.destroy();
+                cardEntities.remove(index);
+                shiftCardsDownFromXCoordinate(x);
             }
-            case STAKE:{
-                item = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 4, 0, 10);
-                break;
-            }
-            case STAFF:{
-                item = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 2, 0, 15);
-                break;
-            }
-            case ARMOUR:{
-                item = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 3, 20);
-                break;
-            }
-            case SHIELD:{
+            
+            /**
+             * spawn a item in the world and return the item entity
+             * @return a item to be spawned in the controller as a JavaFX node
+             */
+            public Item addUnequippedItem(ITEMS_TYPE itemType){
+                Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
+                if (firstAvailableSlot == null){
+                    // eject the oldest unequipped item and replace it... oldest item is that at beginning of items
+                    // TODO = give some cash/experience rewards for the discarding of the oldest sword
+                    removeItemByPositionInUnequippedInventoryItems(0);
+                    firstAvailableSlot = getFirstAvailableSlotForItem();
+                }
+                Item item = null;
+                switch(itemType) {
+                    case SWORD:{
+                        item = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 6, 0, 10);
+                        break;
+                    }
+                    case STAKE:{
+                        item = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 4, 0, 10);
+                        break;
+                    }
+                    case STAFF:{
+                        item = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 2, 0, 15);
+                        break;
+                    }
+                    case ARMOUR:{
+                        item = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 3, 20);
+                        break;
+                    }
+                    case SHIELD:{
                 item = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 1, 20);
                 break;
             }
@@ -276,15 +276,15 @@ public class LoopManiaWorld {
                 break;
             }
             default:
-                break;
+            break;
         }
         unequippedInventoryItems.add(item);
         // TODO: add to character
         return item;
     }
-
- 
-
+    
+    
+    
     /**
      * remove an item by x,y coordinates
      * @param x x coordinate from 0 to width-1
@@ -294,15 +294,53 @@ public class LoopManiaWorld {
         Entity item = getUnequippedInventoryItemEntityByCoordinates(x, y);
         removeUnequippedInventoryItem(item);
     }
-
+    
     /**
      * run moves which occur with every tick without needing to spawn anything immediately
      */
     public void runTickMoves(){
         character.moveDownPath();
+        int rd = new Random().nextInt(100);
+        if (rd <= 1) {
+            addUnequippedItem(ITEMS_TYPE.SWORD);   
+        } else if (rd > 1 && rd <= 2) {
+            addUnequippedItem(ITEMS_TYPE.STAKE);  
+        } else if (rd > 2 && rd <= 3) {
+            addUnequippedItem(ITEMS_TYPE.STAFF);  
+        } else if (rd > 3 && rd <= 4) {
+            addUnequippedItem(ITEMS_TYPE.ARMOUR);  
+        } else if (rd > 4 && rd <= 5) {
+            addUnequippedItem(ITEMS_TYPE.SHIELD);  
+        } else if (rd > 5 && rd <= 6) {
+            addUnequippedItem(ITEMS_TYPE.HELMET);  
+        } else if (rd > 6 && rd <= 7) {
+            loadCard(CARDS_TYPE.VAMPIRECASTLE);
+        } else if (rd > 7 && rd <= 8) {
+            loadCard(CARDS_TYPE.ZOMBIEPIT);
+        } else if (rd > 8 && rd <= 9) {
+            loadCard(CARDS_TYPE.TOWER);
+        } else if (rd > 9 && rd <= 10) {
+            loadCard(CARDS_TYPE.TRAP);
+        } else if (rd > 10 && rd <= 11) {
+            loadCard(CARDS_TYPE.BARRACK);
+        } else if (rd > 11 && rd <= 12) {
+            loadCard(CARDS_TYPE.VILLAGE);
+        } else if (rd > 12 && rd <= 13) {
+            loadCard(CARDS_TYPE.CAMPFIRE);
+            /*
+        } else if (rd > 12 && rd <= 15) {
+            addUnequippedItem(ITEMS_TYPE.HEALTHPOTION);  
+        } else if (rd > 29 && rd <= 31) {
+            // gold
+        } else if (rd > 31 && rd <= 33) {
+            // exp
+            */
+        } else if (rd > 13 && rd <= 100) {
+            // nothing
+        }
         moveBasicEnemies();
     }
-
+    
     /**
      * remove an item from the unequipped inventory
      * @param item item to be removed
@@ -311,7 +349,7 @@ public class LoopManiaWorld {
         item.destroy();
         unequippedInventoryItems.remove(item);
     }
-
+    
     /**
      * return an unequipped inventory item by x and y coordinates
      * assumes that no 2 unequipped inventory items share x and y coordinates
@@ -327,7 +365,7 @@ public class LoopManiaWorld {
         }
         return null;
     }
-
+    
     /**
      * remove item at a particular index in the unequipped inventory items list (this is ordered based on age in the starter code)
      * @param index index from 0 to length-1
@@ -337,7 +375,7 @@ public class LoopManiaWorld {
         item.destroy();
         unequippedInventoryItems.remove(index);
     }
-
+    
     /**
      * get the first pair of x,y coordinates which don't have any items in it in the unequipped inventory
      * @return x,y coordinate pair
@@ -354,7 +392,7 @@ public class LoopManiaWorld {
         }
         return null;
     }
-
+    
     /**
      * shift card coordinates down starting from x coordinate
      * @param x x coordinate which can range from 0 to width-1
@@ -366,7 +404,7 @@ public class LoopManiaWorld {
             }
         }
     }
-
+    
     /**
      * move all enemies
      */
@@ -376,7 +414,7 @@ public class LoopManiaWorld {
             e.move();
         }
     }
-
+    
     /**
      * get a randomly generated position which could be used to spawn an enemy
      * @return null if random choice is that wont be spawning an enemy or it isn't possible, or random coordinate pair if should go ahead
@@ -398,15 +436,15 @@ public class LoopManiaWorld {
             for (int i=endNotAllowed; i!=startNotAllowed; i=(i+1)%orderedPath.size()){
                 orderedPathSpawnCandidates.add(orderedPath.get(i));
             }
-
+            
             // choose random choice
             Pair<Integer, Integer> spawnPosition = orderedPathSpawnCandidates.get(rand.nextInt(orderedPathSpawnCandidates.size()));
-
+            
             return spawnPosition;
         }
         return null;
     }
-
+    
     /**
      * remove a card by its x, y coordinates
      * @param cardNodeX x index from 0 to width-1 of card to be removed
@@ -448,12 +486,12 @@ public class LoopManiaWorld {
         }
         
         buildingEntities.add(newBuilding);
-
+        
         // destroy the card
         card.destroy();
         cardEntities.remove(card);
         shiftCardsDownFromXCoordinate(cardNodeX);
-
+        
         return newBuilding;
     }
     /**
@@ -472,7 +510,7 @@ public class LoopManiaWorld {
         }
         return ret;
     }
-
+    
     /**
      * check whether the position is adjacent to the path
      * @param x x of the position
@@ -502,7 +540,7 @@ public class LoopManiaWorld {
     public boolean characterIsInHerosCastle(){
         return character.getX() == 0 && character.getY() == 0;
     }
-
+    
     /**
      * getter of unequippedInventoryItems
      * @return unequippedInventoryItems
@@ -510,12 +548,12 @@ public class LoopManiaWorld {
     public List<Entity> getUnequippedInventoryItems(){
         return unequippedInventoryItems;
     }
-
+    
     /**
      * spawn a zombie
      */
     public BasicEnemy spawnAZombie(int x, int y){
-
+        
         // find a adjacent position in the path
         int[] dx = {0, 1, 0, -1};
         int[] dy = {-1, 0, 1, 0};
@@ -533,7 +571,7 @@ public class LoopManiaWorld {
             }
             if(isFind) break;
         }
-
+        
         // spawn a zombie in the position (x,y)
         Pair<Integer, Integer> pos = new Pair<>(x, y);
         int indexInPath = orderedPath.indexOf(pos);
@@ -541,8 +579,8 @@ public class LoopManiaWorld {
         enemies.add(zombie);
         return zombie;
     }
-
-     /**
+    
+    /**
      * spawn a vampire
      */
     public Vampire spawnAVampire(int x, int y){
@@ -563,7 +601,7 @@ public class LoopManiaWorld {
             }
             if(isFind) break;
         }
-
+        
         // spawn a zombie in the position (x,y)
         Pair<Integer, Integer> pos = new Pair<>(x, y);
         int indexInPath = orderedPath.indexOf(pos);
@@ -571,7 +609,7 @@ public class LoopManiaWorld {
         enemies.add(vampire);
         return vampire;
     }
-
+    
     /**
      * Generate enemies according to building characteristics
      */
@@ -594,12 +632,25 @@ public class LoopManiaWorld {
         }
         return retList;
     }
-
+    
     public void addRoundsNum(){
         roundsNum++;
     }
-
+    
     public int getRoundsNum(){
         return roundsNum;
+    }
+    public Entity getLastUnequippedInventoryItem() {
+        if (unequippedInventoryItems.size() > 0) {
+            return unequippedInventoryItems.get(unequippedInventoryItems.size() - 1);
+        }
+        return null;
+    }
+
+    public Card getLastCardEntity() {
+        if (cardEntities.size() > 0) {
+            return cardEntities.get(cardEntities.size() - 1);
+        }
+        return null;
     }
 }

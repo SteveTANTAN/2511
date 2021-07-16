@@ -336,6 +336,33 @@ public class LoopManiaWorldController {
                     }
                 }
                 world.runTickMoves();
+                Entity ent = world.getLastUnequippedInventoryItem();
+                ImageView view = null;
+                if (ent != null) {
+                    if (ent instanceof Sword) {
+                        view = new ImageView(swordImage);
+                    } else if (ent instanceof Stake) {
+                        view = new ImageView(stakeImage);
+                    } else if (ent instanceof Staff) {
+                        view = new ImageView(staffImage);
+                    } else if (ent instanceof Armour) {
+                        view = new ImageView(armourImage);
+                    } else if (ent instanceof Shield) {
+                        view = new ImageView(shieldImage);
+                    } else if (ent instanceof Helmet) {
+                        view = new ImageView(helmetImage);
+                    } else if (ent instanceof TheOneRing) {
+                        view = new ImageView(theOneRingImage);
+                    } 
+                    addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
+                    addEntity(ent, view);
+                    unequippedInventory.getChildren().add(view);
+                }
+                Card card = world.getLastCardEntity();
+                if (card != null) {
+                    onLoad(card);
+                }
+
                 List<BasicEnemy> defeatedEnemies = world.runBattles();
                 for (BasicEnemy e: defeatedEnemies){
                     reactToEnemyDefeat(e);
@@ -655,8 +682,18 @@ public class LoopManiaWorldController {
                             case ITEM:
                                 removeDraggableDragEventHandlers(draggableType, targetGridPane);
                                 // TODO = spawn an item in the new location. The above code for spawning a building will help, it is very similar
-                                removeItemByCoordinates(nodeX, nodeY);
-                                targetGridPane.add(image, x, y, 1, 1);
+                                if (currentlyDraggedImage.getImage() == swordImage || currentlyDraggedImage.getImage() == staffImage || currentlyDraggedImage.getImage() == stakeImage) {
+                                    removeItemByCoordinates(nodeX, nodeY);
+                                    targetGridPane.add(image, 0, 0, 1, 1);
+                                } else if (currentlyDraggedImage.getImage() == shieldImage) {
+                                    removeItemByCoordinates(nodeX, nodeY);
+                                    targetGridPane.add(image, 2, 0, 1, 1);
+                                } else if (currentlyDraggedImage.getImage() == theOneRingImage) {
+                                    // TODO
+                                } else {
+                                    removeItemByCoordinates(nodeX, nodeY);
+                                    targetGridPane.add(image, 1, 0, 1, 1);                                   
+                                }
                                 break;
                             default:
                                 break;
@@ -777,7 +814,7 @@ public class LoopManiaWorldController {
                         draggedEntity.setImage(view.getImage());
                         break;
                     case ITEM:
-                        draggedEntity.setImage(swordImage);
+                        draggedEntity.setImage(view.getImage());
                         break;
                     default:
                         break;
@@ -805,7 +842,7 @@ public class LoopManiaWorldController {
                             //The drag-and-drop gesture entered the target
                             //show the user that it is an actual gesture target
                                 if(event.getGestureSource() != n && event.getDragboard().hasImage()){
-                                    n.setOpacity(0.7);
+                                    n.setOpacity(1);
                                 }
                             }
                             event.consume();
