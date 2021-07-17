@@ -61,6 +61,20 @@ public class LoopManiaWorld {
     private List<Pair<Integer, Integer>> orderedPath;
 
     /**
+     * list of goals showing
+     */
+    private ArrayList<Goal> goalCondition;
+    /**
+     * showing the goal type
+     */
+    private String goalType;
+    
+    public void setGoalType(String goalType) {
+        this.goalType = goalType;
+    }
+
+
+    /**
      * the number of rounds
      */
     private int roundsNum = 0;
@@ -81,7 +95,10 @@ public class LoopManiaWorld {
         unequippedInventoryItems = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
+        this.goalCondition = new ArrayList<Goal>();
+        this.goalType = "AND";
     }
+    public 
 
     public int getWidth() {
         return width;
