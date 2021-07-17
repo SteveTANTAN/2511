@@ -233,7 +233,7 @@ public class MStore {
         mBox.getChildren().add(unequippedGridPane);
         
         // set mouse click events
-        List<Entity> unequippedInventoryItems = loopManiaWorldController.getLoopManiaWorld().getUnequippedInventoryItems();
+        List<Item> unequippedInventoryItems = loopManiaWorldController.getLoopManiaWorld().getUnequippedInventoryItems();
         for(int i = 0; i < 4; i++){
             equippedImageView[i].setOnMouseClicked(new ImageViewClick(2, i,unequippedInventoryItems));
         }
@@ -271,7 +271,7 @@ public class MStore {
         // unequipped
         GridPane unequippedGridPane = new GridPane();
         unequippedGridPane.setAlignment(Pos.CENTER);
-        List<Entity> unequippedInventoryItems = loopManiaWorldController.getLoopManiaWorld().getUnequippedInventoryItems();
+        List<Item> unequippedInventoryItems = loopManiaWorldController.getLoopManiaWorld().getUnequippedInventoryItems();
         for(int i =  0; i < 16; i++){
             if(i < unequippedInventoryItems.size()){
                 Entity entity = unequippedInventoryItems.get(i);
@@ -324,11 +324,11 @@ public class MStore {
     private  class ImageViewClick implements EventHandler<MouseEvent>{
         private int index = 0;
         private int type = 0;
-        private List<Entity> unequippedInventoryItems;
-        public ImageViewClick(int type, int index, List<Entity> unequippedInventoryItems){
+        private List<Item> unequippedInventoryItems;
+        public ImageViewClick(int type, int index, List<Item> unequippedInventoryItems2){
             this.type = type;
             this.index = index;
-            this.unequippedInventoryItems = unequippedInventoryItems;
+            this.unequippedInventoryItems = unequippedInventoryItems2;
         }
         @Override
         public void handle(MouseEvent e) {
