@@ -2,10 +2,18 @@ package unsw.loopmania;
 
 import java.util.Random;
 
+
 /**
  * a basic form of enemy in the world
  */
 public class BasicEnemy extends MovingEntity {
+    private int healthPoint;
+    private int damageValue;
+    private int supportRadius;
+    private int battleRadius;
+    private int goldDefeated;
+    private int exp;
+
     // TODO = modify this, and add additional forms of enemy
     public BasicEnemy(PathPosition position) {
         super(position);
@@ -24,5 +32,54 @@ public class BasicEnemy extends MovingEntity {
         else if (directionChoice == 1){
             moveDownPath();
         }
+    }
+
+    public void setHealthPoint(int value){
+        healthPoint = value;
+    }
+
+
+    public void setDamageValue(int value){
+        damageValue = value;
+    }
+
+    public void setSupportRadius(int value){
+        supportRadius = value;
+    }
+
+    public void setBattleRadius(int value){
+        battleRadius = value;
+    }
+
+    public void setGoldDefeated(int value){
+        goldDefeated = value;
+    }
+
+    public void setEXP(int value){
+        exp = value;
+    }
+
+    public int getHealthPoint(){
+        return healthPoint;
+    }
+
+    public int getDamageValue(){
+        return damageValue;
+    }
+
+    public int getSupportRadius(){
+        return supportRadius;
+    }
+
+    public int getBattleRadius(){
+        return battleRadius;
+    }
+
+    public int getGoldDefeated(){
+        return goldDefeated;
+    }
+
+    public int getEXP(){
+        return exp;
     }
 }

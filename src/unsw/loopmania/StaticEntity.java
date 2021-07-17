@@ -35,4 +35,9 @@ public abstract class StaticEntity extends Entity {
     public int getY() {
         return y().get();
     }
+
+    public void setPosition(int x, int y) {
+        this.x = new SimpleIntegerProperty(x);
+        this.y = new SimpleIntegerProperty(y);
+    }
 }
