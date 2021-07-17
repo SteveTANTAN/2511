@@ -1,5 +1,6 @@
 package unsw.loopmania;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,9 +15,16 @@ public class Character extends MovingEntity {
     private Item weapon;
     private Item armour;
     private Item shield;
+    private int gold;
+    private int EXP;
+    private boolean attackEnhance;
 
     public Character(PathPosition position) {
         super(position);
+        setHealth(100);
+        setAggressivity(4);
+        setEXP(1000);
+        soldiers = new ArrayList<AlliedSoldier>();
     }
 
     public int getHealth() {
@@ -24,11 +32,14 @@ public class Character extends MovingEntity {
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        this.health = Math.min(health, 100);
     }
 
     public int getAggressivity() {
-        return this.aggressivity;
+        if(attackEnhance){
+            return 2 * aggressivity;
+        }
+        return aggressivity;
     }
 
     public void setAggressivity(int aggressivity) {
@@ -41,22 +52,6 @@ public class Character extends MovingEntity {
 
     public void setDefense(int defense) {
         this.defense = defense;
-    }
-    
-    public void addSoldier(AlliedSoldier s) {
-        soldiers.add(s);
-    }
-
-    public List<AlliedSoldier> getSoldiers() {
-        return soldiers;
-    }
-
-    public Item getWeapon() {
-        return this.weapon;
-    }
-
-    public void setWeapon(Item weapon) {
-        this.weapon = weapon;
     }
 
     public Item getArmour() {
@@ -74,5 +69,49 @@ public class Character extends MovingEntity {
     public void setShield(Item shield) {
         this.shield = shield;
     }
+
+}
+    public void setGold(int gold){
+        this.gold = gold;
+    }
+
+    public int getGold(){
+        return gold;
+    }
+
+    public void setEXP(int EXP){
+        this.EXP = Math.min(EXP, 1000);
+    }
+
+    public int getEXP(){
+        return EXP;
+    }
+
+    public void setAttackEnhance(Boolean enhance){
+        attackEnhance = enhance;
+    }
+
+    public boolean isAttackEnhance(){
+        return attackEnhance;
+    }
+
+    public void addSoldier(AlliedSoldier s) {
+        soldiers.add(s);
+    }
+
+    public List<AlliedSoldier> getSoldiers() {
+        return soldiers;
+    }
+
+    public Item getWeapon() {
+        return this.weapon;
+    }
+
+    public void setWeapon(Item weapon) {
+        this.weapon = weapon;
+    }
+    // public void setWeapon(Equipment weapon) {
+    //     this.weapon = weapon;
+    // }
 
 }
