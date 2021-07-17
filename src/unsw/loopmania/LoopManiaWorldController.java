@@ -16,6 +16,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -161,7 +162,7 @@ public class LoopManiaWorldController {
     private Image helmetImage;
     private Image theOneRingImage;
     
-
+    private Image heroCastlImage;
     /**
      * the image currently being dragged, if there is one, otherwise null.
      * Holding the ImageView being dragged allows us to spawn it again in the drop location if appropriate.
@@ -200,11 +201,7 @@ public class LoopManiaWorldController {
      */
     private MenuSwitcher mainMenuSwitcher;
 
-
-    /**
-     * store
-     */
-    private MStore store;
+    private HeroCastleBuilding heroCastleBuilding;
 
     /**
      * It means whether the store has benn shown
@@ -240,6 +237,7 @@ public class LoopManiaWorldController {
         villageBuildingImage = new Image((new File("src/images/village.png")).toURI().toString());
         trapBuildingImage = new Image((new File("src/images/trap.png")).toURI().toString());
         campfireBuildingImage = new Image((new File("src/images/campfire.png")).toURI().toString());
+        heroCastlImage = new Image((new File("src/images/heros_castle.png")).toURI().toString());
 
         stakeImage = new Image((new File("src/images/stake.png")).toURI().toString());
         staffImage = new Image((new File("src/images/staff.png")).toURI().toString());
@@ -318,22 +316,7 @@ public class LoopManiaWorldController {
                 if(world.getRoundsNum()== 0){
                     world.addRoundsNum();
                 }else{
-                    if(world.characterIsInHerosCastle()){
-                        if(!hasShowStore){
-                            // show the store
-                            pause();
-                            store.show();
-                            hasShowStore = true;
-                            return;
-                        }else{
-                            hasShowStore = false;
-                            world.addRoundsNum();
-                        }
-                        List<BasicEnemy> retList = world.spawnEnemiesByBuilding();
-                        for(BasicEnemy enemy : retList){
-                            onLoad(enemy);
-                        }
-                    }
+                    if(heroCastleBuilding.work(world.getCharacter(),this)) return;
                 }
                 world.runTickMoves();
                 Entity ent = world.getLastUnequippedInventoryItem();
@@ -363,6 +346,11 @@ public class LoopManiaWorldController {
                     onLoad(card);
                 }
 
+                List<BasicEnemy> deadEnemies = world.buildingFunction();
+                for (BasicEnemy e: deadEnemies){
+                    reactToEnemyDefeat(e);
+                }
+
                 List<BasicEnemy> defeatedEnemies = world.runBattles();
                 for (BasicEnemy e: defeatedEnemies){
                     reactToEnemyDefeat(e);
@@ -375,8 +363,10 @@ public class LoopManiaWorldController {
             }));
             timeline.setCycleCount(Animation.INDEFINITE);
  
-            // build up the store
-            store = new MStore(100,100,this);
+            // build up the hero castle building
+            heroCastleBuilding = new HeroCastleBuilding(new SimpleIntegerProperty(0), 
+             new SimpleIntegerProperty(0), this);
+            addHeroCastle(heroCastleBuilding);
 
             // build up the card descripton
             cardDescription = new CardDescription(300, 150);
@@ -446,9 +436,12 @@ public class LoopManiaWorldController {
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
 
-        // a type of card is randomly generated from the purpose of simulating
-        int index = new Random().nextInt(7);
-        loadCardByType(CARDS_TYPE.values()[index]);
+        // a type of card is looted from the enemies with a specified probability
+        int index = new Random().nextInt(100);
+        if(index < 42){
+            index = index / 6;
+            loadCardByType(CARDS_TYPE.values()[index]);
+        }
 
         int rd = new Random().nextInt(100);
         if (rd <= 30) {
@@ -563,7 +556,7 @@ public class LoopManiaWorldController {
      * load an enemy into the GUI
      * @param enemy
      */
-    private void onLoad(BasicEnemy enemy) {
+    public void onLoad(BasicEnemy enemy) {
         ImageView view = null;
         if(enemy instanceof Zombie){
             view = new ImageView(zombieImage);
@@ -575,6 +568,15 @@ public class LoopManiaWorldController {
             view = new ImageView(basicEnemyImage);
         }
         addEntity(enemy, view);
+        squares.getChildren().add(view);
+    }
+
+    /**
+     * load a hero castle into the GUI
+     */
+    public void addHeroCastle(Entity heroEntity) {
+        ImageView view = new ImageView(heroCastlImage);
+        addEntity(heroEntity, view);
         squares.getChildren().add(view);
     }
 
