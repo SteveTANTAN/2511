@@ -112,7 +112,7 @@ public class LoopManiaWorld {
         List<BasicEnemy> spawningEnemies = new ArrayList<>();
         if (pos != null){
             int indexInPath = orderedPath.indexOf(pos);
-            BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath));
+            BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath), indexInPath, indexInPath, indexInPath, indexInPath, null);
             enemies.add(enemy);
             spawningEnemies.add(enemy);
         }
@@ -135,14 +135,61 @@ public class LoopManiaWorld {
     public List<BasicEnemy> runBattles() {
         // TODO = modify this - currently the character automatically wins all battles without any damage!
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> possibleSupporEnemies = new ArrayList<BasicEnemy>();
         for (BasicEnemy e: enemies){
             // Pythagoras: a^2+b^2 < radius^2 to see if within radius
             // TODO = you should implement different RHS on this inequality, based on influence radii and battle radii
-            if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 4){
-                // fight...
-                defeatedEnemies.add(e);
+            switch (e.getName()) {
+                case "Slug":
+                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 1){
+                        // fight...
+                        defeatedEnemies.add(e);
+                    } else {
+                        possibleSupporEnemies.add(e);
+                    }
+                    break;
+                
+                    case "Zombie":
+                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 4){
+                        // fight...
+                        defeatedEnemies.add(e);
+                    } else {
+                        possibleSupporEnemies.add(e);
+                    }
+                    break;
+
+                    case "Vampire":
+                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 4){
+                        // fight...
+                        defeatedEnemies.add(e);
+                    } else {
+                        possibleSupporEnemies.add(e);
+                    }
+                    break;
             }
         }
+
+        for (BasicEnemy e: possibleSupporEnemies){
+            switch (e.getName()) {
+                case "Slug":
+                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 1){
+                        // fight...
+                        defeatedEnemies.add(e);
+                    }
+                    break;
+
+                case "Vampire":
+                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 9){
+                        // fight...
+                        defeatedEnemies.add(e);
+                    }
+                    break;
+            }
+        }
+
+        List<BasicEnemy> fightEnemies = defeatedEnemies;
+        Fight fight = new Fight(character, fightEnemies);
+
         for (BasicEnemy e: defeatedEnemies){
             // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
             // if we killEnemy in prior loop, we get java.util.ConcurrentModificationException

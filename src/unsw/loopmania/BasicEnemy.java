@@ -12,6 +12,7 @@ public class BasicEnemy extends MovingEntity {
     private int health;
     private int attackRange;
     private int supportRange;
+    private int tranceTurn;
     public BasicEnemy(PathPosition position, int aggressivity, int health, int attackRange, int supportRange, String name) {
         super(position);
         this.name = name;
@@ -19,6 +20,7 @@ public class BasicEnemy extends MovingEntity {
         this.health = health;
         this.attackRange = attackRange;
         this.supportRange = supportRange;
+        this.tranceTurn = 0;
     }
 
     /**
@@ -74,6 +76,14 @@ public class BasicEnemy extends MovingEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getTranceTurn() {
+        return this.tranceTurn;
+    }
+
+    public void setTranceTurn(int tranceTurn) {
+        this.tranceTurn = tranceTurn;
     }
 
 }
