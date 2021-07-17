@@ -52,7 +52,7 @@ public class LoopManiaWorld {
     private List<Card> cardEntities;
 
     // TODO = expand the range of items
-    private List<Entity> unequippedInventoryItems;
+    private List<Item> unequippedInventoryItems;
 
     // TODO = expand the range of buildings
     private List<Building> buildingEntities;
@@ -281,7 +281,7 @@ public class LoopManiaWorld {
             break;
         }
         unequippedInventoryItems.add(item);
-        // TODO: add to character
+        
         return item;
     }
     
@@ -360,8 +360,8 @@ public class LoopManiaWorld {
      * @param y y index from 0 to height-1
      * @return unequipped inventory item at the input position
      */
-    private Entity getUnequippedInventoryItemEntityByCoordinates(int x, int y){
-        for (Entity e: unequippedInventoryItems){
+    private Item getUnequippedInventoryItemEntityByCoordinates(int x, int y){
+        for (Item e: unequippedInventoryItems){
             if ((e.getX() == x) && (e.getY() == y)){
                 return e;
             }
@@ -543,7 +543,7 @@ public class LoopManiaWorld {
      * getter of unequippedInventoryItems
      * @return unequippedInventoryItems
      */
-    public List<Entity> getUnequippedInventoryItems(){
+    public List<Item> getUnequippedInventoryItems(){
         return unequippedInventoryItems;
     }
     
@@ -638,8 +638,8 @@ public class LoopManiaWorld {
     public int getRoundsNum(){
         return roundsNum;
     }
-
-    public Entity getLastUnequippedInventoryItem() {
+    
+    public Item getLastUnequippedInventoryItem() {
         if (unequippedInventoryItems.size() > 0) {
             return unequippedInventoryItems.get(unequippedInventoryItems.size() - 1);
         }
@@ -702,5 +702,26 @@ public class LoopManiaWorld {
         }
 
         return deadEnemies;
+    }
+        
+    public Item GetEquippedFromUnequippedByCoordinates(int srcX, int srcY, int destX, int destY) {
+        Item item = getUnequippedInventoryItemEntityByCoordinates(srcX, srcY);
+        if (destX == 0 & destY ==0) {
+            if (item instanceof Sword || item instanceof Stake || item instanceof Staff) {
+                removeUnequippedInventoryItemByCoordinates(srcX, srcY);
+                item.setPosition(destX, destY);          
+            } else {return null;}
+        } else if (destX == 1 && destY == 0) {
+            if (item instanceof Armour || item instanceof Helmet) {
+                removeUnequippedInventoryItemByCoordinates(srcX, srcY);
+                item.setPosition(destX, destY);
+            } else {return null;}
+        } else if (destX == 2 && destY == 0) {
+            if (item instanceof Shield) {
+                removeUnequippedInventoryItemByCoordinates(srcX, srcY);
+                item.setPosition(destX, destY);
+            } else {return null;} 
+        }
+        return item;  
     }
 }

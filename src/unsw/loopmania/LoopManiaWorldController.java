@@ -319,6 +319,7 @@ public class LoopManiaWorldController {
                     if(heroCastleBuilding.work(world.getCharacter(),this)) return;
                 }
                 world.runTickMoves();
+                /*
                 Entity ent = world.getLastUnequippedInventoryItem();
                 ImageView view = null;
                 if (ent != null) {
@@ -340,6 +341,11 @@ public class LoopManiaWorldController {
                     addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
                     addEntity(ent, view);
                     unequippedInventory.getChildren().add(view);
+                }
+                */
+                Item item = world.getLastUnequippedInventoryItem();
+                if (item != null) {
+                    onLoad(item);
                 }
                 Card card = world.getLastCardEntity();
                 if (card != null) {
@@ -683,18 +689,18 @@ public class LoopManiaWorldController {
                                 break;
                             case ITEM:
                                 removeDraggableDragEventHandlers(draggableType, targetGridPane);
-                                // TODO = spawn an item in the new location. The above code for spawning a building will help, it is very similar
-                                if (currentlyDraggedImage.getImage() == swordImage || currentlyDraggedImage.getImage() == staffImage || currentlyDraggedImage.getImage() == stakeImage) {
-                                    removeItemByCoordinates(nodeX, nodeY);
-                                    targetGridPane.add(image, 0, 0, 1, 1);
-                                } else if (currentlyDraggedImage.getImage() == shieldImage) {
-                                    removeItemByCoordinates(nodeX, nodeY);
-                                    targetGridPane.add(image, 2, 0, 1, 1);
-                                } else if (currentlyDraggedImage.getImage() == theOneRingImage) {
-                                    // TODO
+                                // spawn an item in the new location. 
+                                Item currentItem = world.GetEquippedFromUnequippedByCoordinates(nodeX, nodeY, x, y);
+                                if (currentItem != null) {
+                                    targetGridPane.add(image, x, y, 1, 1);
                                 } else {
-                                    removeItemByCoordinates(nodeX, nodeY);
-                                    targetGridPane.add(image, 1, 0, 1, 1);                                   
+                                    for (Node mNode: targetGridPane.getChildren()){
+                                        if(mNode.getOpacity() < 1){
+                                            mNode.setOpacity(1);
+                                        }
+                                    }
+                                    sourceGridPane.add(image, nodeX, nodeY);
+                                    addDragEventHandlers(image, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
                                 }
                                 break;
                             default:
