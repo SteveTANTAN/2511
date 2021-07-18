@@ -455,7 +455,7 @@ public class LoopManiaWorld {
      * 
      * @param index the index of the card, from 0 to length-1
      */
-    private void removeCard(int index) {
+    public void removeCard(int index) {
         Card c = cardEntities.get(index);
         int x = c.getX();
         c.destroy();

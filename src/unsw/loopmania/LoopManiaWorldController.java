@@ -54,12 +54,7 @@ enum DRAGGABLE_TYPE{
 }
 
 
-/**
- * card types
- */
-enum CARDS_TYPE{
-    TOWER, ZOMBIEPIT,VAMPIRECASTLE, BARRACK, VILLAGE, TRAP, CAMPFIRE
-}
+
 
 /**
  * equiment type
