@@ -369,12 +369,12 @@ public class LoopManiaWorld {
             character.setTheOneRing(null);
             character.setHealth(100);
             setUsedTheOneRing(true);
-        } else {
+        } else if(character.getHealth()) <= 0{
             // TODO: ren si le , you xie jie shu
-            // System.out.print(goalCheck());
-        
-            // loopManiaWorldController.pause();
-
+            if (goalCheck()) {
+                // game end
+                System.out.print("successful!");
+            }
             
         }
         return defeatedEnemies;

@@ -35,10 +35,10 @@ public class Goal {
 
         }
 
-        System.out.printf(conditions.toString(4));
+        //System.out.printf(conditions.toString(4));
 
         if (!conditions.has("subgoals")) {
-            System.out.printf(conditions.getString("quantity"));
+            // System.out.printf(conditions.getString("quantity"));
             
             return goalCheckHelp(conditions.getString("goal"), conditions.getInt("quantity"), gold, exp, turns);
         } else{
