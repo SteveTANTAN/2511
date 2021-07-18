@@ -171,7 +171,7 @@ public class MStore {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(20));
         gridPane.setHgap(60);
-        Button toSellBtn = new Button("To Buy");
+        Button toSellBtn = new Button("To Sell");
         gridPane.add(toSellBtn, 0, 0);
 
         Button closeBtn = new Button("Close");
@@ -262,7 +262,7 @@ public class MStore {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(20));
         gridPane.setHgap(60);
-        Button toSellBtn = new Button("To Sell");
+        Button toSellBtn = new Button("To Buy");
         gridPane.add(toSellBtn, 0, 0);
 
         Button closeBtn = new Button("Close");
