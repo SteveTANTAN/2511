@@ -11,12 +11,4 @@ public class Slug extends BasicEnemy{
         super.setEXP(2);
         super.setName("Slug");
     }
-    
-    public int GoldLeft() {
-        return 1;
-    }
-
-    public int ExpLeft() {
-        return 2;
-    }
 }
