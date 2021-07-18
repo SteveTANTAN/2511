@@ -13,7 +13,10 @@
    <children>
       <Label text="Main Menu" />
       <!-- clicking button should start/resume the game -->
-      <Button fx:id="startGameButton" text="Start Game" onAction="#switchToGame"/>
+
+      <Button fx:id="startGameButton" text="survival mode" onAction="#switchsurvival"/>
+      <Button fx:id="startGameButton2" text="berserker mode" onAction="#switchBerserker"/>
+      <Button fx:id="startGameButton3" text="Standard mode" onAction="#switchStandard"/>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

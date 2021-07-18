@@ -21,8 +21,8 @@ public class TrapBuilding extends Building {
         List<BasicEnemy> deadEnemies = new ArrayList<>();
         for(BasicEnemy enemy : enemies){
             if(getX() == enemy.getX() && getY() == enemy.getY()){
-                enemy.setHealthPoint(enemy.getHealthPoint()-attackDamage);
-                if(enemy.getHealthPoint() == 0){
+                enemy.setHealth(enemy.getHealth()-attackDamage);
+                if(enemy.getHealth() == 0){
                     deadEnemies.add(enemy);
                 }
             }       

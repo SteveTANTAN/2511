@@ -11,18 +11,20 @@ public class Character extends MovingEntity {
     private int health;
     private int aggressivity;
     private int defense;
+    private List<AlliedSoldier> soldiers;
+    private Item weapon;
+    private Item armour;
+    private Item shield;
     private int gold;
     private int EXP;
     private boolean attackEnhance;
-    private List<AlliedSoldier> soldiers;
-    private Item weapon;
 
     public Character(PathPosition position) {
         super(position);
         setHealth(100);
         setAggressivity(4);
         setEXP(1000);
-        soldiers = new ArrayList<>();
+        soldiers = new ArrayList<AlliedSoldier>();
     }
 
     public int getHealth() {
@@ -57,6 +59,22 @@ public class Character extends MovingEntity {
     }
 
     
+    public Item getArmour() {
+        return this.armour;
+    }
+
+    public void setArmour(Item armour) {
+        this.armour = armour;
+    }
+
+    public Item getShield() {
+        return this.shield;
+    }
+
+    public void setShield(Item shield) {
+        this.shield = shield;
+    }
+
     public void setGold(int gold){
         this.gold = gold;
     }
@@ -89,6 +107,9 @@ public class Character extends MovingEntity {
         return this.weapon;
     }
 
+    public void setWeapon(Item weapon) {
+        this.weapon = weapon;
+    }
     // public void setWeapon(Equipment weapon) {
     //     this.weapon = weapon;
     // }
