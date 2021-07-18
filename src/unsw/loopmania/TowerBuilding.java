@@ -11,7 +11,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class TowerBuilding extends Building {
     private double attackRange = 2;
     private int attackDamage = 13;
-    // DONE = add more types of building, and make sure buildings have effects on entities as required by the spec
+    /**
+     * constructor of tower building
+     * @param x SimpleIntegerProperty
+     * @param y SimpleIntegerProperty
+     */
     public TowerBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
     }

@@ -6,7 +6,11 @@ import javafx.beans.property.SimpleIntegerProperty;
  * a basic form of building in the world
  */
 public class CampfireBuilding extends Building {
-    // DONE = add more types of building, and make sure buildings have effects on entities as required by the spec
+    /**
+     * constructor of campire building
+     * @param x SimpleIntegerProperty
+     * @param y SimpleIntegerProperty
+     */
     public CampfireBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
     }

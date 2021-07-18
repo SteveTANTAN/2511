@@ -6,6 +6,11 @@ import javafx.beans.property.SimpleIntegerProperty;
  * represents a vampire castle card in the backend game world
  */
 public class TrapCard extends Card {
+    /**
+     * constructor of trap card
+     * @param x SimpleIntegerProperty 
+     * @param y SimpleIntegerProperty 
+     */
     public TrapCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         String name = "TRAP";

@@ -10,7 +10,11 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public class VampireCastleBuilding extends Building {
     private int counter = 5;
-    // DONE = add more types of building, and make sure buildings have effects on entities as required by the spec
+    /**
+     * constructor of vampire castle building
+     * @param x SimpleIntegerProperty
+     * @param y SimpleIntegerProperty
+     */
     public VampireCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
     }

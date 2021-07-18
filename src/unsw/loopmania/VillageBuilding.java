@@ -7,7 +7,11 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public class VillageBuilding extends Building {
     private int healAmount = 20;
-    // DONE = add more types of building, and make sure buildings have effects on entities as required by the spec
+    /**
+     * constructor of village building
+     * @param x SimpleIntegerProperty
+     * @param y SimpleIntegerProperty
+     */
     public VillageBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
     }
