@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CardDescription.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">unsw.loopmania</a> &gt; <span class="el_source">CardDescription.java</span></div><h1>CardDescription.java</h1><pre class="source lang-java linenums">package unsw.loopmania;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+public class CardDescription {
+    private Stage stage;
+    private Label nameLabel;
+    private Label descriptionLabel;
+    /**
+     * constructor
+     * @param x x of position
+     * @param y y of position
+     */
+<span class="nc" id="L18">    public CardDescription(int x, int y){</span>
+<span class="nc" id="L19">        stage = new Stage();</span>
+<span class="nc" id="L20">        stage.setX(x);</span>
+<span class="nc" id="L21">        stage.setY(y);</span>
+<span class="nc" id="L22">        int width =  350;</span>
+<span class="nc" id="L23">        int height = 300;</span>
+<span class="nc" id="L24">        VBox vBox = new VBox();</span>
+<span class="nc" id="L25">        nameLabel = new Label();</span>
+<span class="nc" id="L26">        descriptionLabel = new Label();</span>
+<span class="nc" id="L27">        vBox.getChildren().addAll(nameLabel, descriptionLabel);</span>
+<span class="nc" id="L28">        Scene scene = new Scene(vBox, width, height);</span>
+<span class="nc" id="L29">        scene.setFill(null);</span>
+<span class="nc" id="L30">        stage.initStyle(StageStyle.TRANSPARENT);</span>
+<span class="nc" id="L31">        stage.setScene(scene);</span>
+<span class="nc" id="L32">    }</span>
+    
+    /**
+     * show the stage
+     * @param description description of the card
+     */
+    public void show(String name, String description){
+<span class="nc" id="L39">        nameLabel.setText(name);</span>
+<span class="nc" id="L40">        descriptionLabel.setText(description);</span>
+<span class="nc" id="L41">        stage.show();</span>
+<span class="nc" id="L42">    }</span>
+
+    /**
+     * close the stage
+     */
+    public void close(){
+<span class="nc" id="L48">        stage.close();</span>
+<span class="nc" id="L49">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -105,13 +105,7 @@ public class LoopManiaWorld {
 
     }
 
-    public boolean goalCheck() {
-        return this.goalCondition.goalCheck(character.getGold(), character.getEXP(), roundsNum);
 
-    }
-    public void setGoalCondition(Goal goalCondition) {
-        this.goalCondition = goalCondition;
-    }
 
 
     /**
@@ -371,7 +365,10 @@ public class LoopManiaWorld {
             // TODO: ren si le , you xie jie shu
             if (goalCheck()) {
                 // game end
-                System.out.print("successful!");
+                System.out.print("you have meet the conditio, Game successful!");
+            } else {
+                System.out.print("you have not meet the conditio, Game fail!");
+
             }
             
         }
@@ -1073,5 +1070,27 @@ public class LoopManiaWorld {
      */
     public void setUsedTheOneRing(boolean tf) {
         this.UsedTheOneRing = tf;
+    }
+
+    /**
+     * check if meet the goal condition
+     * 
+     * @param 
+     * @return boolean
+     */
+
+    public boolean goalCheck() {
+        return this.goalCondition.goalCheck(character.getGold(), character.getEXP(), roundsNum);
+
+    }
+
+    /**
+     * setting the goal condition
+     * 
+     * @param  Goal
+     * @return 
+     */
+    public void setGoalCondition(Goal goalCondition) {
+        this.goalCondition = goalCondition;
     }
 }

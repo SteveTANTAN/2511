@@ -3,13 +3,17 @@ package unsw.loopmania;
 import org.json.JSONObject;
 
 public class Goal {
-    public String goalType;
-    public String quantity;
     public JSONObject conditions;
     public Goal(JSONObject condition){
         this.conditions = condition;
     }
 
+    /**
+     * checking if it meets the specifct condition
+     * 
+     * @param  String type, int quantity, int gold, int exp, int turns
+     * @return Boolean
+     */
     public boolean goalCheckHelp (String type, int quantity, int gold, int exp, int turns) {
         switch (type) {
             case "gold" :
@@ -23,16 +27,25 @@ public class Goal {
         }
         return false;
     }
+    /**
+     * checking if it meets the specifct condition for more conflicts version
+     * 
+     * @param  int gold, int exp, int turns
+     * @return Boolean
+     */
     public boolean goalCheck(int gold, int exp, int turns) {
         if (conditions == null) {
             return false;
 
         }
 
+        //System.out.printf(conditions.toString(4));
+        // if it's the only one level goal
         if (!conditions.has("subgoals")) {
             
             return goalCheckHelp(conditions.getString("goal"), conditions.getInt("quantity"), gold, exp, turns);
         } else{
+            // otherwise at least level2
             String rela = conditions.getString("goal");
 
             boolean is_foound = false;
@@ -41,6 +54,7 @@ public class Goal {
             int quantity1 = 0;
             int quantity2 = 0;
             String subgoal2= null;
+            // check if it has OR/AND goal in the 2nd level
             for (int i = 0; i <2; i++){
                 JSONObject goalcondi = conditions.getJSONArray("subgoals").getJSONObject(i);
                 if (goalcondi.has("subgoals")) {
@@ -53,7 +67,7 @@ public class Goal {
                     break;
                 }
             }
-
+            // if it doesn't have just doing the normal level2 goals
             if (!is_foound) {
                 String goal1 = conditions.getJSONArray("subgoals").getJSONObject(0).getString("goal");
                 String goal2 = conditions.getJSONArray("subgoals").getJSONObject(1).getString("goal");
@@ -67,7 +81,7 @@ public class Goal {
                     return goalCheckHelp(goal1, q1, gold, exp, turns)
                     || goalCheckHelp(goal2, q2, gold, exp, turns);
                 }
-
+            // otherwise doing conflict version
             } else if (is_foound) {
                 boolean check_sub = false;
                 if (rela2.equals("AND")) {
