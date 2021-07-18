@@ -40,7 +40,5 @@ public class Item extends StaticEntity {
     public void setPrice(int price) {
         this.price = price;
     }
-
-
     
 }

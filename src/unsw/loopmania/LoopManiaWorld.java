@@ -3,9 +3,11 @@ package unsw.loopmania;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.BiConsumer;
 
 import javax.swing.text.StyledEditorKit;
 
+import org.graalvm.compiler.word.Word;
 import org.javatuples.Pair;
 import org.json.JSONObject;
 import org.junit.platform.console.options.Theme;
@@ -51,7 +53,7 @@ public class LoopManiaWorld {
     private List<Card> cardEntities;
 
     // TODO = expand the range of items
-    private List<Entity> unequippedInventoryItems;
+    private List<Item> unequippedInventoryItems;
 
     // TODO = expand the range of buildings
     private List<Building> buildingEntities;
@@ -438,7 +440,7 @@ public class LoopManiaWorld {
             break;
         }
         unequippedInventoryItems.add(item);
-        // TODO: add to character
+        
         return item;
     }
     
@@ -458,6 +460,7 @@ public class LoopManiaWorld {
      * run moves which occur with every tick without needing to spawn anything immediately
      */
     public void runTickMoves(){
+
         character.moveDownPath();
         int rd = new Random().nextInt(100);
         if (rd <= 1) {
@@ -516,8 +519,8 @@ public class LoopManiaWorld {
      * @param y y index from 0 to height-1
      * @return unequipped inventory item at the input position
      */
-    private Entity getUnequippedInventoryItemEntityByCoordinates(int x, int y){
-        for (Entity e: unequippedInventoryItems){
+    private Item getUnequippedInventoryItemEntityByCoordinates(int x, int y){
+        for (Item e: unequippedInventoryItems){
             if ((e.getX() == x) && (e.getY() == y)){
                 return e;
             }
@@ -693,18 +696,13 @@ public class LoopManiaWorld {
         }
         return ret;
     }
-    /**
-     * check whether the position is in the Hero's Castle
-     */
-    public boolean characterIsInHerosCastle(){
-        return character.getX() == 0 && character.getY() == 0;
-    }
+    
     
     /**
      * getter of unequippedInventoryItems
      * @return unequippedInventoryItems
      */
-    public List<Entity> getUnequippedInventoryItems(){
+    public List<Item> getUnequippedInventoryItems(){
         return unequippedInventoryItems;
     }
     
@@ -799,7 +797,8 @@ public class LoopManiaWorld {
     public int getRoundsNum(){
         return roundsNum;
     }
-    public Entity getLastUnequippedInventoryItem() {
+    
+    public Item getLastUnequippedInventoryItem() {
         if (unequippedInventoryItems.size() > 0) {
             return unequippedInventoryItems.get(unequippedInventoryItems.size() - 1);
         }
@@ -811,5 +810,77 @@ public class LoopManiaWorld {
             return cardEntities.get(cardEntities.size() - 1);
         }
         return null;
+    }
+
+    public Character getCharacter(){
+        return character;
+    }
+
+    public List<BasicEnemy> buildingFunction(){
+        List<BasicEnemy>  deadEnemies = new ArrayList<>();
+        if(buildingEntities == null || buildingEntities.isEmpty()) return deadEnemies;
+        boolean hasAttackEnhance = false;
+        for(Building building : buildingEntities){
+
+            // tower
+            if(building instanceof TowerBuilding){
+                List<BasicEnemy> tmpEnemies = ((TowerBuilding)building).work(enemies);
+                for (BasicEnemy e: tmpEnemies){
+                    killEnemy(e);
+                }
+                deadEnemies.addAll(tmpEnemies);
+            }
+
+            // villiage
+            if(building instanceof VillageBuilding){
+                ((VillageBuilding)building).work(character);
+            }
+
+            // campfire
+            if(building instanceof CampfireBuilding){
+                hasAttackEnhance = ((CampfireBuilding)building).work(character);
+            }
+
+            // trap
+            if(building instanceof TrapBuilding){
+                List<BasicEnemy> tmpEnemies = ((TrapBuilding)building).work(enemies);
+                for (BasicEnemy e: tmpEnemies){
+                    killEnemy(e);
+                }
+                deadEnemies.addAll(tmpEnemies);
+            }
+
+            // barrack
+            if(building instanceof BarrackBuilding){
+                ((BarrackBuilding)building).work(character);
+            }
+        }
+        
+        if(hasAttackEnhance){
+            character.setAttackEnhance(true);
+        }
+
+        return deadEnemies;
+    }
+        
+    public Item GetEquippedFromUnequippedByCoordinates(int srcX, int srcY, int destX, int destY) {
+        Item item = getUnequippedInventoryItemEntityByCoordinates(srcX, srcY);
+        if (destX == 0 & destY ==0) {
+            if (item instanceof Sword || item instanceof Stake || item instanceof Staff) {
+                removeUnequippedInventoryItemByCoordinates(srcX, srcY);
+                item.setPosition(destX, destY);          
+            } else {return null;}
+        } else if (destX == 1 && destY == 0) {
+            if (item instanceof Armour || item instanceof Helmet) {
+                removeUnequippedInventoryItemByCoordinates(srcX, srcY);
+                item.setPosition(destX, destY);
+            } else {return null;}
+        } else if (destX == 2 && destY == 0) {
+            if (item instanceof Shield) {
+                removeUnequippedInventoryItemByCoordinates(srcX, srcY);
+                item.setPosition(destX, destY);
+            } else {return null;} 
+        }
+        return item;  
     }
 }
