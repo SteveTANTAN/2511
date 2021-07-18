@@ -3,8 +3,6 @@ package unsw.loopmania;
 import org.json.JSONObject;
 
 public class Goal {
-    public String goalType;
-    public String quantity;
     public JSONObject conditions;
     public Goal(JSONObject condition){
         this.conditions = condition;

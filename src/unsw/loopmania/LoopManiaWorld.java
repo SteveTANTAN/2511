@@ -371,7 +371,10 @@ public class LoopManiaWorld {
             // TODO: ren si le , you xie jie shu
             if (goalCheck()) {
                 // game end
-                System.out.print("successful!");
+                System.out.print("you have meet the conditio, Game successful!");
+            } else {
+                System.out.print("you have not meet the conditio, Game fail!");
+
             }
             
         }

@@ -949,7 +949,13 @@ public class LoopManiaWorldController {
         // TODO = possibly set other menu switchers
         pause();
         heroCastleBuilding.closeStore();
-        System.out.print(world.goalCheck());
+        if (world.goalCheck()) {
+            // game end
+            System.out.print("you have meet the conditio!");
+        } else {
+            System.out.print("you have not meet the condition!");
+
+        }
         mainMenuSwitcher.switchMenu();
     }
 
