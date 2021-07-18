@@ -24,11 +24,11 @@ public class TowerBuilding extends Building {
         for(BasicEnemy enemy : enemies){
             if(Math.pow(getX()-enemy.getX(), 2)+Math.pow(getY()-enemy.getY(), 2) 
                 <= Math.pow( attackRange, 2)){
-                enemy.setHealthPoint(enemy.getHealthPoint()-attackDamage);
-                if(enemy.getHealthPoint() == 0){
+                enemy.setHealth(enemy.getHealth()-attackDamage);
+                if(enemy.getHealth() == 0){
                     deadEnemies.add(enemy);
                 }
-            }       
+            }
         }
         return deadEnemies;
     }

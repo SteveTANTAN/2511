@@ -6,12 +6,13 @@ public class Vampire extends BasicEnemy{
 
     public Vampire(PathPosition position) {
         super(position);
-        super.setHealthPoint(32);
-        super.setDamageValue(15);
-        super.setSupportRadius(2);
-        super.setBattleRadius(2);
+        super.setHealth(32);
+        super.setAggressivity(15);
+        super.setSupportRange(2);
+        super.setAttackRange(2);
         super.setGoldDefeated(5);
         super.setEXP(8);
+        super.setName("Vampire");
     }
     /**
      * move the vampire

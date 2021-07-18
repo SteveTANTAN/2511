@@ -23,7 +23,8 @@ public class AlliedSoldier extends StaticEntity{
         return this.health;
     }
 
-    public void getHealth1(int health) {
+    public void setHealth(int health) {
         this.health = health;
     }
+
 }
