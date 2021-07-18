@@ -11,7 +11,7 @@ public class Cycle {
     public void setCurrentCycle(int aim){
         CurrentCycle = aim;
     } 
-    public int getCurrentCycle(void){
+    public int getCurrentCycle(){
         return CurrentCycle;
     }
 }

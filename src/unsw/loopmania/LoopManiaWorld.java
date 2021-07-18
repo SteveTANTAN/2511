@@ -369,7 +369,7 @@ public class LoopManiaWorld {
             character.setTheOneRing(null);
             character.setHealth(100);
             setUsedTheOneRing(true);
-        } else if(character.getHealth()) <= 0{
+        } else if(character.getHealth() <= 0) {
             // TODO: ren si le , you xie jie shu
             if (goalCheck()) {
                 // game end
@@ -1039,7 +1039,7 @@ public class LoopManiaWorld {
      * 
      * @param item
      */
-    public void setCharacterEquipment(Item item) {
+    public void setCharacterEquipment(Character character, Item item) {
         int basicDamage = 4;
         if (item instanceof Sword) {
             character.setAggressivity(basicDamage + item.getDamageValue());
