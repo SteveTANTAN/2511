@@ -1,16 +1,1 @@
-// complex
-{ "goal": "AND", "subgoals":
-    [ { "goal": "cycles", "quantity": 10 },
-      { "goal": "OR", "subgoals":
-        [ {"goal": "experience", "quantity": 200 },
-          {"goal": "gold", "quantity": 200 }
-        ]
-      }
-    ]
-}
-// middle
-{ "goal": "AND", "subgoals":
-  [ { "goal": "cycles", "quantity": 10 },
-    {"goal": "experience", "quantity": 200 }
-  ]
-}
+

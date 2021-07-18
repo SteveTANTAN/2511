@@ -146,6 +146,16 @@ public class GoalsTest {
         Character character = new Character(pathPosition);
         
     }
+    // { "goal": "AND", "subgoals":
+    //     [ { "goal": "cycles", "quantity": 10 },
+    //       { "goal": "OR", "subgoals":
+    //         [ {"goal": "experience", "quantity": 200 },
+    //           {"goal": "gold", "quantity": 200 }
+    //         ]
+    //       }
+    //     ]
+    // }
+
     @Test
     public void goal_test_middle_complex(){
         JSONArray a1 = new JSONArray();
@@ -211,10 +221,40 @@ public class GoalsTest {
         
     }
     @Test
+    // { "goal": "AND", "subgoals":
+    //   [ { "goal": "cycles", "quantity": 10 },
+    //     {"goal": "experience", "quantity": 200 }
+    //   ]
+    // }
     public void goal_test_middle_EASY(){
         JSONArray a1 = new JSONArray();
         JSONObject goalcondition = new JSONObject();
         goalcondition.put("goal", "experience");
+        goalcondition.put("quantity", 200);
+
+        Goal gold = new Goal(goalcondition);
+        assertEquals(gold.goalCheckHelp("gold", 5, 1, 1, 1), false);
+        assertEquals(gold.goalCheck(1, 1, 1), false);
+
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        PathPosition pathPosition = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
+        world.setGoalCondition(gold);
+
+        Character character = new Character(pathPosition);
+        
+    }
+    @Test
+    // { "goal": "AND", "subgoals":
+    //   [ { "goal": "cycles", "quantity": 10 },
+    //     {"goal": "experience", "quantity": 200 }
+    //   ]
+    // }
+    public void goal_test_middle_EASY2(){
+        JSONArray a1 = new JSONArray();
+        JSONObject goalcondition = new JSONObject();
+        goalcondition.put("goal", "go");
         goalcondition.put("quantity", 200);
 
         Goal gold = new Goal(goalcondition);

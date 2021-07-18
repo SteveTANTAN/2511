@@ -82,7 +82,7 @@ public class LoopManiaWorld {
      * the number of rounds
      */
     private boolean UsedTheOneRing = false;    
-
+    private boolean IsFight = false;
     /**
      * create the world (constructor)
      * 
@@ -184,6 +184,7 @@ public class LoopManiaWorld {
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> possibleSupporEnemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> fightEnemies = new ArrayList<BasicEnemy>();
+        IsFight = false;
         for (BasicEnemy e: enemies){
             // Pythagoras: a^2+b^2 < radius^2 to see if within radius
             // implement different RHS on this inequality, based on influence radii and battle radii
@@ -215,22 +216,26 @@ public class LoopManiaWorld {
             }
         }
         // check whether possible support enemy will add to fight
-        for (BasicEnemy e: possibleSupporEnemies){
-            switch (e.getName()) {
-                case "Slug":
-                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
-                        fightEnemies.add(e);
-                    }
-                    break;
-                case "Vampire":
-                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 9){
-                        fightEnemies.add(e);
-                    }
-                    break;
-                default:
-                    break;
+        if (IsFight) {
+            for (BasicEnemy e: possibleSupporEnemies){
+                switch (e.getName()) {
+                    case "Slug":
+                        if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
+                            fightEnemies.add(e);
+                        }
+                        break;
+                    case "Vampire":
+                        if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 9){
+                            fightEnemies.add(e);
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
+
         }
+
 
         List<BasicEnemy> tranceEnemies = new ArrayList<BasicEnemy>();
         // fight with enemies
