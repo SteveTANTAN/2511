@@ -6,6 +6,7 @@ import java.util.List;
     @Override
     public void hit(Character c, List&lt;BasicEnemy&gt; trancedEnemies, List&lt;BasicEnemy&gt; enemies,BasicEnemy e, String who) {
         int hurt;
+<<<<<<< HEAD
 <span class="pc bpc" id="L9" title="5 of 7 branches missed.">        switch(who) {</span>
             case &quot;enemy&quot;:
 <span class="pc bpc" id="L11" title="1 of 2 branches missed.">                if (!trancedEnemies.isEmpty()) {</span>
@@ -16,6 +17,18 @@ import java.util.List;
 <span class="nc" id="L16">                        trancedEnemies.remove(0);</span>
                     }
 <span class="pc bpc" id="L18" title="1 of 2 branches missed.">                } else if (c.getSoldiers().isEmpty()) {</span>
+=======
+<span class="fc bfc" id="L9" title="All 7 branches covered.">        switch(who) {</span>
+            case &quot;enemy&quot;:
+<span class="fc bfc" id="L11" title="All 2 branches covered.">                if (!trancedEnemies.isEmpty()) {</span>
+<span class="fc" id="L12">                    hurt = e.getAggressivity();</span>
+<span class="fc" id="L13">                    trancedEnemies.get(0).setHealth(trancedEnemies.get(0).getHealth() - hurt);</span>
+<span class="fc bfc" id="L14" title="All 2 branches covered.">                    if (trancedEnemies.get(0).getHealth() &lt;= 0) {</span>
+<span class="fc" id="L15">                        trancedEnemies.get(0).destroy();</span>
+<span class="fc" id="L16">                        trancedEnemies.remove(0);</span>
+                    }
+<span class="fc bfc" id="L18" title="All 2 branches covered.">                } else if (c.getSoldiers().isEmpty()) {</span>
+>>>>>>> master
 <span class="fc" id="L19">                    hurt = e.getAggressivity() - c.getDefense();</span>
 <span class="fc bfc" id="L20" title="All 2 branches covered.">                    if (c.getArmour() instanceof Armour) {</span>
 <span class="fc" id="L21">                        hurt = hurt / 2;</span>
@@ -27,6 +40,7 @@ import java.util.List;
                     }
 <span class="fc" id="L28">                    c.setHealth(c.getHealth() - hurt);</span>
                 } else {
+<<<<<<< HEAD
 <span class="nc" id="L30">                    AlliedSoldier soldier = c.getSoldiers().get(0);</span>
 <span class="nc" id="L31">                    hurt = e.getAggressivity();</span>
 <span class="nc" id="L32">                    soldier.setHealth(soldier.getHealth() - hurt);</span>
@@ -41,6 +55,22 @@ import java.util.List;
 <span class="nc bnc" id="L41" title="All 2 branches missed.">                if (!c.getSoldiers().isEmpty()) {</span>
 <span class="nc" id="L42">                    hurt = 5;</span>
 <span class="nc" id="L43">                    e.setHealth(e.getHealth() - hurt);</span>
+=======
+<span class="fc" id="L30">                    AlliedSoldier soldier = c.getSoldiers().get(0);</span>
+<span class="fc" id="L31">                    hurt = e.getAggressivity();</span>
+<span class="fc" id="L32">                    soldier.setHealth(soldier.getHealth() - hurt);</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">                    if (soldier.getHealth() &lt;= 0) {</span>
+<span class="fc" id="L34">                        soldier.destroy();</span>
+<span class="fc" id="L35">                        c.getSoldiers().get(0).destroy();</span>
+<span class="fc" id="L36">                        c.getSoldiers().remove(0);</span>
+                    }
+                }
+<span class="fc" id="L39">                break;</span>
+            case &quot;soldier&quot;:
+<span class="fc bfc" id="L41" title="All 2 branches covered.">                if (!c.getSoldiers().isEmpty()) {</span>
+<span class="fc" id="L42">                    hurt = 5;</span>
+<span class="fc" id="L43">                    e.setHealth(e.getHealth() - hurt);</span>
+>>>>>>> master
                 }
                 break;
             
@@ -53,6 +83,7 @@ import java.util.List;
 <span class="fc" id="L53">                break;</span>
 
             case &quot;vampire&quot;:
+<<<<<<< HEAD
 <span class="nc" id="L56">                hurt = 15;</span>
 <span class="nc" id="L57">                e.setHealth(e.getHealth() - hurt);</span>
 <span class="nc" id="L58">                break;</span>
@@ -65,6 +96,20 @@ import java.util.List;
             case &quot;slug&quot;:
 <span class="nc" id="L66">                hurt = 4;</span>
 <span class="nc" id="L67">                e.setHealth(e.getHealth() - hurt);</span>
+=======
+<span class="fc" id="L56">                hurt = 15;</span>
+<span class="fc" id="L57">                e.setHealth(e.getHealth() - hurt);</span>
+<span class="fc" id="L58">                break;</span>
+            
+            case &quot;zombie&quot;:
+<span class="fc" id="L61">                hurt = 8;</span>
+<span class="fc" id="L62">                e.setHealth(e.getHealth() - hurt);</span>
+<span class="fc" id="L63">                break;</span>
+
+            case &quot;slug&quot;:
+<span class="fc" id="L66">                hurt = 4;</span>
+<span class="fc" id="L67">                e.setHealth(e.getHealth() - hurt);</span>
+>>>>>>> master
                 break;
         }
 

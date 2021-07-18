@@ -5,6 +5,7 @@ import java.util.List;
 <span class="fc" id="L5">public class StakeAttack implements Attack{</span>
     @Override
     public void hit(Character c, List&lt;BasicEnemy&gt; trancedEnemies, List&lt;BasicEnemy&gt; enemies,BasicEnemy e, String who) {
+<<<<<<< HEAD
         int hurt;
 <span class="pc bpc" id="L9" title="1 of 2 branches missed.">        if (c.getArmour() instanceof Helmet) {</span>
 <span class="nc" id="L10">            hurt = - 2;</span>
@@ -13,6 +14,16 @@ import java.util.List;
 <span class="fc" id="L13">            hurt = c.getAggressivity() + 8;</span>
         } else {
 <span class="nc" id="L15">            hurt = c.getAggressivity();</span>
+=======
+<span class="fc" id="L8">        int hurt = 0;</span>
+<span class="fc bfc" id="L9" title="All 2 branches covered.">        if (c.getArmour() instanceof Helmet) {</span>
+<span class="fc" id="L10">            hurt = - 2;</span>
+        }
+<span class="fc bfc" id="L12" title="All 2 branches covered.">        if (e.getName().equals(&quot;Vampire&quot;)) {</span>
+<span class="fc" id="L13">            hurt = hurt + c.getAggressivity() + 8;</span>
+        } else {
+<span class="fc" id="L15">            hurt = hurt + c.getAggressivity();</span>
+>>>>>>> master
         }
 
 <span class="fc" id="L18">        e.setHealth(e.getHealth() - hurt);</span>

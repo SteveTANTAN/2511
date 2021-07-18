@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.AlliedSoldier;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Slug;
 import unsw.loopmania.Vampire;
@@ -250,5 +252,31 @@ public class BasicEnemyTest {
         assertEquals(e.getEXP(), 8);
         e.setEXP(1);
         assertEquals(e.getEXP(), 1);
+    }
+
+    @Test
+    public void alliedSoldierTest1(){
+        AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));
+        assertEquals(soldier.getAggressivity(), 5);
+    }
+
+    @Test
+    public void alliedSoldierTest2(){
+        AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));
+        assertEquals(soldier.getHealth(), 15);
+    }
+
+    @Test
+    public void alliedSoldierTest3(){
+        AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));
+        soldier.setAggressivity(1);
+        assertEquals(soldier.getAggressivity(), 1);
+    }
+
+    @Test
+    public void alliedSoldierTest4(){
+        AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));
+        soldier.setHealth(1);
+        assertEquals(soldier.getHealth(), 1);
     }
 }

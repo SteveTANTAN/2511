@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Goal.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">unsw.loopmania</a> &gt; <span class="el_source">Goal.java</span></div><h1>Goal.java</h1><pre class="source lang-java linenums">package unsw.loopmania;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 
 import org.json.JSONObject;
@@ -7,10 +8,15 @@ import org.json.JSONObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.CheckBox;
 
+=======
+import org.json.JSONObject;
+
+>>>>>>> master
 public class Goal {
     public String goalType;
     public String quantity;
     public JSONObject conditions;
+<<<<<<< HEAD
 <span class="nc" id="L14">    public Goal(JSONObject condition){</span>
 <span class="nc" id="L15">        this.conditions = condition;</span>
 <span class="nc" id="L16">    }</span>
@@ -93,15 +99,103 @@ public class Goal {
 <span class="nc bnc" id="L93" title="All 4 branches missed.">                    if (!goalcondi.getString(&quot;goal&quot;).equals(&quot;AND&quot;) &amp;&amp; !goalcondi.getString(&quot;goal&quot;).equals(&quot;OR&quot;)) {</span>
 <span class="nc" id="L94">                        goal = goalcondi.getString(&quot;goal&quot;);</span>
 <span class="nc" id="L95">                        goalq = goalcondi.getInt(&quot;quantity&quot;);</span>
+=======
+<span class="nc" id="L9">    public Goal(JSONObject condition){</span>
+<span class="nc" id="L10">        this.conditions = condition;</span>
+<span class="nc" id="L11">    }</span>
+
+    public boolean goalCheckHelp (String type, int quantity, int gold, int exp, int turns) {
+<span class="nc bnc" id="L14" title="All 4 branches missed.">        switch (type) {</span>
+            case &quot;gold&quot; :
+<span class="nc bnc" id="L16" title="All 2 branches missed.">                return gold &gt;= quantity;</span>
+            case &quot;experience&quot; :
+<span class="nc bnc" id="L18" title="All 2 branches missed.">                return exp &gt;= quantity;</span>
+            case &quot;cycles&quot; :
+<span class="nc bnc" id="L20" title="All 2 branches missed.">                return turns &gt;= quantity;</span>
+            default:
+                break;
+        }
+<span class="nc" id="L24">        return false;</span>
+    }
+    public boolean goalCheck(int gold, int exp, int turns) {
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        if (conditions == null) {</span>
+<span class="nc" id="L28">            return false;</span>
+
+        }
+
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (!conditions.has(&quot;subgoals&quot;)) {</span>
+            
+<span class="nc" id="L34">            return goalCheckHelp(conditions.getString(&quot;goal&quot;), conditions.getInt(&quot;quantity&quot;), gold, exp, turns);</span>
+        } else{
+<span class="nc" id="L36">            String rela = conditions.getString(&quot;goal&quot;);</span>
+
+<span class="nc" id="L38">            boolean is_foound = false;</span>
+<span class="nc" id="L39">            String rela2 = null;</span>
+<span class="nc" id="L40">            String subgoal1 = null;</span>
+<span class="nc" id="L41">            int quantity1 = 0;</span>
+<span class="nc" id="L42">            int quantity2 = 0;</span>
+<span class="nc" id="L43">            String subgoal2= null;</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            for (int i = 0; i &lt;2; i++){</span>
+<span class="nc" id="L45">                JSONObject goalcondi = conditions.getJSONArray(&quot;subgoals&quot;).getJSONObject(i);</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">                if (goalcondi.has(&quot;subgoals&quot;)) {</span>
+<span class="nc" id="L47">                    is_foound = true;</span>
+<span class="nc" id="L48">                    rela2 = goalcondi.getString(&quot;goal&quot;);</span>
+<span class="nc" id="L49">                    subgoal1 = goalcondi.getJSONArray(&quot;subgoals&quot;).getJSONObject(0).getString(&quot;goal&quot;);</span>
+<span class="nc" id="L50">                    subgoal2 = goalcondi.getJSONArray(&quot;subgoals&quot;).getJSONObject(1).getString(&quot;goal&quot;);</span>
+<span class="nc" id="L51">                    quantity1 = goalcondi.getJSONArray(&quot;subgoals&quot;).getJSONObject(0).getInt(&quot;quantity&quot;);</span>
+<span class="nc" id="L52">                    quantity2 = goalcondi.getJSONArray(&quot;subgoals&quot;).getJSONObject(1).getInt(&quot;quantity&quot;);</span>
+<span class="nc" id="L53">                    break;</span>
+                }
+            }
+
+<span class="nc bnc" id="L57" title="All 2 branches missed.">            if (!is_foound) {</span>
+<span class="nc" id="L58">                String goal1 = conditions.getJSONArray(&quot;subgoals&quot;).getJSONObject(0).getString(&quot;goal&quot;);</span>
+<span class="nc" id="L59">                String goal2 = conditions.getJSONArray(&quot;subgoals&quot;).getJSONObject(1).getString(&quot;goal&quot;);</span>
+<span class="nc" id="L60">                int q1 = conditions.getJSONArray(&quot;subgoals&quot;).getJSONObject(0).getInt(&quot;quantity&quot;);</span>
+<span class="nc" id="L61">                int q2 = conditions.getJSONArray(&quot;subgoals&quot;).getJSONObject(1).getInt(&quot;quantity&quot;);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">                if (rela.equals(&quot;AND&quot;)) {</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">                    return goalCheckHelp(goal1, q1, gold, exp, turns)</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">                    &amp;&amp; goalCheckHelp(goal2, q2, gold, exp, turns);</span>
+                }
+<span class="nc bnc" id="L66" title="All 2 branches missed.">                if (rela.equals(&quot;OR&quot;)) {</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">                    return goalCheckHelp(goal1, q1, gold, exp, turns)</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">                    || goalCheckHelp(goal2, q2, gold, exp, turns);</span>
+                }
+
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            } else if (is_foound) {</span>
+<span class="nc" id="L72">                boolean check_sub = false;</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">                if (rela2.equals(&quot;AND&quot;)) {</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">                    check_sub = goalCheckHelp(subgoal1, quantity1, gold, exp, turns)</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">                    &amp;&amp; goalCheckHelp(subgoal2, quantity2, gold, exp, turns);</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">                } else if (rela2.equals(&quot;OR&quot;)) {</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">                    check_sub = goalCheckHelp(subgoal1, quantity1, gold, exp, turns)</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">                    || goalCheckHelp(subgoal2, quantity2, gold, exp, turns);</span>
+                }
+<span class="nc" id="L80">                String goal=null;</span>
+<span class="nc" id="L81">                int goalq = 0;</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">                for(int i = 0; i &lt;2; i++) {</span>
+<span class="nc" id="L83">                    JSONObject goalcondi = conditions.getJSONArray(&quot;subgoals&quot;).getJSONObject(i);</span>
+<span class="nc bnc" id="L84" title="All 4 branches missed.">                    if (!goalcondi.getString(&quot;goal&quot;).equals(&quot;AND&quot;) &amp;&amp; !goalcondi.getString(&quot;goal&quot;).equals(&quot;OR&quot;)) {</span>
+<span class="nc" id="L85">                        goal = goalcondi.getString(&quot;goal&quot;);</span>
+<span class="nc" id="L86">                        goalq = goalcondi.getInt(&quot;quantity&quot;);</span>
+>>>>>>> master
                         
                     }
 
                 }
+<<<<<<< HEAD
 <span class="nc bnc" id="L100" title="All 2 branches missed.">                if (rela.equals(&quot;AND&quot;)) {</span>
 <span class="nc bnc" id="L101" title="All 4 branches missed.">                    return goalCheckHelp(goal, goalq, gold, exp, turns)</span>
                     &amp;&amp; check_sub;
 <span class="nc bnc" id="L103" title="All 2 branches missed.">                } else if (rela.equals(&quot;OR&quot;)) {</span>
 <span class="nc bnc" id="L104" title="All 4 branches missed.">                    return goalCheckHelp(goal, goalq, gold, exp, turns)</span>
+=======
+<span class="nc bnc" id="L91" title="All 2 branches missed.">                if (rela.equals(&quot;AND&quot;)) {</span>
+<span class="nc bnc" id="L92" title="All 4 branches missed.">                    return goalCheckHelp(goal, goalq, gold, exp, turns)</span>
+                    &amp;&amp; check_sub;
+<span class="nc bnc" id="L94" title="All 2 branches missed.">                } else if (rela.equals(&quot;OR&quot;)) {</span>
+<span class="nc bnc" id="L95" title="All 4 branches missed.">                    return goalCheckHelp(goal, goalq, gold, exp, turns)</span>
+>>>>>>> master
                     || check_sub;
                 }
 
@@ -109,7 +203,11 @@ public class Goal {
             }   
             
         }
+<<<<<<< HEAD
 <span class="nc" id="L112">        return false;</span>
+=======
+<span class="nc" id="L103">        return false;</span>
+>>>>>>> master
     }
 
 }

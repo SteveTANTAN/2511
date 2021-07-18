@@ -22,8 +22,13 @@ public class Vampire extends BasicEnemy{
         // TODO = modify this, since this implementation doesn't provide the expected enemy behaviour
         // this basic enemy moves in a random direction... 25% chance up or down, 50% chance not at all...
 <span class="fc" id="L24">        int directionChoice = (new Random()).nextInt(6);</span>
+<<<<<<< HEAD
 <span class="pc bpc" id="L25" title="1 of 2 branches missed.">        if (directionChoice &lt; 2){</span>
 <span class="nc" id="L26">            moveUpPath();</span>
+=======
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (directionChoice &lt; 2){</span>
+<span class="fc" id="L26">            moveUpPath();</span>
+>>>>>>> master
         }
         else{
 <span class="fc" id="L29">            moveDownPath();</span>

@@ -15,20 +15,4 @@ public class Slug extends BasicEnemy{
         super.setEXP(2);
         super.setName("Slug");
     }
-    
-    /**
-     * get defeated slug gold left
-     * @return defeated slug gold left
-     */
-    public int GoldLeft() {
-        return 1;
-    }
-
-    /**
-     * get defeated slug gold left
-     * @return defeated slug EXP left
-     */
-    public int ExpLeft() {
-        return 2;
-    }
 }
