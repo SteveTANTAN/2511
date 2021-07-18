@@ -14,31 +14,53 @@ public abstract class StaticEntity extends Entity {
      */
     private IntegerProperty x, y;
 
+    /**
+     * construcotr
+     * @param x SimpleIntegerProperty 
+     * @param y SimpleIntegerProperty 
+     */
     public StaticEntity(SimpleIntegerProperty x, SimpleIntegerProperty y) {
-<span class="fc" id="L18">        super();</span>
-<span class="fc" id="L19">        this.x = x;</span>
-<span class="fc" id="L20">        this.y = y;</span>
-<span class="fc" id="L21">    }</span>
+<span class="fc" id="L23">        super();</span>
+<span class="fc" id="L24">        this.x = x;</span>
+<span class="fc" id="L25">        this.y = y;</span>
+<span class="fc" id="L26">    }</span>
 
+    /**
+     * get x IntegerProperty
+     */
     public IntegerProperty x() {
-<span class="fc" id="L24">        return x;</span>
+<span class="fc" id="L32">        return x;</span>
     }
 
+    /**
+     * get y IntegerProperty
+     */
     public IntegerProperty y() {
-<span class="fc" id="L28">        return y;</span>
+<span class="fc" id="L39">        return y;</span>
     }
 
+    /**
+     * get int X
+     */
     public int getX() {
-<span class="fc" id="L32">        return x().get();</span>
+<span class="fc" id="L46">        return x().get();</span>
     }
 
+    /**
+     * get int Y
+     */
     public int getY() {
-<span class="fc" id="L36">        return y().get();</span>
+<span class="fc" id="L53">        return y().get();</span>
     }
 
+    /**
+     * set static entity to new position with x,y
+     * @param x int
+     * @param y int
+     */
     public void setPosition(int x, int y) {
-<span class="nc" id="L40">        this.x = new SimpleIntegerProperty(x);</span>
-<span class="nc" id="L41">        this.y = new SimpleIntegerProperty(y);</span>
-<span class="nc" id="L42">    }</span>
+<span class="nc" id="L62">        this.x = new SimpleIntegerProperty(x);</span>
+<span class="nc" id="L63">        this.y = new SimpleIntegerProperty(y);</span>
+<span class="nc" id="L64">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

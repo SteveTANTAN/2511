@@ -7,20 +7,20 @@ import java.util.Random;
  * a basic form of enemy in the world
  */
 public class BasicEnemy extends MovingEntity {
-    //private int healthPoint;
-    //private int damageValue;
-    //private int supportRadius;
-    //private int battleRadius;
+
     private int goldDefeated;
     private int exp;
-
-    // TODO = modify this, and add additional forms of enemy
     private String name;
     private int aggressivity;
     private int health;
     private int attackRange;
     private int supportRange;
     private int tranceTurn;
+
+    /**
+     * constructor of basic enemy
+     * @param position enemy postion
+     */
     public BasicEnemy(PathPosition position) {
 <span class="fc" id="L25">        super(position);</span>
 <span class="fc" id="L26">        this.tranceTurn = 0;</span>
@@ -30,112 +30,142 @@ public class BasicEnemy extends MovingEntity {
      * move the enemy
      */
     public void move(){
-        // TODO = modify this, since this implementation doesn't provide the expected enemy behaviour
         // this basic enemy moves in a random direction... 25% chance up or down, 50% chance not at all...
-<span class="nc" id="L35">        int directionChoice = (new Random()).nextInt(2);</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (directionChoice == 0){</span>
-<span class="nc" id="L37">            moveUpPath();</span>
+<span class="fc" id="L34">        int directionChoice = (new Random()).nextInt(2);</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (directionChoice == 0){</span>
+<span class="fc" id="L36">            moveUpPath();</span>
         }
-<span class="nc bnc" id="L39" title="All 2 branches missed.">        else if (directionChoice == 1){</span>
-<span class="nc" id="L40">            moveDownPath();</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        else if (directionChoice == 1){</span>
+<span class="fc" id="L39">            moveDownPath();</span>
         }
-<span class="nc" id="L42">    }</span>
+<span class="fc" id="L41">    }</span>
 
+    /**
+     * get enemy aggressivity
+     * @return enemy aggressivity
+     */
     public int getAggressivity() {
-<span class="fc" id="L45">        return this.aggressivity;</span>
+<span class="fc" id="L48">        return this.aggressivity;</span>
     }
 
+    /**
+     * set enemy aggressivity
+     * @param aggressivity enemy aggressivity
+     */
     public void setAggressivity(int aggressivity) {
-<span class="fc" id="L49">        this.aggressivity = aggressivity;</span>
-<span class="fc" id="L50">    }</span>
+<span class="fc" id="L56">        this.aggressivity = aggressivity;</span>
+<span class="fc" id="L57">    }</span>
 
+    /**
+     * get enemy health
+     * @return enemy health
+     */
     public int getHealth() {
-<span class="fc" id="L53">        return this.health;</span>
+<span class="fc" id="L64">        return this.health;</span>
     }
 
+    /**
+     * set enemy health
+     * @param health enemy health
+     */
     public void setHealth(int health) {
-<span class="fc" id="L57">        this.health = health;</span>
-<span class="fc" id="L58">    }</span>
+<span class="fc" id="L72">        this.health = health;</span>
+<span class="fc" id="L73">    }</span>
 
+    /**
+     * get enemy attack range
+     * @return enemy attack range
+     */
     public int getAttackRange() {
-<span class="fc" id="L61">        return this.attackRange;</span>
+<span class="fc" id="L80">        return this.attackRange;</span>
     }
 
+    /**
+     * set enemy attack range
+     * @param attackRange enemy attack range
+     */
     public void setAttackRange(int attackRange) {
-<span class="fc" id="L65">        this.attackRange = attackRange;</span>
-<span class="fc" id="L66">    }</span>
+<span class="fc" id="L88">        this.attackRange = attackRange;</span>
+<span class="fc" id="L89">    }</span>
 
+    /**
+     * get enemy support range
+     * @return enemy support range
+     */
     public int getSupportRange() {
-<span class="fc" id="L69">        return this.supportRange;</span>
+<span class="fc" id="L96">        return this.supportRange;</span>
     }
 
+    /**
+     * set enemy support range
+     * @param supportRange enemy support range
+     */
     public void setSupportRange(int supportRange) {
-<span class="fc" id="L73">        this.supportRange = supportRange;</span>
-<span class="fc" id="L74">    }</span>
+<span class="fc" id="L104">        this.supportRange = supportRange;</span>
+<span class="fc" id="L105">    }</span>
 
+    /**
+     * get enemy name
+     * @return enemy name
+     */
     public String getName() {
-<span class="fc" id="L77">        return this.name;</span>
+<span class="fc" id="L112">        return this.name;</span>
     }
 
+    /**
+     * set enemy name
+     * @param name enemy name
+     */
     public void setName(String name) {
-<span class="fc" id="L81">        this.name = name;</span>
-<span class="fc" id="L82">    }</span>
+<span class="fc" id="L120">        this.name = name;</span>
+<span class="fc" id="L121">    }</span>
 
+    /**
+     * get trance turn
+     * @return trance turn
+     */
     public int getTranceTurn() {
-<span class="nc" id="L85">        return this.tranceTurn;</span>
+<span class="fc" id="L128">        return this.tranceTurn;</span>
     }
 
+    /**
+     * set trance turn
+     * @param tranceTurn trance turn
+     */
     public void setTranceTurn(int tranceTurn) {
-<span class="fc" id="L89">        this.tranceTurn = tranceTurn;</span>
-<span class="fc" id="L90">    }</span>
-/*
-    public void setHealthPoint(int value){
-        healthPoint = value;
-    }
+<span class="fc" id="L136">        this.tranceTurn = tranceTurn;</span>
+<span class="fc" id="L137">    }</span>
 
-
-    public void setDamageValue(int value){
-        damageValue = value;
-    }
-
-    public void setSupportRadius(int value){
-        supportRadius = value;
-    }
-
-    public void setBattleRadius(int value){
-        battleRadius = value;
-    }
-*/
+    /**
+     * set rewards gold from defeat enemy
+     * @param value rewards gold from defeat enemy
+     */
     public void setGoldDefeated(int value){
-<span class="fc" id="L110">        goldDefeated = value;</span>
-<span class="fc" id="L111">    }</span>
+<span class="fc" id="L144">        goldDefeated = value;</span>
+<span class="fc" id="L145">    }</span>
 
+    /**
+     * set rewards EXP from defeat enemy
+     * @param value rewards EXP from defeat enemy
+     */
     public void setEXP(int value){
-<span class="fc" id="L114">        exp = value;</span>
-<span class="fc" id="L115">    }</span>
-/*
-    public int getHealthPoint(){
-        return healthPoint;
-    }
+<span class="fc" id="L152">        exp = value;</span>
+<span class="fc" id="L153">    }</span>
 
-    public int getDamageValue(){
-        return damageValue;
-    }
-
-    public int getSupportRadius(){
-        return supportRadius;
-    }
-
-    public int getBattleRadius(){
-        return battleRadius;
-    }
-*/
+    /**
+     * get rewards gold from defeat enemy
+     * @return rewards gold from defeat enemy
+     */
     public int getGoldDefeated(){
-<span class="fc" id="L134">        return goldDefeated;</span>
+<span class="fc" id="L160">        return goldDefeated;</span>
     }
 
+    /**
+     * get rewards EXP from defeat enemy
+     * @return rewards EXP from defeat enemy
+     */
     public int getEXP(){
-<span class="fc" id="L138">        return exp;</span>
+<span class="fc" id="L168">        return exp;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

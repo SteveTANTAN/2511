@@ -9,28 +9,32 @@ import javafx.beans.property.SimpleIntegerProperty;
  * a basic form of building in the world
  */
 public class TowerBuilding extends Building {
-<span class="nc" id="L12">    private double attackRange = 2;</span>
-<span class="nc" id="L13">    private int attackDamage = 13;</span>
-    // DONE = add more types of building, and make sure buildings have effects on entities as required by the spec
+<span class="fc" id="L12">    private double attackRange = 2;</span>
+<span class="fc" id="L13">    private int attackDamage = 13;</span>
+    /**
+     * constructor of tower building
+     * @param x SimpleIntegerProperty
+     * @param y SimpleIntegerProperty
+     */
     public TowerBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
-<span class="nc" id="L16">        super(x, y);</span>
-<span class="nc" id="L17">    }</span>
+<span class="fc" id="L20">        super(x, y);</span>
+<span class="fc" id="L21">    }</span>
 
     /**
      * use the function of the builidng
      */
     public List&lt;BasicEnemy&gt; work(List&lt;BasicEnemy&gt; enemies){
-<span class="nc" id="L23">        List&lt;BasicEnemy&gt; deadEnemies = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L24" title="All 2 branches missed.">        for(BasicEnemy enemy : enemies){</span>
-<span class="nc" id="L25">            if(Math.pow(getX()-enemy.getX(), 2)+Math.pow(getY()-enemy.getY(), 2) </span>
-<span class="nc bnc" id="L26" title="All 2 branches missed.">                &lt;= Math.pow( attackRange, 2)){</span>
-<span class="nc" id="L27">                enemy.setHealth(enemy.getHealth()-attackDamage);</span>
-<span class="nc bnc" id="L28" title="All 2 branches missed.">                if(enemy.getHealth() == 0){</span>
-<span class="nc" id="L29">                    deadEnemies.add(enemy);</span>
+<span class="fc" id="L27">        List&lt;BasicEnemy&gt; deadEnemies = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        for(BasicEnemy enemy : enemies){</span>
+<span class="fc" id="L29">            if(Math.pow(getX()-enemy.getX(), 2)+Math.pow(getY()-enemy.getY(), 2) </span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">                &lt;= Math.pow( attackRange, 2)){</span>
+<span class="fc" id="L31">                enemy.setHealth(enemy.getHealth()-attackDamage);</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">                if(enemy.getHealth() &lt;= 0){</span>
+<span class="fc" id="L33">                    deadEnemies.add(enemy);</span>
                 }
             }
-<span class="nc" id="L32">        }</span>
-<span class="nc" id="L33">        return deadEnemies;</span>
+<span class="fc" id="L36">        }</span>
+<span class="fc" id="L37">        return deadEnemies;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

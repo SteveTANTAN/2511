@@ -6,12 +6,20 @@ import javafx.beans.property.SimpleIntegerProperty;
  * represents an equipped or unequipped Stake in the backend world
  */
 public class Stake extends Item {
+    /**
+     * constructor of stake
+     * @param x             SimpleIntegerProperty
+     * @param y             SimpleIntegerProperty
+     * @param damageValue   damage value 
+     * @param defenseValue  defense value 
+     * @param price         price
+     */
     public Stake(SimpleIntegerProperty x, SimpleIntegerProperty y, int damageValue, int defenseValue, int price) {
-<span class="fc" id="L10">        super(x, y, damageValue, defenseValue, price);</span>
-<span class="fc" id="L11">        setDamageValue(damageValue);</span>
-<span class="fc" id="L12">        setDefenseValue(defenseValue);</span>
-<span class="fc" id="L13">        setPrice(price);</span>
-<span class="fc" id="L14">    }</span>
+<span class="fc" id="L18">        super(x, y, damageValue, defenseValue, price);</span>
+<span class="fc" id="L19">        setDamageValue(damageValue);</span>
+<span class="fc" id="L20">        setDefenseValue(defenseValue);</span>
+<span class="fc" id="L21">        setPrice(price);</span>
+<span class="fc" id="L22">    }</span>
 
 }
 

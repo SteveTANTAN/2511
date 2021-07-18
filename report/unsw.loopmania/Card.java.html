@@ -9,21 +9,39 @@ import javafx.beans.property.SimpleIntegerProperty;
 public abstract class Card extends StaticEntity {
     public String name;
     public String description;
+    /**
+     * constructor of card
+     * @param x SimpleIntegerProperty
+     * @param y SimpleIntegerProperty
+     */
     public Card(SimpleIntegerProperty x, SimpleIntegerProperty y) {
-<span class="nc" id="L13">        super(x, y);</span>
-<span class="nc" id="L14">    }</span>
+<span class="fc" id="L18">        super(x, y);</span>
+<span class="fc" id="L19">    }</span>
 
-    public void init( String name, String description){
-<span class="nc" id="L17">        this.name = name;</span>
-<span class="nc" id="L18">        this.description = description;</span>
-<span class="nc" id="L19">    }</span>
+    /**
+     * init card name and description
+     * @param name          card name
+     * @param description   card description
+     */
+    public void init(String name, String description){
+<span class="fc" id="L27">        this.name = name;</span>
+<span class="fc" id="L28">        this.description = description;</span>
+<span class="fc" id="L29">    }</span>
 
+    /**
+     * get card name
+     * @return card name
+     */
     public String getName(){
-<span class="nc" id="L22">        return name;</span>
+<span class="fc" id="L36">        return name;</span>
     }
 
+    /**
+     * get card description
+     * @return card description
+     */
     public String getDescription(){
-<span class="nc" id="L26">        return description;</span>
+<span class="fc" id="L44">        return description;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

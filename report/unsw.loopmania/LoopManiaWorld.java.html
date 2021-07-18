@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 import org.javatuples.Pair;
 
-
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
@@ -77,13 +76,13 @@ public class LoopManiaWorld {
     /**
      * the number of rounds
      */
-<span class="fc" id="L80">    private int roundsNum = 0;</span>
+<span class="fc" id="L79">    private int roundsNum = 0;</span>
 
     /**
      * the number of rounds
      */
-<span class="fc" id="L85">    private boolean UsedTheOneRing = false;    </span>
-
+<span class="fc" id="L84">    private boolean UsedTheOneRing = false;    </span>
+<span class="fc" id="L85">    private boolean IsFight = false;</span>
     /**
      * create the world (constructor)
      * 
@@ -92,19 +91,19 @@ public class LoopManiaWorld {
      * @param orderedPath ordered list of x, y coordinate pairs representing
      *                    position of path cells in world
      */
-<span class="fc" id="L95">    public LoopManiaWorld(int width, int height, List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath) {</span>
-<span class="fc" id="L96">        this.width = width;</span>
-<span class="fc" id="L97">        this.height = height;</span>
-<span class="fc" id="L98">        nonSpecifiedEntities = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L99">        character = null;</span>
-<span class="fc" id="L100">        enemies = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L101">        cardEntities = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L102">        unequippedInventoryItems = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L103">        this.orderedPath = orderedPath;</span>
-<span class="fc" id="L104">        buildingEntities = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L94">    public LoopManiaWorld(int width, int height, List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath) {</span>
+<span class="fc" id="L95">        this.width = width;</span>
+<span class="fc" id="L96">        this.height = height;</span>
+<span class="fc" id="L97">        nonSpecifiedEntities = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L98">        character = null;</span>
+<span class="fc" id="L99">        enemies = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L100">        cardEntities = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L101">        unequippedInventoryItems = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L102">        this.orderedPath = orderedPath;</span>
+<span class="fc" id="L103">        buildingEntities = new ArrayList&lt;&gt;();</span>
         //this.goalCondition = 
 
-<span class="fc" id="L107">    }</span>
+<span class="fc" id="L106">    }</span>
 
 
 
@@ -115,7 +114,7 @@ public class LoopManiaWorld {
      * @return world wigth
      */
     public int getWidth() {
-<span class="fc" id="L118">        return width;</span>
+<span class="fc" id="L117">        return width;</span>
     }
 
     /**
@@ -124,7 +123,7 @@ public class LoopManiaWorld {
      * @return world height
      */
     public int getHeight() {
-<span class="nc" id="L127">        return height;</span>
+<span class="nc" id="L126">        return height;</span>
     }
 
     /**
@@ -134,8 +133,8 @@ public class LoopManiaWorld {
      * @param character the character
      */
     public void setCharacter(Character character) {
-<span class="nc" id="L137">        this.character = character;</span>
-<span class="nc" id="L138">    }</span>
+<span class="fc" id="L136">        this.character = character;</span>
+<span class="fc" id="L137">    }</span>
 
     /**
      * add a generic entity (without it's own dedicated method for adding to the
@@ -147,8 +146,8 @@ public class LoopManiaWorld {
         // for adding non-specific entities (ones without another dedicated list)
         // if more specialised types being added from main menu, add more methods like
         // this with specific input types...
-<span class="nc" id="L150">        nonSpecifiedEntities.add(entity);</span>
-<span class="nc" id="L151">    }</span>
+<span class="nc" id="L149">        nonSpecifiedEntities.add(entity);</span>
+<span class="nc" id="L150">    }</span>
 
     /**
      * spawns enemies if the conditions warrant it, adds to world
@@ -156,15 +155,15 @@ public class LoopManiaWorld {
      * @return list of the enemies to be displayed on screen
      */
     public List&lt;BasicEnemy&gt; possiblySpawnEnemies() {
-<span class="nc" id="L159">        Pair&lt;Integer, Integer&gt; pos = possiblyGetBasicEnemySpawnPosition();</span>
-<span class="nc" id="L160">        List&lt;BasicEnemy&gt; spawningEnemies = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (pos != null) {</span>
-<span class="nc" id="L162">            int indexInPath = orderedPath.indexOf(pos);</span>
-<span class="nc" id="L163">            Slug enemy = new Slug(new PathPosition(indexInPath, orderedPath));</span>
-<span class="nc" id="L164">            enemies.add(enemy);</span>
-<span class="nc" id="L165">            spawningEnemies.add(enemy);</span>
+<span class="nc" id="L158">        Pair&lt;Integer, Integer&gt; pos = possiblyGetBasicEnemySpawnPosition();</span>
+<span class="nc" id="L159">        List&lt;BasicEnemy&gt; spawningEnemies = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        if (pos != null) {</span>
+<span class="nc" id="L161">            int indexInPath = orderedPath.indexOf(pos);</span>
+<span class="nc" id="L162">            Slug enemy = new Slug(new PathPosition(indexInPath, orderedPath));</span>
+<span class="nc" id="L163">            enemies.add(enemy);</span>
+<span class="nc" id="L164">            spawningEnemies.add(enemy);</span>
         }
-<span class="nc" id="L167">        return spawningEnemies;</span>
+<span class="nc" id="L166">        return spawningEnemies;</span>
     }
 
     /**
@@ -173,18 +172,19 @@ public class LoopManiaWorld {
      * @param enemy enemy to be killed
      */
     private void killEnemy(BasicEnemy enemy) {
-<span class="nc" id="L176">        enemy.destroy();</span>
-<span class="nc" id="L177">        enemies.remove(enemy);</span>
-<span class="nc" id="L178">    }</span>
+<span class="fc" id="L175">        enemy.destroy();</span>
+<span class="fc" id="L176">        enemies.remove(enemy);</span>
+<span class="fc" id="L177">    }</span>
 
     /**
      * run the expected battles in the world, based on current world state
      * @return list of enemies which have been killed
      */
     public List&lt;BasicEnemy&gt; runBattles() {
-<span class="nc" id="L185">        List&lt;BasicEnemy&gt; defeatedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
-<span class="nc" id="L186">        List&lt;BasicEnemy&gt; possibleSupporEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
-<span class="nc" id="L187">        List&lt;BasicEnemy&gt; fightEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="nc" id="L184">        List&lt;BasicEnemy&gt; defeatedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="nc" id="L185">        List&lt;BasicEnemy&gt; possibleSupporEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="nc" id="L186">        List&lt;BasicEnemy&gt; fightEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="nc" id="L187">        IsFight = false;</span>
 <span class="nc bnc" id="L188" title="All 2 branches missed.">        for (BasicEnemy e: enemies){</span>
             // Pythagoras: a^2+b^2 &lt; radius^2 to see if within radius
             // implement different RHS on this inequality, based on influence radii and battle radii
@@ -216,161 +216,168 @@ public class LoopManiaWorld {
             }
 <span class="nc" id="L217">        }</span>
         // check whether possible support enemy will add to fight
-<span class="nc bnc" id="L219" title="All 2 branches missed.">        for (BasicEnemy e: possibleSupporEnemies){</span>
-<span class="nc bnc" id="L220" title="All 3 branches missed.">            switch (e.getName()) {</span>
-                case &quot;Slug&quot;:
-<span class="nc bnc" id="L222" title="All 2 branches missed.">                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) &lt;= 1){</span>
-<span class="nc" id="L223">                        fightEnemies.add(e);</span>
-                    }
-                    break;
-                case &quot;Vampire&quot;:
-<span class="nc bnc" id="L227" title="All 2 branches missed.">                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) &lt; 9){</span>
-<span class="nc" id="L228">                        fightEnemies.add(e);</span>
-                    }
-                    break;
-                default:
-                    break;
-            }
-<span class="nc" id="L234">        }</span>
+<span class="nc bnc" id="L219" title="All 2 branches missed.">        if (IsFight) {</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">            for (BasicEnemy e: possibleSupporEnemies){</span>
+<span class="nc bnc" id="L221" title="All 3 branches missed.">                switch (e.getName()) {</span>
+                    case &quot;Slug&quot;:
+<span class="nc bnc" id="L223" title="All 2 branches missed.">                        if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) &lt;= 1){</span>
+<span class="nc" id="L224">                            fightEnemies.add(e);</span>
+                        }
+                        break;
+                    case &quot;Vampire&quot;:
+<span class="nc bnc" id="L228" title="All 2 branches missed.">                        if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) &lt; 9){</span>
+<span class="nc" id="L229">                            fightEnemies.add(e);</span>
+                        }
+                        break;
+                    default:
+                        break;
+                }
+<span class="nc" id="L235">            }</span>
 
-<span class="nc" id="L236">        List&lt;BasicEnemy&gt; tranceEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+        }
+
+
+<span class="nc" id="L240">        List&lt;BasicEnemy&gt; tranceEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
         // fight with enemies
-<span class="nc bnc" id="L238" title="All 4 branches missed.">        while (!fightEnemies.isEmpty() &amp;&amp; character.getHealth() &gt; 0) {</span>
-<span class="nc" id="L239">            CommonAttack commonAttack = new CommonAttack();</span>
+<span class="nc bnc" id="L242" title="All 4 branches missed.">        while (!fightEnemies.isEmpty() &amp;&amp; character.getHealth() &gt; 0) {</span>
+<span class="nc" id="L243">            CommonAttack commonAttack = new CommonAttack();</span>
             // check whether tranceEnemies existed
-<span class="nc bnc" id="L241" title="All 2 branches missed.">            if (!tranceEnemies.isEmpty()) {</span>
-<span class="nc bnc" id="L242" title="All 2 branches missed.">                for (BasicEnemy b:tranceEnemies) {</span>
-<span class="nc bnc" id="L243" title="All 2 branches missed.">                    if (b.getTranceTurn() == 0) {</span>
-<span class="nc" id="L244">                        tranceEnemies.remove(b);</span>
-<span class="nc" id="L245">                        fightEnemies.add(b);</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">            if (!tranceEnemies.isEmpty()) {</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">                for (BasicEnemy b:tranceEnemies) {</span>
+<span class="nc bnc" id="L247" title="All 2 branches missed.">                    if (b.getTranceTurn() == 0) {</span>
+<span class="nc" id="L248">                        tranceEnemies.remove(b);</span>
+<span class="nc" id="L249">                        fightEnemies.add(b);</span>
                     }
-<span class="nc" id="L247">                }</span>
+<span class="nc" id="L251">                }</span>
             }
 
             // fight with trance enemies case
-<span class="nc bnc" id="L251" title="All 2 branches missed.">            if (!tranceEnemies.isEmpty()) {</span>
-<span class="nc bnc" id="L252" title="All 2 branches missed.">                for (BasicEnemy b:tranceEnemies) {</span>
-<span class="nc bnc" id="L253" title="All 2 branches missed.">                    if (!fightEnemies.isEmpty()) {</span>
-<span class="nc bnc" id="L254" title="All 2 branches missed.">                        if (b.getName().equals(&quot;Vampire&quot;)) {</span>
-<span class="nc" id="L255">                            int r = new Random().nextInt(10);</span>
-<span class="nc bnc" id="L256" title="All 2 branches missed.">                            if (r &lt; 3) {</span>
-<span class="nc" id="L257">                                VampireAttack va = new VampireAttack();</span>
-<span class="nc" id="L258">                                va.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;allied&quot;);</span>
-<span class="nc" id="L259">                            } else {</span>
-<span class="nc" id="L260">                                commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;vampire&quot;);</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">            if (!tranceEnemies.isEmpty()) {</span>
+<span class="nc bnc" id="L256" title="All 2 branches missed.">                for (BasicEnemy b:tranceEnemies) {</span>
+<span class="nc bnc" id="L257" title="All 2 branches missed.">                    if (!fightEnemies.isEmpty()) {</span>
+<span class="nc bnc" id="L258" title="All 2 branches missed.">                        if (b.getName().equals(&quot;Vampire&quot;)) {</span>
+<span class="nc" id="L259">                            int r = new Random().nextInt(10);</span>
+<span class="nc bnc" id="L260" title="All 2 branches missed.">                            if (r &lt; 3) {</span>
+<span class="nc" id="L261">                                VampireAttack va = new VampireAttack();</span>
+<span class="nc" id="L262">                                va.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;allied&quot;);</span>
+<span class="nc" id="L263">                            } else {</span>
+<span class="nc" id="L264">                                commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;vampire&quot;);</span>
                             }
-<span class="nc bnc" id="L262" title="All 2 branches missed.">                        } else if (b.getName().equals(&quot;Zombie&quot;)) {</span>
-<span class="nc" id="L263">                            commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;zombie&quot;);</span>
-<span class="nc bnc" id="L264" title="All 2 branches missed.">                        } else if (b.getName().equals(&quot;Slug&quot;)) {</span>
-<span class="nc" id="L265">                            commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;slug&quot;);</span>
+<span class="nc bnc" id="L266" title="All 2 branches missed.">                        } else if (b.getName().equals(&quot;Zombie&quot;)) {</span>
+<span class="nc" id="L267">                            commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;zombie&quot;);</span>
+<span class="nc bnc" id="L268" title="All 2 branches missed.">                        } else if (b.getName().equals(&quot;Slug&quot;)) {</span>
+<span class="nc" id="L269">                            commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;slug&quot;);</span>
                         }
-<span class="nc bnc" id="L267" title="All 2 branches missed.">                        if (fightEnemies.get(0).getHealth() &lt;= 0) {</span>
-<span class="nc" id="L268">                            defeatedEnemies.add(fightEnemies.get(0));</span>
-<span class="nc" id="L269">                            fightEnemies.remove(0);</span>
+<span class="nc bnc" id="L271" title="All 2 branches missed.">                        if (fightEnemies.get(0).getHealth() &lt;= 0) {</span>
+<span class="nc" id="L272">                            defeatedEnemies.add(fightEnemies.get(0));</span>
+<span class="nc" id="L273">                            fightEnemies.remove(0);</span>
                         }
-<span class="nc" id="L271">                        b.setTranceTurn(b.getTranceTurn() - 1);</span>
+<span class="nc" id="L275">                        b.setTranceTurn(b.getTranceTurn() - 1);</span>
                     }
-<span class="nc" id="L273">                }</span>
+<span class="nc" id="L277">                }</span>
             }
             // normal fight (enemy)
-<span class="nc bnc" id="L276" title="All 2 branches missed.">            for (BasicEnemy e:fightEnemies) {</span>
-<span class="nc" id="L277">                int randomNum = new Random().nextInt(10);</span>
-<span class="nc bnc" id="L278" title="All 2 branches missed.">                if (e.getName().equals(&quot;Zombie&quot;)) {</span>
-<span class="nc bnc" id="L279" title="All 4 branches missed.">                    if (randomNum &lt; 3 &amp;&amp; !character.getSoldiers().isEmpty()) {</span>
-<span class="nc" id="L280">                        ZombieAttack za = new ZombieAttack();</span>
-<span class="nc" id="L281">                        za.hit(character, tranceEnemies, fightEnemies, e, &quot;enemy&quot;);</span>
-<span class="nc" id="L282">                    } else {</span>
-<span class="nc" id="L283">                        commonAttack.hit(character, tranceEnemies, fightEnemies, e, &quot;enemy&quot;);</span>
+<span class="nc bnc" id="L280" title="All 2 branches missed.">            for (BasicEnemy e:fightEnemies) {</span>
+<span class="nc" id="L281">                int randomNum = new Random().nextInt(10);</span>
+<span class="nc bnc" id="L282" title="All 2 branches missed.">                if (e.getName().equals(&quot;Zombie&quot;)) {</span>
+<span class="nc bnc" id="L283" title="All 4 branches missed.">                    if (randomNum &lt; 3 &amp;&amp; !character.getSoldiers().isEmpty()) {</span>
+<span class="nc" id="L284">                        ZombieAttack za = new ZombieAttack();</span>
+<span class="nc" id="L285">                        za.hit(character, tranceEnemies, fightEnemies, e, &quot;enemy&quot;);</span>
+<span class="nc" id="L286">                    } else {</span>
+<span class="nc" id="L287">                        commonAttack.hit(character, tranceEnemies, fightEnemies, e, &quot;enemy&quot;);</span>
                     }
-<span class="nc bnc" id="L285" title="All 2 branches missed.">                } else if (e.getName().equals(&quot;Vampire&quot;)) {</span>
-<span class="nc bnc" id="L286" title="All 2 branches missed.">                    if (randomNum &lt; 3) {</span>
-<span class="nc bnc" id="L287" title="All 2 branches missed.">                        if (character.getShield() instanceof Shield) {</span>
-<span class="nc" id="L288">                            int index = new Random().nextInt(10);</span>
-<span class="nc bnc" id="L289" title="All 2 branches missed.">                            if (index &lt; 4) {</span>
-<span class="nc" id="L290">                                VampireAttack va = new VampireAttack();</span>
-<span class="nc" id="L291">                                va.hit(character, tranceEnemies, enemies, e, &quot;enemy&quot;);</span>
-<span class="nc" id="L292">                            } else {</span>
-<span class="nc" id="L293">                                commonAttack.hit(character, tranceEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">                } else if (e.getName().equals(&quot;Vampire&quot;)) {</span>
+<span class="nc bnc" id="L290" title="All 2 branches missed.">                    if (randomNum &lt; 3) {</span>
+<span class="nc bnc" id="L291" title="All 2 branches missed.">                        if (character.getShield() instanceof Shield) {</span>
+<span class="nc" id="L292">                            int index = new Random().nextInt(10);</span>
+<span class="nc bnc" id="L293" title="All 2 branches missed.">                            if (index &lt; 4) {</span>
+<span class="nc" id="L294">                                VampireAttack va = new VampireAttack();</span>
+<span class="nc" id="L295">                                va.hit(character, tranceEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="nc" id="L296">                            } else {</span>
+<span class="nc" id="L297">                                commonAttack.hit(character, tranceEnemies, enemies, e, &quot;enemy&quot;);</span>
                             }
-<span class="nc" id="L295">                        } else {</span>
-<span class="nc" id="L296">                            VampireAttack va = new VampireAttack();</span>
-<span class="nc" id="L297">                            va.hit(character, tranceEnemies, fightEnemies, e, &quot;enemy&quot;);</span>
-<span class="nc" id="L298">                        }</span>
+<span class="nc" id="L299">                        } else {</span>
+<span class="nc" id="L300">                            VampireAttack va = new VampireAttack();</span>
+<span class="nc" id="L301">                            va.hit(character, tranceEnemies, fightEnemies, e, &quot;enemy&quot;);</span>
+<span class="nc" id="L302">                        }</span>
                     } else {
-<span class="nc" id="L300">                        commonAttack.hit(character, tranceEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="nc" id="L304">                        commonAttack.hit(character, tranceEnemies, enemies, e, &quot;enemy&quot;);</span>
                     }
                 } else {
-<span class="nc" id="L303">                    commonAttack.hit(character, tranceEnemies, fightEnemies, e, &quot;enemy&quot;);</span>
+<span class="nc" id="L307">                    commonAttack.hit(character, tranceEnemies, fightEnemies, e, &quot;enemy&quot;);</span>
                 }
-<span class="nc" id="L305">            }</span>
+<span class="nc" id="L309">            }</span>
 
             // allied soldier fight case
-<span class="nc bnc" id="L308" title="All 2 branches missed.">            if (!fightEnemies.isEmpty()) {</span>
-<span class="nc bnc" id="L309" title="All 2 branches missed.">                for (int a = 0; a &lt; character.getSoldiers().size(); a++) {</span>
-<span class="nc" id="L310">                    commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;soldier&quot;);</span>
-<span class="nc bnc" id="L311" title="All 2 branches missed.">                    if (fightEnemies.get(0).getHealth() &lt;= 0) {</span>
-<span class="nc" id="L312">                        defeatedEnemies.add(fightEnemies.get(0));</span>
-<span class="nc" id="L313">                        fightEnemies.remove(0);</span>
+<span class="nc bnc" id="L312" title="All 2 branches missed.">            if (!fightEnemies.isEmpty()) {</span>
+<span class="nc bnc" id="L313" title="All 2 branches missed.">                for (int a = 0; a &lt; character.getSoldiers().size(); a++) {</span>
+<span class="nc" id="L314">                    commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;soldier&quot;);</span>
+<span class="nc bnc" id="L315" title="All 2 branches missed.">                    if (fightEnemies.get(0).getHealth() &lt;= 0) {</span>
+<span class="nc" id="L316">                        defeatedEnemies.add(fightEnemies.get(0));</span>
+<span class="nc" id="L317">                        fightEnemies.remove(0);</span>
                     }
                 }
             }
             // normal fight with equipment (character)
-<span class="nc bnc" id="L318" title="All 2 branches missed.">            if (!fightEnemies.isEmpty()) {</span>
-<span class="nc bnc" id="L319" title="All 2 branches missed.">                if (character.getWeapon() instanceof Sword) {</span>
-<span class="nc" id="L320">                    commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;character&quot;);</span>
-<span class="nc bnc" id="L321" title="All 2 branches missed.">                } else if (character.getWeapon() instanceof Staff) {</span>
-<span class="nc" id="L322">                    int random = new Random().nextInt(10);</span>
-<span class="nc bnc" id="L323" title="All 2 branches missed.">                    if (random == 2) {</span>
-<span class="nc" id="L324">                        StaffAttack sa = new StaffAttack();</span>
-<span class="nc" id="L325">                        sa.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;null&quot;);</span>
-<span class="nc" id="L326">                    } else {</span>
-<span class="nc" id="L327">                        commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;character&quot;);</span>
+<span class="nc bnc" id="L322" title="All 2 branches missed.">            if (!fightEnemies.isEmpty()) {</span>
+<span class="nc bnc" id="L323" title="All 2 branches missed.">                if (character.getWeapon() instanceof Sword) {</span>
+<span class="nc" id="L324">                    commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;character&quot;);</span>
+<span class="nc bnc" id="L325" title="All 2 branches missed.">                } else if (character.getWeapon() instanceof Staff) {</span>
+<span class="nc" id="L326">                    int random = new Random().nextInt(10);</span>
+<span class="nc bnc" id="L327" title="All 2 branches missed.">                    if (random == 2) {</span>
+<span class="nc" id="L328">                        StaffAttack sa = new StaffAttack();</span>
+<span class="nc" id="L329">                        sa.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;null&quot;);</span>
+<span class="nc" id="L330">                    } else {</span>
+<span class="nc" id="L331">                        commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;character&quot;);</span>
                     }
-<span class="nc bnc" id="L329" title="All 2 branches missed.">                } else if (character.getWeapon() instanceof Stake) {</span>
-<span class="nc" id="L330">                    StakeAttack ak = new StakeAttack();</span>
-<span class="nc" id="L331">                    ak.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;null&quot;);</span>
-<span class="nc" id="L332">                } else {</span>
-<span class="nc" id="L333">                    commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;character&quot;);</span>
+<span class="nc bnc" id="L333" title="All 2 branches missed.">                } else if (character.getWeapon() instanceof Stake) {</span>
+<span class="nc" id="L334">                    StakeAttack ak = new StakeAttack();</span>
+<span class="nc" id="L335">                    ak.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;null&quot;);</span>
+<span class="nc" id="L336">                } else {</span>
+<span class="nc" id="L337">                    commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), &quot;character&quot;);</span>
                 }
             }
 
             // check whether enemy has been defeated
-<span class="nc bnc" id="L338" title="All 2 branches missed.">            if (!fightEnemies.isEmpty()) {</span>
-<span class="nc bnc" id="L339" title="All 2 branches missed.">                if (fightEnemies.get(0).getHealth() &lt;= 0) {</span>
-<span class="nc" id="L340">                    defeatedEnemies.add(fightEnemies.get(0));</span>
-<span class="nc" id="L341">                    fightEnemies.remove(0);</span>
+<span class="nc bnc" id="L342" title="All 2 branches missed.">            if (!fightEnemies.isEmpty()) {</span>
+<span class="nc bnc" id="L343" title="All 2 branches missed.">                if (fightEnemies.get(0).getHealth() &lt;= 0) {</span>
+<span class="nc" id="L344">                    defeatedEnemies.add(fightEnemies.get(0));</span>
+<span class="nc" id="L345">                    fightEnemies.remove(0);</span>
                 }
             } else {
-<span class="nc bnc" id="L344" title="All 2 branches missed.">                for (BasicEnemy e:tranceEnemies) {</span>
-<span class="nc" id="L345">                    defeatedEnemies.add(e);</span>
-<span class="nc" id="L346">                }</span>
+<span class="nc bnc" id="L348" title="All 2 branches missed.">                for (BasicEnemy e:tranceEnemies) {</span>
+<span class="nc" id="L349">                    defeatedEnemies.add(e);</span>
+<span class="nc" id="L350">                }</span>
             }
-<span class="nc" id="L348">        }</span>
+<span class="nc" id="L352">        }</span>
 
         // kill all defeated enemies
-<span class="nc bnc" id="L351" title="All 2 branches missed.">        for (BasicEnemy e: defeatedEnemies){</span>
+<span class="nc bnc" id="L355" title="All 2 branches missed.">        for (BasicEnemy e: defeatedEnemies){</span>
             // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
             // if we killEnemy in prior loop, we get java.util.ConcurrentModificationException
             // due to mutating list we're iterating over
-<span class="nc" id="L355">            System.out.println(&quot;The character kill the &quot; + e.getName() + &quot;!&quot;);</span>
-<span class="nc" id="L356">            killEnemy(e);</span>
-<span class="nc" id="L357">        }</span>
+<span class="nc" id="L359">            System.out.println(&quot;The character kill the &quot; + e.getName() + &quot;!&quot;);</span>
+<span class="nc" id="L360">            killEnemy(e);</span>
+<span class="nc" id="L361">        }</span>
 
         // character HP check
-<span class="nc bnc" id="L360" title="All 4 branches missed.">        if (character.getHealth() &lt;= 0 &amp;&amp; character.getTheOneRing() != null) {</span>
-<span class="nc" id="L361">            System.out.println(&quot;The Character Using the ONE ring, respawns with full health!&quot;);</span>
-<span class="nc" id="L362">            character.setTheOneRing(null);</span>
-<span class="nc" id="L363">            character.setHealth(100);</span>
-<span class="nc" id="L364">            setUsedTheOneRing(true);</span>
-<span class="nc bnc" id="L365" title="All 2 branches missed.">        } else if(character.getHealth() &lt;= 0) {</span>
+<span class="nc bnc" id="L364" title="All 4 branches missed.">        if (character.getHealth() &lt;= 0 &amp;&amp; character.getTheOneRing() != null) {</span>
+<span class="nc" id="L365">            System.out.println(&quot;The Character Using the ONE ring, respawns with full health!&quot;);</span>
+<span class="nc" id="L366">            character.setTheOneRing(null);</span>
+<span class="nc" id="L367">            character.setHealth(100);</span>
+<span class="nc" id="L368">            setUsedTheOneRing(true);</span>
+<span class="nc bnc" id="L369" title="All 2 branches missed.">        } else if(character.getHealth() &lt;= 0) {</span>
             // TODO: ren si le , you xie jie shu
-<span class="nc bnc" id="L367" title="All 2 branches missed.">            if (goalCheck()) {</span>
+<span class="nc bnc" id="L371" title="All 2 branches missed.">            if (goalCheck()) {</span>
                 // game end
-<span class="nc" id="L369">                System.out.print(&quot;successful!&quot;);</span>
+<span class="nc" id="L373">                System.out.print(&quot;you have meet the conditio, Game successful!&quot;);</span>
+            } else {
+<span class="nc" id="L375">                System.out.print(&quot;you have not meet the conditio, Game fail!&quot;);</span>
+
             }
             
         }
-<span class="nc" id="L373">        return defeatedEnemies;</span>
+<span class="nc" id="L380">        return defeatedEnemies;</span>
     }
 
     /**
@@ -380,68 +387,68 @@ public class LoopManiaWorld {
      */
     public Card loadCard(CARDS_TYPE cards_TYPE) {
         // if adding more cards than have, remove the first card...
-<span class="nc bnc" id="L383" title="All 2 branches missed.">        if (cardEntities.size() &gt;= getWidth()) {</span>
+<span class="pc bpc" id="L390" title="1 of 2 branches missed.">        if (cardEntities.size() &gt;= getWidth()) {</span>
             // give some cash/experience/item rewards for the discarding of the oldest card
-<span class="nc" id="L385">            int rdGold = new Random().nextInt(5);</span>
-<span class="nc" id="L386">            character.setGold(character.getGold() + rdGold);</span>
-<span class="nc" id="L387">            character.setEXP(character.getEXP() + 2);</span>
-<span class="nc" id="L388">            int rd = new Random().nextInt(100);</span>
-<span class="nc bnc" id="L389" title="All 2 branches missed.">            if (rd &lt;= 0) {</span>
-<span class="nc" id="L390">                addUnequippedItem(ITEMS_TYPE.SWORD);</span>
-<span class="nc bnc" id="L391" title="All 4 branches missed.">            } else if (rd &gt; 0 &amp;&amp; rd &lt;= 1) {</span>
-<span class="nc" id="L392">                addUnequippedItem(ITEMS_TYPE.STAKE);</span>
-<span class="nc bnc" id="L393" title="All 4 branches missed.">            } else if (rd &gt; 1 &amp;&amp; rd &lt;= 2) {</span>
-<span class="nc" id="L394">                addUnequippedItem(ITEMS_TYPE.STAFF);</span>
-<span class="nc bnc" id="L395" title="All 4 branches missed.">            } else if (rd &gt; 2 &amp;&amp; rd &lt;= 3) {</span>
-<span class="nc" id="L396">                addUnequippedItem(ITEMS_TYPE.ARMOUR);</span>
-<span class="nc bnc" id="L397" title="All 4 branches missed.">            } else if (rd &gt; 3 &amp;&amp; rd &lt;= 4) {</span>
-<span class="nc" id="L398">                addUnequippedItem(ITEMS_TYPE.SHIELD);</span>
-<span class="nc bnc" id="L399" title="All 4 branches missed.">            } else if (rd &gt; 4 &amp;&amp; rd &lt;= 5) {</span>
-<span class="nc" id="L400">                addUnequippedItem(ITEMS_TYPE.HELMET);</span>
-<span class="nc bnc" id="L401" title="All 4 branches missed.">            } else if (rd &gt; 5 &amp;&amp; rd &lt;= 6) {</span>
-<span class="nc" id="L402">                character.setHealth(character.getHealth() + 50); // health potion</span>
+<span class="nc" id="L392">            int rdGold = new Random().nextInt(5);</span>
+<span class="nc" id="L393">            character.setGold(character.getGold() + rdGold);</span>
+<span class="nc" id="L394">            character.setEXP(character.getEXP() + 2);</span>
+<span class="nc" id="L395">            int rd = new Random().nextInt(100);</span>
+<span class="nc bnc" id="L396" title="All 2 branches missed.">            if (rd &lt;= 0) {</span>
+<span class="nc" id="L397">                addUnequippedItem(ITEMS_TYPE.SWORD);</span>
+<span class="nc bnc" id="L398" title="All 4 branches missed.">            } else if (rd &gt; 0 &amp;&amp; rd &lt;= 1) {</span>
+<span class="nc" id="L399">                addUnequippedItem(ITEMS_TYPE.STAKE);</span>
+<span class="nc bnc" id="L400" title="All 4 branches missed.">            } else if (rd &gt; 1 &amp;&amp; rd &lt;= 2) {</span>
+<span class="nc" id="L401">                addUnequippedItem(ITEMS_TYPE.STAFF);</span>
+<span class="nc bnc" id="L402" title="All 4 branches missed.">            } else if (rd &gt; 2 &amp;&amp; rd &lt;= 3) {</span>
+<span class="nc" id="L403">                addUnequippedItem(ITEMS_TYPE.ARMOUR);</span>
+<span class="nc bnc" id="L404" title="All 4 branches missed.">            } else if (rd &gt; 3 &amp;&amp; rd &lt;= 4) {</span>
+<span class="nc" id="L405">                addUnequippedItem(ITEMS_TYPE.SHIELD);</span>
+<span class="nc bnc" id="L406" title="All 4 branches missed.">            } else if (rd &gt; 4 &amp;&amp; rd &lt;= 5) {</span>
+<span class="nc" id="L407">                addUnequippedItem(ITEMS_TYPE.HELMET);</span>
+<span class="nc bnc" id="L408" title="All 4 branches missed.">            } else if (rd &gt; 5 &amp;&amp; rd &lt;= 6) {</span>
+<span class="nc" id="L409">                character.setHealth(character.getHealth() + 50); // health potion</span>
             } else {
                 // nothing
             }
             // remove oldest card
-<span class="nc" id="L407">            removeCard(0);</span>
+<span class="nc" id="L414">            removeCard(0);</span>
         }
-<span class="nc" id="L409">        Card card = null;</span>
-<span class="nc bnc" id="L410" title="All 8 branches missed.">        switch (cards_TYPE) {</span>
+<span class="fc" id="L416">        Card card = null;</span>
+<span class="pc bpc" id="L417" title="2 of 8 branches missed.">        switch (cards_TYPE) {</span>
             case TOWER: {
-<span class="nc" id="L412">                card = new TowerCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
-<span class="nc" id="L413">                break;</span>
+<span class="fc" id="L419">                card = new TowerCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L420">                break;</span>
             }
             case ZOMBIEPIT: {
-<span class="nc" id="L416">                card = new ZombiePitCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
-<span class="nc" id="L417">                break;</span>
+<span class="fc" id="L423">                card = new ZombiePitCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L424">                break;</span>
             }
             case VAMPIRECASTLE: {
-<span class="nc" id="L420">                card = new VampireCastleCard(new SimpleIntegerProperty(cardEntities.size()),</span>
+<span class="fc" id="L427">                card = new VampireCastleCard(new SimpleIntegerProperty(cardEntities.size()),</span>
                         new SimpleIntegerProperty(0));
-<span class="nc" id="L422">                break;</span>
+<span class="fc" id="L429">                break;</span>
             }
             case BARRACK: {
-<span class="nc" id="L425">                card = new BarrackCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
-<span class="nc" id="L426">                break;</span>
+<span class="fc" id="L432">                card = new BarrackCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L433">                break;</span>
             }
             case VILLAGE: {
-<span class="nc" id="L429">                card = new VillageCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
-<span class="nc" id="L430">                break;</span>
+<span class="fc" id="L436">                card = new VillageCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L437">                break;</span>
             }
             case TRAP: {
-<span class="nc" id="L433">                card = new TrapCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
-<span class="nc" id="L434">                break;</span>
+<span class="fc" id="L440">                card = new TrapCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L441">                break;</span>
             }
             case CAMPFIRE: {
-<span class="nc" id="L437">                card = new CampfireCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
-<span class="nc" id="L438">                break;</span>
+<span class="nc" id="L444">                card = new CampfireCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
+<span class="nc" id="L445">                break;</span>
             }
             default:
                 break;
         }
-<span class="nc" id="L443">        cardEntities.add(card);</span>
-<span class="nc" id="L444">        return card;</span>
+<span class="fc" id="L450">        cardEntities.add(card);</span>
+<span class="fc" id="L451">        return card;</span>
     }
 
     /**
@@ -450,13 +457,13 @@ public class LoopManiaWorld {
      * 
      * @param index the index of the card, from 0 to length-1
      */
-    private void removeCard(int index) {
-<span class="nc" id="L454">        Card c = cardEntities.get(index);</span>
-<span class="nc" id="L455">        int x = c.getX();</span>
-<span class="nc" id="L456">        c.destroy();</span>
-<span class="nc" id="L457">        cardEntities.remove(index);</span>
-<span class="nc" id="L458">        shiftCardsDownFromXCoordinate(x);</span>
-<span class="nc" id="L459">    }</span>
+    public void removeCard(int index) {
+<span class="fc" id="L461">        Card c = cardEntities.get(index);</span>
+<span class="fc" id="L462">        int x = c.getX();</span>
+<span class="fc" id="L463">        c.destroy();</span>
+<span class="fc" id="L464">        cardEntities.remove(index);</span>
+<span class="fc" id="L465">        shiftCardsDownFromXCoordinate(x);</span>
+<span class="fc" id="L466">    }</span>
 
     /**
      * spawn a item in the world and return the item entity
@@ -464,59 +471,59 @@ public class LoopManiaWorld {
      * @return a item to be spawned in the controller as a JavaFX node
      */
     public Item addUnequippedItem(ITEMS_TYPE itemType) {
-<span class="nc" id="L467">        Pair&lt;Integer, Integer&gt; firstAvailableSlot = getFirstAvailableSlotForItem();</span>
-<span class="nc bnc" id="L468" title="All 2 branches missed.">        if (firstAvailableSlot == null) {</span>
+<span class="nc" id="L474">        Pair&lt;Integer, Integer&gt; firstAvailableSlot = getFirstAvailableSlotForItem();</span>
+<span class="nc bnc" id="L475" title="All 2 branches missed.">        if (firstAvailableSlot == null) {</span>
             // eject the oldest unequipped item and replace it... oldest item is that at
             // beginning of items
             // give some cash/experience rewards for the discarding of the oldest item
-<span class="nc" id="L472">            character.setGold(character.getGold() + unequippedInventoryItems.get(0).getPrice() / 5);</span>
-<span class="nc" id="L473">            character.setEXP(character.getEXP() + 2);</span>
-<span class="nc" id="L474">            removeItemByPositionInUnequippedInventoryItems(0);</span>
-<span class="nc" id="L475">            firstAvailableSlot = getFirstAvailableSlotForItem();</span>
+<span class="nc" id="L479">            character.setGold(character.getGold() + unequippedInventoryItems.get(0).getPrice() / 5);</span>
+<span class="nc" id="L480">            character.setEXP(character.getEXP() + 2);</span>
+<span class="nc" id="L481">            removeItemByPositionInUnequippedInventoryItems(0);</span>
+<span class="nc" id="L482">            firstAvailableSlot = getFirstAvailableSlotForItem();</span>
         }
-<span class="nc" id="L477">        Item item = null;</span>
-<span class="nc bnc" id="L478" title="All 8 branches missed.">        switch (itemType) {</span>
+<span class="nc" id="L484">        Item item = null;</span>
+<span class="nc bnc" id="L485" title="All 8 branches missed.">        switch (itemType) {</span>
             case SWORD: {
-<span class="nc" id="L480">                item = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
-<span class="nc" id="L481">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 6, 0, 10);</span>
-<span class="nc" id="L482">                break;</span>
+<span class="nc" id="L487">                item = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
+<span class="nc" id="L488">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 6, 0, 10);</span>
+<span class="nc" id="L489">                break;</span>
             }
             case STAKE: {
-<span class="nc" id="L485">                item = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
-<span class="nc" id="L486">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 4, 0, 10);</span>
-<span class="nc" id="L487">                break;</span>
+<span class="nc" id="L492">                item = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
+<span class="nc" id="L493">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 4, 0, 10);</span>
+<span class="nc" id="L494">                break;</span>
             }
             case STAFF: {
-<span class="nc" id="L490">                item = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
-<span class="nc" id="L491">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 2, 0, 15);</span>
-<span class="nc" id="L492">                break;</span>
+<span class="nc" id="L497">                item = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
+<span class="nc" id="L498">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 2, 0, 15);</span>
+<span class="nc" id="L499">                break;</span>
             }
             case ARMOUR: {
-<span class="nc" id="L495">                item = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
-<span class="nc" id="L496">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 3, 20);</span>
-<span class="nc" id="L497">                break;</span>
+<span class="nc" id="L502">                item = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
+<span class="nc" id="L503">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 3, 20);</span>
+<span class="nc" id="L504">                break;</span>
             }
             case SHIELD: {
-<span class="nc" id="L500">                item = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
-<span class="nc" id="L501">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 20);</span>
-<span class="nc" id="L502">                break;</span>
+<span class="nc" id="L507">                item = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
+<span class="nc" id="L508">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 20);</span>
+<span class="nc" id="L509">                break;</span>
             }
             case HELMET: {
-<span class="nc" id="L505">                item = new Helmet(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
-<span class="nc" id="L506">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 1, 20);</span>
-<span class="nc" id="L507">                break;</span>
+<span class="nc" id="L512">                item = new Helmet(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
+<span class="nc" id="L513">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 1, 20);</span>
+<span class="nc" id="L514">                break;</span>
             }
             case THEONERING: {
-<span class="nc" id="L510">                item = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
-<span class="nc" id="L511">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 0);</span>
-<span class="nc" id="L512">                break;</span>
+<span class="nc" id="L517">                item = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),</span>
+<span class="nc" id="L518">                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 0);</span>
+<span class="nc" id="L519">                break;</span>
             }
             default:
                 break;
         }
-<span class="nc" id="L517">        unequippedInventoryItems.add(item);</span>
+<span class="nc" id="L524">        unequippedInventoryItems.add(item);</span>
 
-<span class="nc" id="L519">        return item;</span>
+<span class="nc" id="L526">        return item;</span>
     }
 
     /**
@@ -526,9 +533,9 @@ public class LoopManiaWorld {
      * @param y y coordinate from 0 to height-1
      */
     public void removeUnequippedInventoryItemByCoordinates(int x, int y) {
-<span class="nc" id="L529">        Entity item = getUnequippedInventoryItemEntityByCoordinates(x, y);</span>
-<span class="nc" id="L530">        removeUnequippedInventoryItem(item);</span>
-<span class="nc" id="L531">    }</span>
+<span class="nc" id="L536">        Entity item = getUnequippedInventoryItemEntityByCoordinates(x, y);</span>
+<span class="nc" id="L537">        removeUnequippedInventoryItem(item);</span>
+<span class="nc" id="L538">    }</span>
 
     /**
      * run moves which occur with every tick without needing to spawn anything
@@ -536,45 +543,45 @@ public class LoopManiaWorld {
      */
     public void runTickMoves() {
 
-<span class="nc" id="L539">        character.moveDownPath();</span>
-<span class="nc" id="L540">        int rd = new Random().nextInt(100);</span>
-<span class="nc bnc" id="L541" title="All 2 branches missed.">        if (rd &lt;= 0) {</span>
-<span class="nc" id="L542">            addUnequippedItem(ITEMS_TYPE.SWORD);</span>
-<span class="nc bnc" id="L543" title="All 4 branches missed.">        } else if (rd &gt; 0 &amp;&amp; rd &lt;= 1) {</span>
-<span class="nc" id="L544">            addUnequippedItem(ITEMS_TYPE.STAKE);</span>
-<span class="nc bnc" id="L545" title="All 4 branches missed.">        } else if (rd &gt; 1 &amp;&amp; rd &lt;= 2) {</span>
-<span class="nc" id="L546">            addUnequippedItem(ITEMS_TYPE.STAFF);</span>
-<span class="nc bnc" id="L547" title="All 4 branches missed.">        } else if (rd &gt; 2 &amp;&amp; rd &lt;= 3) {</span>
-<span class="nc" id="L548">            addUnequippedItem(ITEMS_TYPE.ARMOUR);</span>
-<span class="nc bnc" id="L549" title="All 4 branches missed.">        } else if (rd &gt; 3 &amp;&amp; rd &lt;= 4) {</span>
-<span class="nc" id="L550">            addUnequippedItem(ITEMS_TYPE.SHIELD);</span>
-<span class="nc bnc" id="L551" title="All 4 branches missed.">        } else if (rd &gt; 4 &amp;&amp; rd &lt;= 5) {</span>
-<span class="nc" id="L552">            addUnequippedItem(ITEMS_TYPE.HELMET);</span>
-<span class="nc bnc" id="L553" title="All 4 branches missed.">        } else if (rd &gt; 5 &amp;&amp; rd &lt;= 6) {</span>
-<span class="nc" id="L554">            loadCard(CARDS_TYPE.VAMPIRECASTLE);</span>
-<span class="nc bnc" id="L555" title="All 4 branches missed.">        } else if (rd &gt; 6 &amp;&amp; rd &lt;= 7) {</span>
-<span class="nc" id="L556">            loadCard(CARDS_TYPE.ZOMBIEPIT);</span>
-<span class="nc bnc" id="L557" title="All 4 branches missed.">        } else if (rd &gt; 7 &amp;&amp; rd &lt;= 8) {</span>
-<span class="nc" id="L558">            loadCard(CARDS_TYPE.TOWER);</span>
-<span class="nc bnc" id="L559" title="All 4 branches missed.">        } else if (rd &gt; 8 &amp;&amp; rd &lt;= 9) {</span>
-<span class="nc" id="L560">            loadCard(CARDS_TYPE.TRAP);</span>
-<span class="nc bnc" id="L561" title="All 4 branches missed.">        } else if (rd &gt; 9 &amp;&amp; rd &lt;= 10) {</span>
-<span class="nc" id="L562">            loadCard(CARDS_TYPE.BARRACK);</span>
-<span class="nc bnc" id="L563" title="All 4 branches missed.">        } else if (rd &gt; 10 &amp;&amp; rd &lt;= 11) {</span>
-<span class="nc" id="L564">            loadCard(CARDS_TYPE.VILLAGE);</span>
-<span class="nc bnc" id="L565" title="All 4 branches missed.">        } else if (rd &gt; 11 &amp;&amp; rd &lt;= 12) {</span>
-<span class="nc" id="L566">            loadCard(CARDS_TYPE.CAMPFIRE);</span>
-<span class="nc bnc" id="L567" title="All 4 branches missed.">        } else if (rd &gt; 12 &amp;&amp; rd &lt;= 15) {</span>
-<span class="nc" id="L568">            character.setHealth(character.getHealth() + 50); // health potion</span>
-<span class="nc bnc" id="L569" title="All 4 branches missed.">        } else if (rd &gt; 15 &amp;&amp; rd &lt;= 18) {</span>
-<span class="nc" id="L570">            character.setGold(character.getGold() + 2); // gold</span>
-<span class="nc bnc" id="L571" title="All 4 branches missed.">        } else if (rd &gt; 18 &amp;&amp; rd &lt;= 21) {</span>
-<span class="nc" id="L572">            character.setEXP(character.getEXP() + 2); // exp</span>
-<span class="nc bnc" id="L573" title="All 4 branches missed.">        } else if (rd &gt; 21 &amp;&amp; rd &lt;= 100) {</span>
+<span class="nc" id="L546">        character.moveDownPath();</span>
+<span class="nc" id="L547">        int rd = new Random().nextInt(100);</span>
+<span class="nc bnc" id="L548" title="All 2 branches missed.">        if (rd &lt;= 0) {</span>
+<span class="nc" id="L549">            addUnequippedItem(ITEMS_TYPE.SWORD);</span>
+<span class="nc bnc" id="L550" title="All 4 branches missed.">        } else if (rd &gt; 0 &amp;&amp; rd &lt;= 1) {</span>
+<span class="nc" id="L551">            addUnequippedItem(ITEMS_TYPE.STAKE);</span>
+<span class="nc bnc" id="L552" title="All 4 branches missed.">        } else if (rd &gt; 1 &amp;&amp; rd &lt;= 2) {</span>
+<span class="nc" id="L553">            addUnequippedItem(ITEMS_TYPE.STAFF);</span>
+<span class="nc bnc" id="L554" title="All 4 branches missed.">        } else if (rd &gt; 2 &amp;&amp; rd &lt;= 3) {</span>
+<span class="nc" id="L555">            addUnequippedItem(ITEMS_TYPE.ARMOUR);</span>
+<span class="nc bnc" id="L556" title="All 4 branches missed.">        } else if (rd &gt; 3 &amp;&amp; rd &lt;= 4) {</span>
+<span class="nc" id="L557">            addUnequippedItem(ITEMS_TYPE.SHIELD);</span>
+<span class="nc bnc" id="L558" title="All 4 branches missed.">        } else if (rd &gt; 4 &amp;&amp; rd &lt;= 5) {</span>
+<span class="nc" id="L559">            addUnequippedItem(ITEMS_TYPE.HELMET);</span>
+<span class="nc bnc" id="L560" title="All 4 branches missed.">        } else if (rd &gt; 5 &amp;&amp; rd &lt;= 6) {</span>
+<span class="nc" id="L561">            loadCard(CARDS_TYPE.VAMPIRECASTLE);</span>
+<span class="nc bnc" id="L562" title="All 4 branches missed.">        } else if (rd &gt; 6 &amp;&amp; rd &lt;= 7) {</span>
+<span class="nc" id="L563">            loadCard(CARDS_TYPE.ZOMBIEPIT);</span>
+<span class="nc bnc" id="L564" title="All 4 branches missed.">        } else if (rd &gt; 7 &amp;&amp; rd &lt;= 8) {</span>
+<span class="nc" id="L565">            loadCard(CARDS_TYPE.TOWER);</span>
+<span class="nc bnc" id="L566" title="All 4 branches missed.">        } else if (rd &gt; 8 &amp;&amp; rd &lt;= 9) {</span>
+<span class="nc" id="L567">            loadCard(CARDS_TYPE.TRAP);</span>
+<span class="nc bnc" id="L568" title="All 4 branches missed.">        } else if (rd &gt; 9 &amp;&amp; rd &lt;= 10) {</span>
+<span class="nc" id="L569">            loadCard(CARDS_TYPE.BARRACK);</span>
+<span class="nc bnc" id="L570" title="All 4 branches missed.">        } else if (rd &gt; 10 &amp;&amp; rd &lt;= 11) {</span>
+<span class="nc" id="L571">            loadCard(CARDS_TYPE.VILLAGE);</span>
+<span class="nc bnc" id="L572" title="All 4 branches missed.">        } else if (rd &gt; 11 &amp;&amp; rd &lt;= 12) {</span>
+<span class="nc" id="L573">            loadCard(CARDS_TYPE.CAMPFIRE);</span>
+<span class="nc bnc" id="L574" title="All 4 branches missed.">        } else if (rd &gt; 12 &amp;&amp; rd &lt;= 15) {</span>
+<span class="nc" id="L575">            character.setHealth(character.getHealth() + 50); // health potion</span>
+<span class="nc bnc" id="L576" title="All 4 branches missed.">        } else if (rd &gt; 15 &amp;&amp; rd &lt;= 18) {</span>
+<span class="nc" id="L577">            character.setGold(character.getGold() + 2); // gold</span>
+<span class="nc bnc" id="L578" title="All 4 branches missed.">        } else if (rd &gt; 18 &amp;&amp; rd &lt;= 21) {</span>
+<span class="nc" id="L579">            character.setEXP(character.getEXP() + 2); // exp</span>
+<span class="nc bnc" id="L580" title="All 4 branches missed.">        } else if (rd &gt; 21 &amp;&amp; rd &lt;= 100) {</span>
             // nothing
         }
-<span class="nc" id="L576">        moveBasicEnemies();</span>
-<span class="nc" id="L577">    }</span>
+<span class="nc" id="L583">        moveBasicEnemies();</span>
+<span class="nc" id="L584">    }</span>
 
     /**
      * remove an item from the unequipped inventory
@@ -582,9 +589,9 @@ public class LoopManiaWorld {
      * @param item item to be removed
      */
     private void removeUnequippedInventoryItem(Entity item) {
-<span class="nc" id="L585">        item.destroy();</span>
-<span class="nc" id="L586">        unequippedInventoryItems.remove(item);</span>
-<span class="nc" id="L587">    }</span>
+<span class="nc" id="L592">        item.destroy();</span>
+<span class="nc" id="L593">        unequippedInventoryItems.remove(item);</span>
+<span class="nc" id="L594">    }</span>
 
     /**
      * return an unequipped inventory item by x and y coordinates assumes that no 2
@@ -595,12 +602,12 @@ public class LoopManiaWorld {
      * @return unequipped inventory item at the input position
      */
     private Item getUnequippedInventoryItemEntityByCoordinates(int x, int y) {
-<span class="nc bnc" id="L598" title="All 2 branches missed.">        for (Item e : unequippedInventoryItems) {</span>
-<span class="nc bnc" id="L599" title="All 4 branches missed.">            if ((e.getX() == x) &amp;&amp; (e.getY() == y)) {</span>
-<span class="nc" id="L600">                return e;</span>
+<span class="nc bnc" id="L605" title="All 2 branches missed.">        for (Item e : unequippedInventoryItems) {</span>
+<span class="nc bnc" id="L606" title="All 4 branches missed.">            if ((e.getX() == x) &amp;&amp; (e.getY() == y)) {</span>
+<span class="nc" id="L607">                return e;</span>
             }
-<span class="nc" id="L602">        }</span>
-<span class="nc" id="L603">        return null;</span>
+<span class="nc" id="L609">        }</span>
+<span class="nc" id="L610">        return null;</span>
     }
 
     /**
@@ -610,10 +617,10 @@ public class LoopManiaWorld {
      * @param index index from 0 to length-1
      */
     private void removeItemByPositionInUnequippedInventoryItems(int index) {
-<span class="nc" id="L613">        Entity item = unequippedInventoryItems.get(index);</span>
-<span class="nc" id="L614">        item.destroy();</span>
-<span class="nc" id="L615">        unequippedInventoryItems.remove(index);</span>
-<span class="nc" id="L616">    }</span>
+<span class="nc" id="L620">        Entity item = unequippedInventoryItems.get(index);</span>
+<span class="nc" id="L621">        item.destroy();</span>
+<span class="nc" id="L622">        unequippedInventoryItems.remove(index);</span>
+<span class="nc" id="L623">    }</span>
 
     /**
      * get the first pair of x,y coordinates which don't have any items in it in the
@@ -625,14 +632,14 @@ public class LoopManiaWorld {
         // first available slot for an item...
         // IMPORTANT - have to check by y then x, since trying to find first available
         // slot defined by looking row by row
-<span class="nc bnc" id="L628" title="All 2 branches missed.">        for (int y = 0; y &lt; unequippedInventoryHeight; y++) {</span>
-<span class="nc bnc" id="L629" title="All 2 branches missed.">            for (int x = 0; x &lt; unequippedInventoryWidth; x++) {</span>
-<span class="nc bnc" id="L630" title="All 2 branches missed.">                if (getUnequippedInventoryItemEntityByCoordinates(x, y) == null) {</span>
-<span class="nc" id="L631">                    return new Pair&lt;Integer, Integer&gt;(x, y);</span>
+<span class="nc bnc" id="L635" title="All 2 branches missed.">        for (int y = 0; y &lt; unequippedInventoryHeight; y++) {</span>
+<span class="nc bnc" id="L636" title="All 2 branches missed.">            for (int x = 0; x &lt; unequippedInventoryWidth; x++) {</span>
+<span class="nc bnc" id="L637" title="All 2 branches missed.">                if (getUnequippedInventoryItemEntityByCoordinates(x, y) == null) {</span>
+<span class="nc" id="L638">                    return new Pair&lt;Integer, Integer&gt;(x, y);</span>
                 }
             }
         }
-<span class="nc" id="L635">        return null;</span>
+<span class="nc" id="L642">        return null;</span>
     }
 
     /**
@@ -641,22 +648,22 @@ public class LoopManiaWorld {
      * @param x x coordinate which can range from 0 to width-1
      */
     private void shiftCardsDownFromXCoordinate(int x) {
-<span class="nc bnc" id="L644" title="All 2 branches missed.">        for (Card c : cardEntities) {</span>
-<span class="nc bnc" id="L645" title="All 2 branches missed.">            if (c.getX() &gt;= x) {</span>
-<span class="nc" id="L646">                c.x().set(c.getX() - 1);</span>
+<span class="fc bfc" id="L651" title="All 2 branches covered.">        for (Card c : cardEntities) {</span>
+<span class="fc bfc" id="L652" title="All 2 branches covered.">            if (c.getX() &gt;= x) {</span>
+<span class="fc" id="L653">                c.x().set(c.getX() - 1);</span>
             }
-<span class="nc" id="L648">        }</span>
-<span class="nc" id="L649">    }</span>
+<span class="fc" id="L655">        }</span>
+<span class="fc" id="L656">    }</span>
 
     /**
      * move all enemies
      */
     private void moveBasicEnemies() {
         // TODO = expand to more types of enemy
-<span class="nc bnc" id="L656" title="All 2 branches missed.">        for (BasicEnemy e : enemies) {</span>
-<span class="nc" id="L657">            e.move();</span>
-<span class="nc" id="L658">        }</span>
-<span class="nc" id="L659">    }</span>
+<span class="nc bnc" id="L663" title="All 2 branches missed.">        for (BasicEnemy e : enemies) {</span>
+<span class="nc" id="L664">            e.move();</span>
+<span class="nc" id="L665">        }</span>
+<span class="nc" id="L666">    }</span>
 
     /**
      * get a randomly generated position which could be used to spawn an enemy
@@ -665,31 +672,29 @@ public class LoopManiaWorld {
      *         possible, or random coordinate pair if should go ahead
      */
     private Pair&lt;Integer, Integer&gt; possiblyGetBasicEnemySpawnPosition() {
-        // TODO = modify this
 
         // has a chance spawning a basic enemy on a tile the character isn't on or
         // immediately before or after (currently space required = 2)...
-<span class="nc" id="L672">        Random rand = new Random();</span>
-<span class="nc" id="L673">        int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...</span>
-        // TODO = change based on spec
-<span class="nc bnc" id="L675" title="All 4 branches missed.">        if ((choice == 0) &amp;&amp; (enemies.size() &lt; 2)) {</span>
-<span class="nc" id="L676">            List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPathSpawnCandidates = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L677">            int indexPosition = orderedPath.indexOf(new Pair&lt;Integer, Integer&gt;(character.getX(), character.getY()));</span>
+<span class="nc" id="L678">        Random rand = new Random();</span>
+<span class="nc" id="L679">        int choice = rand.nextInt(2); </span>
+<span class="nc bnc" id="L680" title="All 4 branches missed.">        if ((choice == 0) &amp;&amp; (enemies.size() &lt; 2)) {</span>
+<span class="nc" id="L681">            List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPathSpawnCandidates = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L682">            int indexPosition = orderedPath.indexOf(new Pair&lt;Integer, Integer&gt;(character.getX(), character.getY()));</span>
             // inclusive start and exclusive end of range of positions not allowed
-<span class="nc" id="L679">            int startNotAllowed = (indexPosition - 2 + orderedPath.size()) % orderedPath.size();</span>
-<span class="nc" id="L680">            int endNotAllowed = (indexPosition + 3) % orderedPath.size();</span>
+<span class="nc" id="L684">            int startNotAllowed = (indexPosition - 2 + orderedPath.size()) % orderedPath.size();</span>
+<span class="nc" id="L685">            int endNotAllowed = (indexPosition + 3) % orderedPath.size();</span>
             // note terminating condition has to be != rather than &lt; since wrap around...
-<span class="nc bnc" id="L682" title="All 2 branches missed.">            for (int i = endNotAllowed; i != startNotAllowed; i = (i + 1) % orderedPath.size()) {</span>
-<span class="nc" id="L683">                orderedPathSpawnCandidates.add(orderedPath.get(i));</span>
+<span class="nc bnc" id="L687" title="All 2 branches missed.">            for (int i = endNotAllowed; i != startNotAllowed; i = (i + 1) % orderedPath.size()) {</span>
+<span class="nc" id="L688">                orderedPathSpawnCandidates.add(orderedPath.get(i));</span>
             }
 
             // choose random choice
-<span class="nc" id="L687">            Pair&lt;Integer, Integer&gt; spawnPosition = orderedPathSpawnCandidates</span>
-<span class="nc" id="L688">                    .get(rand.nextInt(orderedPathSpawnCandidates.size()));</span>
+<span class="nc" id="L692">            Pair&lt;Integer, Integer&gt; spawnPosition = orderedPathSpawnCandidates</span>
+<span class="nc" id="L693">                    .get(rand.nextInt(orderedPathSpawnCandidates.size()));</span>
 
-<span class="nc" id="L690">            return spawnPosition;</span>
+<span class="nc" id="L695">            return spawnPosition;</span>
         }
-<span class="nc" id="L692">        return null;</span>
+<span class="nc" id="L697">        return null;</span>
     }
 
     /**
@@ -703,46 +708,46 @@ public class LoopManiaWorld {
     public Building convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX,
             int buildingNodeY) {
         // start by getting card
-<span class="nc" id="L706">        Card card = null;</span>
-<span class="nc bnc" id="L707" title="All 2 branches missed.">        for (Card c : cardEntities) {</span>
-<span class="nc bnc" id="L708" title="All 4 branches missed.">            if ((c.getX() == cardNodeX) &amp;&amp; (c.getY() == cardNodeY)) {</span>
-<span class="nc" id="L709">                card = c;</span>
-<span class="nc" id="L710">                break;</span>
+<span class="fc" id="L711">        Card card = null;</span>
+<span class="pc bpc" id="L712" title="1 of 2 branches missed.">        for (Card c : cardEntities) {</span>
+<span class="pc bpc" id="L713" title="2 of 4 branches missed.">            if ((c.getX() == cardNodeX) &amp;&amp; (c.getY() == cardNodeY)) {</span>
+<span class="fc" id="L714">                card = c;</span>
+<span class="fc" id="L715">                break;</span>
             }
-<span class="nc" id="L712">        }</span>
+<span class="nc" id="L717">        }</span>
         // now spawn building
-<span class="nc" id="L714">        Building newBuilding = null;</span>
-<span class="nc bnc" id="L715" title="All 2 branches missed.">        if (card instanceof TowerCard) {</span>
-<span class="nc" id="L716">            newBuilding = new TowerBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
+<span class="fc" id="L719">        Building newBuilding = null;</span>
+<span class="fc bfc" id="L720" title="All 2 branches covered.">        if (card instanceof TowerCard) {</span>
+<span class="fc" id="L721">            newBuilding = new TowerBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
                     new SimpleIntegerProperty(buildingNodeY));
-<span class="nc bnc" id="L718" title="All 2 branches missed.">        } else if (card instanceof ZombiePitCard) {</span>
-<span class="nc" id="L719">            newBuilding = new ZombiePitBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
+<span class="fc bfc" id="L723" title="All 2 branches covered.">        } else if (card instanceof ZombiePitCard) {</span>
+<span class="fc" id="L724">            newBuilding = new ZombiePitBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
                     new SimpleIntegerProperty(buildingNodeY));
-<span class="nc bnc" id="L721" title="All 2 branches missed.">        } else if (card instanceof VampireCastleCard) {</span>
-<span class="nc" id="L722">            newBuilding = new VampireCastleBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
+<span class="fc bfc" id="L726" title="All 2 branches covered.">        } else if (card instanceof VampireCastleCard) {</span>
+<span class="fc" id="L727">            newBuilding = new VampireCastleBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
                     new SimpleIntegerProperty(buildingNodeY));
-<span class="nc bnc" id="L724" title="All 2 branches missed.">        } else if (card instanceof BarrackCard) {</span>
-<span class="nc" id="L725">            newBuilding = new BarrackBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
+<span class="fc bfc" id="L729" title="All 2 branches covered.">        } else if (card instanceof BarrackCard) {</span>
+<span class="fc" id="L730">            newBuilding = new BarrackBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
                     new SimpleIntegerProperty(buildingNodeY));
-<span class="nc bnc" id="L727" title="All 2 branches missed.">        } else if (card instanceof VillageCard) {</span>
-<span class="nc" id="L728">            newBuilding = new VillageBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
+<span class="fc bfc" id="L732" title="All 2 branches covered.">        } else if (card instanceof VillageCard) {</span>
+<span class="fc" id="L733">            newBuilding = new VillageBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
                     new SimpleIntegerProperty(buildingNodeY));
-<span class="nc bnc" id="L730" title="All 2 branches missed.">        } else if (card instanceof TrapCard) {</span>
-<span class="nc" id="L731">            newBuilding = new TrapBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
+<span class="pc bpc" id="L735" title="1 of 2 branches missed.">        } else if (card instanceof TrapCard) {</span>
+<span class="fc" id="L736">            newBuilding = new TrapBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
                     new SimpleIntegerProperty(buildingNodeY));
-<span class="nc bnc" id="L733" title="All 2 branches missed.">        } else if (card instanceof CampfireCard) {</span>
-<span class="nc" id="L734">            newBuilding = new CampfireBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
+<span class="nc bnc" id="L738" title="All 2 branches missed.">        } else if (card instanceof CampfireCard) {</span>
+<span class="nc" id="L739">            newBuilding = new CampfireBuilding(new SimpleIntegerProperty(buildingNodeX),</span>
                     new SimpleIntegerProperty(buildingNodeY));
         }
 
-<span class="nc" id="L738">        buildingEntities.add(newBuilding);</span>
+<span class="fc" id="L743">        buildingEntities.add(newBuilding);</span>
 
         // destroy the card
-<span class="nc" id="L741">        card.destroy();</span>
-<span class="nc" id="L742">        cardEntities.remove(card);</span>
-<span class="nc" id="L743">        shiftCardsDownFromXCoordinate(cardNodeX);</span>
+<span class="fc" id="L746">        card.destroy();</span>
+<span class="fc" id="L747">        cardEntities.remove(card);</span>
+<span class="fc" id="L748">        shiftCardsDownFromXCoordinate(cardNodeX);</span>
 
-<span class="nc" id="L745">        return newBuilding;</span>
+<span class="fc" id="L750">        return newBuilding;</span>
     }
 
     /**
@@ -753,14 +758,14 @@ public class LoopManiaWorld {
      * @return the result
      */
     public boolean checkInPath(Integer x, Integer y) {
-<span class="nc" id="L756">        boolean ret = false;</span>
-<span class="nc bnc" id="L757" title="All 2 branches missed.">        for (Pair&lt;Integer, Integer&gt; pair : orderedPath) {</span>
-<span class="nc bnc" id="L758" title="All 4 branches missed.">            if (pair.getValue(0) == x &amp;&amp; pair.getValue(1) == y) {</span>
-<span class="nc" id="L759">                ret = true;</span>
-<span class="nc" id="L760">                break;</span>
+<span class="fc" id="L761">        boolean ret = false;</span>
+<span class="fc bfc" id="L762" title="All 2 branches covered.">        for (Pair&lt;Integer, Integer&gt; pair : orderedPath) {</span>
+<span class="fc bfc" id="L763" title="All 4 branches covered.">            if (pair.getValue(0) == x &amp;&amp; pair.getValue(1) == y) {</span>
+<span class="fc" id="L764">                ret = true;</span>
+<span class="fc" id="L765">                break;</span>
             }
-<span class="nc" id="L762">        }</span>
-<span class="nc" id="L763">        return ret;</span>
+<span class="fc" id="L767">        }</span>
+<span class="fc" id="L768">        return ret;</span>
     }
 
     /**
@@ -771,22 +776,22 @@ public class LoopManiaWorld {
      * @return the result
      */
     public boolean checkAdjacentPath(Integer x, Integer y) {
-<span class="nc bnc" id="L774" title="All 2 branches missed.">        if (checkInPath(x, y))</span>
-<span class="nc" id="L775">            return false;</span>
-<span class="nc" id="L776">        boolean ret = false;</span>
-<span class="nc" id="L777">        int[] dx = { 0, 1, 0, -1 };</span>
-<span class="nc" id="L778">        int[] dy = { -1, 0, 1, 0 };</span>
-<span class="nc bnc" id="L779" title="All 2 branches missed.">        for (Pair&lt;Integer, Integer&gt; pair : orderedPath) {</span>
-<span class="nc" id="L780">            int mx = (Integer) pair.getValue(0);</span>
-<span class="nc" id="L781">            int my = (Integer) pair.getValue(1);</span>
-<span class="nc bnc" id="L782" title="All 2 branches missed.">            for (int i = 0; i &lt; 4; i++) {</span>
-<span class="nc bnc" id="L783" title="All 4 branches missed.">                if (mx + dx[i] == x &amp;&amp; my + dy[i] == y) {</span>
-<span class="nc" id="L784">                    ret = true;</span>
-<span class="nc" id="L785">                    break;</span>
+<span class="fc bfc" id="L779" title="All 2 branches covered.">        if (checkInPath(x, y))</span>
+<span class="fc" id="L780">            return false;</span>
+<span class="fc" id="L781">        boolean ret = false;</span>
+<span class="fc" id="L782">        int[] dx = { 0, 1, 0, -1 };</span>
+<span class="fc" id="L783">        int[] dy = { -1, 0, 1, 0 };</span>
+<span class="fc bfc" id="L784" title="All 2 branches covered.">        for (Pair&lt;Integer, Integer&gt; pair : orderedPath) {</span>
+<span class="fc" id="L785">            int mx = (Integer) pair.getValue(0);</span>
+<span class="fc" id="L786">            int my = (Integer) pair.getValue(1);</span>
+<span class="fc bfc" id="L787" title="All 2 branches covered.">            for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc bfc" id="L788" title="All 4 branches covered.">                if (mx + dx[i] == x &amp;&amp; my + dy[i] == y) {</span>
+<span class="fc" id="L789">                    ret = true;</span>
+<span class="fc" id="L790">                    break;</span>
                 }
             }
-<span class="nc" id="L788">        }</span>
-<span class="nc" id="L789">        return ret;</span>
+<span class="fc" id="L793">        }</span>
+<span class="fc" id="L794">        return ret;</span>
     }
 
     /**
@@ -795,7 +800,7 @@ public class LoopManiaWorld {
      * @return unequippedInventoryItems
      */
     public List&lt;Item&gt; getUnequippedInventoryItems() {
-<span class="nc" id="L798">        return unequippedInventoryItems;</span>
+<span class="nc" id="L803">        return unequippedInventoryItems;</span>
     }
 
     /**
@@ -804,30 +809,30 @@ public class LoopManiaWorld {
     public BasicEnemy spawnAZombie(int x, int y) {
 
         // find a adjacent position in the path
-<span class="nc" id="L807">        int[] dx = { 0, 1, 0, -1 };</span>
-<span class="nc" id="L808">        int[] dy = { -1, 0, 1, 0 };</span>
-<span class="nc" id="L809">        boolean isFind = false;</span>
-<span class="nc bnc" id="L810" title="All 2 branches missed.">        for (Pair&lt;Integer, Integer&gt; pair : orderedPath) {</span>
-<span class="nc" id="L811">            int mx = (Integer) pair.getValue(0);</span>
-<span class="nc" id="L812">            int my = (Integer) pair.getValue(1);</span>
-<span class="nc bnc" id="L813" title="All 2 branches missed.">            for (int i = 0; i &lt; 4; i++) {</span>
-<span class="nc bnc" id="L814" title="All 4 branches missed.">                if (x + dx[i] == mx &amp;&amp; y + dy[i] == my) {</span>
-<span class="nc" id="L815">                    x = mx;</span>
-<span class="nc" id="L816">                    y = my;</span>
-<span class="nc" id="L817">                    isFind = true;</span>
-<span class="nc" id="L818">                    break;</span>
+<span class="fc" id="L812">        int[] dx = { 0, 1, 0, -1 };</span>
+<span class="fc" id="L813">        int[] dy = { -1, 0, 1, 0 };</span>
+<span class="fc" id="L814">        boolean isFind = false;</span>
+<span class="pc bpc" id="L815" title="1 of 2 branches missed.">        for (Pair&lt;Integer, Integer&gt; pair : orderedPath) {</span>
+<span class="fc" id="L816">            int mx = (Integer) pair.getValue(0);</span>
+<span class="fc" id="L817">            int my = (Integer) pair.getValue(1);</span>
+<span class="fc bfc" id="L818" title="All 2 branches covered.">            for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc bfc" id="L819" title="All 4 branches covered.">                if (x + dx[i] == mx &amp;&amp; y + dy[i] == my) {</span>
+<span class="fc" id="L820">                    x = mx;</span>
+<span class="fc" id="L821">                    y = my;</span>
+<span class="fc" id="L822">                    isFind = true;</span>
+<span class="fc" id="L823">                    break;</span>
                 }
             }
-<span class="nc bnc" id="L821" title="All 2 branches missed.">            if (isFind)</span>
-<span class="nc" id="L822">                break;</span>
-<span class="nc" id="L823">        }</span>
+<span class="fc bfc" id="L826" title="All 2 branches covered.">            if (isFind)</span>
+<span class="fc" id="L827">                break;</span>
+<span class="fc" id="L828">        }</span>
 
         // spawn a zombie in the position (x,y)
-<span class="nc" id="L826">        Pair&lt;Integer, Integer&gt; pos = new Pair&lt;&gt;(x, y);</span>
-<span class="nc" id="L827">        int indexInPath = orderedPath.indexOf(pos);</span>
-<span class="nc" id="L828">        Zombie zombie = new Zombie(new PathPosition(indexInPath, orderedPath));</span>
-<span class="nc" id="L829">        enemies.add(zombie);</span>
-<span class="nc" id="L830">        return zombie;</span>
+<span class="fc" id="L831">        Pair&lt;Integer, Integer&gt; pos = new Pair&lt;&gt;(x, y);</span>
+<span class="fc" id="L832">        int indexInPath = orderedPath.indexOf(pos);</span>
+<span class="fc" id="L833">        Zombie zombie = new Zombie(new PathPosition(indexInPath, orderedPath));</span>
+<span class="fc" id="L834">        enemies.add(zombie);</span>
+<span class="fc" id="L835">        return zombie;</span>
     }
 
     /**
@@ -835,67 +840,67 @@ public class LoopManiaWorld {
      */
     public Vampire spawnAVampire(int x, int y) {
         // find a adjacent position in the path
-<span class="nc" id="L838">        int[] dx = { 0, 1, 0, -1 };</span>
-<span class="nc" id="L839">        int[] dy = { -1, 0, 1, 0 };</span>
-<span class="nc" id="L840">        boolean isFind = false;</span>
-<span class="nc bnc" id="L841" title="All 2 branches missed.">        for (Pair&lt;Integer, Integer&gt; pair : orderedPath) {</span>
-<span class="nc" id="L842">            int mx = (Integer) pair.getValue(0);</span>
-<span class="nc" id="L843">            int my = (Integer) pair.getValue(1);</span>
-<span class="nc bnc" id="L844" title="All 2 branches missed.">            for (int i = 0; i &lt; 4; i++) {</span>
-<span class="nc bnc" id="L845" title="All 4 branches missed.">                if (x + dx[i] == mx &amp;&amp; y + dy[i] == my) {</span>
-<span class="nc" id="L846">                    x = mx;</span>
-<span class="nc" id="L847">                    y = my;</span>
-<span class="nc" id="L848">                    isFind = true;</span>
-<span class="nc" id="L849">                    break;</span>
+<span class="fc" id="L843">        int[] dx = { 0, 1, 0, -1 };</span>
+<span class="fc" id="L844">        int[] dy = { -1, 0, 1, 0 };</span>
+<span class="fc" id="L845">        boolean isFind = false;</span>
+<span class="pc bpc" id="L846" title="1 of 2 branches missed.">        for (Pair&lt;Integer, Integer&gt; pair : orderedPath) {</span>
+<span class="fc" id="L847">            int mx = (Integer) pair.getValue(0);</span>
+<span class="fc" id="L848">            int my = (Integer) pair.getValue(1);</span>
+<span class="fc bfc" id="L849" title="All 2 branches covered.">            for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc bfc" id="L850" title="All 4 branches covered.">                if (x + dx[i] == mx &amp;&amp; y + dy[i] == my) {</span>
+<span class="fc" id="L851">                    x = mx;</span>
+<span class="fc" id="L852">                    y = my;</span>
+<span class="fc" id="L853">                    isFind = true;</span>
+<span class="fc" id="L854">                    break;</span>
                 }
             }
-<span class="nc bnc" id="L852" title="All 2 branches missed.">            if (isFind)</span>
-<span class="nc" id="L853">                break;</span>
-<span class="nc" id="L854">        }</span>
+<span class="fc bfc" id="L857" title="All 2 branches covered.">            if (isFind)</span>
+<span class="fc" id="L858">                break;</span>
+<span class="fc" id="L859">        }</span>
 
         // spawn a zombie in the position (x,y)
-<span class="nc" id="L857">        Pair&lt;Integer, Integer&gt; pos = new Pair&lt;&gt;(x, y);</span>
-<span class="nc" id="L858">        int indexInPath = orderedPath.indexOf(pos);</span>
-<span class="nc" id="L859">        Vampire vampire = new Vampire(new PathPosition(indexInPath, orderedPath));</span>
-<span class="nc" id="L860">        enemies.add(vampire);</span>
-<span class="nc" id="L861">        return vampire;</span>
+<span class="fc" id="L862">        Pair&lt;Integer, Integer&gt; pos = new Pair&lt;&gt;(x, y);</span>
+<span class="fc" id="L863">        int indexInPath = orderedPath.indexOf(pos);</span>
+<span class="fc" id="L864">        Vampire vampire = new Vampire(new PathPosition(indexInPath, orderedPath));</span>
+<span class="fc" id="L865">        enemies.add(vampire);</span>
+<span class="fc" id="L866">        return vampire;</span>
     }
 
     /**
      * Generate enemies according to building characteristics
      */
     public List&lt;BasicEnemy&gt; spawnEnemiesByBuilding() {
-<span class="nc" id="L868">        List&lt;BasicEnemy&gt; retList = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L869" title="All 2 branches missed.">        if (buildingEntities == null)</span>
-<span class="nc" id="L870">            return retList;</span>
-<span class="nc bnc" id="L871" title="All 2 branches missed.">        for (Building building : buildingEntities) {</span>
-<span class="nc bnc" id="L872" title="All 2 branches missed.">            if (building instanceof ZombiePitBuilding) {</span>
-<span class="nc" id="L873">                List&lt;BasicEnemy&gt; tmp = ((ZombiePitBuilding) building).spawnZombie(this);</span>
-<span class="nc bnc" id="L874" title="All 2 branches missed.">                if (tmp.size() &gt; 0) {</span>
-<span class="nc" id="L875">                    retList.addAll(tmp);</span>
+<span class="fc" id="L873">        List&lt;BasicEnemy&gt; retList = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L874" title="1 of 2 branches missed.">        if (buildingEntities == null)</span>
+<span class="nc" id="L875">            return retList;</span>
+<span class="fc bfc" id="L876" title="All 2 branches covered.">        for (Building building : buildingEntities) {</span>
+<span class="fc bfc" id="L877" title="All 2 branches covered.">            if (building instanceof ZombiePitBuilding) {</span>
+<span class="fc" id="L878">                List&lt;BasicEnemy&gt; tmp = ((ZombiePitBuilding) building).spawnZombie(this);</span>
+<span class="pc bpc" id="L879" title="1 of 2 branches missed.">                if (tmp.size() &gt; 0) {</span>
+<span class="fc" id="L880">                    retList.addAll(tmp);</span>
                 }
-<span class="nc bnc" id="L877" title="All 2 branches missed.">            } else if (building instanceof VampireCastleBuilding) {</span>
-<span class="nc" id="L878">                List&lt;BasicEnemy&gt; tmp = ((VampireCastleBuilding) building).spawnVampires(this);</span>
-<span class="nc bnc" id="L879" title="All 2 branches missed.">                if (tmp.size() &gt; 0) {</span>
-<span class="nc" id="L880">                    retList.addAll(tmp);</span>
+<span class="pc bpc" id="L882" title="1 of 2 branches missed.">            } else if (building instanceof VampireCastleBuilding) {</span>
+<span class="fc" id="L883">                List&lt;BasicEnemy&gt; tmp = ((VampireCastleBuilding) building).spawnVampires(this);</span>
+<span class="fc bfc" id="L884" title="All 2 branches covered.">                if (tmp.size() &gt; 0) {</span>
+<span class="fc" id="L885">                    retList.addAll(tmp);</span>
                 }
             }
-<span class="nc" id="L883">        }</span>
-<span class="nc" id="L884">        return retList;</span>
+<span class="fc" id="L888">        }</span>
+<span class="fc" id="L889">        return retList;</span>
     }
 
     /**
      * add rouds number
      */
     public void addRoundsNum() {
-<span class="nc" id="L891">        roundsNum++;</span>
-<span class="nc" id="L892">    }</span>
+<span class="nc" id="L896">        roundsNum++;</span>
+<span class="nc" id="L897">    }</span>
 
     /**
      * get current rouds number
      */
     public int getRoundsNum() {
-<span class="nc" id="L898">        return roundsNum;</span>
+<span class="nc" id="L903">        return roundsNum;</span>
     }
 
     /**
@@ -904,10 +909,10 @@ public class LoopManiaWorld {
      * @return item
      */
     public Item getLastUnequippedInventoryItem() {
-<span class="nc bnc" id="L907" title="All 2 branches missed.">        if (unequippedInventoryItems.size() &gt; 0) {</span>
-<span class="nc" id="L908">            return unequippedInventoryItems.get(unequippedInventoryItems.size() - 1);</span>
+<span class="nc bnc" id="L912" title="All 2 branches missed.">        if (unequippedInventoryItems.size() &gt; 0) {</span>
+<span class="nc" id="L913">            return unequippedInventoryItems.get(unequippedInventoryItems.size() - 1);</span>
         }
-<span class="nc" id="L910">        return null;</span>
+<span class="nc" id="L915">        return null;</span>
     }
 
     /**
@@ -916,10 +921,10 @@ public class LoopManiaWorld {
      * @return card
      */
     public Card getLastCardEntity() {
-<span class="nc bnc" id="L919" title="All 2 branches missed.">        if (cardEntities.size() &gt; 0) {</span>
-<span class="nc" id="L920">            return cardEntities.get(cardEntities.size() - 1);</span>
+<span class="fc bfc" id="L924" title="All 2 branches covered.">        if (cardEntities.size() &gt; 0) {</span>
+<span class="fc" id="L925">            return cardEntities.get(cardEntities.size() - 1);</span>
         }
-<span class="nc" id="L922">        return null;</span>
+<span class="fc" id="L927">        return null;</span>
     }
 
     /**
@@ -928,7 +933,7 @@ public class LoopManiaWorld {
      * @return
      */
     public Character getCharacter() {
-<span class="nc" id="L931">        return character;</span>
+<span class="nc" id="L936">        return character;</span>
     }
 
     /**
@@ -937,51 +942,51 @@ public class LoopManiaWorld {
      * @return basic enemy list
      */
     public List&lt;BasicEnemy&gt; buildingFunction() {
-<span class="nc" id="L940">        List&lt;BasicEnemy&gt; deadEnemies = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L941" title="All 4 branches missed.">        if (buildingEntities == null || buildingEntities.isEmpty())</span>
-<span class="nc" id="L942">            return deadEnemies;</span>
-<span class="nc" id="L943">        boolean hasAttackEnhance = false;</span>
-<span class="nc bnc" id="L944" title="All 2 branches missed.">        for (Building building : buildingEntities) {</span>
+<span class="fc" id="L945">        List&lt;BasicEnemy&gt; deadEnemies = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L946" title="2 of 4 branches missed.">        if (buildingEntities == null || buildingEntities.isEmpty())</span>
+<span class="nc" id="L947">            return deadEnemies;</span>
+<span class="fc" id="L948">        boolean hasAttackEnhance = false;</span>
+<span class="fc bfc" id="L949" title="All 2 branches covered.">        for (Building building : buildingEntities) {</span>
 
             // tower
-<span class="nc bnc" id="L947" title="All 2 branches missed.">            if (building instanceof TowerBuilding) {</span>
-<span class="nc" id="L948">                List&lt;BasicEnemy&gt; tmpEnemies = ((TowerBuilding) building).work(enemies);</span>
-<span class="nc bnc" id="L949" title="All 2 branches missed.">                for (BasicEnemy e : tmpEnemies) {</span>
-<span class="nc" id="L950">                    killEnemy(e);</span>
-<span class="nc" id="L951">                }</span>
-<span class="nc" id="L952">                deadEnemies.addAll(tmpEnemies);</span>
+<span class="fc bfc" id="L952" title="All 2 branches covered.">            if (building instanceof TowerBuilding) {</span>
+<span class="fc" id="L953">                List&lt;BasicEnemy&gt; tmpEnemies = ((TowerBuilding) building).work(enemies);</span>
+<span class="fc bfc" id="L954" title="All 2 branches covered.">                for (BasicEnemy e : tmpEnemies) {</span>
+<span class="fc" id="L955">                    killEnemy(e);</span>
+<span class="fc" id="L956">                }</span>
+<span class="fc" id="L957">                deadEnemies.addAll(tmpEnemies);</span>
             }
 
             // villiage
-<span class="nc bnc" id="L956" title="All 2 branches missed.">            if (building instanceof VillageBuilding) {</span>
-<span class="nc" id="L957">                ((VillageBuilding) building).work(character);</span>
+<span class="fc bfc" id="L961" title="All 2 branches covered.">            if (building instanceof VillageBuilding) {</span>
+<span class="fc" id="L962">                ((VillageBuilding) building).work(character);</span>
             }
 
             // campfire
-<span class="nc bnc" id="L961" title="All 2 branches missed.">            if (building instanceof CampfireBuilding) {</span>
-<span class="nc" id="L962">                hasAttackEnhance = ((CampfireBuilding) building).work(character);</span>
+<span class="pc bpc" id="L966" title="1 of 2 branches missed.">            if (building instanceof CampfireBuilding) {</span>
+<span class="nc" id="L967">                hasAttackEnhance = ((CampfireBuilding) building).work(character);</span>
             }
 
             // trap
-<span class="nc bnc" id="L966" title="All 2 branches missed.">            if (building instanceof TrapBuilding) {</span>
-<span class="nc" id="L967">                List&lt;BasicEnemy&gt; tmpEnemies = ((TrapBuilding) building).work(enemies);</span>
-<span class="nc bnc" id="L968" title="All 2 branches missed.">                for (BasicEnemy e : tmpEnemies) {</span>
-<span class="nc" id="L969">                    killEnemy(e);</span>
-<span class="nc" id="L970">                }</span>
-<span class="nc" id="L971">                deadEnemies.addAll(tmpEnemies);</span>
+<span class="fc bfc" id="L971" title="All 2 branches covered.">            if (building instanceof TrapBuilding) {</span>
+<span class="fc" id="L972">                List&lt;BasicEnemy&gt; tmpEnemies = ((TrapBuilding) building).work(enemies);</span>
+<span class="pc bpc" id="L973" title="1 of 2 branches missed.">                for (BasicEnemy e : tmpEnemies) {</span>
+<span class="nc" id="L974">                    killEnemy(e);</span>
+<span class="nc" id="L975">                }</span>
+<span class="fc" id="L976">                deadEnemies.addAll(tmpEnemies);</span>
             }
 
             // barrack
-<span class="nc bnc" id="L975" title="All 2 branches missed.">            if (building instanceof BarrackBuilding) {</span>
-<span class="nc" id="L976">                ((BarrackBuilding) building).work(character);</span>
+<span class="pc bpc" id="L980" title="1 of 2 branches missed.">            if (building instanceof BarrackBuilding) {</span>
+<span class="nc" id="L981">                ((BarrackBuilding) building).work(character);</span>
             }
-<span class="nc" id="L978">        }</span>
+<span class="fc" id="L983">        }</span>
 
-<span class="nc bnc" id="L980" title="All 2 branches missed.">        if (hasAttackEnhance) {</span>
-<span class="nc" id="L981">            character.setAttackEnhance(true);</span>
+<span class="pc bpc" id="L985" title="1 of 2 branches missed.">        if (hasAttackEnhance) {</span>
+<span class="nc" id="L986">            character.setAttackEnhance(true);</span>
         }
 
-<span class="nc" id="L984">        return deadEnemies;</span>
+<span class="fc" id="L989">        return deadEnemies;</span>
     }
 
     /**
@@ -994,37 +999,37 @@ public class LoopManiaWorld {
      * @return Item
      */
     public Item GetEquippedFromUnequippedByCoordinates(int srcX, int srcY, int destX, int destY) {
-<span class="nc" id="L997">        Item item = getUnequippedInventoryItemEntityByCoordinates(srcX, srcY);</span>
-<span class="nc bnc" id="L998" title="All 6 branches missed.">        if (destX == 0 &amp; destY == 0) {</span>
-<span class="nc bnc" id="L999" title="All 6 branches missed.">            if (item instanceof Sword || item instanceof Stake || item instanceof Staff) {</span>
-<span class="nc" id="L1000">                removeUnequippedInventoryItemByCoordinates(srcX, srcY);</span>
-<span class="nc" id="L1001">                item.setPosition(destX, destY);</span>
+<span class="nc" id="L1002">        Item item = getUnequippedInventoryItemEntityByCoordinates(srcX, srcY);</span>
+<span class="nc bnc" id="L1003" title="All 6 branches missed.">        if (destX == 0 &amp; destY == 0) {</span>
+<span class="nc bnc" id="L1004" title="All 6 branches missed.">            if (item instanceof Sword || item instanceof Stake || item instanceof Staff) {</span>
+<span class="nc" id="L1005">                removeUnequippedInventoryItemByCoordinates(srcX, srcY);</span>
+<span class="nc" id="L1006">                item.setPosition(destX, destY);</span>
             } else {
-<span class="nc" id="L1003">                return null;</span>
+<span class="nc" id="L1008">                return null;</span>
             }
-<span class="nc bnc" id="L1005" title="All 4 branches missed.">        } else if (destX == 1 &amp;&amp; destY == 0) {</span>
-<span class="nc bnc" id="L1006" title="All 4 branches missed.">            if (item instanceof Armour || item instanceof Helmet) {</span>
-<span class="nc" id="L1007">                removeUnequippedInventoryItemByCoordinates(srcX, srcY);</span>
-<span class="nc" id="L1008">                item.setPosition(destX, destY);</span>
+<span class="nc bnc" id="L1010" title="All 4 branches missed.">        } else if (destX == 1 &amp;&amp; destY == 0) {</span>
+<span class="nc bnc" id="L1011" title="All 4 branches missed.">            if (item instanceof Armour || item instanceof Helmet) {</span>
+<span class="nc" id="L1012">                removeUnequippedInventoryItemByCoordinates(srcX, srcY);</span>
+<span class="nc" id="L1013">                item.setPosition(destX, destY);</span>
             } else {
-<span class="nc" id="L1010">                return null;</span>
+<span class="nc" id="L1015">                return null;</span>
             }
-<span class="nc bnc" id="L1012" title="All 4 branches missed.">        } else if (destX == 2 &amp;&amp; destY == 0) {</span>
-<span class="nc bnc" id="L1013" title="All 2 branches missed.">            if (item instanceof Shield) {</span>
-<span class="nc" id="L1014">                removeUnequippedInventoryItemByCoordinates(srcX, srcY);</span>
-<span class="nc" id="L1015">                item.setPosition(destX, destY);</span>
+<span class="nc bnc" id="L1017" title="All 4 branches missed.">        } else if (destX == 2 &amp;&amp; destY == 0) {</span>
+<span class="nc bnc" id="L1018" title="All 2 branches missed.">            if (item instanceof Shield) {</span>
+<span class="nc" id="L1019">                removeUnequippedInventoryItemByCoordinates(srcX, srcY);</span>
+<span class="nc" id="L1020">                item.setPosition(destX, destY);</span>
             } else {
-<span class="nc" id="L1017">                return null;</span>
+<span class="nc" id="L1022">                return null;</span>
             }
-<span class="nc bnc" id="L1019" title="All 4 branches missed.">        } else if (destX == 3 &amp;&amp; destY == 0) {</span>
-<span class="nc bnc" id="L1020" title="All 2 branches missed.">            if (item instanceof TheOneRing) {</span>
-<span class="nc" id="L1021">                removeUnequippedInventoryItemByCoordinates(srcX, srcY);</span>
-<span class="nc" id="L1022">                item.setPosition(destX, destY);</span>
+<span class="nc bnc" id="L1024" title="All 4 branches missed.">        } else if (destX == 3 &amp;&amp; destY == 0) {</span>
+<span class="nc bnc" id="L1025" title="All 2 branches missed.">            if (item instanceof TheOneRing) {</span>
+<span class="nc" id="L1026">                removeUnequippedInventoryItemByCoordinates(srcX, srcY);</span>
+<span class="nc" id="L1027">                item.setPosition(destX, destY);</span>
             } else {
-<span class="nc" id="L1024">                return null;</span>
+<span class="nc" id="L1029">                return null;</span>
             }
         }
-<span class="nc" id="L1027">        return item;</span>
+<span class="nc" id="L1032">        return item;</span>
     }
 
     /**
@@ -1033,36 +1038,44 @@ public class LoopManiaWorld {
      * @param item
      */
     public void setCharacterEquipment(Character character, Item item) {
-<span class="fc" id="L1036">        int basicDamage = 4;</span>
-<span class="fc bfc" id="L1037" title="All 2 branches covered.">        if (item instanceof Sword) {</span>
-<span class="fc" id="L1038">            character.setAggressivity(basicDamage + item.getDamageValue());</span>
-<span class="fc" id="L1039">            character.setWeapon(item);</span>
-<span class="fc bfc" id="L1040" title="All 2 branches covered.">        } else if (item instanceof Stake) {</span>
-<span class="fc" id="L1041">            character.setAggressivity(basicDamage + item.getDamageValue());</span>
-<span class="fc" id="L1042">            character.setWeapon(item);</span>
-<span class="fc bfc" id="L1043" title="All 2 branches covered.">        } else if (item instanceof Staff) {</span>
-<span class="fc" id="L1044">            character.setAggressivity(basicDamage + item.getDamageValue());</span>
-<span class="fc" id="L1045">            character.setWeapon(item);</span>
-<span class="fc bfc" id="L1046" title="All 2 branches covered.">        } else if (item instanceof Armour) {</span>
-<span class="fc" id="L1047">            character.setDefense(item.getDefenseValue());</span>
-<span class="fc" id="L1048">            character.setArmour(item);</span>
-<span class="fc bfc" id="L1049" title="All 2 branches covered.">        } else if (item instanceof Helmet) {</span>
-<span class="fc" id="L1050">            character.setDefense(item.getDefenseValue());</span>
-<span class="fc" id="L1051">            character.setArmour(item);</span>
-<span class="pc bpc" id="L1052" title="1 of 2 branches missed.">        } else if (item instanceof Shield) {</span>
-<span class="fc" id="L1053">            character.setShield(item);</span>
-<span class="nc bnc" id="L1054" title="All 2 branches missed.">        } else if (item instanceof TheOneRing) {</span>
-<span class="nc" id="L1055">            character.setTheOneRing(item);</span>
+<span class="fc" id="L1041">        int basicDamage = 4;</span>
+<span class="fc bfc" id="L1042" title="All 2 branches covered.">        if (item instanceof Sword) {</span>
+<span class="fc" id="L1043">            character.setAggressivity(basicDamage + item.getDamageValue());</span>
+<span class="fc" id="L1044">            character.setWeapon(item);</span>
+<span class="fc bfc" id="L1045" title="All 2 branches covered.">        } else if (item instanceof Stake) {</span>
+<span class="fc" id="L1046">            character.setAggressivity(basicDamage + item.getDamageValue());</span>
+<span class="fc" id="L1047">            character.setWeapon(item);</span>
+<span class="fc bfc" id="L1048" title="All 2 branches covered.">        } else if (item instanceof Staff) {</span>
+<span class="fc" id="L1049">            character.setAggressivity(basicDamage + item.getDamageValue());</span>
+<span class="fc" id="L1050">            character.setWeapon(item);</span>
+<span class="fc bfc" id="L1051" title="All 2 branches covered.">        } else if (item instanceof Armour) {</span>
+<span class="fc" id="L1052">            character.setDefense(item.getDefenseValue());</span>
+<span class="fc" id="L1053">            character.setArmour(item);</span>
+<span class="fc bfc" id="L1054" title="All 2 branches covered.">        } else if (item instanceof Helmet) {</span>
+<span class="fc" id="L1055">            character.setDefense(item.getDefenseValue());</span>
+<span class="fc" id="L1056">            character.setArmour(item);</span>
+<span class="pc bpc" id="L1057" title="1 of 2 branches missed.">        } else if (item instanceof Shield) {</span>
+<span class="fc" id="L1058">            character.setShield(item);</span>
+<span class="nc bnc" id="L1059" title="All 2 branches missed.">        } else if (item instanceof TheOneRing) {</span>
+<span class="nc" id="L1060">            character.setTheOneRing(item);</span>
         }
-<span class="fc" id="L1057">    }</span>
+<span class="fc" id="L1062">    }</span>
 
+    /**
+     * get whether used the one ring
+     * @return whether used the one ring
+     */
     public boolean GetUsedTheOneRing() {
-<span class="nc" id="L1060">        return this.UsedTheOneRing;</span>
+<span class="nc" id="L1069">        return this.UsedTheOneRing;</span>
     }
 
+    /**
+     * set whether used the one ring
+     * @param tf true/fasle
+     */
     public void setUsedTheOneRing(boolean tf) {
-<span class="nc" id="L1064">        this.UsedTheOneRing = tf;</span>
-<span class="nc" id="L1065">    }</span>
+<span class="nc" id="L1077">        this.UsedTheOneRing = tf;</span>
+<span class="nc" id="L1078">    }</span>
 
     /**
      * check if meet the goal condition
@@ -1072,7 +1085,7 @@ public class LoopManiaWorld {
      */
 
     public boolean goalCheck() {
-<span class="nc" id="L1075">        return this.goalCondition.goalCheck(character.getGold(), character.getEXP(), roundsNum);</span>
+<span class="nc" id="L1088">        return this.goalCondition.goalCheck(character.getGold(), character.getEXP(), roundsNum);</span>
 
     }
 
@@ -1083,7 +1096,7 @@ public class LoopManiaWorld {
      * @return 
      */
     public void setGoalCondition(Goal goalCondition) {
-<span class="nc" id="L1086">        this.goalCondition = goalCondition;</span>
-<span class="nc" id="L1087">    }</span>
+<span class="fc" id="L1099">        this.goalCondition = goalCondition;</span>
+<span class="fc" id="L1100">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

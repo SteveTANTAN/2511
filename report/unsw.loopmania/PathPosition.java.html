@@ -39,17 +39,17 @@ public class PathPosition{
      * move forward through the path i.e. clockwise
      */
     public void moveDownPath(){
-<span class="nc" id="L42">        currentPositionInPath = (currentPositionInPath + 1)%orderedPath.size();</span>
-<span class="nc" id="L43">        resetCoordinatesBasedOnPositionInPath();</span>
-<span class="nc" id="L44">    }</span>
+<span class="fc" id="L42">        currentPositionInPath = (currentPositionInPath + 1)%orderedPath.size();</span>
+<span class="fc" id="L43">        resetCoordinatesBasedOnPositionInPath();</span>
+<span class="fc" id="L44">    }</span>
 
     /**
      * move backwards through the path, i.e. anticlockwise
      */
     public void moveUpPath(){
-<span class="nc" id="L50">        currentPositionInPath = (currentPositionInPath - 1 + orderedPath.size())%orderedPath.size();</span>
-<span class="nc" id="L51">        resetCoordinatesBasedOnPositionInPath();</span>
-<span class="nc" id="L52">    }</span>
+<span class="fc" id="L50">        currentPositionInPath = (currentPositionInPath - 1 + orderedPath.size())%orderedPath.size();</span>
+<span class="fc" id="L51">        resetCoordinatesBasedOnPositionInPath();</span>
+<span class="fc" id="L52">    }</span>
 
     /**
      * change the x and y SimpleIntegerProperties to reflect the current values of
@@ -60,12 +60,20 @@ public class PathPosition{
 <span class="fc" id="L60">        y.set(orderedPath.get(currentPositionInPath).getValue1());</span>
 <span class="fc" id="L61">    }</span>
 
+    /**
+     * get X
+     * @return SimpleIntegerProperty
+     */
     public SimpleIntegerProperty getX(){
-<span class="nc" id="L64">        return x;</span>
+<span class="fc" id="L68">        return x;</span>
     }
 
+    /**
+     * get Y
+     * @return SimpleIntegerProperty
+     */
     public SimpleIntegerProperty getY(){
-<span class="nc" id="L68">        return y;</span>
+<span class="fc" id="L76">        return y;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

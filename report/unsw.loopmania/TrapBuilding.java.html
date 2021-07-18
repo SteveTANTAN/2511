@@ -9,25 +9,30 @@ import javafx.beans.property.SimpleIntegerProperty;
  * a basic form of building in the world
  */
 public class TrapBuilding extends Building {
-<span class="nc" id="L12">    private int attackDamage = 10;</span>
-    // DONE = add more types of building, and make sure buildings have effects on entities as required by the spec
+<span class="fc" id="L12">    private int attackDamage = 12;</span>
+    /**
+     * constructor of trap building
+     * @param x SimpleIntegerProperty
+     * @param y SimpleIntegerProperty
+     */
     public TrapBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
-<span class="nc" id="L15">        super(x, y);</span>
-<span class="nc" id="L16">    }</span>
+<span class="fc" id="L19">        super(x, y);</span>
+<span class="fc" id="L20">    }</span>
+
     /**
      * use the function of the builidng
      */
     public List&lt;BasicEnemy&gt; work(List&lt;BasicEnemy&gt; enemies){
-<span class="nc" id="L21">        List&lt;BasicEnemy&gt; deadEnemies = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        for(BasicEnemy enemy : enemies){</span>
-<span class="nc bnc" id="L23" title="All 4 branches missed.">            if(getX() == enemy.getX() &amp;&amp; getY() == enemy.getY()){</span>
-<span class="nc" id="L24">                enemy.setHealth(enemy.getHealth()-attackDamage);</span>
-<span class="nc bnc" id="L25" title="All 2 branches missed.">                if(enemy.getHealth() == 0){</span>
-<span class="nc" id="L26">                    deadEnemies.add(enemy);</span>
+<span class="fc" id="L26">        List&lt;BasicEnemy&gt; deadEnemies = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        for(BasicEnemy enemy : enemies){</span>
+<span class="pc bpc" id="L28" title="2 of 4 branches missed.">            if(getX() == enemy.getX() &amp;&amp; getY() == enemy.getY()){</span>
+<span class="fc" id="L29">                enemy.setHealth(enemy.getHealth()-attackDamage);</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">                if(enemy.getHealth() &lt;= 0){</span>
+<span class="fc" id="L31">                    deadEnemies.add(enemy);</span>
                 }
             }       
-<span class="nc" id="L29">        }</span>
-<span class="nc" id="L30">        return deadEnemies;</span>
+<span class="fc" id="L34">        }</span>
+<span class="fc" id="L35">        return deadEnemies;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -10,38 +10,57 @@ public class HeroCastleBuilding extends Building{
      */
     private MStore store;
     private boolean hasShowStore;
+    /**
+     * constructor of hero castle building
+     * @param x                         SimpleIntegerProperty
+     * @param y                         SimpleIntegerProperty
+     * @param loopManiaWorldController  LoopManiaWorldController
+     */
     public HeroCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y, LoopManiaWorldController loopManiaWorldController) {
-<span class="nc" id="L14">        super(x, y);</span>
+<span class="nc" id="L20">        super(x, y);</span>
         // build up the store
-<span class="nc" id="L16">        store = new MStore(100,100,loopManiaWorldController);</span>
-<span class="nc" id="L17">    }</span>
+<span class="nc" id="L22">        store = new MStore(loopManiaWorldController);</span>
+<span class="nc" id="L23">    }</span>
     
+    /**
+     * build work function
+     * @param character                 character
+     * @param loopManiaWorldController  LoopManiaWorldController
+     * @return                          boolean
+     */
     public boolean work(Character character, LoopManiaWorldController loopManiaWorldController){
-<span class="nc" id="L20">        LoopManiaWorld world = loopManiaWorldController.getLoopManiaWorld();</span>
-<span class="nc bnc" id="L21" title="All 2 branches missed.">        if(characterIsInHerosCastle(world.getCharacter())){</span>
-<span class="nc bnc" id="L22" title="All 2 branches missed.">            if(!hasShowStore){</span>
+<span class="nc" id="L32">        LoopManiaWorld world = loopManiaWorldController.getLoopManiaWorld();</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if(characterIsInHerosCastle(world.getCharacter())){</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">            if(!hasShowStore){</span>
                 // show the store
-<span class="nc" id="L24">                loopManiaWorldController.pause();</span>
-<span class="nc" id="L25">                store.show();</span>
-<span class="nc" id="L26">                hasShowStore = true;</span>
-<span class="nc" id="L27">                return true;</span>
+<span class="nc" id="L36">                loopManiaWorldController.pause();</span>
+<span class="nc" id="L37">                store.show();</span>
+<span class="nc" id="L38">                hasShowStore = true;</span>
+<span class="nc" id="L39">                return true;</span>
             }else{
-<span class="nc" id="L29">                hasShowStore = false;</span>
-<span class="nc" id="L30">                world.addRoundsNum();</span>
+<span class="nc" id="L41">                hasShowStore = false;</span>
+<span class="nc" id="L42">                world.addRoundsNum();</span>
             }
-<span class="nc" id="L32">            List&lt;BasicEnemy&gt; retList = world.spawnEnemiesByBuilding();</span>
-<span class="nc bnc" id="L33" title="All 2 branches missed.">            for(BasicEnemy enemy : retList){</span>
-<span class="nc" id="L34">                loopManiaWorldController.onLoad(enemy);</span>
-<span class="nc" id="L35">            }</span>
+<span class="nc" id="L44">            List&lt;BasicEnemy&gt; retList = world.spawnEnemiesByBuilding();</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            for(BasicEnemy enemy : retList){</span>
+<span class="nc" id="L46">                loopManiaWorldController.onLoad(enemy);</span>
+<span class="nc" id="L47">            }</span>
         }
-<span class="nc" id="L37">        return false;</span>
+<span class="nc" id="L49">        return false;</span>
     }
         
     /**
      * check whether the position is in the Hero's Castle
      */
     public boolean characterIsInHerosCastle(Character character){
-<span class="nc bnc" id="L44" title="All 4 branches missed.">        return getX() == character.getX() &amp;&amp; getY() == character.getY();</span>
+<span class="nc bnc" id="L56" title="All 4 branches missed.">        return getX() == character.getX() &amp;&amp; getY() == character.getY();</span>
     }
+    
+    /**
+     * close the store
+     */
+    public void closeStore(){
+<span class="nc" id="L63">        store.close();</span>
+<span class="nc" id="L64">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
