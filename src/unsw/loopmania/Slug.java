@@ -1,6 +1,10 @@
 package unsw.loopmania;
 
 public class Slug extends BasicEnemy{
+    /**
+     * slug constructor
+     * @param position slug position
+     */
     public Slug(PathPosition position) {
         super(position);
         super.setHealth(12);

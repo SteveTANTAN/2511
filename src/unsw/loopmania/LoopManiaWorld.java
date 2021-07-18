@@ -670,13 +670,11 @@ public class LoopManiaWorld {
      *         possible, or random coordinate pair if should go ahead
      */
     private Pair<Integer, Integer> possiblyGetBasicEnemySpawnPosition() {
-        // TODO = modify this
 
         // has a chance spawning a basic enemy on a tile the character isn't on or
         // immediately before or after (currently space required = 2)...
         Random rand = new Random();
-        int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
-        // TODO = change based on spec
+        int choice = rand.nextInt(2); 
         if ((choice == 0) && (enemies.size() < 2)) {
             List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
             int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
@@ -1061,10 +1059,18 @@ public class LoopManiaWorld {
         }
     }
 
+    /**
+     * get whether used the one ring
+     * @return whether used the one ring
+     */
     public boolean GetUsedTheOneRing() {
         return this.UsedTheOneRing;
     }
 
+    /**
+     * set whether used the one ring
+     * @param tf true/fasle
+     */
     public void setUsedTheOneRing(boolean tf) {
         this.UsedTheOneRing = tf;
     }
