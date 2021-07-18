@@ -17,7 +17,7 @@
 |    Character	  |      100	 |       4	    |    0	  |       -	      |       -	      |               -	           |  -  |
 |      Slug       |      12	     |       4	    |    0	  |       1	      |       1	      |               1	           |  2  |
 |     Zombie      |      18	     |       8	    |    0	  |       0	      |       2	      |               3	           |  5  |
-|     Vampire     |	     32      |       15	    |    0	  |       2	      |       2	      |               5	           |  8  |
+|     Vampire     |	     32      |       15	    |    0	  |       3	      |       2	      |               5	           |  8  |
 | Allied soldiers |	     15	     |       5	    |    0	  |       -	      |       -	      |               -	           |  -  |
 
 
@@ -49,18 +49,18 @@
 |      Trap card      |		    1/7	      |         1%	       |
 |   Camp fire card    |		    1/7	      |         1%	       |	
 
-|	                  | Loot from enemies | Pick up from tiles | Oldest card replaced |	Oldest item replaced |
-| :-----------------: | :---------------: | :----------------: | :------------------: | :------------------: |
-|    Health potion    |		    10%	      |         3%	       |	       1%	      |	          -	         |
-|        Sword        |		    20%       |         1%	       |	       1%	      |	          -	         |
-|        Stake        |		    15%	      |         1%	       |	       1%	      |	          -	         |
-|        Staff 	      | 		10%	      |         1%	       |	       1%	      |	          -	         |
-|        Armour       |		    10%	      |         1%	       |	       1%         |	          -	         |
-|        Shield       |		    15%	      |         1%	       |	       1%	      |	          -	         |
-|        Helmet       |		    15%	      |         1%	       |	       1%	      |	          -	         |
-|    The one ring     |		    5%        |         -	       |	       -		  |	          -	         |
-|         gold        |		   100%       |         3%	       |	      100%		  |	          -	         |
-|         EXP         |		   100%       |         3%	       |	      100%		  |	          -	         |
+|	                  | Loot from enemies | Pick up from tiles | Oldest card replaced |
+| :-----------------: | :---------------: | :----------------: | :------------------: |
+|    Health potion    |		    10%	      |         3%	       |	       1%	      |
+|        Sword        |		    20%       |         1%	       |	       1%	      |
+|        Stake        |		    15%	      |         1%	       |	       1%	      |
+|        Staff 	      | 		10%	      |         1%	       |	       1%	      |
+|        Armour       |		    10%	      |         1%	       |	       1%         |
+|        Shield       |		    15%	      |         1%	       |	       1%	      |
+|        Helmet       |		    15%	      |         1%	       |	       1%	      |
+|    The one ring     |		    5%        |         -	       |	       -		  |
+|         gold        |		   100%       |         3%	       |	      100%		  |
+|         EXP         |		   100%       |         3%	       |	      100%		  |
 
 
 
@@ -101,3 +101,7 @@
 *	After **50** loops, there is a small probability of looting advanced equipment from vampires.
 *	After **80** loops, the game will generate advanced enemies. After killing, the character has a 100% chance to get advanced equipment.
 *	Click "Exit to main menu" during the game will to save the game automatically and return to the main menu.
+*   When the character sells items in the store, it can only be sold as items in the unequipped inventory.
+*   Helmet can reduce **5** damage value for enemy, reduce **2** damage value for character.
+*   Vampire hold **30%** chance critical hit, critical hit value between **1-10**.
+*   Zombie hold **30%** chance infecte allied soilder.
