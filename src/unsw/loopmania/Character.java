@@ -15,6 +15,7 @@ public class Character extends MovingEntity {
     private Item weapon;
     private Item armour;
     private Item shield;
+    private Item theOneRing;
     private int gold;
     private int EXP;
     private boolean attackEnhance;
@@ -109,8 +110,13 @@ public class Character extends MovingEntity {
     public void setWeapon(Item weapon) {
         this.weapon = weapon;
     }
-    // public void setWeapon(Equipment weapon) {
-    //     this.weapon = weapon;
-    // }
+
+    public Item getTheOneRing() {
+        return this.theOneRing;
+    }
+
+    public void setTheOneRing(Item ring) {
+        this.theOneRing = ring;
+    }
 
 }

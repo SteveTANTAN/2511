@@ -83,6 +83,12 @@
                         <Image url="@../../images/shield_unequipped.png"/>
                      </image>
                   </ImageView>
+                   <!-- blankCell is an empty cell (for the one ring) -->
+                  <ImageView id="blankCell"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" GridPane.columnIndex="3" GridPane.rowIndex="0">    
+                     <image>
+                        <Image url="@../../images/image_just_black_tiny.png"/>
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
 

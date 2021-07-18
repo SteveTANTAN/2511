@@ -39,29 +39,29 @@
 *	Refresh probability of items and cards are list below:
 </p>
 
-|	                  | Loot from enemies | Pick up from tiles | Oldest card replaced |	Oldest item replaced |
-| :-----------------: | :---------------: | :----------------: | :------------------: | :------------------: |
-| Vampire castle card |	        6%	      |         2%         |	       -          |	          -          |
-|   Zombie pit card   |	        6%	      |         2%         |	       -	      |	          -	         |
-|     Tower card      |	        6%	      |         2%         |	       -	      |	          -	         |
-|    Village card     |		    6%		  |         2%         |	       -		  |	          -	         |
-|    Barracks card    |		    6%	      |         2%         |	       -	      |	          -	         |
-|      Trap card      |		    6%	      |         2%	       |	       -	      |	          -	         |
-|   Camp fire card    |		    6%	      |         2%	       |	       -	      |	          -	         |
+|	                  | Loot from enemies | Pick up from tiles |
+| :-----------------: | :---------------: | :----------------: |
+| Vampire castle card |	        1/7	      |         1%         |
+|   Zombie pit card   |	        1/7	      |         1%         |
+|     Tower card      |	        1/7	      |         1%         |
+|    Village card     |		    1/7		  |         1%         |
+|    Barracks card    |		    1/7	      |         1%         |
+|      Trap card      |		    1/7	      |         1%	       |
+|   Camp fire card    |		    1/7	      |         1%	       |	
 
 |	                  | Loot from enemies | Pick up from tiles | Oldest card replaced |	Oldest item replaced |
 | :-----------------: | :---------------: | :----------------: | :------------------: | :------------------: |
-|    Health potion    |		    10%	      |         3%	       |	       10%	      |	          -	         |
-|        Sword        |		    15%       |         2%	       |	       10%	      |	          -	         |
-|        Stake        |		    15%	      |         2%	       |	       10%	      |	          -	         |
-|        Staff 	      | 		15%	      |         2%	       |	       10%	      |	          -	         |
-|        Armour       |		    10%	      |         2%	       |	       10%        |	          -	         |
-|        Shield       |		    15%	      |         2%	       |	       10%	      |	          -	         |
-|        Helmet       |		    15%	      |         2%	       |	       10%	      |	          -	         |
+|    Health potion    |		    10%	      |         3%	       |	       1%	      |	          -	         |
+|        Sword        |		    20%       |         1%	       |	       1%	      |	          -	         |
+|        Stake        |		    15%	      |         1%	       |	       1%	      |	          -	         |
+|        Staff 	      | 		10%	      |         1%	       |	       1%	      |	          -	         |
+|        Armour       |		    10%	      |         1%	       |	       1%         |	          -	         |
+|        Shield       |		    15%	      |         1%	       |	       1%	      |	          -	         |
+|        Helmet       |		    15%	      |         1%	       |	       1%	      |	          -	         |
 |    The one ring     |		    5%        |         -	       |	       -		  |	          -	         |
-|         gold        |		    -         |         2%	       |	       -		  |	          -	         |
-|         EXP         |		    -         |         2%	       |	       -		  |	          -	         |
-|       nothing       |		    -         |         67%	       |	       -		  |	          -	         |
+|         gold        |		   100%       |         3%	       |	      100%		  |	          -	         |
+|         EXP         |		   100%       |         3%	       |	      100%		  |	          -	         |
+
 
 
 <br/><br/>
@@ -69,10 +69,10 @@
 *   When the oldest equipment is replaced in the unequipped inventory, the character can only get **20%** of gold when normally purchasing.
 *   When the oldest card is replaced, the character can get **1-5** golds.
 *	When the oldest card/equipment is replaced, the character can get **2** points of EXP.
-*	When the character defeat one enemy, the character can get **2** points of EXP.
 *	When the character picks up the gold spawns randomly on path tiles, the overall gold amount increases **2**.
+*	When the character picks up the EXP spawns randomly on path tiles, the overall EXP amount increases **2**.
 *	Rare items cannot be bought or traded in Hero castle.
-*	One Health potion can refill **ALL** character HP value.
+*	One Health potion can refill **50** character HP value.
 *	Enemies cannot use weapons, gold or health potions.
 *	Allied soldiers cannot use weapons, gold or health potions.
 *	The maximum number of allied solvers is **5**.
