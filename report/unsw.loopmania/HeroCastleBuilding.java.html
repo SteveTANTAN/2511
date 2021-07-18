@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HeroCastleBuilding.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">unsw.loopmania</a> &gt; <span class="el_source">HeroCastleBuilding.java</span></div><h1>HeroCastleBuilding.java</h1><pre class="source lang-java linenums">package unsw.loopmania;
+
+import java.util.List;
+
+import javafx.beans.property.SimpleIntegerProperty;
+
+public class HeroCastleBuilding extends Building{
+    /**
+     * store
+     */
+    private MStore store;
+    private boolean hasShowStore;
+    public HeroCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y, LoopManiaWorldController loopManiaWorldController) {
+<span class="nc" id="L14">        super(x, y);</span>
+        // build up the store
+<span class="nc" id="L16">        store = new MStore(100,100,loopManiaWorldController);</span>
+<span class="nc" id="L17">    }</span>
+    
+    public boolean work(Character character, LoopManiaWorldController loopManiaWorldController){
+<span class="nc" id="L20">        LoopManiaWorld world = loopManiaWorldController.getLoopManiaWorld();</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        if(characterIsInHerosCastle(world.getCharacter())){</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">            if(!hasShowStore){</span>
+                // show the store
+<span class="nc" id="L24">                loopManiaWorldController.pause();</span>
+<span class="nc" id="L25">                store.show();</span>
+<span class="nc" id="L26">                hasShowStore = true;</span>
+<span class="nc" id="L27">                return true;</span>
+            }else{
+<span class="nc" id="L29">                hasShowStore = false;</span>
+<span class="nc" id="L30">                world.addRoundsNum();</span>
+            }
+<span class="nc" id="L32">            List&lt;BasicEnemy&gt; retList = world.spawnEnemiesByBuilding();</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            for(BasicEnemy enemy : retList){</span>
+<span class="nc" id="L34">                loopManiaWorldController.onLoad(enemy);</span>
+<span class="nc" id="L35">            }</span>
+        }
+<span class="nc" id="L37">        return false;</span>
+    }
+        
+    /**
+     * check whether the position is in the Hero's Castle
+     */
+    public boolean characterIsInHerosCastle(Character character){
+<span class="nc bnc" id="L44" title="All 4 branches missed.">        return getX() == character.getX() &amp;&amp; getY() == character.getY();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
