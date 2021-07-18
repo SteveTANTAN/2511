@@ -7,12 +7,13 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public class Gold {
     
-    public int CurrentGold = 0;
+    private int CurrentGold = 0;
+
 
     public void setCurrentGold(int aim){
-        CurrentGold = aim;
+        this.CurrentGold = aim;
     } 
-    public int getCurrentGold(void){
+    public int getCurrentGold(){
         return this.CurrentGold;
     }
     
