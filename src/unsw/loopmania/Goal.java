@@ -1,14 +1,8 @@
 package unsw.loopmania;
 
-import java.util.ArrayList;
-
 import org.json.JSONObject;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.CheckBox;
-
 public class Goal {
-
     public JSONObject conditions;
     public Goal(JSONObject condition){
         this.conditions = condition;
@@ -48,7 +42,6 @@ public class Goal {
         //System.out.printf(conditions.toString(4));
         // if it's the only one level goal
         if (!conditions.has("subgoals")) {
-            // System.out.printf(conditions.getString("quantity"));
             
             return goalCheckHelp(conditions.getString("goal"), conditions.getInt("quantity"), gold, exp, turns);
         } else{

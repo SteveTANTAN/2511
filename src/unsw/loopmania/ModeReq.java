@@ -1,14 +1,17 @@
 package unsw.loopmania;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 public class ModeReq {
     public boolean healthPotion;
     public boolean armour;
     public boolean helmets;
     public boolean shields;
+    public String mode;
+    /**
+     * constructor for differernt mode 
+     * @param mode game mode
+     */
     public ModeReq(String mode){
+        this.mode = mode;
         this.healthPotion = false;
         this.armour = false;
         this.helmets = false;

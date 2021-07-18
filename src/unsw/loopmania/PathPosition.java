@@ -60,10 +60,18 @@ public class PathPosition{
         y.set(orderedPath.get(currentPositionInPath).getValue1());
     }
 
+    /**
+     * get X
+     * @return SimpleIntegerProperty
+     */
     public SimpleIntegerProperty getX(){
         return x;
     }
 
+    /**
+     * get Y
+     * @return SimpleIntegerProperty
+     */
     public SimpleIntegerProperty getY(){
         return y;
     }

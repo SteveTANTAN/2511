@@ -10,12 +10,24 @@ public class HeroCastleBuilding extends Building{
      */
     private MStore store;
     private boolean hasShowStore;
+    /**
+     * constructor of hero castle building
+     * @param x                         SimpleIntegerProperty
+     * @param y                         SimpleIntegerProperty
+     * @param loopManiaWorldController  LoopManiaWorldController
+     */
     public HeroCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y, LoopManiaWorldController loopManiaWorldController) {
         super(x, y);
         // build up the store
-        store = new MStore(100,100,loopManiaWorldController);
+        store = new MStore(loopManiaWorldController);
     }
     
+    /**
+     * build work function
+     * @param character                 character
+     * @param loopManiaWorldController  LoopManiaWorldController
+     * @return                          boolean
+     */
     public boolean work(Character character, LoopManiaWorldController loopManiaWorldController){
         LoopManiaWorld world = loopManiaWorldController.getLoopManiaWorld();
         if(characterIsInHerosCastle(world.getCharacter())){
@@ -42,5 +54,12 @@ public class HeroCastleBuilding extends Building{
      */
     public boolean characterIsInHerosCastle(Character character){
         return getX() == character.getX() && getY() == character.getY();
+    }
+    
+    /**
+     * close the store
+     */
+    public void closeStore(){
+        store.close();
     }
 }

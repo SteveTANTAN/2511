@@ -1,0 +1,9 @@
+{ "goal": "AND", "subgoals":
+    [ { "goal": "cycles", "quantity": 10 },
+      { "goal": "OR", "subgoals":
+        [ {"goal": "experience", "quantity": 200 },
+          {"goal": "gold", "quantity": 200 }
+        ]
+      }
+    ]
+  }

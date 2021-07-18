@@ -5,6 +5,9 @@ import java.util.Random;
 
 public class VampireAttack implements Attack{
     @Override
+    /**
+     *  vampire attack
+     */
     public void hit(Character c, List<BasicEnemy> trancedEnemies, List<BasicEnemy> enemies,BasicEnemy e, String string) {
         int addDamage = new Random().nextInt(10);
         if (addDamage == 0) {

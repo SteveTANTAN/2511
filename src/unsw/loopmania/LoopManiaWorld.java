@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 import org.javatuples.Pair;
 
-
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
@@ -366,7 +365,10 @@ public class LoopManiaWorld {
             // TODO: ren si le , you xie jie shu
             if (goalCheck()) {
                 // game end
-                System.out.print("successful!");
+                System.out.print("you have meet the conditio, Game successful!");
+            } else {
+                System.out.print("you have not meet the conditio, Game fail!");
+
             }
             
         }
@@ -450,7 +452,7 @@ public class LoopManiaWorld {
      * 
      * @param index the index of the card, from 0 to length-1
      */
-    private void removeCard(int index) {
+    public void removeCard(int index) {
         Card c = cardEntities.get(index);
         int x = c.getX();
         c.destroy();
@@ -665,13 +667,11 @@ public class LoopManiaWorld {
      *         possible, or random coordinate pair if should go ahead
      */
     private Pair<Integer, Integer> possiblyGetBasicEnemySpawnPosition() {
-        // TODO = modify this
 
         // has a chance spawning a basic enemy on a tile the character isn't on or
         // immediately before or after (currently space required = 2)...
         Random rand = new Random();
-        int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
-        // TODO = change based on spec
+        int choice = rand.nextInt(2); 
         if ((choice == 0) && (enemies.size() < 2)) {
             List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
             int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
@@ -1056,10 +1056,18 @@ public class LoopManiaWorld {
         }
     }
 
+    /**
+     * get whether used the one ring
+     * @return whether used the one ring
+     */
     public boolean GetUsedTheOneRing() {
         return this.UsedTheOneRing;
     }
 
+    /**
+     * set whether used the one ring
+     * @param tf true/fasle
+     */
     public void setUsedTheOneRing(boolean tf) {
         this.UsedTheOneRing = tf;
     }

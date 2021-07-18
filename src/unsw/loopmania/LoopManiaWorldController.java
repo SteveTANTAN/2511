@@ -16,7 +16,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -29,9 +31,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
-
+import javafx.scene.control.Label;
 import java.util.EnumMap;
+import javafx.stage.Stage;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,12 +54,7 @@ enum DRAGGABLE_TYPE{
 }
 
 
-/**
- * card types
- */
-enum CARDS_TYPE{
-    TOWER, ZOMBIEPIT,VAMPIRECASTLE, BARRACK, VILLAGE, TRAP, CAMPFIRE
-}
+
 
 /**
  * equiment type
@@ -115,6 +117,14 @@ public class LoopManiaWorldController {
     @FXML
     private GridPane unequippedInventory;
 
+    @FXML
+    private GridPane characterInfo;
+    
+    @FXML
+    private AnchorPane stats;
+
+    @FXML
+    private Label roundsNumLabel;
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
 
@@ -156,9 +166,12 @@ public class LoopManiaWorldController {
     private Image shieldImage;
     private Image helmetImage;
     private Image theOneRingImage;
-    private Image BlackTinyImage;
+    private Image emptyTheOneRingImage;
     
     private Image heroCastlImage;
+
+    private Image heartImage;
+    private Image goldPileslImage;
     /**
      * the image currently being dragged, if there is one, otherwise null.
      * Holding the ImageView being dragged allows us to spawn it again in the drop location if appropriate.
@@ -198,14 +211,19 @@ public class LoopManiaWorldController {
 
     private HeroCastleBuilding heroCastleBuilding;
 
-    /**
-     * It means whether the store has benn shown
-     */
-    private boolean hasShowStore = false;
 
     private CardDescription cardDescription;
 
+    private Stage primaryStage;
+
+    private boolean isSurvivalMode;
+
+    private Label healthPointText;
+    private Label goldText;
+    private Label expText;
     
+    private MainMenuController mainMenuController;
+
     /**
      * @param world world object loaded from file
      * @param initialEntities the initial JavaFX nodes (ImageViews) which should be loaded into the GUI
@@ -240,7 +258,9 @@ public class LoopManiaWorldController {
         shieldImage = new Image((new File("src/images/shield.png")).toURI().toString());
         helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
         theOneRingImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
-        BlackTinyImage = new Image((new File("src/images/image_just_black_tiny.png")).toURI().toString());
+        emptyTheOneRingImage = new Image((new File("src/images/src_images_the_one_ring.png")).toURI().toString());
+        heartImage= new Image((new File("src/images/heart.png")).toURI().toString());
+        goldPileslImage = new Image((new File("src/images/gold_pile.png")).toURI().toString());
         currentlyDraggedImage = null;
         currentlyDraggedType = null;
 
@@ -254,7 +274,6 @@ public class LoopManiaWorldController {
 
     @FXML
     public void initialize() {
-        // TODO = load more images/entities during initialization
         
         Image pathTilesImage = new Image((new File("src/images/32x32GrassAndDirtPath.png")).toURI().toString());
         Image inventorySlotImage = new Image((new File("src/images/empty_slot.png")).toURI().toString());
@@ -272,6 +291,13 @@ public class LoopManiaWorldController {
         // load entities loaded from the file in the loader into the squares gridpane
         for (ImageView entity : entityImages){
             squares.getChildren().add(entity);
+        }
+
+        // add the ground underneath the cards
+        for (int x=0; x<world.getWidth(); x++){
+            ImageView groundView = new ImageView(pathTilesImage);
+            groundView.setViewport(imagePart);
+            cards.add(groundView, x, 0);
         }
 
         // add the empty slot images for the unequipped inventory
@@ -334,6 +360,8 @@ public class LoopManiaWorldController {
                 for (BasicEnemy newEnemy: newEnemies){
                     onLoad(newEnemy);
                 }
+                // update the display
+                updateDisplay();
                 printThreadingNotes("HANDLED TIMER");
             }));
             timeline.setCycleCount(Animation.INDEFINITE);
@@ -344,9 +372,54 @@ public class LoopManiaWorldController {
             addHeroCastle(heroCastleBuilding);
 
             // build up the card descripton
-            cardDescription = new CardDescription(300, 150);
+            cardDescription = new CardDescription(this);
+
+            roundsNumLabel.setPadding(new Insets(0,0,0,10));
+            // init the display of heath point, gold and exp
+            characterInfo.getChildren().clear();
+            characterInfo.setPadding(new Insets(10));
+            characterInfo.setVgap(10);
+            HBox hBox = new HBox();
+            hBox.setSpacing(10);
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            ImageView imageView = new ImageView();
+            imageView.setImage(heartImage);
+            healthPointText = new Label();
+            healthPointText.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,16));
+            healthPointText.setTextFill(new Color(0.9,0,0,1));
+            hBox.getChildren().addAll(imageView,healthPointText);
+            characterInfo.add(hBox, 0,0);
+            hBox = new HBox();
+            hBox.setSpacing(10);
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            imageView = new ImageView();
+            imageView.setImage(goldPileslImage);
+            goldText = new Label();
+            goldText.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,16));
+            goldText.setTextFill(new Color(0,0.9,0,1));
+            hBox.getChildren().addAll(imageView,goldText);
+            characterInfo.add(hBox, 0,1);
+            hBox = new HBox();
+            hBox.setSpacing(10);
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            Label label = new Label("EXP");
+            label.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,16));
+            label.setTextFill(new Color(0.64,0.28,0.64,1));
+            expText = new Label();
+            expText.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,16));
+            expText.setTextFill(new Color(0.64,0.28,0.64,1));
+            hBox.getChildren().addAll(label,expText);
+            characterInfo.add(hBox, 0,2);
         }
         timeline.play();
+    }
+
+    public void updateDisplay(){
+        // update the dispaly of number of the round
+        roundsNumLabel.setText(String.format("ROUND %d", world.getRoundsNum()));
+        healthPointText.setText(String.format("%d/100", world.getCharacter().getHealth()));
+        goldText.setText(String.format("%d", world.getCharacter().getGold()));
+        expText.setText(String.format("%d", world.getCharacter().getEXP()));
     }
 
     /**
@@ -389,7 +462,7 @@ public class LoopManiaWorldController {
     /**
      * load a item from the world, and pair it with an image in the GUI
      */
-    private void loadItemByType(ITEMS_TYPE itemType) {
+    public void loadItemByType(ITEMS_TYPE itemType) {
         // start by getting first available coordinates
         Item item = world.addUnequippedItem(itemType);
         onLoad(item);
@@ -734,9 +807,9 @@ public class LoopManiaWorldController {
      * @param nodeX x coordinate from 0 to unequippedInventoryWidth-1
      * @param nodeY y coordinate from 0 to unequippedInventoryHeight-1
      */
-    private void removeItemByCoordinates(int nodeX, int nodeY) {
-        world.removeUnequippedInventoryItemByCoordinates(nodeX, nodeY);
-    }
+    //private void removeItemByCoordinates(int nodeX, int nodeY) {
+    //   world.removeUnequippedInventoryItemByCoordinates(nodeX, nodeY);
+    //}
 
     /**
      * add drag event handlers to an ImageView
@@ -875,7 +948,14 @@ public class LoopManiaWorldController {
     private void switchToMainMenu() throws IOException {
         // TODO = possibly set other menu switchers
         pause();
-        System.out.print(world.goalCheck());
+        heroCastleBuilding.closeStore();
+        if (world.goalCheck()) {
+            // game end
+            System.out.print("you have meet the conditio!");
+        } else {
+            System.out.print("you have not meet the condition!");
+
+        }
         mainMenuSwitcher.switchMenu();
     }
 
@@ -994,6 +1074,44 @@ public class LoopManiaWorldController {
         
     }
 
+
+    /**
+     * set primary stage
+     * @param primaryStage
+     */
+    public void setPrimaryStage(Stage stage){
+        primaryStage = stage;
+    }
+
+    /**
+     * get primary stage
+     * @return primary stage
+     */
+    public Stage getPrimayStage(){
+        return primaryStage;
+    }
+
+
+    public boolean isSurvivalMode() {
+        return isSurvivalMode;
+    }
+
+    public AnchorPane getStats() {
+        return stats;
+    }
+
+    public void closeStore(){
+        heroCastleBuilding.closeStore();
+    }
+
+    public void setMainMenuController(MainMenuController mainMenuController){
+        this.mainMenuController = mainMenuController;
+    }
+
+    public ModeReq getModeReq(){
+        return mainMenuController.getMode_req();
+    }
+
     /**
      * we added this method to help with debugging so you could check your code is running on the application thread.
      * By running everything on the application thread, you will not need to worry about implementing locks, which is outside the scope of the course.
@@ -1013,7 +1131,7 @@ public class LoopManiaWorldController {
      */
     public void setUsedTheOneRingImage() {
         if (world.getCharacter().getTheOneRing() == null) {
-            ImageView image = new ImageView(BlackTinyImage);
+            ImageView image = new ImageView(emptyTheOneRingImage);
             equippedItems.add(image, 3, 0, 1, 1);
             world.setUsedTheOneRing(false);
         }

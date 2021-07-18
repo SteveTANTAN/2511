@@ -1,36 +1,39 @@
 package unsw.loopmania;
 
-import javafx.scene.Scene;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class CardDescription {
-    private Stage stage;
     private Label nameLabel;
     private Label descriptionLabel;
+    private VBox mstatsPane;
+    private VBox descriptionPane;
     /**
      * constructor
      * @param x x of position
      * @param y y of position
      */
-    public CardDescription(int x, int y){
-        stage = new Stage();
-        stage.setX(x);
-        stage.setY(y);
-        int width =  350;
-        int height = 300;
-        VBox vBox = new VBox();
+    public CardDescription(LoopManiaWorldController loopManiaWorldController){
+        AnchorPane stats = loopManiaWorldController.getStats();
+        mstatsPane = (VBox)stats.getChildren().get(0);
+        descriptionPane = (VBox)stats.getChildren().get(1);
+        descriptionPane.setLayoutY(-40);
         nameLabel = new Label();
+        nameLabel.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,13));
         descriptionLabel = new Label();
-        vBox.getChildren().addAll(nameLabel, descriptionLabel);
-        Scene scene = new Scene(vBox, width, height);
-        scene.setFill(null);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setScene(scene);
+        descriptionLabel.setWrapText(true);
+        descriptionLabel.setAlignment(Pos.CENTER);
+        descriptionPane.setAlignment(Pos.CENTER);
+        descriptionPane.setPadding(new Insets(8));
+        descriptionPane.setSpacing(5);
+        descriptionPane.getChildren().addAll(nameLabel, descriptionLabel);
     }
-    
+
     /**
      * show the stage
      * @param description description of the card
@@ -38,13 +41,15 @@ public class CardDescription {
     public void show(String name, String description){
         nameLabel.setText(name);
         descriptionLabel.setText(description);
-        stage.show();
+        mstatsPane.setVisible(false);
+        descriptionPane.setVisible(true);
     }
 
     /**
      * close the stage
      */
     public void close(){
-        stage.close();
+        mstatsPane.setVisible(true);
+        descriptionPane.setVisible(false);
     }
 }
