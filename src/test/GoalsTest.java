@@ -61,29 +61,87 @@ public class GoalsTest {
         assertEquals(gold.getCurrentEXP(), 1);
     }
     @Test
-    public void goal_test(){
-        // JSONObject jsonArray;
-        // try {
-        //     jsonArray = new JSONObject(new JSONTokener(new FileReader("goals.json")));
-        //     Goal gold = new Goal(jsonArray);
-        //     assertEquals(gold.goalCheckHelp("gold", 5, 1, 1, 1), false);
-        //     assertEquals(gold.goalCheck(1, 1, 1), false);
+    public void goal_test_complex(){
+        JSONArray a1 = new JSONArray();
+        JSONObject o1 = new JSONObject();
+        o1.put("goal", "experience");
+        o1.put("quantity", 200);
 
-        // } catch (FileNotFoundException e) {
-        // // Do something with `e`
-        // }
-        // List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
-        // orderedPath.add(new Pair<Integer, Integer>(0,0));
-        // PathPosition pathPosition = new PathPosition(0, orderedPath);
-        // LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
-        // world.setGoalCondition(jsonArray);
-        // Goal gold = new Goal(jsonArray);
+        JSONObject o2 = new JSONObject();
+        o2.put("goal", "gold");
+        o2.put("quantity", 200);
+        a1.put(o1);
+        a1.put(o2);
 
-        // Character character = new Character(gold);
-        // assertEquals(world.goalCheck(), false);
+        JSONObject o3 = new JSONObject();
+        o3.put("goal", "OR");
+        o3.put("subgoals", a1);
 
+        JSONObject o4 = new JSONObject();
+        o4.put("goal", "cycles");
+        o4.put("quantity", 10);
+
+        JSONArray a2 = new JSONArray();
+        a2.put(o3);
+        a2.put(o4);
+        JSONObject goalcondition = new JSONObject();
+        goalcondition.put("goal", "AND");
+        goalcondition.put("subgoals", a2);
+
+
+        Goal gold = new Goal(goalcondition);
+        assertEquals(gold.goalCheckHelp("gold", 5, 1, 1, 1), false);
+        assertEquals(gold.goalCheck(1, 1, 1), false);
+
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        PathPosition pathPosition = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
+        world.setGoalCondition(gold);
+
+        Character character = new Character(pathPosition);
         
+    }
+    @Test
+    public void goal_test_middle_complex(){
+        JSONArray a1 = new JSONArray();
+        JSONObject o1 = new JSONObject();
+        o1.put("goal", "experience");
+        o1.put("quantity", 200);
 
+        JSONObject o2 = new JSONObject();
+        o2.put("goal", "gold");
+        o2.put("quantity", 200);
+        a1.put(o1);
+        a1.put(o2);
+
+        JSONObject o3 = new JSONObject();
+        o3.put("goal", "OR");
+        o3.put("subgoals", a1);
+
+        JSONObject o4 = new JSONObject();
+        o4.put("goal", "cycles");
+        o4.put("quantity", 10);
+
+        JSONArray a2 = new JSONArray();
+        a2.put(o3);
+        a2.put(o4);
+        JSONObject goalcondition = new JSONObject();
+        goalcondition.put("goal", "AND");
+        goalcondition.put("subgoals", a2);
+
+
+        Goal gold = new Goal(goalcondition);
+        assertEquals(gold.goalCheckHelp("gold", 5, 1, 1, 1), false);
+        assertEquals(gold.goalCheck(1, 1, 1), false);
+
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        PathPosition pathPosition = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
+        world.setGoalCondition(gold);
+
+        Character character = new Character(pathPosition);
         
     }
     @Test
