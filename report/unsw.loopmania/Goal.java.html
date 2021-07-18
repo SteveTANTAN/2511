@@ -15,7 +15,7 @@ public class Goal {
      * @return Boolean
      */
     public boolean goalCheckHelp (String type, int quantity, int gold, int exp, int turns) {
-<span class="pc bpc" id="L18" title="1 of 4 branches missed.">        switch (type) {</span>
+<span class="fc bfc" id="L18" title="All 4 branches covered.">        switch (type) {</span>
             case &quot;gold&quot; :
 <span class="pc bpc" id="L20" title="1 of 2 branches missed.">                return gold &gt;= quantity;</span>
             case &quot;experience&quot; :
@@ -25,7 +25,7 @@ public class Goal {
             default:
                 break;
         }
-<span class="nc" id="L28">        return false;</span>
+<span class="fc" id="L28">        return false;</span>
     }
     /**
      * checking if it meets the specifct condition for more conflicts version

@@ -146,118 +146,158 @@ import unsw.loopmania.ModeReq;
 <span class="fc" id="L146">        Character character = new Character(pathPosition);</span>
         
 <span class="fc" id="L148">    }</span>
+    // { &quot;goal&quot;: &quot;AND&quot;, &quot;subgoals&quot;:
+    //     [ { &quot;goal&quot;: &quot;cycles&quot;, &quot;quantity&quot;: 10 },
+    //       { &quot;goal&quot;: &quot;OR&quot;, &quot;subgoals&quot;:
+    //         [ {&quot;goal&quot;: &quot;experience&quot;, &quot;quantity&quot;: 200 },
+    //           {&quot;goal&quot;: &quot;gold&quot;, &quot;quantity&quot;: 200 }
+    //         ]
+    //       }
+    //     ]
+    // }
+
     @Test
     public void goal_test_middle_complex(){
-<span class="fc" id="L151">        JSONArray a1 = new JSONArray();</span>
-<span class="fc" id="L152">        JSONObject o1 = new JSONObject();</span>
-<span class="fc" id="L153">        o1.put(&quot;goal&quot;, &quot;experience&quot;);</span>
-<span class="fc" id="L154">        o1.put(&quot;quantity&quot;, 200);</span>
+<span class="fc" id="L161">        JSONArray a1 = new JSONArray();</span>
+<span class="fc" id="L162">        JSONObject o1 = new JSONObject();</span>
+<span class="fc" id="L163">        o1.put(&quot;goal&quot;, &quot;experience&quot;);</span>
+<span class="fc" id="L164">        o1.put(&quot;quantity&quot;, 200);</span>
 
-<span class="fc" id="L156">        JSONObject o4 = new JSONObject();</span>
-<span class="fc" id="L157">        o4.put(&quot;goal&quot;, &quot;cycles&quot;);</span>
-<span class="fc" id="L158">        o4.put(&quot;quantity&quot;, 10);</span>
+<span class="fc" id="L166">        JSONObject o4 = new JSONObject();</span>
+<span class="fc" id="L167">        o4.put(&quot;goal&quot;, &quot;cycles&quot;);</span>
+<span class="fc" id="L168">        o4.put(&quot;quantity&quot;, 10);</span>
 
-<span class="fc" id="L160">        JSONArray a2 = new JSONArray();</span>
-<span class="fc" id="L161">        a2.put(o1);</span>
-<span class="fc" id="L162">        a2.put(o4);</span>
-<span class="fc" id="L163">        JSONObject goalcondition = new JSONObject();</span>
-<span class="fc" id="L164">        goalcondition.put(&quot;goal&quot;, &quot;AND&quot;);</span>
-<span class="fc" id="L165">        goalcondition.put(&quot;subgoals&quot;, a2);</span>
+<span class="fc" id="L170">        JSONArray a2 = new JSONArray();</span>
+<span class="fc" id="L171">        a2.put(o1);</span>
+<span class="fc" id="L172">        a2.put(o4);</span>
+<span class="fc" id="L173">        JSONObject goalcondition = new JSONObject();</span>
+<span class="fc" id="L174">        goalcondition.put(&quot;goal&quot;, &quot;AND&quot;);</span>
+<span class="fc" id="L175">        goalcondition.put(&quot;subgoals&quot;, a2);</span>
 
 
-<span class="fc" id="L168">        Goal gold = new Goal(goalcondition);</span>
-<span class="fc" id="L169">        assertEquals(gold.goalCheckHelp(&quot;gold&quot;, 5, 1, 1, 50), false);</span>
-<span class="fc" id="L170">        assertEquals(gold.goalCheck(1, 200, 1), false);</span>
+<span class="fc" id="L178">        Goal gold = new Goal(goalcondition);</span>
+<span class="fc" id="L179">        assertEquals(gold.goalCheckHelp(&quot;gold&quot;, 5, 1, 1, 50), false);</span>
+<span class="fc" id="L180">        assertEquals(gold.goalCheck(1, 200, 1), false);</span>
 
-<span class="fc" id="L172">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L173">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
-<span class="fc" id="L174">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
-<span class="fc" id="L175">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
-<span class="fc" id="L176">        world.setGoalCondition(gold);</span>
+<span class="fc" id="L182">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L183">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L184">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L185">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L186">        world.setGoalCondition(gold);</span>
 
-<span class="fc" id="L178">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L188">        Character character = new Character(pathPosition);</span>
         
-<span class="fc" id="L180">    }</span>
+<span class="fc" id="L190">    }</span>
     @Test
     public void goal_test_middle_complex2(){
-<span class="fc" id="L183">        JSONArray a1 = new JSONArray();</span>
-<span class="fc" id="L184">        JSONObject o1 = new JSONObject();</span>
-<span class="fc" id="L185">        o1.put(&quot;goal&quot;, &quot;experience&quot;);</span>
-<span class="fc" id="L186">        o1.put(&quot;quantity&quot;, 200);</span>
+<span class="fc" id="L193">        JSONArray a1 = new JSONArray();</span>
+<span class="fc" id="L194">        JSONObject o1 = new JSONObject();</span>
+<span class="fc" id="L195">        o1.put(&quot;goal&quot;, &quot;experience&quot;);</span>
+<span class="fc" id="L196">        o1.put(&quot;quantity&quot;, 200);</span>
 
-<span class="fc" id="L188">        JSONObject o4 = new JSONObject();</span>
-<span class="fc" id="L189">        o4.put(&quot;goal&quot;, &quot;cycles&quot;);</span>
-<span class="fc" id="L190">        o4.put(&quot;quantity&quot;, 10);</span>
+<span class="fc" id="L198">        JSONObject o4 = new JSONObject();</span>
+<span class="fc" id="L199">        o4.put(&quot;goal&quot;, &quot;cycles&quot;);</span>
+<span class="fc" id="L200">        o4.put(&quot;quantity&quot;, 10);</span>
 
-<span class="fc" id="L192">        JSONArray a2 = new JSONArray();</span>
-<span class="fc" id="L193">        a2.put(o1);</span>
-<span class="fc" id="L194">        a2.put(o4);</span>
-<span class="fc" id="L195">        JSONObject goalcondition = new JSONObject();</span>
-<span class="fc" id="L196">        goalcondition.put(&quot;goal&quot;, &quot;OR&quot;);</span>
-<span class="fc" id="L197">        goalcondition.put(&quot;subgoals&quot;, a2);</span>
+<span class="fc" id="L202">        JSONArray a2 = new JSONArray();</span>
+<span class="fc" id="L203">        a2.put(o1);</span>
+<span class="fc" id="L204">        a2.put(o4);</span>
+<span class="fc" id="L205">        JSONObject goalcondition = new JSONObject();</span>
+<span class="fc" id="L206">        goalcondition.put(&quot;goal&quot;, &quot;OR&quot;);</span>
+<span class="fc" id="L207">        goalcondition.put(&quot;subgoals&quot;, a2);</span>
 
 
-<span class="fc" id="L200">        Goal gold = new Goal(goalcondition);</span>
-<span class="fc" id="L201">        assertEquals(gold.goalCheckHelp(&quot;cycles&quot;, 5, 1, 1, 10), true);</span>
-<span class="fc" id="L202">        assertEquals(gold.goalCheck(100, 1, 1), false);</span>
+<span class="fc" id="L210">        Goal gold = new Goal(goalcondition);</span>
+<span class="fc" id="L211">        assertEquals(gold.goalCheckHelp(&quot;cycles&quot;, 5, 1, 1, 10), true);</span>
+<span class="fc" id="L212">        assertEquals(gold.goalCheck(100, 1, 1), false);</span>
 
-<span class="fc" id="L204">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L205">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
-<span class="fc" id="L206">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
-<span class="fc" id="L207">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
-<span class="fc" id="L208">        world.setGoalCondition(gold);</span>
+<span class="fc" id="L214">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L215">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L216">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L217">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L218">        world.setGoalCondition(gold);</span>
 
-<span class="fc" id="L210">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L220">        Character character = new Character(pathPosition);</span>
         
-<span class="fc" id="L212">    }</span>
+<span class="fc" id="L222">    }</span>
     @Test
+    // { &quot;goal&quot;: &quot;AND&quot;, &quot;subgoals&quot;:
+    //   [ { &quot;goal&quot;: &quot;cycles&quot;, &quot;quantity&quot;: 10 },
+    //     {&quot;goal&quot;: &quot;experience&quot;, &quot;quantity&quot;: 200 }
+    //   ]
+    // }
     public void goal_test_middle_EASY(){
-<span class="fc" id="L215">        JSONArray a1 = new JSONArray();</span>
-<span class="fc" id="L216">        JSONObject goalcondition = new JSONObject();</span>
-<span class="fc" id="L217">        goalcondition.put(&quot;goal&quot;, &quot;experience&quot;);</span>
-<span class="fc" id="L218">        goalcondition.put(&quot;quantity&quot;, 200);</span>
+<span class="fc" id="L230">        JSONArray a1 = new JSONArray();</span>
+<span class="fc" id="L231">        JSONObject goalcondition = new JSONObject();</span>
+<span class="fc" id="L232">        goalcondition.put(&quot;goal&quot;, &quot;experience&quot;);</span>
+<span class="fc" id="L233">        goalcondition.put(&quot;quantity&quot;, 200);</span>
 
-<span class="fc" id="L220">        Goal gold = new Goal(goalcondition);</span>
-<span class="fc" id="L221">        assertEquals(gold.goalCheckHelp(&quot;gold&quot;, 5, 1, 1, 1), false);</span>
-<span class="fc" id="L222">        assertEquals(gold.goalCheck(1, 1, 1), false);</span>
+<span class="fc" id="L235">        Goal gold = new Goal(goalcondition);</span>
+<span class="fc" id="L236">        assertEquals(gold.goalCheckHelp(&quot;gold&quot;, 5, 1, 1, 1), false);</span>
+<span class="fc" id="L237">        assertEquals(gold.goalCheck(1, 1, 1), false);</span>
 
-<span class="fc" id="L224">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L225">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
-<span class="fc" id="L226">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
-<span class="fc" id="L227">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
-<span class="fc" id="L228">        world.setGoalCondition(gold);</span>
+<span class="fc" id="L239">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L240">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L241">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L242">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L243">        world.setGoalCondition(gold);</span>
 
-<span class="fc" id="L230">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L245">        Character character = new Character(pathPosition);</span>
         
-<span class="fc" id="L232">    }</span>
+<span class="fc" id="L247">    }</span>
+    @Test
+    // { &quot;goal&quot;: &quot;AND&quot;, &quot;subgoals&quot;:
+    //   [ { &quot;goal&quot;: &quot;cycles&quot;, &quot;quantity&quot;: 10 },
+    //     {&quot;goal&quot;: &quot;experience&quot;, &quot;quantity&quot;: 200 }
+    //   ]
+    // }
+    public void goal_test_middle_EASY2(){
+<span class="fc" id="L255">        JSONArray a1 = new JSONArray();</span>
+<span class="fc" id="L256">        JSONObject goalcondition = new JSONObject();</span>
+<span class="fc" id="L257">        goalcondition.put(&quot;goal&quot;, &quot;go&quot;);</span>
+<span class="fc" id="L258">        goalcondition.put(&quot;quantity&quot;, 200);</span>
+
+<span class="fc" id="L260">        Goal gold = new Goal(goalcondition);</span>
+<span class="fc" id="L261">        assertEquals(gold.goalCheckHelp(&quot;gold&quot;, 5, 1, 1, 1), false);</span>
+<span class="fc" id="L262">        assertEquals(gold.goalCheck(1, 1, 1), false);</span>
+
+<span class="fc" id="L264">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L265">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L266">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L267">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L268">        world.setGoalCondition(gold);</span>
+
+<span class="fc" id="L270">        Character character = new Character(pathPosition);</span>
+        
+<span class="fc" id="L272">    }</span>
     @Test
     public void mode (){
-<span class="fc" id="L235">        ModeReq gold = new ModeReq(&quot;survival&quot;);</span>
-<span class="fc" id="L236">        ModeReq gold2 = new ModeReq(&quot;berserker&quot;);</span>
-<span class="fc" id="L237">        ModeReq gold3 = new ModeReq(&quot;Standard&quot;);</span>
+<span class="fc" id="L275">        ModeReq gold = new ModeReq(&quot;survival&quot;);</span>
+<span class="fc" id="L276">        ModeReq gold2 = new ModeReq(&quot;berserker&quot;);</span>
+<span class="fc" id="L277">        ModeReq gold3 = new ModeReq(&quot;Standard&quot;);</span>
 
         
-<span class="fc" id="L240">    }</span>
+<span class="fc" id="L280">    }</span>
     @Test
     public void goalcheck (){
-<span class="fc" id="L243">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L244">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
-<span class="fc" id="L245">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
-<span class="fc" id="L246">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
-<span class="fc" id="L247">        Character character = new Character(pathPosition);</span>
-<span class="fc" id="L248">        Stake stake = new Stake(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 4, 0, 10);</span>
+<span class="fc" id="L283">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L284">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L285">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L286">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L287">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L288">        Stake stake = new Stake(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 4, 0, 10);</span>
         // check character without equip stake
-<span class="fc" id="L250">        assertEquals(character.getAggressivity(), 4);</span>
-<span class="fc" id="L251">        assertEquals(character.getDefense(), 0);</span>
+<span class="fc" id="L290">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L291">        assertEquals(character.getDefense(), 0);</span>
         // check charcter after equip stake
-<span class="fc" id="L253">        world.setCharacterEquipment(character, stake);</span>
-<span class="fc" id="L254">        assertEquals(character.getAggressivity(), 8);</span>
-<span class="fc" id="L255">        assertEquals(character.getDefense(), 0); </span>
+<span class="fc" id="L293">        world.setCharacterEquipment(character, stake);</span>
+<span class="fc" id="L294">        assertEquals(character.getAggressivity(), 8);</span>
+<span class="fc" id="L295">        assertEquals(character.getDefense(), 0); </span>
         // check charcter equip a sword(new weapon)  
-<span class="fc" id="L257">        Sword sword = new Sword(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 6, 0, 10);</span>
-<span class="fc" id="L258">        world.setCharacterEquipment(character, sword);</span>
-<span class="fc" id="L259">        assertEquals(character.getAggressivity(), 10);</span>
-<span class="fc" id="L260">        assertEquals(character.getDefense(), 0); </span>
-<span class="fc" id="L261">    }</span>
+<span class="fc" id="L297">        Sword sword = new Sword(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 6, 0, 10);</span>
+<span class="fc" id="L298">        world.setCharacterEquipment(character, sword);</span>
+<span class="fc" id="L299">        assertEquals(character.getAggressivity(), 10);</span>
+<span class="fc" id="L300">        assertEquals(character.getDefense(), 0); </span>
+<span class="fc" id="L301">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
