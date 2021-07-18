@@ -10,10 +10,15 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public class TrapBuilding extends Building {
     private int attackDamage = 12;
-    // DONE = add more types of building, and make sure buildings have effects on entities as required by the spec
+    /**
+     * constructor of trap building
+     * @param x SimpleIntegerProperty
+     * @param y SimpleIntegerProperty
+     */
     public TrapBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
     }
+
     /**
      * use the function of the builidng
      */

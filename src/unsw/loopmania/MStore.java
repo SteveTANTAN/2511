@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class MStore {
+
     private Stage buyStage;
     private Stage sellStage;
     private Stage currentStage;
@@ -33,10 +34,16 @@ public class MStore {
     private ImageView[] equippedImageView;
     private ImageView[] unequippedImageView;
     private VBox mBox;
+
     private enum ITEM_TYPE{
         ARMOUR, SHIELD, HELMET,STAKE,STAFF, SWORD,HEALTHPOTION, THEONERING, ARMOUR_SLOT, SHIELD_SLOT,HELMET_SLOT,SWORD_SLOT,EMPTY_SLOT
     };
+
     private Map<ITEM_TYPE,Image> itemsImages;
+
+    /**
+     * images 
+     */
     static Image[] images = {
         new Image((new File("src/images/armour.png")).toURI().toString()),
         new Image((new File("src/images/shield.png")).toURI().toString()),
@@ -52,12 +59,20 @@ public class MStore {
         new Image((new File("src/images/shield_unequipped.png")).toURI().toString()),
         new Image((new File("src/images/empty_slot.png")).toURI().toString())
     };
+    /**
+     * price range
+     */
     private int[] price = {
         20, 20, 20, 10, 15, 10, 10
     };
+
     private int healthPotion;
     private int protectiveItem;
     private ModeReq modeReq;
+    /**
+     * MStore constructor
+     * @param loopManiaWorldController
+     */
     public MStore(LoopManiaWorldController loopManiaWorldController){       
         // items
         itemsImages = new HashMap<>();
@@ -82,8 +97,8 @@ public class MStore {
         initBuyStage();
         initSellStage();
         currentStage = buyStage;
-
     }
+
     /**
      * buy interface
      */
@@ -135,7 +150,6 @@ public class MStore {
         box.getChildren().add(gridPane);
 
         // health potion
-
         hBox = new HBox();
         hBox.setPadding(new Insets(20));
         hBox.setAlignment(Pos.CENTER);
@@ -175,6 +189,7 @@ public class MStore {
         });
         box.getChildren().add(gridPane);
     }
+
     /**
      * sell interface
      */
@@ -319,6 +334,7 @@ public class MStore {
         // update items which can be sold
         updateItems();
     }
+    
     /**
      * close the interface
      */

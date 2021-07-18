@@ -4,6 +4,9 @@ import java.util.List;
 
 public class StakeAttack implements Attack{
     @Override
+    /**
+     * character attact with stake
+     */
     public void hit(Character c, List<BasicEnemy> trancedEnemies, List<BasicEnemy> enemies,BasicEnemy e, String who) {
         int hurt;
         if (c.getArmour() instanceof Helmet) {
