@@ -13,7 +13,7 @@ public class HeroCastleBuilding extends Building{
     public HeroCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y, LoopManiaWorldController loopManiaWorldController) {
         super(x, y);
         // build up the store
-        store = new MStore(100,100,loopManiaWorldController);
+        store = new MStore(loopManiaWorldController);
     }
     
     public boolean work(Character character, LoopManiaWorldController loopManiaWorldController){
@@ -42,5 +42,12 @@ public class HeroCastleBuilding extends Building{
      */
     public boolean characterIsInHerosCastle(Character character){
         return getX() == character.getX() && getY() == character.getY();
+    }
+    
+    /**
+     * close the store
+     */
+    public void closeStore(){
+        store.close();
     }
 }

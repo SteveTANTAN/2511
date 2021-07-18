@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.javatuples.Pair;
-import org.json.JSONObject;
-import org.junit.platform.console.options.Theme;
 
 import javafx.beans.property.SimpleIntegerProperty;
 

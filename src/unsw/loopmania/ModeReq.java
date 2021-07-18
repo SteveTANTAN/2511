@@ -8,7 +8,9 @@ public class ModeReq {
     public boolean armour;
     public boolean helmets;
     public boolean shields;
+    public String mode;
     public ModeReq(String mode){
+        this.mode = mode;
         this.healthPotion = false;
         this.armour = false;
         this.helmets = false;

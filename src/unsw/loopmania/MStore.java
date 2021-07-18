@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -45,14 +46,19 @@ public class MStore {
         new Image((new File("src/images/stake.png")).toURI().toString()),
         new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString()),
         new Image((new File("src/images/the_one_ring.png")).toURI().toString()),
-        new Image((new File("src/images/amour_slot.png")).toURI().toString()),
+        new Image((new File("src/images/armour_slot.png")).toURI().toString()),
         new Image((new File("src/images/helmet_slot.png")).toURI().toString()),
         new Image((new File("src/images/sword_unequipped.png")).toURI().toString()),
         new Image((new File("src/images/shield_unequipped.png")).toURI().toString()),
         new Image((new File("src/images/empty_slot.png")).toURI().toString())
     };
-
-    public MStore(int x,int y, LoopManiaWorldController loopManiaWorldController){       
+    private int[] price = {
+        20, 20, 20, 10, 15, 10, 10
+    };
+    private int healthPotion;
+    private int protectiveItem;
+    private ModeReq modeReq;
+    public MStore(LoopManiaWorldController loopManiaWorldController){       
         // items
         itemsImages = new HashMap<>();
         itemsImages.put(ITEM_TYPE.ARMOUR, images[0]);
@@ -73,25 +79,22 @@ public class MStore {
         equippedImageView = new ImageView[4];
         unequippedImageView = new ImageView[16];
         this.loopManiaWorldController = loopManiaWorldController;
-
-        initBuyStage(x, y);
-        initSellStage(x, y);
+        initBuyStage();
+        initSellStage();
         currentStage = buyStage;
 
     }
     /**
      * buy interface
      */
-    public void initBuyStage(int x,int y){
+    public void initBuyStage(){
         String[] str = {
             "20 gold","20 gold","20 gold","10 gold","15 gold","10 gold"
         };
 
         buyStage = new Stage();
-        buyStage.setX(x);
-        buyStage.setY(y);
-        int width =  250;
-        int height = 500;
+        int width =  256;
+        int height = 480;
         VBox box = new VBox();
         box.setStyle("-fx-opacity: 0.9;");
         Scene scene = new Scene(box, width, height);
@@ -126,7 +129,7 @@ public class MStore {
                 gridPane.add(vBox, j, i);
 
                 // set mouse click events
-                buyImageView[i*2+j].setOnMouseClicked(new ImageViewClick(1, i*2+j,null));
+                buyImageView[i*2+j].setOnMouseClicked(new ImageViewClick(1, i*2+j));
             }
         }
         box.getChildren().add(gridPane);
@@ -142,7 +145,7 @@ public class MStore {
         buyImageView[6].setImage(images[6]);
         vBox.getChildren().add(buyImageView[6]);
         // set mouse click events
-        buyImageView[6].setOnMouseClicked(new ImageViewClick(1, 6,null));
+        buyImageView[6].setOnMouseClicked(new ImageViewClick(1, 6));
         Text text = new Text("10 gold");
         vBox.getChildren().add(text);
         hBox.getChildren().add(vBox);
@@ -161,6 +164,7 @@ public class MStore {
         gridPane.add(closeBtn, 1, 0);
 
         toSellBtn.setOnAction((ActionEvent e)->{
+            updateItems();
             sellStage.show();
             close();
             currentStage = sellStage;
@@ -174,12 +178,10 @@ public class MStore {
     /**
      * sell interface
      */
-    public void initSellStage(int x,int y){
+    public void initSellStage(){
         sellStage = new Stage();
-        sellStage.setX(x);
-        sellStage.setY(y);
-        int width =  250;
-        int height = 500;
+        int width =  256;
+        int height = 480;
         mBox = new VBox();
         mBox.setStyle("-fx-opacity: 0.9;");
         Scene scene = new Scene(mBox, width, height);
@@ -233,12 +235,11 @@ public class MStore {
         mBox.getChildren().add(unequippedGridPane);
         
         // set mouse click events
-        List<Item> unequippedInventoryItems = loopManiaWorldController.getLoopManiaWorld().getUnequippedInventoryItems();
         for(int i = 0; i < 4; i++){
-            equippedImageView[i].setOnMouseClicked(new ImageViewClick(2, i,unequippedInventoryItems));
+            equippedImageView[i].setOnMouseClicked(new ImageViewClick(2, i));
         }
         for(int i = 0; i < 16; i++){
-            unequippedImageView[i].setOnMouseClicked(new ImageViewClick(3, i,unequippedInventoryItems));
+            unequippedImageView[i].setOnMouseClicked(new ImageViewClick(3, i));
         }
 
         // buttions
@@ -264,40 +265,44 @@ public class MStore {
         mBox.getChildren().add(gridPane);
     }
 
+    public void setStorePosition(){
+        Stage primaryStage = loopManiaWorldController.getPrimayStage();
+        buyStage.setX(primaryStage.getX()+8);
+        buyStage.setY(primaryStage.getY()+61);
+        sellStage.setX(primaryStage.getX()+8);
+        sellStage.setY(primaryStage.getY()+61);
+    }
+
     /**
      * update items which can be sold
      */
-    public void updateItemss(){
+    public void updateItems(){
         // unequipped
         GridPane unequippedGridPane = new GridPane();
         unequippedGridPane.setAlignment(Pos.CENTER);
         List<Item> unequippedInventoryItems = loopManiaWorldController.getLoopManiaWorld().getUnequippedInventoryItems();
-        for(int i =  0; i < 16; i++){
-            if(i < unequippedInventoryItems.size()){
-                Entity entity = unequippedInventoryItems.get(i);
-                if(entity instanceof Armour){
-                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.ARMOUR));
-                }
-                else if(entity instanceof Sword){
-                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.SWORD));
-                }
-                else if(entity instanceof Shield){
-                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.SHIELD));
-                }
-                else if(entity instanceof Helmet){
-                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.HELMET));
-                }
-                else if(entity instanceof Staff){
-                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.STAFF));
-                }
-                else if(entity instanceof Stake){
-                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.STAKE));
-                }
-                else if(entity instanceof TheOneRing){
-                    unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.THEONERING));
-                }
-            }else{
-                unequippedImageView[i].setImage(itemsImages.get(ITEM_TYPE.EMPTY_SLOT));
+        for(Item item : unequippedInventoryItems){
+            int mIndex = item.getY()*4 + item.getX();
+            if(item instanceof Armour){
+                unequippedImageView[mIndex].setImage(itemsImages.get(ITEM_TYPE.ARMOUR));
+            }
+            else if(item instanceof Sword){
+                unequippedImageView[mIndex].setImage(itemsImages.get(ITEM_TYPE.SWORD));
+            }
+            else if(item instanceof Shield){
+                unequippedImageView[mIndex].setImage(itemsImages.get(ITEM_TYPE.SHIELD));
+            }
+            else if(item instanceof Helmet){
+                unequippedImageView[mIndex].setImage(itemsImages.get(ITEM_TYPE.HELMET));
+            }
+            else if(item instanceof Staff){
+                unequippedImageView[mIndex].setImage(itemsImages.get(ITEM_TYPE.STAFF));
+            }
+            else if(item instanceof Stake){
+                unequippedImageView[mIndex].setImage(itemsImages.get(ITEM_TYPE.STAKE));
+            }
+            else if(item instanceof TheOneRing){
+                unequippedImageView[mIndex].setImage(itemsImages.get(ITEM_TYPE.THEONERING));
             }
         }
     }
@@ -306,9 +311,13 @@ public class MStore {
      * show the interface
      */
     public void show(){
+        setStorePosition();
+        modeReq = loopManiaWorldController.getModeReq();
         currentStage.show();
+        healthPotion = 0;
+        protectiveItem = 0;
         // update items which can be sold
-        updateItemss();
+        updateItems();
     }
     /**
      * close the interface
@@ -324,42 +333,70 @@ public class MStore {
     private  class ImageViewClick implements EventHandler<MouseEvent>{
         private int index = 0;
         private int type = 0;
-        private List<Item> unequippedInventoryItems;
-        public ImageViewClick(int type, int index, List<Item> unequippedInventoryItems2){
+        public ImageViewClick(int type, int index){
             this.type = type;
             this.index = index;
-            this.unequippedInventoryItems = unequippedInventoryItems2;
         }
         @Override
         public void handle(MouseEvent e) {
+            Character character = loopManiaWorldController.getLoopManiaWorld().getCharacter();
             if(type == 1){       // buy items
                 switch(index){
                     case 0:{     // armour
-
+                        if(price[index] <= character.getGold()){
+                            if(modeReq.mode.equals("berserker") && protectiveItem >= 1) return;
+                            character.setGold(character.getGold()-price[index]);
+                            loopManiaWorldController.loadItemByType(ITEMS_TYPE.ARMOUR);
+                            protectiveItem++;
+                        }
                         break;
                     }
                     case 1:{    // shield 
-                        
+                        if(price[index] <= character.getGold()){
+                            if(modeReq.mode.equals("berserker") && protectiveItem >= 1) return;
+                            character.setGold(character.getGold()-price[index]);
+                            loopManiaWorldController.loadItemByType(ITEMS_TYPE.SHIELD);
+                            protectiveItem++;
+                        }
                         break;
                     }
                     case 2:{    // helmet
-                        
+                        if(price[index] <= character.getGold()){
+                            if(modeReq.mode.equals("berserker") && protectiveItem >= 1) return;
+                            character.setGold(character.getGold()-price[index]);
+                            loopManiaWorldController.loadItemByType(ITEMS_TYPE.HELMET);
+                            protectiveItem++;
+                        }
                         break;
                     } 
                     case 3:{    // sword
-                        
+                        if(price[index] <= character.getGold()){
+                            character.setGold(character.getGold()-price[index]);
+                            loopManiaWorldController.loadItemByType(ITEMS_TYPE.SWORD);
+                        }
                         break;
                     }
                     case 4:{    // staff
-                        
+                        if(price[index] <= character.getGold()){
+                            character.setGold(character.getGold()-price[index]);
+                            loopManiaWorldController.loadItemByType(ITEMS_TYPE.STAFF);
+                        }
                         break;
                     }
                     case 5:{    // stake
-                        
+                        if(price[index] <= character.getGold()){
+                            character.setGold(character.getGold()-price[index]);
+                            loopManiaWorldController.loadItemByType(ITEMS_TYPE.STAKE);
+                        }
                         break;
                     }
                     case 6:{    // health potion
-                        
+                        if(price[index] <= character.getGold()){
+                            if(modeReq.mode.equals("survival") && healthPotion >= 1) break;
+                            character.setGold(character.getGold()-price[index]);
+                            character.setHealth(character.getHealth()+HealthPotion.healAmount);
+                            healthPotion++;
+                        }
                         break;
                     }
                 }
@@ -369,9 +406,53 @@ public class MStore {
             }
 
             if(type == 3){     // sell unequipped items
-
+                List<Item> unequippedInventoryItems = loopManiaWorldController.getLoopManiaWorld().getUnequippedInventoryItems();
+                int x = index % 4;
+                int y = index / 4;
+                
+                // find the item
+                boolean isFind = false;
+                Item curItem = null;
+                for(Item item : unequippedInventoryItems){
+                    if(x == item.getX() && y == item.getY()){
+                        isFind = true;
+                        curItem = item;
+                        break;
+                    }
+                }
+                if(!isFind) return;
+                // calculate the gain
+                int price = 0;
+                Item item = curItem;
+                if(item instanceof Armour){
+                    price = ((Armour)item).getPrice();
+                }
+                else if(item instanceof Sword){
+                    price = ((Sword)item).getPrice();
+                }
+                else if(item instanceof Shield){
+                    price = ((Shield)item).getPrice();
+                }
+                else if(item instanceof Helmet){
+                    price = ((Helmet)item).getPrice();
+                }
+                else if(item instanceof Staff){
+                    price = ((Staff)item).getPrice();
+                }
+                else if(item instanceof Stake){
+                    price = ((Stake)item).getPrice();
+                }
+                else if(item instanceof TheOneRing){
+                    price = ((TheOneRing)item).getPrice();
+                }
+                price = (int)(price*0.4);
+                character.setGold(character.getGold()+price);
+                // remove the item from the unequipped inventory
+                loopManiaWorldController.getLoopManiaWorld().removeUnequippedInventoryItemByCoordinates(x, y);
+                mBox.getChildren().remove(unequippedImageView[index]);
+                unequippedImageView[index].setImage(itemsImages.get(ITEM_TYPE.EMPTY_SLOT));
             }
+            loopManiaWorldController.updateDisplay();
         }
-        
     }
 }
