@@ -4,10 +4,13 @@ import java.util.List;
 
 <span class="fc" id="L5">public class ZombieAttack implements Attack{</span>
     @Override
+    /**
+     * zombie attack
+     */
     public void hit(Character c, List&lt;BasicEnemy&gt; trancedEnemies, List&lt;BasicEnemy&gt; enemies,BasicEnemy e, String who) {
-<span class="fc" id="L8">        c.getSoldiers().remove(0);</span>
-<span class="fc" id="L9">        Zombie z = new Zombie(c.getPosition());</span>
-<span class="fc" id="L10">        enemies.add(z);</span>
-<span class="fc" id="L11">    }</span>
+<span class="fc" id="L11">        c.getSoldiers().remove(0);</span>
+<span class="fc" id="L12">        Zombie z = new Zombie(c.getPosition());</span>
+<span class="fc" id="L13">        enemies.add(z);</span>
+<span class="fc" id="L14">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

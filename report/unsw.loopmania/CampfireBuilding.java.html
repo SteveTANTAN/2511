@@ -6,25 +6,29 @@ import javafx.beans.property.SimpleIntegerProperty;
  * a basic form of building in the world
  */
 public class CampfireBuilding extends Building {
-    // DONE = add more types of building, and make sure buildings have effects on entities as required by the spec
+    /**
+     * constructor of campire building
+     * @param x SimpleIntegerProperty
+     * @param y SimpleIntegerProperty
+     */
     public CampfireBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
-<span class="nc" id="L11">        super(x, y);</span>
-<span class="nc" id="L12">    }</span>
+<span class="fc" id="L15">        super(x, y);</span>
+<span class="fc" id="L16">    }</span>
 
     /**
      * use the function of the builidng
      */
     public boolean work(Character character){
-<span class="nc" id="L18">        int[] dx = {0, 1, 0, -1};</span>
-<span class="nc" id="L19">        int[] dy = {1, 0, -1, 0};</span>
-<span class="nc" id="L20">        boolean hasAttackEnhance = false;</span>
-<span class="nc bnc" id="L21" title="All 2 branches missed.">        for(int i = 0; i &lt; 4; i++){</span>
-<span class="nc bnc" id="L22" title="All 2 branches missed.">            if(getX() + dx[i] == character.getX() &amp;&amp; </span>
-<span class="nc bnc" id="L23" title="All 2 branches missed.">            getY() + dy[i] == character.getY()){</span>
-<span class="nc" id="L24">                hasAttackEnhance = true;</span>
+<span class="fc" id="L22">        int[] dx = {0, 1, 0, -1};</span>
+<span class="fc" id="L23">        int[] dy = {1, 0, -1, 0};</span>
+<span class="fc" id="L24">        boolean hasAttackEnhance = false;</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        for(int i = 0; i &lt; 4; i++){</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">            if(getX() + dx[i] == character.getX() &amp;&amp; </span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">            getY() + dy[i] == character.getY()){</span>
+<span class="fc" id="L28">                hasAttackEnhance = true;</span>
             }
         }
-<span class="nc" id="L27">        return hasAttackEnhance;</span>
+<span class="fc" id="L31">        return hasAttackEnhance;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

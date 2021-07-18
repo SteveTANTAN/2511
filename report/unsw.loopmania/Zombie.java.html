@@ -3,30 +3,34 @@
 import java.util.Random;
 
 public class Zombie extends BasicEnemy{
+    /**
+     * constructor of zombie
+     * @param position position
+     */
     public Zombie(PathPosition position) {
-<span class="fc" id="L7">        super(position);</span>
-<span class="fc" id="L8">        super.setHealth(18);</span>
-<span class="fc" id="L9">        super.setAggressivity(8);</span>
-<span class="fc" id="L10">        super.setSupportRange(0);</span>
-<span class="fc" id="L11">        super.setAttackRange(2);</span>
-<span class="fc" id="L12">        super.setGoldDefeated(3);</span>
-<span class="fc" id="L13">        super.setEXP(5);</span>
-<span class="fc" id="L14">        super.setName(&quot;Zombie&quot;);</span>
-<span class="fc" id="L15">    } </span>
+<span class="fc" id="L11">        super(position);</span>
+<span class="fc" id="L12">        super.setHealth(18);</span>
+<span class="fc" id="L13">        super.setAggressivity(8);</span>
+<span class="fc" id="L14">        super.setSupportRange(0);</span>
+<span class="fc" id="L15">        super.setAttackRange(2);</span>
+<span class="fc" id="L16">        super.setGoldDefeated(3);</span>
+<span class="fc" id="L17">        super.setEXP(5);</span>
+<span class="fc" id="L18">        super.setName(&quot;Zombie&quot;);</span>
+<span class="fc" id="L19">    } </span>
+
     /**
      * move the zombie
      */
     @Override
     public void move(){
-        // TODO = modify this, since this implementation doesn't provide the expected enemy behaviour
         // this basic enemy moves in a random direction... 25% chance up or down, 50% chance not at all...
-<span class="nc" id="L23">        int directionChoice = (new Random()).nextInt(6);</span>
-<span class="nc bnc" id="L24" title="All 2 branches missed.">        if (directionChoice &lt; 4){</span>
-<span class="nc" id="L25">            moveUpPath();</span>
+<span class="fc" id="L27">        int directionChoice = (new Random()).nextInt(6);</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (directionChoice &lt; 4){</span>
+<span class="fc" id="L29">            moveUpPath();</span>
         }
         else{
-<span class="nc" id="L28">            moveDownPath();</span>
+<span class="fc" id="L32">            moveDownPath();</span>
         }
-<span class="nc" id="L30">    }</span>
+<span class="fc" id="L34">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -41,6 +41,8 @@ import unsw.loopmania.Stake;
 import unsw.loopmania.Sword;
 import unsw.loopmania.TheOneRing;
 import unsw.loopmania.Goal;
+import unsw.loopmania.ModeReq;
+
 
 
 public class GoalsTest {
@@ -103,7 +105,7 @@ public class GoalsTest {
         
     }
     @Test
-    public void goal_test_middle_complex(){
+    public void goal_test_complex2(){
         JSONArray a1 = new JSONArray();
         JSONObject o1 = new JSONObject();
         o1.put("goal", "experience");
@@ -116,7 +118,7 @@ public class GoalsTest {
         a1.put(o2);
 
         JSONObject o3 = new JSONObject();
-        o3.put("goal", "OR");
+        o3.put("goal", "AND");
         o3.put("subgoals", a1);
 
         JSONObject o4 = new JSONObject();
@@ -127,9 +129,93 @@ public class GoalsTest {
         a2.put(o3);
         a2.put(o4);
         JSONObject goalcondition = new JSONObject();
+        goalcondition.put("goal", "OR");
+        goalcondition.put("subgoals", a2);
+
+
+        Goal gold = new Goal(goalcondition);
+        assertEquals(gold.goalCheckHelp("experience", 5, 10, 10, 10), true);
+        assertEquals(gold.goalCheck(1, 500, 1), false);
+
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        PathPosition pathPosition = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
+        world.setGoalCondition(gold);
+
+        Character character = new Character(pathPosition);
+        
+    }
+    @Test
+    public void goal_test_middle_complex(){
+        JSONArray a1 = new JSONArray();
+        JSONObject o1 = new JSONObject();
+        o1.put("goal", "experience");
+        o1.put("quantity", 200);
+
+        JSONObject o4 = new JSONObject();
+        o4.put("goal", "cycles");
+        o4.put("quantity", 10);
+
+        JSONArray a2 = new JSONArray();
+        a2.put(o1);
+        a2.put(o4);
+        JSONObject goalcondition = new JSONObject();
         goalcondition.put("goal", "AND");
         goalcondition.put("subgoals", a2);
 
+
+        Goal gold = new Goal(goalcondition);
+        assertEquals(gold.goalCheckHelp("gold", 5, 1, 1, 50), false);
+        assertEquals(gold.goalCheck(1, 200, 1), false);
+
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        PathPosition pathPosition = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
+        world.setGoalCondition(gold);
+
+        Character character = new Character(pathPosition);
+        
+    }
+    @Test
+    public void goal_test_middle_complex2(){
+        JSONArray a1 = new JSONArray();
+        JSONObject o1 = new JSONObject();
+        o1.put("goal", "experience");
+        o1.put("quantity", 200);
+
+        JSONObject o4 = new JSONObject();
+        o4.put("goal", "cycles");
+        o4.put("quantity", 10);
+
+        JSONArray a2 = new JSONArray();
+        a2.put(o1);
+        a2.put(o4);
+        JSONObject goalcondition = new JSONObject();
+        goalcondition.put("goal", "OR");
+        goalcondition.put("subgoals", a2);
+
+
+        Goal gold = new Goal(goalcondition);
+        assertEquals(gold.goalCheckHelp("cycles", 5, 1, 1, 10), true);
+        assertEquals(gold.goalCheck(100, 1, 1), false);
+
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        PathPosition pathPosition = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
+        world.setGoalCondition(gold);
+
+        Character character = new Character(pathPosition);
+        
+    }
+    @Test
+    public void goal_test_middle_EASY(){
+        JSONArray a1 = new JSONArray();
+        JSONObject goalcondition = new JSONObject();
+        goalcondition.put("goal", "experience");
+        goalcondition.put("quantity", 200);
 
         Goal gold = new Goal(goalcondition);
         assertEquals(gold.goalCheckHelp("gold", 5, 1, 1, 1), false);
@@ -142,6 +228,14 @@ public class GoalsTest {
         world.setGoalCondition(gold);
 
         Character character = new Character(pathPosition);
+        
+    }
+    @Test
+    public void mode (){
+        ModeReq gold = new ModeReq("survival");
+        ModeReq gold2 = new ModeReq("berserker");
+        ModeReq gold3 = new ModeReq("Standard");
+
         
     }
     @Test

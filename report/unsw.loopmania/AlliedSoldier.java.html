@@ -5,27 +5,48 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class AlliedSoldier extends StaticEntity{
     private int aggressivity;
     private int health;
+    /**
+     * constructor of allied solider
+     * @param x SimpleIntegerProperty 
+     * @param y SimpleIntegerProperty 
+     */
     public AlliedSoldier(SimpleIntegerProperty x, SimpleIntegerProperty y) {
-<span class="fc" id="L9">        super(x, y);</span>
-<span class="fc" id="L10">        this.aggressivity = 5;</span>
-<span class="fc" id="L11">        this.health = 15;</span>
-<span class="fc" id="L12">    }</span>
+<span class="fc" id="L14">        super(x, y);</span>
+<span class="fc" id="L15">        this.aggressivity = 5;</span>
+<span class="fc" id="L16">        this.health = 15;</span>
+<span class="fc" id="L17">    }</span>
 
+    /**
+     * get solieder aggressivity
+     * @return integer of solieder aggressivity
+     */
     public int getAggressivity() {
-<span class="nc" id="L15">        return this.aggressivity;</span>
+<span class="fc" id="L24">        return this.aggressivity;</span>
     }
 
+    /**
+     * set solieder aggressivity
+     * @param aggressivity solieder aggressivity
+     */
     public void setAggressivity(int aggressivity) {
-<span class="nc" id="L19">        this.aggressivity = aggressivity;</span>
-<span class="nc" id="L20">    }</span>
+<span class="fc" id="L32">        this.aggressivity = aggressivity;</span>
+<span class="fc" id="L33">    }</span>
 
+    /**
+     * get solieder health
+     * @return solieder health
+     */
     public int getHealth() {
-<span class="nc" id="L23">        return this.health;</span>
+<span class="fc" id="L40">        return this.health;</span>
     }
 
+    /**
+     * set solieder health
+     * @param health solieder health
+     */
     public void setHealth(int health) {
-<span class="nc" id="L27">        this.health = health;</span>
-<span class="nc" id="L28">    }</span>
+<span class="fc" id="L48">        this.health = health;</span>
+<span class="fc" id="L49">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

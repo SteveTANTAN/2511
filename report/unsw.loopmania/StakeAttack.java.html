@@ -4,18 +4,21 @@ import java.util.List;
 
 <span class="fc" id="L5">public class StakeAttack implements Attack{</span>
     @Override
+    /**
+     * character attact with stake
+     */
     public void hit(Character c, List&lt;BasicEnemy&gt; trancedEnemies, List&lt;BasicEnemy&gt; enemies,BasicEnemy e, String who) {
-        int hurt;
-<span class="pc bpc" id="L9" title="1 of 2 branches missed.">        if (c.getArmour() instanceof Helmet) {</span>
-<span class="nc" id="L10">            hurt = - 2;</span>
+<span class="fc" id="L11">        int hurt = 0;</span>
+<span class="fc bfc" id="L12" title="All 2 branches covered.">        if (c.getArmour() instanceof Helmet) {</span>
+<span class="fc" id="L13">            hurt = - 2;</span>
         }
-<span class="pc bpc" id="L12" title="1 of 2 branches missed.">        if (e.getName().equals(&quot;Vampire&quot;)) {</span>
-<span class="fc" id="L13">            hurt = c.getAggressivity() + 8;</span>
+<span class="fc bfc" id="L15" title="All 2 branches covered.">        if (e.getName().equals(&quot;Vampire&quot;)) {</span>
+<span class="fc" id="L16">            hurt = hurt + c.getAggressivity() + 8;</span>
         } else {
-<span class="nc" id="L15">            hurt = c.getAggressivity();</span>
+<span class="fc" id="L18">            hurt = hurt + c.getAggressivity();</span>
         }
 
-<span class="fc" id="L18">        e.setHealth(e.getHealth() - hurt);</span>
-<span class="fc" id="L19">    }</span>
+<span class="fc" id="L21">        e.setHealth(e.getHealth() - hurt);</span>
+<span class="fc" id="L22">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

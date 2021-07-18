@@ -9,18 +9,22 @@ import javafx.beans.property.SimpleIntegerProperty;
  * a basic form of building in the world
  */
 public class ZombiePitBuilding extends Building {
-    // DONE = add more types of building, and make sure buildings have effects on entities as required by the spec
+    /**
+     * constructor of zombie pit building
+     * @param x SimpleIntegerProperty
+     * @param y SimpleIntegerProperty
+     */
     public ZombiePitBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
-<span class="nc" id="L14">        super(x, y);</span>
-<span class="nc" id="L15">    }</span>
+<span class="fc" id="L18">        super(x, y);</span>
+<span class="fc" id="L19">    }</span>
 
     /**
      * spawn a zombie each turn of the game
      */
     public List&lt;BasicEnemy&gt; spawnZombie(LoopManiaWorld world){
-<span class="nc" id="L21">        List&lt;BasicEnemy&gt; retList = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L22">        retList.add(world.spawnAZombie(getX(),getY()));</span>
-<span class="nc" id="L23">        return retList;</span>
+<span class="fc" id="L25">        List&lt;BasicEnemy&gt; retList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L26">        retList.add(world.spawnAZombie(getX(),getY()));</span>
+<span class="fc" id="L27">        return retList;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

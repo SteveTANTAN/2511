@@ -6,12 +6,21 @@ import javafx.beans.property.SimpleIntegerProperty;
  * represents an equipped or unequipped HealthPotion in the backend world
  */
 public class HealthPotion extends Item {
+<span class="fc" id="L9">    public static int healAmount = 50;</span>
+    /**
+     * constructor of healthpotion
+     * @param x             SimpleIntegerProperty
+     * @param y             SimpleIntegerProperty
+     * @param damageValue   damage value 
+     * @param defenseValue  defense value 
+     * @param price         price
+     */
     public HealthPotion(SimpleIntegerProperty x, SimpleIntegerProperty y, int damageValue, int defenseValue, int price) {
-<span class="fc" id="L10">        super(x, y, damageValue, defenseValue, price);</span>
-<span class="fc" id="L11">        setDamageValue(damageValue);</span>
-<span class="fc" id="L12">        setDefenseValue(defenseValue);</span>
-<span class="fc" id="L13">        setPrice(price);</span>
-<span class="fc" id="L14">    }</span>
+<span class="fc" id="L19">        super(x, y, damageValue, defenseValue, price);</span>
+<span class="fc" id="L20">        setDamageValue(damageValue);</span>
+<span class="fc" id="L21">        setDefenseValue(defenseValue);</span>
+<span class="fc" id="L22">        setPrice(price);</span>
+<span class="fc" id="L23">    }</span>
 
 }  
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

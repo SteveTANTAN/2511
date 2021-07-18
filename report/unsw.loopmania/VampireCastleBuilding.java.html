@@ -9,24 +9,28 @@ import javafx.beans.property.SimpleIntegerProperty;
  * a basic form of building in the world
  */
 public class VampireCastleBuilding extends Building {
-<span class="nc" id="L12">    private int counter = 5;</span>
-    // DONE = add more types of building, and make sure buildings have effects on entities as required by the spec
+<span class="fc" id="L12">    private int counter = 5;</span>
+    /**
+     * constructor of vampire castle building
+     * @param x SimpleIntegerProperty
+     * @param y SimpleIntegerProperty
+     */
     public VampireCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
-<span class="nc" id="L15">        super(x, y);</span>
-<span class="nc" id="L16">    }</span>
+<span class="fc" id="L19">        super(x, y);</span>
+<span class="fc" id="L20">    }</span>
 
     /**
      * spawn a vampire each 5 loops of the game
      */
     public List&lt;BasicEnemy&gt; spawnVampires(LoopManiaWorld world){
-<span class="nc" id="L22">        List&lt;BasicEnemy&gt; retList = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L23" title="All 2 branches missed.">        if(counter == 5){</span>
-<span class="nc" id="L24">            retList.add(world.spawnAVampire(getX(),getY()));</span>
-<span class="nc" id="L25">            counter = 1;</span>
+<span class="fc" id="L26">        List&lt;BasicEnemy&gt; retList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if(counter == 5){</span>
+<span class="fc" id="L28">            retList.add(world.spawnAVampire(getX(),getY()));</span>
+<span class="fc" id="L29">            counter = 1;</span>
         }else{
-<span class="nc" id="L27">            counter++;</span>
+<span class="fc" id="L31">            counter++;</span>
         }
-<span class="nc" id="L29">        return retList;</span>
+<span class="fc" id="L33">        return retList;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

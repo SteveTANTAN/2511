@@ -4,10 +4,13 @@ import java.util.List;
 
 <span class="fc" id="L5">public class StaffAttack implements Attack{</span>
     @Override
+    /**
+     * character attact with staff
+     */
     public void hit(Character c, List&lt;BasicEnemy&gt; trancedEnemies, List&lt;BasicEnemy&gt; enemies,BasicEnemy e, String who) {
-<span class="fc" id="L8">        enemies.remove(e);</span>
-<span class="fc" id="L9">        trancedEnemies.add(e);</span>
-<span class="fc" id="L10">        e.setTranceTurn(5);</span>
-<span class="fc" id="L11">    }</span>
+<span class="fc" id="L11">        enemies.remove(e);</span>
+<span class="fc" id="L12">        trancedEnemies.add(e);</span>
+<span class="fc" id="L13">        e.setTranceTurn(5);</span>
+<span class="fc" id="L14">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

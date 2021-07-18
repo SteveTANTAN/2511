@@ -25,34 +25,50 @@ public abstract class MovingEntity extends Entity {
      * move clockwise through the path
      */
     public void moveDownPath() {
-<span class="nc" id="L28">        position.moveDownPath();</span>
-<span class="nc" id="L29">    }</span>
+<span class="fc" id="L28">        position.moveDownPath();</span>
+<span class="fc" id="L29">    }</span>
 
     /**
      * move anticlockwise through the path
      */
     public void moveUpPath() {
-<span class="nc" id="L35">        position.moveUpPath();</span>
-<span class="nc" id="L36">    }</span>
+<span class="fc" id="L35">        position.moveUpPath();</span>
+<span class="fc" id="L36">    }</span>
 
+    /**
+     * get X postion
+     */
     public SimpleIntegerProperty x() {
-<span class="nc" id="L39">        return position.getX();</span>
+<span class="fc" id="L42">        return position.getX();</span>
     }
 
+    /**
+     * get X postion
+     */
     public SimpleIntegerProperty y() {
-<span class="nc" id="L43">        return position.getY();</span>
+<span class="fc" id="L49">        return position.getY();</span>
     }
 
+    /**
+     * get X
+     */
     public int getX() {
-<span class="nc" id="L47">        return x().get();</span>
+<span class="fc" id="L56">        return x().get();</span>
     }
 
+    /**
+     * get Y
+     */
     public int getY() {
-<span class="nc" id="L51">        return y().get();</span>
+<span class="fc" id="L63">        return y().get();</span>
     }
 
+    /**
+     * get path position
+     * @return path position
+     */
     public PathPosition getPosition() {
-<span class="fc" id="L55">        return position;</span>
+<span class="fc" id="L71">        return position;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

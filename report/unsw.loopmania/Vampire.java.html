@@ -4,30 +4,34 @@ import java.util.Random;
 
 public class Vampire extends BasicEnemy{
 
+    /**
+     * constructor of vampire
+     * @param position position
+     */
     public Vampire(PathPosition position) {
-<span class="fc" id="L8">        super(position);</span>
-<span class="fc" id="L9">        super.setHealth(32);</span>
-<span class="fc" id="L10">        super.setAggressivity(15);</span>
-<span class="fc" id="L11">        super.setSupportRange(2);</span>
-<span class="fc" id="L12">        super.setAttackRange(2);</span>
-<span class="fc" id="L13">        super.setGoldDefeated(5);</span>
-<span class="fc" id="L14">        super.setEXP(8);</span>
-<span class="fc" id="L15">        super.setName(&quot;Vampire&quot;);</span>
-<span class="fc" id="L16">    }</span>
+<span class="fc" id="L12">        super(position);</span>
+<span class="fc" id="L13">        super.setHealth(32);</span>
+<span class="fc" id="L14">        super.setAggressivity(15);</span>
+<span class="fc" id="L15">        super.setSupportRange(2);</span>
+<span class="fc" id="L16">        super.setAttackRange(2);</span>
+<span class="fc" id="L17">        super.setGoldDefeated(5);</span>
+<span class="fc" id="L18">        super.setEXP(8);</span>
+<span class="fc" id="L19">        super.setName(&quot;Vampire&quot;);</span>
+<span class="fc" id="L20">    }</span>
+
     /**
      * move the vampire
      */
     @Override
     public void move(){
-        // TODO = modify this, since this implementation doesn't provide the expected enemy behaviour
         // this basic enemy moves in a random direction... 25% chance up or down, 50% chance not at all...
-<span class="nc" id="L24">        int directionChoice = (new Random()).nextInt(6);</span>
-<span class="nc bnc" id="L25" title="All 2 branches missed.">        if (directionChoice &lt; 2){</span>
-<span class="nc" id="L26">            moveUpPath();</span>
+<span class="fc" id="L28">        int directionChoice = (new Random()).nextInt(6);</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (directionChoice &lt; 2){</span>
+<span class="fc" id="L30">            moveUpPath();</span>
         }
         else{
-<span class="nc" id="L29">            moveDownPath();</span>
+<span class="fc" id="L33">            moveDownPath();</span>
         }
-<span class="nc" id="L31">    }</span>
+<span class="fc" id="L35">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

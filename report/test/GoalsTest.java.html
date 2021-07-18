@@ -1,23 +1,263 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GoalsTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">test</a> &gt; <span class="el_source">GoalsTest.java</span></div><h1>GoalsTest.java</h1><pre class="source lang-java linenums">package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import unsw.loopmania.LoopManiaWorld;
+import unsw.loopmania.Gold;
+import unsw.loopmania.EXP;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
+import java.util.List;
+import org.javatuples.Pair;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
-<span class="fc" id="L11">public class GoalsTest {</span>
+import javafx.beans.property.SimpleIntegerProperty;
+
+import unsw.loopmania.Armour;
+import unsw.loopmania.Character;
+import unsw.loopmania.HealthPotion;
+import unsw.loopmania.Helmet;
+import unsw.loopmania.LoopManiaWorld;
+import unsw.loopmania.PathPosition;
+
+import unsw.loopmania.Stake;
+import unsw.loopmania.Sword;
+import unsw.loopmania.TheOneRing;
+import unsw.loopmania.Goal;
+import unsw.loopmania.ModeReq;
+
+
+
+<span class="fc" id="L48">public class GoalsTest {</span>
     @Test
-    public void blahTest(){
-<span class="fc" id="L14">        assertEquals(&quot;a&quot;, &quot;a&quot;);</span>
-<span class="fc" id="L15">    }</span>
+    public void Gold1(){
+<span class="fc" id="L51">        Gold gold = new Gold(0);</span>
+<span class="fc" id="L52">        assertEquals(gold.getCurrentGold(), 0);</span>
+<span class="fc" id="L53">        gold.setCurrentGold(1);</span>
+<span class="fc" id="L54">        assertEquals(gold.getCurrentGold(), 1);</span>
+
+<span class="fc" id="L56">    }</span>
     
     @Test
-    public void blahTest2(){
-<span class="fc" id="L19">        LoopManiaWorld d = new LoopManiaWorld(1, 2, new ArrayList&lt;&gt;());</span>
-<span class="fc" id="L20">        assertEquals(d.getWidth(), 1);</span>
-<span class="fc" id="L21">    }</span>
+    public void EXP(){
+<span class="fc" id="L60">        EXP gold = new EXP(0);</span>
+<span class="fc" id="L61">        assertEquals(gold.getCurrentEXP(), 0);</span>
+<span class="fc" id="L62">        gold.setCurrentEXP(1);</span>
+<span class="fc" id="L63">        assertEquals(gold.getCurrentEXP(), 1);</span>
+<span class="fc" id="L64">    }</span>
+    @Test
+    public void goal_test_complex(){
+<span class="fc" id="L67">        JSONArray a1 = new JSONArray();</span>
+<span class="fc" id="L68">        JSONObject o1 = new JSONObject();</span>
+<span class="fc" id="L69">        o1.put(&quot;goal&quot;, &quot;experience&quot;);</span>
+<span class="fc" id="L70">        o1.put(&quot;quantity&quot;, 200);</span>
+
+<span class="fc" id="L72">        JSONObject o2 = new JSONObject();</span>
+<span class="fc" id="L73">        o2.put(&quot;goal&quot;, &quot;gold&quot;);</span>
+<span class="fc" id="L74">        o2.put(&quot;quantity&quot;, 200);</span>
+<span class="fc" id="L75">        a1.put(o1);</span>
+<span class="fc" id="L76">        a1.put(o2);</span>
+
+<span class="fc" id="L78">        JSONObject o3 = new JSONObject();</span>
+<span class="fc" id="L79">        o3.put(&quot;goal&quot;, &quot;OR&quot;);</span>
+<span class="fc" id="L80">        o3.put(&quot;subgoals&quot;, a1);</span>
+
+<span class="fc" id="L82">        JSONObject o4 = new JSONObject();</span>
+<span class="fc" id="L83">        o4.put(&quot;goal&quot;, &quot;cycles&quot;);</span>
+<span class="fc" id="L84">        o4.put(&quot;quantity&quot;, 10);</span>
+
+<span class="fc" id="L86">        JSONArray a2 = new JSONArray();</span>
+<span class="fc" id="L87">        a2.put(o3);</span>
+<span class="fc" id="L88">        a2.put(o4);</span>
+<span class="fc" id="L89">        JSONObject goalcondition = new JSONObject();</span>
+<span class="fc" id="L90">        goalcondition.put(&quot;goal&quot;, &quot;AND&quot;);</span>
+<span class="fc" id="L91">        goalcondition.put(&quot;subgoals&quot;, a2);</span>
+
+
+<span class="fc" id="L94">        Goal gold = new Goal(goalcondition);</span>
+<span class="fc" id="L95">        assertEquals(gold.goalCheckHelp(&quot;gold&quot;, 5, 1, 1, 1), false);</span>
+<span class="fc" id="L96">        assertEquals(gold.goalCheck(1, 1, 1), false);</span>
+
+<span class="fc" id="L98">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L99">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L100">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L101">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L102">        world.setGoalCondition(gold);</span>
+
+<span class="fc" id="L104">        Character character = new Character(pathPosition);</span>
+        
+<span class="fc" id="L106">    }</span>
+    @Test
+    public void goal_test_complex2(){
+<span class="fc" id="L109">        JSONArray a1 = new JSONArray();</span>
+<span class="fc" id="L110">        JSONObject o1 = new JSONObject();</span>
+<span class="fc" id="L111">        o1.put(&quot;goal&quot;, &quot;experience&quot;);</span>
+<span class="fc" id="L112">        o1.put(&quot;quantity&quot;, 200);</span>
+
+<span class="fc" id="L114">        JSONObject o2 = new JSONObject();</span>
+<span class="fc" id="L115">        o2.put(&quot;goal&quot;, &quot;gold&quot;);</span>
+<span class="fc" id="L116">        o2.put(&quot;quantity&quot;, 200);</span>
+<span class="fc" id="L117">        a1.put(o1);</span>
+<span class="fc" id="L118">        a1.put(o2);</span>
+
+<span class="fc" id="L120">        JSONObject o3 = new JSONObject();</span>
+<span class="fc" id="L121">        o3.put(&quot;goal&quot;, &quot;AND&quot;);</span>
+<span class="fc" id="L122">        o3.put(&quot;subgoals&quot;, a1);</span>
+
+<span class="fc" id="L124">        JSONObject o4 = new JSONObject();</span>
+<span class="fc" id="L125">        o4.put(&quot;goal&quot;, &quot;cycles&quot;);</span>
+<span class="fc" id="L126">        o4.put(&quot;quantity&quot;, 10);</span>
+
+<span class="fc" id="L128">        JSONArray a2 = new JSONArray();</span>
+<span class="fc" id="L129">        a2.put(o3);</span>
+<span class="fc" id="L130">        a2.put(o4);</span>
+<span class="fc" id="L131">        JSONObject goalcondition = new JSONObject();</span>
+<span class="fc" id="L132">        goalcondition.put(&quot;goal&quot;, &quot;OR&quot;);</span>
+<span class="fc" id="L133">        goalcondition.put(&quot;subgoals&quot;, a2);</span>
+
+
+<span class="fc" id="L136">        Goal gold = new Goal(goalcondition);</span>
+<span class="fc" id="L137">        assertEquals(gold.goalCheckHelp(&quot;experience&quot;, 5, 10, 10, 10), true);</span>
+<span class="fc" id="L138">        assertEquals(gold.goalCheck(1, 500, 1), false);</span>
+
+<span class="fc" id="L140">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L141">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L142">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L143">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L144">        world.setGoalCondition(gold);</span>
+
+<span class="fc" id="L146">        Character character = new Character(pathPosition);</span>
+        
+<span class="fc" id="L148">    }</span>
+    @Test
+    public void goal_test_middle_complex(){
+<span class="fc" id="L151">        JSONArray a1 = new JSONArray();</span>
+<span class="fc" id="L152">        JSONObject o1 = new JSONObject();</span>
+<span class="fc" id="L153">        o1.put(&quot;goal&quot;, &quot;experience&quot;);</span>
+<span class="fc" id="L154">        o1.put(&quot;quantity&quot;, 200);</span>
+
+<span class="fc" id="L156">        JSONObject o4 = new JSONObject();</span>
+<span class="fc" id="L157">        o4.put(&quot;goal&quot;, &quot;cycles&quot;);</span>
+<span class="fc" id="L158">        o4.put(&quot;quantity&quot;, 10);</span>
+
+<span class="fc" id="L160">        JSONArray a2 = new JSONArray();</span>
+<span class="fc" id="L161">        a2.put(o1);</span>
+<span class="fc" id="L162">        a2.put(o4);</span>
+<span class="fc" id="L163">        JSONObject goalcondition = new JSONObject();</span>
+<span class="fc" id="L164">        goalcondition.put(&quot;goal&quot;, &quot;AND&quot;);</span>
+<span class="fc" id="L165">        goalcondition.put(&quot;subgoals&quot;, a2);</span>
+
+
+<span class="fc" id="L168">        Goal gold = new Goal(goalcondition);</span>
+<span class="fc" id="L169">        assertEquals(gold.goalCheckHelp(&quot;gold&quot;, 5, 1, 1, 50), false);</span>
+<span class="fc" id="L170">        assertEquals(gold.goalCheck(1, 200, 1), false);</span>
+
+<span class="fc" id="L172">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L173">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L174">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L175">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L176">        world.setGoalCondition(gold);</span>
+
+<span class="fc" id="L178">        Character character = new Character(pathPosition);</span>
+        
+<span class="fc" id="L180">    }</span>
+    @Test
+    public void goal_test_middle_complex2(){
+<span class="fc" id="L183">        JSONArray a1 = new JSONArray();</span>
+<span class="fc" id="L184">        JSONObject o1 = new JSONObject();</span>
+<span class="fc" id="L185">        o1.put(&quot;goal&quot;, &quot;experience&quot;);</span>
+<span class="fc" id="L186">        o1.put(&quot;quantity&quot;, 200);</span>
+
+<span class="fc" id="L188">        JSONObject o4 = new JSONObject();</span>
+<span class="fc" id="L189">        o4.put(&quot;goal&quot;, &quot;cycles&quot;);</span>
+<span class="fc" id="L190">        o4.put(&quot;quantity&quot;, 10);</span>
+
+<span class="fc" id="L192">        JSONArray a2 = new JSONArray();</span>
+<span class="fc" id="L193">        a2.put(o1);</span>
+<span class="fc" id="L194">        a2.put(o4);</span>
+<span class="fc" id="L195">        JSONObject goalcondition = new JSONObject();</span>
+<span class="fc" id="L196">        goalcondition.put(&quot;goal&quot;, &quot;OR&quot;);</span>
+<span class="fc" id="L197">        goalcondition.put(&quot;subgoals&quot;, a2);</span>
+
+
+<span class="fc" id="L200">        Goal gold = new Goal(goalcondition);</span>
+<span class="fc" id="L201">        assertEquals(gold.goalCheckHelp(&quot;cycles&quot;, 5, 1, 1, 10), true);</span>
+<span class="fc" id="L202">        assertEquals(gold.goalCheck(100, 1, 1), false);</span>
+
+<span class="fc" id="L204">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L205">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L206">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L207">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L208">        world.setGoalCondition(gold);</span>
+
+<span class="fc" id="L210">        Character character = new Character(pathPosition);</span>
+        
+<span class="fc" id="L212">    }</span>
+    @Test
+    public void goal_test_middle_EASY(){
+<span class="fc" id="L215">        JSONArray a1 = new JSONArray();</span>
+<span class="fc" id="L216">        JSONObject goalcondition = new JSONObject();</span>
+<span class="fc" id="L217">        goalcondition.put(&quot;goal&quot;, &quot;experience&quot;);</span>
+<span class="fc" id="L218">        goalcondition.put(&quot;quantity&quot;, 200);</span>
+
+<span class="fc" id="L220">        Goal gold = new Goal(goalcondition);</span>
+<span class="fc" id="L221">        assertEquals(gold.goalCheckHelp(&quot;gold&quot;, 5, 1, 1, 1), false);</span>
+<span class="fc" id="L222">        assertEquals(gold.goalCheck(1, 1, 1), false);</span>
+
+<span class="fc" id="L224">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L225">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L226">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L227">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L228">        world.setGoalCondition(gold);</span>
+
+<span class="fc" id="L230">        Character character = new Character(pathPosition);</span>
+        
+<span class="fc" id="L232">    }</span>
+    @Test
+    public void mode (){
+<span class="fc" id="L235">        ModeReq gold = new ModeReq(&quot;survival&quot;);</span>
+<span class="fc" id="L236">        ModeReq gold2 = new ModeReq(&quot;berserker&quot;);</span>
+<span class="fc" id="L237">        ModeReq gold3 = new ModeReq(&quot;Standard&quot;);</span>
+
+        
+<span class="fc" id="L240">    }</span>
+    @Test
+    public void goalcheck (){
+<span class="fc" id="L243">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L244">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L245">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L246">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L247">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L248">        Stake stake = new Stake(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 4, 0, 10);</span>
+        // check character without equip stake
+<span class="fc" id="L250">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L251">        assertEquals(character.getDefense(), 0);</span>
+        // check charcter after equip stake
+<span class="fc" id="L253">        world.setCharacterEquipment(character, stake);</span>
+<span class="fc" id="L254">        assertEquals(character.getAggressivity(), 8);</span>
+<span class="fc" id="L255">        assertEquals(character.getDefense(), 0); </span>
+        // check charcter equip a sword(new weapon)  
+<span class="fc" id="L257">        Sword sword = new Sword(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 6, 0, 10);</span>
+<span class="fc" id="L258">        world.setCharacterEquipment(character, sword);</span>
+<span class="fc" id="L259">        assertEquals(character.getAggressivity(), 10);</span>
+<span class="fc" id="L260">        assertEquals(character.getDefense(), 0); </span>
+<span class="fc" id="L261">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
