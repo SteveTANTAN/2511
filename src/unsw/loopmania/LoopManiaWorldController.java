@@ -39,7 +39,6 @@ import java.util.EnumMap;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -172,7 +171,7 @@ public class LoopManiaWorldController {
     private Image shieldImage;
     private Image helmetImage;
     private Image theOneRingImage;
-    private Image BlackTinyImage;
+    private Image emptyTheOneRingImage;
     
     private Image heroCastlImage;
 
@@ -264,7 +263,7 @@ public class LoopManiaWorldController {
         shieldImage = new Image((new File("src/images/shield.png")).toURI().toString());
         helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
         theOneRingImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
-        BlackTinyImage = new Image((new File("src/images/image_just_black_tiny.png")).toURI().toString());
+        emptyTheOneRingImage = new Image((new File("src/images/src_images_the_one_ring.png")).toURI().toString());
         heartImage= new Image((new File("src/images/heart.png")).toURI().toString());
         goldPileslImage = new Image((new File("src/images/gold_pile.png")).toURI().toString());
         currentlyDraggedImage = null;
@@ -814,9 +813,9 @@ public class LoopManiaWorldController {
      * @param nodeX x coordinate from 0 to unequippedInventoryWidth-1
      * @param nodeY y coordinate from 0 to unequippedInventoryHeight-1
      */
-    private void removeItemByCoordinates(int nodeX, int nodeY) {
-        world.removeUnequippedInventoryItemByCoordinates(nodeX, nodeY);
-    }
+    //private void removeItemByCoordinates(int nodeX, int nodeY) {
+    //   world.removeUnequippedInventoryItemByCoordinates(nodeX, nodeY);
+    //}
 
     /**
      * add drag event handlers to an ImageView
@@ -1132,7 +1131,7 @@ public class LoopManiaWorldController {
      */
     public void setUsedTheOneRingImage() {
         if (world.getCharacter().getTheOneRing() == null) {
-            ImageView image = new ImageView(BlackTinyImage);
+            ImageView image = new ImageView(emptyTheOneRingImage);
             equippedItems.add(image, 3, 0, 1, 1);
             world.setUsedTheOneRing(false);
         }

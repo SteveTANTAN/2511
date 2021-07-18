@@ -22,7 +22,6 @@ import unsw.loopmania.Slug;
 import unsw.loopmania.StaffAttack;
 import unsw.loopmania.Stake;
 import unsw.loopmania.StakeAttack;
-import unsw.loopmania.Sword;
 import unsw.loopmania.Vampire;
 import unsw.loopmania.VampireAttack;
 import unsw.loopmania.Zombie;
@@ -36,9 +35,8 @@ public class AttackTest {
     public void slugcommonAttackTest1(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
-        Pair p = new Pair(1, 1);
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
-        orderedPath.add(p);
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         Slug e = new Slug(Pp);
@@ -50,9 +48,8 @@ public class AttackTest {
     public void VampirecommonAttackTest1(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
-        Pair p = new Pair(1, 1);
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
-        orderedPath.add(p);
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         Vampire e = new Vampire(Pp);
@@ -64,9 +61,8 @@ public class AttackTest {
     public void VampireAttackTest1(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
-        Pair p = new Pair(1, 1);
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
-        orderedPath.add(p);
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         Vampire e = new Vampire(Pp);
@@ -79,9 +75,8 @@ public class AttackTest {
     public void ZombiecommonAttackTest1(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
-        Pair p = new Pair(1, 1);
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
-        orderedPath.add(p);
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         Zombie e = new Zombie(Pp);
@@ -93,9 +88,8 @@ public class AttackTest {
     public void ZombieAttackTest1(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
-        Pair p = new Pair(1, 1);
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
-        orderedPath.add(p);
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));
@@ -111,9 +105,8 @@ public class AttackTest {
     public void AmmourTest(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
-        Pair p = new Pair(1, 1);
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
-        orderedPath.add(p);
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         Armour am = new Armour(null, null, 0, 0, 0);
@@ -127,9 +120,8 @@ public class AttackTest {
     public void HelmetTest1(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
-        Pair p = new Pair(1, 1);
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
-        orderedPath.add(p);
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         Helmet Hm = new Helmet(null, null, 0, 0, 0);
@@ -143,9 +135,8 @@ public class AttackTest {
     public void HelmetTest2(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
-        Pair p = new Pair(1, 1);
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
-        orderedPath.add(p);
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         Helmet Hm = new Helmet(null, null, 0, 0, 0);
@@ -159,9 +150,8 @@ public class AttackTest {
     public void CharacterTest(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
-        Pair p = new Pair(1, 1);
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
-        orderedPath.add(p);
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         Slug e = new Slug(Pp);
@@ -173,9 +163,8 @@ public class AttackTest {
     public void CharacterTestWithStake(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
-        Pair p = new Pair(1, 1);
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
-        orderedPath.add(p);
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         Stake s = new Stake(null, null, 0, 0, 0);
@@ -189,9 +178,8 @@ public class AttackTest {
     public void CharacterTestWithStake2(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
-        Pair p = new Pair(1, 1);
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
-        orderedPath.add(p);
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         Stake s = new Stake(null, null, 0, 0, 0);
@@ -206,9 +194,8 @@ public class AttackTest {
     public void CharacterTestWithStaff(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
-        Pair p = new Pair(1, 1);
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
-        orderedPath.add(p);
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         Stake s = new Stake(null, null, 0, 0, 0);

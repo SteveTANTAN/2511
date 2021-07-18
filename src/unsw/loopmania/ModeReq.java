@@ -1,8 +1,5 @@
 package unsw.loopmania;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 public class ModeReq {
     public boolean healthPotion;
     public boolean armour;

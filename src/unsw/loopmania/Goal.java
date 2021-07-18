@@ -1,11 +1,6 @@
 package unsw.loopmania;
 
-import java.util.ArrayList;
-
 import org.json.JSONObject;
-
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.CheckBox;
 
 public class Goal {
     public String goalType;
@@ -14,7 +9,6 @@ public class Goal {
     public Goal(JSONObject condition){
         this.conditions = condition;
     }
-
 
     public boolean goalCheckHelp (String type, int quantity, int gold, int exp, int turns) {
         switch (type) {
@@ -35,10 +29,7 @@ public class Goal {
 
         }
 
-        //System.out.printf(conditions.toString(4));
-
         if (!conditions.has("subgoals")) {
-            // System.out.printf(conditions.getString("quantity"));
             
             return goalCheckHelp(conditions.getString("goal"), conditions.getInt("quantity"), gold, exp, turns);
         } else{
