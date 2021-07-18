@@ -638,7 +638,7 @@ public class LoopManiaWorldController {
                                 Item currentItem = world.GetEquippedFromUnequippedByCoordinates(nodeX, nodeY, x, y);
                                 if (currentItem != null) {
                                     targetGridPane.add(image, x, y, 1, 1);
-                                    world.setCharacterEquipment(currentItem);
+                                    world.setCharacterEquipment(world.getCharacter(), currentItem);
                                 } else {
                                     for (Node mNode: targetGridPane.getChildren()){
                                         if(mNode.getOpacity() < 1){
