@@ -21,13 +21,8 @@ public class BasicEnemy extends MovingEntity {
     private int attackRange;
     private int supportRange;
     private int tranceTurn;
-    public BasicEnemy(PathPosition position, int aggressivity, int health, int attackRange, int supportRange, String name) {
+    public BasicEnemy(PathPosition position) {
         super(position);
-        this.name = name;
-        this.aggressivity = aggressivity;
-        this.health = health;
-        this.attackRange = attackRange;
-        this.supportRange = supportRange;
         this.tranceTurn = 0;
     }
 

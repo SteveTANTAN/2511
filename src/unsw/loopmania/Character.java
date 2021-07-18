@@ -70,7 +70,6 @@ public class Character extends MovingEntity {
         this.shield = shield;
     }
 
-}
     public void setGold(int gold){
         this.gold = gold;
     }

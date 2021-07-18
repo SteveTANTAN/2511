@@ -46,6 +46,9 @@ public class CommonAttack implements Attack{
             
             case "character":
                 hurt = c.getAggressivity();
+                if (c.getArmour() instanceof Helmet) {
+                    hurt = hurt - 2;
+                }
                 e.setHealth(e.getHealth() - hurt);
                 break;
 

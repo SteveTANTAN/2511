@@ -5,10 +5,10 @@ import java.util.Random;
 public class Zombie extends BasicEnemy{
     public Zombie(PathPosition position) {
         super(position);
-        super.setHealthPoint(18);
-        super.setDamageValue(8);
-        super.setSupportRadius(0);
-        super.setBattleRadius(2);
+        super.setHealth(18);
+        super.setAggressivity(8);
+        super.setSupportRange(0);
+        super.setAttackRange(2);
         super.setGoldDefeated(3);
         super.setEXP(5);
         super.setName("Zombie");

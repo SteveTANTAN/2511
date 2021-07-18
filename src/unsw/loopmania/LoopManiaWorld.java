@@ -7,7 +7,6 @@ import java.util.function.BiConsumer;
 
 import javax.swing.text.StyledEditorKit;
 
-import org.graalvm.compiler.word.Word;
 import org.javatuples.Pair;
 import org.junit.platform.console.options.Theme;
 
@@ -121,7 +120,7 @@ public class LoopManiaWorld {
         List<BasicEnemy> spawningEnemies = new ArrayList<>();
         if (pos != null){
             int indexInPath = orderedPath.indexOf(pos);
-            BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath), indexInPath, indexInPath, indexInPath, indexInPath, null);
+            Slug enemy = new Slug(new PathPosition(indexInPath, orderedPath));
             enemies.add(enemy);
             spawningEnemies.add(enemy);
         }
@@ -145,35 +144,38 @@ public class LoopManiaWorld {
         // TODO = modify this - currently the character automatically wins all battles without any damage!
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> possibleSupporEnemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> fightEnemies = new ArrayList<BasicEnemy>();
         for (BasicEnemy e: enemies){
             // Pythagoras: a^2+b^2 < radius^2 to see if within radius
             // TODO = you should implement different RHS on this inequality, based on influence radii and battle radii
             switch (e.getName()) {
                 case "Slug":
-                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 1){
+                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
                         // fight...
-                        defeatedEnemies.add(e);
+                        fightEnemies.add(e);
                     } else {
                         possibleSupporEnemies.add(e);
                     }
                     break;
                 
-                    case "Zombie":
+                case "Zombie":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 4){
                         // fight...
-                        defeatedEnemies.add(e);
+                        fightEnemies.add(e);
                     } else {
                         possibleSupporEnemies.add(e);
                     }
                     break;
 
-                    case "Vampire":
+                case "Vampire":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 4){
                         // fight...
-                        defeatedEnemies.add(e);
+                        fightEnemies.add(e);
                     } else {
                         possibleSupporEnemies.add(e);
                     }
+                    break;
+                default:
                     break;
             }
         }
@@ -181,30 +183,154 @@ public class LoopManiaWorld {
         for (BasicEnemy e: possibleSupporEnemies){
             switch (e.getName()) {
                 case "Slug":
-                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 1){
+                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
                         // fight...
-                        defeatedEnemies.add(e);
+                        fightEnemies.add(e);
                     }
                     break;
 
                 case "Vampire":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 9){
                         // fight...
-                        defeatedEnemies.add(e);
+                        fightEnemies.add(e);
                     }
                     break;
             }
         }
 
-        List<BasicEnemy> fightEnemies = defeatedEnemies;
-        Fight fight = new Fight(character, fightEnemies);
+        List<BasicEnemy> tranceEnemies = new ArrayList<BasicEnemy>();
+        while (!fightEnemies.isEmpty()) {
+            CommonAttack commonAttack = new CommonAttack();
 
+            if (!tranceEnemies.isEmpty()) {
+                for (BasicEnemy b:tranceEnemies) {
+                    if (b.getTranceTurn() == 0) {
+                        tranceEnemies.remove(b);
+                        fightEnemies.add(b);
+                    }
+                }
+            }
+
+
+            if (!tranceEnemies.isEmpty()) {
+                for (BasicEnemy b:tranceEnemies) {
+                    if (!fightEnemies.isEmpty()) {
+                        if (b.getName().equals("Vampire")) {
+                            int r = new Random().nextInt(10);
+                            if (r < 3) {
+                                VampireAttack va = new VampireAttack();
+                                va.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "allied");
+                            } else {
+                                commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "vampire");
+                            }
+                        } else if (b.getName().equals("Zombie")) {
+                            commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "zombie");
+                        } else if (b.getName().equals("Slug")) {
+                            commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "slug");
+                        }
+                        if (fightEnemies.get(0).getHealth() <= 0) {
+                            defeatedEnemies.add(fightEnemies.get(0));
+                            fightEnemies.remove(0);
+                        }
+                        b.setTranceTurn(b.getTranceTurn() - 1);
+                    }
+                }
+            }
+
+
+            for (BasicEnemy e:fightEnemies) {
+                System.out.println("e: " + e.getHealth());
+                System.out.println("c: " + character.getHealth());
+                int randomNum = new Random().nextInt(10);
+                if (e.getName().equals("Zombie")) {
+                    if (randomNum < 3 && !character.getSoldiers().isEmpty()) {
+                        ZombieAttack za = new ZombieAttack();
+                        za.hit(character, tranceEnemies, fightEnemies, e, "enemy");
+                    } else {
+                        commonAttack.hit(character, tranceEnemies, fightEnemies, e, "enemy");
+                    }
+                } else if (e.getName().equals("Vampire")) {
+                    if (randomNum < 3) {
+                        if (character.getShield() instanceof Shield) {
+                            int index = new Random().nextInt(10);
+                            if (index < 4) {
+                                System.out.println("High damage");
+                                VampireAttack va = new VampireAttack();
+                                va.hit(character, tranceEnemies, enemies, e, "enemy");
+                            } else {
+                                commonAttack.hit(character, tranceEnemies, enemies, e, "enemy");
+                            }
+                        } else {
+                            System.out.println("High damage");
+                            VampireAttack va = new VampireAttack();
+                            va.hit(character, tranceEnemies, fightEnemies, e, "enemy");
+                        }
+                    } else {
+                        commonAttack.hit(character, tranceEnemies, enemies, e, "enemy");
+                    }
+                } else {
+                    commonAttack.hit(character, tranceEnemies, fightEnemies, e, "enemy");
+                }
+                //e.setHealth(e.getHealth() - character.getAggressivity());
+            }
+
+
+            if (!fightEnemies.isEmpty()) {
+                for (AlliedSoldier a :character.getSoldiers()) {
+                    commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "soldier");
+                    if (fightEnemies.get(0).getHealth() <= 0) {
+                        defeatedEnemies.add(fightEnemies.get(0));
+                        fightEnemies.remove(0);
+                    }
+                }
+            }
+            
+            if (!fightEnemies.isEmpty()) {
+                if (character.getWeapon() instanceof Sword) {
+                    commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "character");
+                } else if (character.getWeapon() instanceof Staff) {
+                    int random = new Random().nextInt(10);
+                    if (random == 2) {
+                        StaffAttack sa = new StaffAttack();
+                        sa.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "null");
+                    } else {
+                        commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "character");
+                    }
+                } else if (character.getWeapon() instanceof Stake) {
+                    StakeAttack ak = new StakeAttack();
+                    ak.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "null");
+                } else {
+                    commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "character");
+                }
+            }
+
+
+            if (!fightEnemies.isEmpty()) {
+                if (fightEnemies.get(0).getHealth() <= 0) {
+                    defeatedEnemies.add(fightEnemies.get(0));
+                    fightEnemies.remove(0);
+                }
+            } else {
+                for (BasicEnemy e:tranceEnemies) {
+                    defeatedEnemies.add(e);
+                }
+            }
+        }
+        
+        
+        
+        /*
+        Fight fight = new Fight();
+        fight.fight(character, fightEnemies);
+        if (fightEnemies.isEmpty()) {*/
         for (BasicEnemy e: defeatedEnemies){
-            // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
-            // if we killEnemy in prior loop, we get java.util.ConcurrentModificationException
-            // due to mutating list we're iterating over
+                // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
+                // if we killEnemy in prior loop, we get java.util.ConcurrentModificationException
+                // due to mutating list we're iterating over
+            System.out.println("kill" + e.getName());
             killEnemy(e);
         }
+        //}
         return defeatedEnemies;
     }
     
@@ -313,7 +439,7 @@ public class LoopManiaWorld {
                         break;
                     }
                     case SHIELD:{
-                item = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 1, 20);
+                item = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 20);
                 break;
             }
             case HELMET:{
@@ -770,5 +896,27 @@ public class LoopManiaWorld {
             } else {return null;} 
         }
         return item;  
+    }
+
+    public void setCharacterEquipment(Item item) {
+        int basicDamage = 4;
+        if (item instanceof Sword) {
+            character.setAggressivity(basicDamage + item.getDamageValue());
+            character.setWeapon(item);
+        } else if (item instanceof Stake) {
+            character.setAggressivity(basicDamage + item.getDamageValue());
+            character.setWeapon(item);
+        } else if (item instanceof Staff) {
+            character.setAggressivity(basicDamage + item.getDamageValue());
+            character.setWeapon(item);
+        } else if (item instanceof Armour) {
+            character.setDefense(item.getDefenseValue());
+            character.setArmour(item);
+        } else if (item instanceof Helmet) {
+            character.setDefense(item.getDefenseValue());
+            character.setArmour(item);
+        } else if (item instanceof Shield) {
+            character.setShield(item);
+        }
     }
 }
