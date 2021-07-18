@@ -371,6 +371,11 @@ public class LoopManiaWorld {
             setUsedTheOneRing(true);
         } else {
             // TODO: ren si le , you xie jie shu
+            // System.out.print(goalCheck());
+        
+            // loopManiaWorldController.pause();
+
+            
         }
         return defeatedEnemies;
     }

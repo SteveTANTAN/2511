@@ -9,7 +9,7 @@ import javafx.scene.control.CheckBox;
 
 public class Goal {
     public String goalType;
-    public int quantity;
+    public String quantity;
     public JSONObject conditions;
     public Goal(JSONObject condition){
         this.conditions = condition;
@@ -35,9 +35,13 @@ public class Goal {
 
         }
 
-        if (conditions.length() == 1) {
-            return goalCheckHelp(conditions.getString("goal"), conditions.getString("quantity"), gold, exp, turns)
-        } else if (conditions.length() == 2) {
+        System.out.printf(conditions.toString(4));
+
+        if (!conditions.has("subgoals")) {
+            System.out.printf(conditions.getString("quantity"));
+            
+            return goalCheckHelp(conditions.getString("goal"), conditions.getInt("quantity"), gold, exp, turns);
+        } else{
             String rela = conditions.getString("goal");
 
             boolean is_foound = false;
@@ -48,22 +52,22 @@ public class Goal {
             String subgoal2= null;
             for (int i = 0; i <2; i++){
                 JSONObject goalcondi = conditions.getJSONArray("subgoals").getJSONObject(i);
-                if (goalcondi.getString(("goal").equals("AND") || goalcondi.getString("goal").equals("OR"))) {
+                if (goalcondi.has("subgoals")) {
                     is_foound = true;
                     rela2 = goalcondi.getString("goal");
                     subgoal1 = goalcondi.getJSONArray("subgoals").getJSONObject(0).getString("goal");
                     subgoal2 = goalcondi.getJSONArray("subgoals").getJSONObject(1).getString("goal");
-                    quantity1 = goalcondi.getJSONArray("subgoals").getJSONObject(0).getString("quantity");
-                    quantity2 = goalcondi.getJSONArray("subgoals").getJSONObject(1).getString("quantity");
+                    quantity1 = goalcondi.getJSONArray("subgoals").getJSONObject(0).getInt("quantity");
+                    quantity2 = goalcondi.getJSONArray("subgoals").getJSONObject(1).getInt("quantity");
                     break;
                 }
             }
 
             if (!is_foound) {
-                Sring goal1 = goalcondi.getJSONArray("subgoals").getJSONObject(0).getString("goal");
-                Sring goal2 = goalcondi.getJSONArray("subgoals").getJSONObject(1).getString("goal");
-                int q1 = goalcondi.getJSONArray("subgoals").getJSONObject(0).getString("quantity");
-                int q2 = goalcondi.getJSONArray("subgoals").getJSONObject(1).getString("quantity");
+                String goal1 = conditions.getJSONArray("subgoals").getJSONObject(0).getString("goal");
+                String goal2 = conditions.getJSONArray("subgoals").getJSONObject(1).getString("goal");
+                int q1 = conditions.getJSONArray("subgoals").getJSONObject(0).getInt("quantity");
+                int q2 = conditions.getJSONArray("subgoals").getJSONObject(1).getInt("quantity");
                 if (rela.equals("AND")) {
                     return goalCheckHelp(goal1, q1, gold, exp, turns)
                     && goalCheckHelp(goal2, q2, gold, exp, turns);
@@ -86,9 +90,9 @@ public class Goal {
                 int goalq = 0;
                 for(int i = 0; i <2; i++) {
                     JSONObject goalcondi = conditions.getJSONArray("subgoals").getJSONObject(i);
-                    if (!goalcondi.getString(("goal").equals("AND") && !goalcondi.getString("goal").equals("OR"))) {
+                    if (!goalcondi.getString("goal").equals("AND") && !goalcondi.getString("goal").equals("OR")) {
                         goal = goalcondi.getString("goal");
-                        goalq = goalcondi.getString("quantity");
+                        goalq = goalcondi.getInt("quantity");
                         
                     }
 

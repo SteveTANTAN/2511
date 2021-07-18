@@ -16,13 +16,14 @@ public class Character extends MovingEntity {
     private Item armour;
     private Item shield;
     private Item theOneRing;
-    private Gold gold;
+    private int gold;
     private EXP EXP;
     private boolean attackEnhance;
 
     public Character(PathPosition position) {
         super(position);
-        Gold gold = new Gold();
+        //gold = new Gold(0);
+        setGold(0);
         EXP = new EXP(0);
         setHealth(100);
         setAggressivity(4);
@@ -78,11 +79,11 @@ public class Character extends MovingEntity {
     }
 
     public void setGold(int gold){
-        this.gold.setCurrentGold(gold);
+        this.gold=(gold);
     }
 
     public int getGold(){
-        return gold.getCurrentGold();
+        return gold;
     }
 
     public void setEXP(int EXP){
