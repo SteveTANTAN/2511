@@ -51,19 +51,9 @@ public class Character extends MovingEntity {
     public void setDefense(int defense) {
         this.defense = defense;
     }
-    private int gold;
-    private int EXP;
+
     public int getEXP() {
         return EXP;
-    }
-    public void setEXP(int eXP) {
-        EXP = eXP;
-    }
-    public int getGold() {
-        return gold;
-    }
-    public void setGold(int gold) {
-        this.gold = gold;
     }
 
     
@@ -77,10 +67,6 @@ public class Character extends MovingEntity {
 
     public void setEXP(int EXP){
         this.EXP = Math.min(EXP, 1000);
-    }
-
-    public int getEXP(){
-        return EXP;
     }
 
     public void setAttackEnhance(Boolean enhance){
