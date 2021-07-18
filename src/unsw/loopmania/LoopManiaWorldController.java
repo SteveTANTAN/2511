@@ -875,6 +875,7 @@ public class LoopManiaWorldController {
     private void switchToMainMenu() throws IOException {
         // TODO = possibly set other menu switchers
         pause();
+        System.out.print(world.goalCheck());
         mainMenuSwitcher.switchMenu();
     }
 

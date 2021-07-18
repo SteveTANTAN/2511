@@ -30,6 +30,9 @@ public abstract class LoopManiaWorldLoader {
         json = new JSONObject(new JSONTokener(new FileReader("worlds/" + filename)));
     }
 
+
+
+
     /**
      * Parses the JSON to create a world.
      */
@@ -48,7 +51,8 @@ public abstract class LoopManiaWorldLoader {
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(world, jsonEntities.getJSONObject(i), orderedPath);
         }
-
+        //System.out.printf(json.getJSONObject("goal-condition").toString(4));
+        world.setGoalCondition(new Goal(json.getJSONObject("goal-condition")));
         return world;
     }
 

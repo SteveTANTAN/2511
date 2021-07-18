@@ -17,14 +17,16 @@ public class Character extends MovingEntity {
     private Item shield;
     private Item theOneRing;
     private int gold;
-    private int EXP;
+    private EXP EXP;
     private boolean attackEnhance;
 
     public Character(PathPosition position) {
         super(position);
+        //gold = new Gold(0);
+        setGold(0);
+        EXP = new EXP(0);
         setHealth(100);
         setAggressivity(4);
-        setEXP(1000);
         soldiers = new ArrayList<AlliedSoldier>();
     }
 
@@ -55,6 +57,11 @@ public class Character extends MovingEntity {
         this.defense = defense;
     }
 
+    public int getEXP() {
+        return EXP.getCurrentEXP();
+    }
+
+    
     public Item getArmour() {
         return this.armour;
     }
@@ -72,7 +79,7 @@ public class Character extends MovingEntity {
     }
 
     public void setGold(int gold){
-        this.gold = gold;
+        this.gold=(gold);
     }
 
     public int getGold(){
@@ -80,11 +87,8 @@ public class Character extends MovingEntity {
     }
 
     public void setEXP(int EXP){
-        this.EXP = Math.min(EXP, 1000);
-    }
-
-    public int getEXP(){
-        return EXP;
+        this.EXP.setCurrentEXP(EXP);
+        
     }
 
     public void setAttackEnhance(Boolean enhance){

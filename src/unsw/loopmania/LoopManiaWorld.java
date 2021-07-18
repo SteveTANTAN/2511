@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.javatuples.Pair;
+import org.json.JSONObject;
+import org.junit.platform.console.options.Theme;
+
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
@@ -66,6 +69,13 @@ public class LoopManiaWorld {
     private List<Pair<Integer, Integer>> orderedPath;
 
     /**
+     * list of goals showing
+     */
+    private Goal goalCondition;
+
+
+
+    /**
      * the number of rounds
      */
     private int roundsNum = 0;
@@ -93,7 +103,18 @@ public class LoopManiaWorld {
         unequippedInventoryItems = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
+        //this.goalCondition = 
+
     }
+
+    public boolean goalCheck() {
+        return this.goalCondition.goalCheck(character.getGold(), character.getEXP(), roundsNum);
+
+    }
+    public void setGoalCondition(Goal goalCondition) {
+        this.goalCondition = goalCondition;
+    }
+
 
     /**
      * get world wigth
@@ -348,8 +369,13 @@ public class LoopManiaWorld {
             character.setTheOneRing(null);
             character.setHealth(100);
             setUsedTheOneRing(true);
-        } else {
+        } else if(character.getHealth()) <= 0{
             // TODO: ren si le , you xie jie shu
+            if (goalCheck()) {
+                // game end
+                System.out.print("successful!");
+            }
+            
         }
         return defeatedEnemies;
     }
