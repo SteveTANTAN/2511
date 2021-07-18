@@ -8,5 +8,20 @@ public class Character extends MovingEntity {
     public Character(PathPosition position) {
         super(position);
     }
+    private int gold;
+    private int EXP;
+    public int getEXP() {
+        return EXP;
+    }
+    public void setEXP(int eXP) {
+        EXP = eXP;
+    }
+    public int getGold() {
+        return gold;
+    }
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
     
 }

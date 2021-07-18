@@ -15,4 +15,5 @@ public class Gold {
     public int getCurrentGold(void){
         return this.CurrentGold;
     }
+    
 }

@@ -19,6 +19,7 @@ public class Goal extends {
         return quantity;
     }
 
+
     public ArrayList goalCondition;
     // "goal-condition": {"goal": "experience", "quantity": 123456 },
     

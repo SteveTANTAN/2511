@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.swing.text.StyledEditorKit;
 
 import org.javatuples.Pair;
+import org.json.JSONObject;
 import org.junit.platform.console.options.Theme;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -98,7 +99,148 @@ public class LoopManiaWorld {
         this.goalCondition = new ArrayList<Goal>();
         this.goalType = "AND";
     }
-    public 
+    public ArrayList<Goal> getGoalCondition() {
+        return goalCondition;
+    }
+    public void setGoalCondition(ArrayList<Goal> goalCondition) {
+        this.goalCondition = goalCondition;
+    }
+    public String getGoalType() {
+        return goalType;
+    }
+    public String setgoalType(String a){
+        this.goalType = a;
+        
+    }
+    public boolean goalCheckHelp (String type, int quantity, int gold, int exp, int turns) {
+        switch (type) {
+            case "gold" :
+                return gold >= quantity;
+            case "EXP" :
+                return exp >= quantity;
+            case "turns" :
+                return turns >= quantity;
+            default:
+                break;
+        }
+        return false;
+    }
+    public boolean goalCheck(JSONObject conditions, int gold, int exp, int turns) {
+        if (conditions == null) {
+            return false;
+
+        }
+
+        if (conditions.length() == 1) {
+            return goalCheckHelp(conditions.getString("goal"), conditions.getString("quantity"), gold, exp, turns)
+        } else if (conditions.length() == 2) {
+            String rela = conditions.getString("goal");
+
+            boolean is_foound = false;
+            String rela2 = null;
+            String subgoal1 = null;
+            int quantity1 = 0;
+            int quantity2 = 0;
+            String subgoal2= null;
+            for (int i = 0; i <2; i++){
+                JSONObject goalcondi = conditions.getJSONArray("subgoals").getJSONObject(i);
+                if (goalcondi.getString(("goal").equals("AND") || goalcondi.getString("goal").equals("OR"))) {
+                    is_foound = true;
+                    rela2 = goalcondi.getString("goal");
+                    subgoal1 = goalcondi.getJSONArray("subgoals").getJSONObject(0).getString("goal");
+                    subgoal2 = goalcondi.getJSONArray("subgoals").getJSONObject(1).getString("goal");
+                    quantity1 = goalcondi.getJSONArray("subgoals").getJSONObject(0).getString("quantity");
+                    quantity2 = goalcondi.getJSONArray("subgoals").getJSONObject(1).getString("quantity");
+                    break;
+                }
+            }
+
+            if (!is_foound) {
+                Sring goal1 = goalcondi.getJSONArray("subgoals").getJSONObject(0).getString("goal");
+                Sring goal2 = goalcondi.getJSONArray("subgoals").getJSONObject(1).getString("goal");
+                int q1 = goalcondi.getJSONArray("subgoals").getJSONObject(0).getString("quantity");
+                int q2 = goalcondi.getJSONArray("subgoals").getJSONObject(1).getString("quantity");
+                if (rela.equals("AND")) {
+                    return goalCheckHelp(goal1, q1, gold, exp, turns)
+                    && goalCheckHelp(goal2, q2, gold, exp, turns);
+                }
+                if (rela.equals("OR")) {
+                    return goalCheckHelp(goal1, q1, gold, exp, turns)
+                    || goalCheckHelp(goal2, q2, gold, exp, turns);
+                }
+
+            } else if (is_foound) {
+                boolean check_sub = false;
+                if (rela2.equals("AND")) {
+                    check_sub = goalCheckHelp(subgoal1, quantity1, gold, exp, turns)
+                    && goalCheckHelp(subgoal2, quantity2, gold, exp, turns);
+                } else if (rela2.equals("OR")) {
+                    check_sub = goalCheckHelp(subgoal1, quantity1, gold, exp, turns)
+                    || goalCheckHelp(subgoal2, quantity2, gold, exp, turns);
+                }
+                String goal=null;
+                int goalq = 0;
+                for(int i = 0; i <2; i++) {
+                    JSONObject goalcondi = conditions.getJSONArray("subgoals").getJSONObject(i);
+                    if (!goalcondi.getString(("goal").equals("AND") && !goalcondi.getString("goal").equals("OR"))) {
+                        goal = goalcondi.getString("goal");
+                        goalq = goalcondi.getString("quantity");
+                        
+                    }
+
+                }
+                if (rela.equals("AND")) {
+                    return goalCheckHelp(goal, goalq, gold, exp, turns)
+                    && check_sub;
+                } else if (rela.equals("OR")) {
+                    return goalCheckHelp(goal, goalq, gold, exp, turns)
+                    || check_sub;
+                }
+
+
+            }   
+            
+        }
+        return false;
+    }
+    public int check_goal(){
+        if (goalType.equals("AND")){
+            for (Goal g: goalCondition){
+                if (g.getGoalType().equals("gold")
+                && c.getGold < g.getQuantity()){
+                    return false
+                }
+                if (g.getGoalType().equals("EXP")
+                && c.getEXP < g.getQuantity()){
+                     return false
+                }
+                if (g.getGoalType().equals("turns")
+                && c.getGold < g.getQuantity()){
+                    return false
+                }
+            }
+            return true
+        }
+        if (goalType.equals("OR")){
+            for (Goal g: goalCondition){
+                if (g.getGoalType().equals("gold")){
+                    if (c.getGold >= g.getQuantity()){
+                        return true
+                    }
+                }
+                if (g.getGoalType().equals("EXP")){
+                    if (c.getEXP >= g.getQuantity()){
+                        return true
+                    }
+                }if (g.getGoalType().equals("turns")){
+                    if (c.getGold >= g.getQuantity()){
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+    }
 
     public int getWidth() {
         return width;
