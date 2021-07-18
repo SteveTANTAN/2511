@@ -107,13 +107,7 @@ public class LoopManiaWorld {
 
     }
 
-    public boolean goalCheck() {
-        return this.goalCondition.goalCheck(character.getGold(), character.getEXP(), roundsNum);
 
-    }
-    public void setGoalCondition(Goal goalCondition) {
-        this.goalCondition = goalCondition;
-    }
 
 
     /**
@@ -1069,5 +1063,27 @@ public class LoopManiaWorld {
 
     public void setUsedTheOneRing(boolean tf) {
         this.UsedTheOneRing = tf;
+    }
+
+    /**
+     * check if meet the goal condition
+     * 
+     * @param 
+     * @return boolean
+     */
+
+    public boolean goalCheck() {
+        return this.goalCondition.goalCheck(character.getGold(), character.getEXP(), roundsNum);
+
+    }
+
+    /**
+     * setting the goal condition
+     * 
+     * @param  Goal
+     * @return 
+     */
+    public void setGoalCondition(Goal goalCondition) {
+        this.goalCondition = goalCondition;
     }
 }

@@ -11,11 +11,21 @@ public class Gold {
     public Gold (int i) {
         this.CurrentGold = i;
     }
-
-
+    /**
+     * setting current gold
+     * 
+     * @param  Gold_aim
+     * @return 
+     */
     public void setCurrentGold(int aim){
         this.CurrentGold = aim;
     } 
+    /**
+     * Getting current gold
+     * 
+     * @param  
+     * @return gold
+     */
     public int getCurrentGold(){
         return this.CurrentGold;
     }
