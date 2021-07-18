@@ -3,10 +3,12 @@ package unsw.loopmania;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * the main application
@@ -53,10 +55,20 @@ public class LoopManiaApplication extends Application {
             mainController.startTimer();
         });
         
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                mainController.closeStore();
+            }
+        });
+        mainController.setPrimaryStage(primaryStage);
+        mainController.setMainMenuController(mainMenuController);
         // deploy the main onto the stage
         gameRoot.requestFocus();
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
     }
 
     @Override

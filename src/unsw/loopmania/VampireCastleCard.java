@@ -9,7 +9,7 @@ public class VampireCastleCard extends Card {
     public VampireCastleCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         String name = "VAMPIRECASTLE";
-        String description = "Character acquires more resources.";
+        String description = "Vampires will come out each 5 loops of the game.";
         super.init(name, description);
     }    
 }

@@ -25,7 +25,7 @@ public class TowerBuilding extends Building {
             if(Math.pow(getX()-enemy.getX(), 2)+Math.pow(getY()-enemy.getY(), 2) 
                 <= Math.pow( attackRange, 2)){
                 enemy.setHealth(enemy.getHealth()-attackDamage);
-                if(enemy.getHealth() == 0){
+                if(enemy.getHealth() <= 0){
                     deadEnemies.add(enemy);
                 }
             }

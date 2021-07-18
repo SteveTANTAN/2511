@@ -10,13 +10,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 
 <!-- TODO = modify and expand the GUI? -->
 
 <!-- anchorPaneRoot is the background of the main game -->
 <AnchorPane fx:id="anchorPaneRoot" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" onKeyPressed="#handleKeyPress"
- prefHeight="500" >
-   <!-- HBox is used to stack items horizontally left to right -->
+ prefHeight="510">
+   <VBox prefHeight="510">
+      <Label fx:id="roundsNumLabel" prefHeight="38" prefWidth="80"></Label>
+      <!-- HBox is used to stack items horizontally left to right -->
    <HBox>
       <!-- VBox is used to stack items vertically top to bottom -->
       <VBox>
@@ -107,7 +110,32 @@
 
             <!-- clicking this button returns the human player to the main menu -->
             <Button text="Exit to Main Menu" onAction="#switchToMainMenu"/>
+            <GridPane fx:id="characterInfo"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" 
+            prefWidth="128" prefHeight="136">
+               <children>
+                  
+               </children>
+            </GridPane>
+            <AnchorPane fx:id="stats"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" 
+            prefWidth="128" prefHeight="170">
+               <children>
+                  <VBox fx:id="mstats"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" 
+                  prefWidth="128" prefHeight="160">
+                     <children>
+                        
+                     </children>
+                  </VBox>
+                  <VBox fx:id="description"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" 
+                  prefWidth="128" prefHeight="170">
+                     <children>
+                        
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
          </children>
       </VBox>
    </HBox>
+   </VBox>
+
 </AnchorPane>
