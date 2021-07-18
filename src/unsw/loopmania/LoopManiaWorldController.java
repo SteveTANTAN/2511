@@ -346,6 +346,9 @@ public class LoopManiaWorldController {
                 if (world.GetUsedTheOneRing()) {
                     setUsedTheOneRingImage();
                 }
+                if (world.getIsDead()) {
+                    pause();
+                }
 
                 List<BasicEnemy> deadEnemies = world.buildingFunction();
                 for (BasicEnemy e: deadEnemies){

@@ -83,6 +83,7 @@ public class LoopManiaWorld {
      */
     private boolean UsedTheOneRing = false;    
     private boolean IsFight = false;
+    private boolean IsDead = false;
     /**
      * create the world (constructor)
      * 
@@ -367,7 +368,6 @@ public class LoopManiaWorld {
             character.setHealth(100);
             setUsedTheOneRing(true);
         } else if(character.getHealth() <= 0) {
-            // TODO: ren si le , you xie jie shu
             if (goalCheck()) {
                 // game end
                 System.out.print("you have meet the conditio, Game successful!");
@@ -375,6 +375,7 @@ public class LoopManiaWorld {
                 System.out.print("you have not meet the conditio, Game fail!");
 
             }
+            setIsDead(true);
             
         }
         return defeatedEnemies;
@@ -1097,5 +1098,23 @@ public class LoopManiaWorld {
      */
     public void setGoalCondition(Goal goalCondition) {
         this.goalCondition = goalCondition;
+    }
+    /**
+     * setting is_dead  condition
+     * 
+     * @param  boolean
+     * @return 
+     */
+    public void setIsDead(boolean t) {
+        this.IsDead = t;
+    }
+    /**
+     * getting is dead condition
+     * 
+     * @param  boolean
+     * @return 
+     */
+    public boolean getIsDead() {
+        return this.IsDead;
     }
 }
