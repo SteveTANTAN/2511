@@ -62,13 +62,14 @@ public class MStore {
     /**
      * price range
      */
-    private int[] price = {
+    private int[] prices = {
         20, 20, 20, 10, 15, 10, 10
     };
 
     private int healthPotion;
     private int protectiveItem;
     private ModeReq modeReq;
+    private Context context;
     /**
      * MStore constructor
      * @param loopManiaWorldController
@@ -328,6 +329,8 @@ public class MStore {
     public void show(){
         setStorePosition();
         modeReq = loopManiaWorldController.getModeReq();
+        Character character = loopManiaWorldController.getLoopManiaWorld().getCharacter();
+        context = new Context(modeReq.mode, prices, character, loopManiaWorldController);
         currentStage.show();
         healthPotion = 0;
         protectiveItem = 0;
@@ -359,60 +362,31 @@ public class MStore {
             if(type == 1){       // buy items
                 switch(index){
                     case 0:{     // armour
-                        if(price[index] <= character.getGold()){
-                            if(modeReq.mode.equals("berserker") && protectiveItem >= 1) return;
-                            character.setGold(character.getGold()-price[index]);
-                            loopManiaWorldController.loadItemByType(ITEMS_TYPE.ARMOUR);
-                            protectiveItem++;
-                        }
+                        context.handle(index, ITEMS_TYPE.ARMOUR);
                         break;
                     }
                     case 1:{    // shield 
-                        if(price[index] <= character.getGold()){
-                            if(modeReq.mode.equals("berserker") && protectiveItem >= 1) return;
-                            character.setGold(character.getGold()-price[index]);
-                            loopManiaWorldController.loadItemByType(ITEMS_TYPE.SHIELD);
-                            protectiveItem++;
-                        }
+                        context.handle(index, ITEMS_TYPE.SHIELD);
                         break;
                     }
                     case 2:{    // helmet
-                        if(price[index] <= character.getGold()){
-                            if(modeReq.mode.equals("berserker") && protectiveItem >= 1) return;
-                            character.setGold(character.getGold()-price[index]);
-                            loopManiaWorldController.loadItemByType(ITEMS_TYPE.HELMET);
-                            protectiveItem++;
-                        }
+                        context.handle(index, ITEMS_TYPE.HELMET);
                         break;
                     } 
                     case 3:{    // sword
-                        if(price[index] <= character.getGold()){
-                            character.setGold(character.getGold()-price[index]);
-                            loopManiaWorldController.loadItemByType(ITEMS_TYPE.SWORD);
-                        }
+                        context.handle(index, ITEMS_TYPE.SWORD);
                         break;
                     }
                     case 4:{    // staff
-                        if(price[index] <= character.getGold()){
-                            character.setGold(character.getGold()-price[index]);
-                            loopManiaWorldController.loadItemByType(ITEMS_TYPE.STAFF);
-                        }
+                        context.handle(index, ITEMS_TYPE.STAFF);
                         break;
                     }
                     case 5:{    // stake
-                        if(price[index] <= character.getGold()){
-                            character.setGold(character.getGold()-price[index]);
-                            loopManiaWorldController.loadItemByType(ITEMS_TYPE.STAKE);
-                        }
+                        context.handle(index, ITEMS_TYPE.STAKE);
                         break;
                     }
                     case 6:{    // health potion
-                        if(price[index] <= character.getGold()){
-                            if(modeReq.mode.equals("survival") && healthPotion >= 1) break;
-                            character.setGold(character.getGold()-price[index]);
-                            character.setHealth(character.getHealth()+HealthPotion.healAmount);
-                            healthPotion++;
-                        }
+                        context.handle(index, ITEMS_TYPE.HEALTHPOTION);
                         break;
                     }
                 }
@@ -469,6 +443,77 @@ public class MStore {
                 unequippedImageView[index].setImage(itemsImages.get(ITEM_TYPE.EMPTY_SLOT));
             }
             loopManiaWorldController.updateDisplay();
+        }
+    }
+
+    private class Context{
+        private StoreState state;
+        String mode;
+        Character character;
+        LoopManiaWorldController controller;
+        int[] prices;
+        public Context(String mode, int[] prices, Character character, LoopManiaWorldController controller){
+            this.state = new NormalState();
+            this.mode = mode;
+            this.character = character;
+            this.controller = controller;
+            this.prices = prices;
+        }
+
+        public void setState(StoreState state){
+            this.state = state;
+        }
+
+
+        public void handle(int index, ITEMS_TYPE items_TYPE){
+            state.handle(this, index, items_TYPE);
+        }
+    }
+
+    private abstract class StoreState{
+        public abstract void handle(Context context, int index, ITEMS_TYPE items_TYPE);
+    }
+
+    private class NormalState extends StoreState{
+        @Override
+        public void handle(Context context, int index, ITEMS_TYPE items_TYPE){
+            if(context.prices[index] <= context.character.getGold()){
+                context.character.setGold(context.character.getGold()-context.prices[index]);
+                if(items_TYPE != ITEMS_TYPE.HEALTHPOTION){
+                    context.controller.loadItemByType(items_TYPE);
+                }else{
+                    context.character.setHealth(context.character.getHealth()+HealthPotion.healAmount);
+                }
+                // change the state
+                if(items_TYPE == ITEMS_TYPE.HEALTHPOTION && context.mode.equals("survival")){
+                    context.setState(new LimitHealPotionState());
+                }
+                else if((items_TYPE == ITEMS_TYPE.ARMOUR || items_TYPE == ITEMS_TYPE.SHIELD || items_TYPE == ITEMS_TYPE.HELMET)
+                && context.mode.equals("berserker")){
+                    context.setState(new LimitProtectiveItemsState());
+                }
+            }
+        }
+    }
+
+    private class LimitHealPotionState extends StoreState{
+        @Override
+        public void handle(Context context, int index, ITEMS_TYPE items_TYPE){
+            if(items_TYPE != ITEMS_TYPE.HEALTHPOTION && context.prices[index] <= context.character.getGold()){
+                context.character.setGold(context.character.getGold()-context.prices[index]);
+                context.controller.loadItemByType(items_TYPE);
+            }
+        }
+    }
+
+    private class LimitProtectiveItemsState extends StoreState{
+        @Override
+        public void handle(Context context, int index, ITEMS_TYPE items_TYPE){
+            if(items_TYPE != ITEMS_TYPE.ARMOUR && items_TYPE != ITEMS_TYPE.SHIELD && items_TYPE != ITEMS_TYPE.HELMET
+                 && context.prices[index] <= context.character.getGold()){
+                context.character.setGold(context.character.getGold()-context.prices[index]);
+                context.controller.loadItemByType(items_TYPE);
+            }
         }
     }
 }
