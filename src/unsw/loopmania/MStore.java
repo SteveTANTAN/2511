@@ -283,10 +283,10 @@ public class MStore {
 
     public void setStorePosition(){
         Stage primaryStage = loopManiaWorldController.getPrimayStage();
-        buyStage.setX(primaryStage.getX()+8);
-        buyStage.setY(primaryStage.getY()+61);
-        sellStage.setX(primaryStage.getX()+8);
-        sellStage.setY(primaryStage.getY()+61);
+        buyStage.setX(primaryStage.getX()+1);
+        buyStage.setY(primaryStage.getY()+50);
+        sellStage.setX(primaryStage.getX()+1);
+        sellStage.setY(primaryStage.getY()+50);
     }
 
     /**
