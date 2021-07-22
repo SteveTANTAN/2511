@@ -42,6 +42,11 @@ import unsw.loopmania.Sword;
 import unsw.loopmania.TheOneRing;
 import unsw.loopmania.Goal;
 import unsw.loopmania.ModeReq;
+import unsw.loopmania.ModeContext;
+import unsw.loopmania.Mode;
+import unsw.loopmania.ModeBerserker;
+import unsw.loopmania.ModeStandard;
+import unsw.loopmania.ModeSurvial;
 
 
 
@@ -272,11 +277,15 @@ public class GoalsTest {
     }
     @Test
     public void mode (){
-        ModeReq gold = new ModeReq("survival");
-        ModeReq gold2 = new ModeReq("berserker");
-        ModeReq gold3 = new ModeReq("Standard");
 
-        
+        ModeContext modeContext = new ModeContext(new ModeBerserker());
+        Mode mode_req = modeContext.executeMode("berserker");
+        modeContext = new ModeContext(new ModeStandard());
+        mode_req = modeContext.executeMode("Standard");
+        modeContext = new ModeContext(new ModeSurvial());
+        mode_req = modeContext.executeMode("survival");
+
+
     }
     @Test
     public void goalcheck (){

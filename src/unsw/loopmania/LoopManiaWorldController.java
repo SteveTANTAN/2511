@@ -1111,7 +1111,7 @@ public class LoopManiaWorldController {
         this.mainMenuController = mainMenuController;
     }
 
-    public ModeReq getModeReq(){
+    public Mode getModeReq(){
         return mainMenuController.getMode_req();
     }
 
