@@ -68,7 +68,7 @@ public class MStore {
 
     private int healthPotion;
     private int protectiveItem;
-    private ModeReq modeReq;
+    private Mode modeReq;
     private Context context;
     /**
      * MStore constructor

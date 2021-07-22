@@ -12,12 +12,12 @@ public class MainMenuController {
      * facilitates switching to main game
      */
     private MenuSwitcher gameSwitcher;
-    public ModeReq mode_req;
+    public Mode mode_req;
 
     public void setGameSwitcher(MenuSwitcher gameSwitcher){
         this.gameSwitcher = gameSwitcher;
     }
-    public ModeReq getMode_req() {
+    public Mode getMode_req() {
         return mode_req;
     }
 
@@ -27,7 +27,9 @@ public class MainMenuController {
      */
     @FXML
     private void switchsurvival() throws IOException {
-        mode_req = new ModeReq("survival");
+        ModeContext modeContext = new ModeContext(new ModeSurvial());
+        mode_req = modeContext.executeMode("survival");
+        //mode_req = new ModeReq("survival");
         gameSwitcher.switchMenu();
     }
 
@@ -37,7 +39,9 @@ public class MainMenuController {
      */
     @FXML
     private void switchBerserker() throws IOException {
-        mode_req = new ModeReq("berserker");
+        ModeContext modeContext = new ModeContext(new ModeBerserker());
+        mode_req = modeContext.executeMode("berserker");
+        //mode_req = new ModeReq("berserker");
         
         gameSwitcher.switchMenu();
     }
@@ -48,7 +52,9 @@ public class MainMenuController {
      */
     @FXML
     private void switchStandard() throws IOException {
-        mode_req = new ModeReq("Standard");
+        ModeContext modeContext = new ModeContext(new ModeStandard());
+        mode_req = modeContext.executeMode("Standard");
+        //mode_req = new ModeReq("Standard");
         
         gameSwitcher.switchMenu();
     }
