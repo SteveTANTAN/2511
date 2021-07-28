@@ -1,7 +1,14 @@
 package unsw.loopmania;
 
-import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.event.EventHandler;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  * controller for the main menu.
@@ -14,6 +21,30 @@ public class MainMenuController {
     private MenuSwitcher gameSwitcher;
     public Mode mode_req;
 
+    @FXML
+    private AnchorPane mainPanel;
+
+    @FXML
+    private AnchorPane contentPanel;
+
+    @FXML
+    private Label title;
+
+    @FXML
+    private Label tips;
+
+    @FXML
+    private HBox StandardBox;
+
+    @FXML
+    private HBox SurvivalBox;
+
+    @FXML
+    private HBox BerserkerBox;
+
+
+    private MenuSwitcher mainMenuSwitcher;
+
     public void setGameSwitcher(MenuSwitcher gameSwitcher){
         this.gameSwitcher = gameSwitcher;
     }
@@ -21,41 +52,64 @@ public class MainMenuController {
         return mode_req;
     }
 
-    /**
-     * facilitates switching to main game upon button click
-     * @throws IOException
-     */
-    @FXML
-    private void switchsurvival() throws IOException {
-        ModeContext modeContext = new ModeContext(new ModeSurvial());
-        mode_req = modeContext.executeMode("survival");
-        //mode_req = new ModeReq("survival");
-        gameSwitcher.switchMenu();
-    }
+    public void init(){
 
-    /**
-     * facilitates switching to main game upon button click
-     * @throws IOException
-     */
-    @FXML
-    private void switchBerserker() throws IOException {
-        ModeContext modeContext = new ModeContext(new ModeBerserker());
-        mode_req = modeContext.executeMode("berserker");
-        //mode_req = new ModeReq("berserker");
-        
-        gameSwitcher.switchMenu();
-    }
+        title.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,28));
+        title.setTextFill(new Color(1,1,1,1));
 
-    /**
-     * facilitates switching to main game upon button click
-     * @throws IOException
-     */
-    @FXML
-    private void switchStandard() throws IOException {
-        ModeContext modeContext = new ModeContext(new ModeStandard());
-        mode_req = modeContext.executeMode("Standard");
-        //mode_req = new ModeReq("Standard");
-        
-        gameSwitcher.switchMenu();
+        tips.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,14));
+        tips.setTextFill(new Color(1,1,1,1));
+
+        Label label = new Label("Standard Mode");
+        label.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,14));
+        label.setTextFill(new Color(1,1,1,1));
+        StandardBox.getChildren().add(label);
+
+        label = new Label("Survival Mode");
+        label.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,14));
+        label.setTextFill(new Color(1,1,1,1));
+        SurvivalBox.getChildren().add(label);
+
+        label = new Label("Berserker Mode");
+        label.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,14));
+        label.setTextFill(new Color(1,1,1,1));
+        BerserkerBox.getChildren().add(label);
+
+
+        StandardBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent arg0) {
+                ModeContext modeContext = new ModeContext(new ModeStandard());
+                mode_req = modeContext.executeMode("Standard");
+                //mode_req = new ModeReq("Standard");
+                
+                gameSwitcher.switchMenu();
+            }
+		});
+
+        SurvivalBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent arg0) {
+                ModeContext modeContext = new ModeContext(new ModeSurvial());
+                mode_req = modeContext.executeMode("survival");
+                //mode_req = new ModeReq("survival");
+                gameSwitcher.switchMenu();
+            }
+		});
+
+        BerserkerBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent arg0) {
+                ModeContext modeContext = new ModeContext(new ModeBerserker());
+                mode_req = modeContext.executeMode("berserker");
+                //mode_req = new ModeReq("berserker");
+                
+                gameSwitcher.switchMenu();
+            }
+		});
+
     }
 }

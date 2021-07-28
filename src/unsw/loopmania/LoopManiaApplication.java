@@ -31,28 +31,42 @@ public class LoopManiaApplication extends Application {
         // alternatively, you could allow rescaling of the game (you'd have to program resizing of the JavaFX nodes)
         primaryStage.setResizable(false);
 
+        // load home page
+        HomePageController homePageController = new HomePageController();
+        FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("HomePageView.fxml"));
+        homeLoader.setController(homePageController);
+        Parent homeRoot = homeLoader.load();
+        homePageController.init();
+
         // load the main game
         LoopManiaWorldControllerLoader loopManiaLoader = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json");
         mainController = loopManiaLoader.loadController();
         FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
         gameLoader.setController(mainController);
         Parent gameRoot = gameLoader.load();
+        
 
         // load the main menu
         MainMenuController mainMenuController = new MainMenuController();
         FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("MainMenuView.fxml"));
         menuLoader.setController(mainMenuController);
         Parent mainMenuRoot = menuLoader.load();
+        mainMenuController.init();
 
         // create new scene with the main menu (so we start with the main menu)
-        Scene scene = new Scene(mainMenuRoot);
+        Scene scene = new Scene(homeRoot);
         
         // set functions which are activated when button click to switch menu is pressed
         // e.g. from main menu to start the game, or from the game to return to main menu
-        mainController.setMainMenuSwitcher(() -> {switchToRoot(scene, mainMenuRoot, primaryStage);});
+        homePageController.setMainMenuSwitcher(() -> {
+            switchToRoot(scene, mainMenuRoot, primaryStage);
+        });
         mainMenuController.setGameSwitcher(() -> {
             switchToRoot(scene, gameRoot, primaryStage);
             mainController.startTimer();
+        });
+        mainController.setMainMenuSwitcher(() -> {
+            switchToRoot(scene, homeRoot, primaryStage);
         });
         
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -67,8 +81,6 @@ public class LoopManiaApplication extends Application {
         gameRoot.requestFocus();
         primaryStage.setScene(scene);
         primaryStage.show();
-
-
     }
 
     @Override
