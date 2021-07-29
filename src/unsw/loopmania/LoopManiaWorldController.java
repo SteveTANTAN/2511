@@ -125,6 +125,19 @@ public class LoopManiaWorldController {
 
     @FXML
     private Label roundsNumLabel;
+
+    @FXML
+    private Label winningCondition;
+
+    @FXML
+    private HBox saveGame;
+
+    @FXML
+    private Label gameStatus;
+
+    @FXML
+    private HBox exitMenu;
+
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
 
@@ -322,7 +335,7 @@ public class LoopManiaWorldController {
     public void startTimer(){
         System.out.println("starting timer");
         isPaused = false;
-        
+        gameStatus.setText("");
         // trigger adding code to process main game logic to queue. JavaFX will target framerate of 0.3 seconds
         if(timeline == null){
             timeline = new Timeline(new KeyFrame(Duration.seconds(0.3), event -> {
@@ -378,6 +391,24 @@ public class LoopManiaWorldController {
             cardDescription = new CardDescription(this);
 
             roundsNumLabel.setPadding(new Insets(0,0,0,10));
+            winningCondition.setWrapText(true);
+            winningCondition.setText("Winning Conditions:Looping reaches 100 & Gold reaches 600 & EXP reaches 1000");
+
+            saveGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent arg0) {
+                    // save game
+                    System.out.print("save game");
+                }
+            });
+
+            exitMenu.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent arg0) {
+                    // exit to main menu
+                    switchToMainMenu();
+                }
+            });
             // init the display of heath point, gold and exp
             characterInfo.getChildren().clear();
             characterInfo.setPadding(new Insets(10));
@@ -419,7 +450,7 @@ public class LoopManiaWorldController {
 
     public void updateDisplay(){
         // update the dispaly of number of the round
-        roundsNumLabel.setText(String.format("ROUND %d", world.getRoundsNum()));
+        roundsNumLabel.setText(String.format("ROUND: %d/100", world.getRoundsNum()));
         healthPointText.setText(String.format("%d/100", world.getCharacter().getHealth()));
         goldText.setText(String.format("%d", world.getCharacter().getGold()));
         expText.setText(String.format("%d", world.getCharacter().getEXP()));
@@ -432,6 +463,8 @@ public class LoopManiaWorldController {
     public void pause(){
         isPaused = true;
         System.out.println("pausing");
+        gameStatus.setText("PAUSE");
+        if(timeline == null) return;
         timeline.stop();
     }
 
@@ -943,13 +976,9 @@ public class LoopManiaWorldController {
         this.mainMenuSwitcher = mainMenuSwitcher;
     }
 
-    /**
-     * this method is triggered when click button to go to main menu in FXML
-     * @throws IOException
-     */
     @FXML
-    private void switchToMainMenu() throws IOException {
-        // TODO = possibly set other menu switchers
+    private void switchToMainMenu(){
+        // DONE = possibly set other menu switchers
         pause();
         heroCastleBuilding.closeStore();
         if (world.goalCheck()) {
@@ -1104,6 +1133,7 @@ public class LoopManiaWorldController {
     }
 
     public void closeStore(){
+        if(heroCastleBuilding == null) return;
         heroCastleBuilding.closeStore();
     }
 

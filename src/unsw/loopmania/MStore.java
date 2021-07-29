@@ -31,14 +31,13 @@ public class MStore {
     private Stage currentStage;
     private LoopManiaWorldController loopManiaWorldController;
     private ImageView[] buyImageView;
-    private ImageView[] equippedImageView;
     private ImageView[] unequippedImageView;
     private VBox mBox;
 
     private enum ITEM_TYPE{
         ARMOUR, SHIELD, HELMET,STAKE,STAFF, SWORD,HEALTHPOTION, THEONERING, ARMOUR_SLOT, SHIELD_SLOT,HELMET_SLOT,SWORD_SLOT,EMPTY_SLOT
     };
-
+             
     private Map<ITEM_TYPE,Image> itemsImages;
 
     /**
@@ -92,7 +91,6 @@ public class MStore {
         itemsImages.put(ITEM_TYPE.EMPTY_SLOT, images[12]);
 
         buyImageView = new ImageView[7];
-        equippedImageView = new ImageView[4];
         unequippedImageView = new ImageView[16];
         this.loopManiaWorldController = loopManiaWorldController;
         initBuyStage();
@@ -214,26 +212,6 @@ public class MStore {
         hBox.getChildren().add(title);
         mBox.getChildren().add(hBox);
 
-
-        // equipped
-        GridPane equippedGridPane = new GridPane();
-        equippedGridPane.setAlignment(Pos.CENTER);
-        equippedImageView[0] = new ImageView();
-        equippedImageView[0].setImage(itemsImages.get(ITEM_TYPE.HELMET_SLOT));
-        equippedGridPane.add(equippedImageView[0], 1, 0);
-
-        equippedImageView[1] = new ImageView();
-        equippedImageView[1].setImage(itemsImages.get(ITEM_TYPE.SWORD_SLOT));
-        equippedGridPane.add(equippedImageView[1], 0, 1);
-
-        equippedImageView[2] = new ImageView();
-        equippedImageView[2].setImage(itemsImages.get(ITEM_TYPE.SHIELD_SLOT));
-        equippedGridPane.add(equippedImageView[2], 1, 1);
-
-        equippedImageView[3] = new ImageView();
-        equippedImageView[3].setImage(itemsImages.get(ITEM_TYPE.ARMOUR_SLOT));
-        equippedGridPane.add(equippedImageView[3], 2, 1);
-        mBox.getChildren().add(equippedGridPane);
         
         // unequipped
         GridPane unequippedGridPane = new GridPane();
@@ -251,9 +229,6 @@ public class MStore {
         mBox.getChildren().add(unequippedGridPane);
         
         // set mouse click events
-        for(int i = 0; i < 4; i++){
-            equippedImageView[i].setOnMouseClicked(new ImageViewClick(2, i));
-        }
         for(int i = 0; i < 16; i++){
             unequippedImageView[i].setOnMouseClicked(new ImageViewClick(3, i));
         }
@@ -283,10 +258,10 @@ public class MStore {
 
     public void setStorePosition(){
         Stage primaryStage = loopManiaWorldController.getPrimayStage();
-        buyStage.setX(primaryStage.getX()+1);
-        buyStage.setY(primaryStage.getY()+50);
-        sellStage.setX(primaryStage.getX()+1);
-        sellStage.setY(primaryStage.getY()+50);
+        buyStage.setX(primaryStage.getX());
+        buyStage.setY(primaryStage.getY()+41);
+        sellStage.setX(primaryStage.getX());
+        sellStage.setY(primaryStage.getY()+41);
     }
 
     /**
@@ -517,4 +492,3 @@ public class MStore {
         }
     }
 }
-
