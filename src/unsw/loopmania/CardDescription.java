@@ -11,8 +11,9 @@ import javafx.scene.text.FontWeight;
 public class CardDescription {
     private Label nameLabel;
     private Label descriptionLabel;
-    private VBox mstatsPane;
+    private AnchorPane mstatsPane;
     private VBox descriptionPane;
+    private String oldTitle;
     /**
      * constructor
      * @param x x of position
@@ -20,18 +21,16 @@ public class CardDescription {
      */
     public CardDescription(LoopManiaWorldController loopManiaWorldController){
         AnchorPane stats = loopManiaWorldController.getStats();
-        mstatsPane = (VBox)stats.getChildren().get(0);
+        mstatsPane = (AnchorPane)stats.getChildren().get(0);
         descriptionPane = (VBox)stats.getChildren().get(1);
-        descriptionPane.setLayoutY(-40);
-        nameLabel = new Label();
-        nameLabel.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,13));
+        nameLabel = loopManiaWorldController.getTitleLabel();
         descriptionLabel = new Label();
+        descriptionLabel.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,16));
         descriptionLabel.setWrapText(true);
         descriptionLabel.setAlignment(Pos.CENTER);
-        descriptionPane.setAlignment(Pos.CENTER);
         descriptionPane.setPadding(new Insets(8));
         descriptionPane.setSpacing(5);
-        descriptionPane.getChildren().addAll(nameLabel, descriptionLabel);
+        descriptionPane.getChildren().add(descriptionLabel);
     }
 
     /**
@@ -39,6 +38,7 @@ public class CardDescription {
      * @param description description of the card
      */
     public void show(String name, String description){
+        oldTitle = nameLabel.getText();
         nameLabel.setText(name);
         descriptionLabel.setText(description);
         mstatsPane.setVisible(false);
@@ -51,5 +51,6 @@ public class CardDescription {
     public void close(){
         mstatsPane.setVisible(true);
         descriptionPane.setVisible(false);
+        nameLabel.setText(oldTitle);
     }
 }

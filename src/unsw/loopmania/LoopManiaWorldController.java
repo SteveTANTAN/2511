@@ -41,7 +41,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * the draggable types.
@@ -108,6 +107,8 @@ public class LoopManiaWorldController {
     @FXML
     private AnchorPane anchorPaneRoot;
 
+    @FXML
+    private AnchorPane storePane;
     /**
      * equippedItems gridpane is for equipped items (e.g. swords, shield, axe)
      */
@@ -118,8 +119,11 @@ public class LoopManiaWorldController {
     private GridPane unequippedInventory;
 
     @FXML
-    private GridPane characterInfo;
+    private AnchorPane characterInfo;
     
+    @FXML
+    private Label titleLabel;
+
     @FXML
     private AnchorPane stats;
 
@@ -128,6 +132,27 @@ public class LoopManiaWorldController {
 
     @FXML
     private Label winningCondition;
+
+    @FXML
+    private Label damageLabel;
+
+    @FXML
+    private Label defenceLabel;
+
+    @FXML
+    private Label alliesLabel;
+
+    @FXML
+    private AnchorPane alliesView;
+
+    @FXML
+    private AnchorPane displayBattlePane;
+
+    @FXML
+    private Label infoLabel;
+
+    @FXML
+    private HBox continueGame;
 
     @FXML
     private HBox saveGame;
@@ -185,6 +210,7 @@ public class LoopManiaWorldController {
 
     private Image heartImage;
     private Image goldPileslImage;
+    private Image soldierImage;
     /**
      * the image currently being dragged, if there is one, otherwise null.
      * Holding the ImageView being dragged allows us to spawn it again in the drop location if appropriate.
@@ -221,7 +247,8 @@ public class LoopManiaWorldController {
      * object handling switching to the main menu
      */
     private MenuSwitcher mainMenuSwitcher;
-
+    private MenuSwitcher defeatSwitcher;
+    private MenuSwitcher victorySwitcher;
     private HeroCastleBuilding heroCastleBuilding;
 
 
@@ -236,7 +263,8 @@ public class LoopManiaWorldController {
     private Label expText;
     
     private MainMenuController mainMenuController;
-
+    private DefeatPageController defeatPageController;
+    private VictoryPageController victoryPageController;
     /**
      * @param world world object loaded from file
      * @param initialEntities the initial JavaFX nodes (ImageViews) which should be loaded into the GUI
@@ -274,6 +302,7 @@ public class LoopManiaWorldController {
         emptyTheOneRingImage = new Image((new File("src/images/src_images_the_one_ring.png")).toURI().toString());
         heartImage= new Image((new File("src/images/heart.png")).toURI().toString());
         goldPileslImage = new Image((new File("src/images/gold_pile.png")).toURI().toString());
+        soldierImage = new Image((new File("src/images/deep_elf_master_archer.png")).toURI().toString());
         currentlyDraggedImage = null;
         currentlyDraggedType = null;
 
@@ -381,7 +410,11 @@ public class LoopManiaWorldController {
                 printThreadingNotes("HANDLED TIMER");
             }));
             timeline.setCycleCount(Animation.INDEFINITE);
- 
+            
+            // hidden the battle details
+            displayBattlePane.setVisible(false);
+            displayBattlePane.toFront();
+
             // build up the hero castle building
             heroCastleBuilding = new HeroCastleBuilding(new SimpleIntegerProperty(0), 
              new SimpleIntegerProperty(0), this);
@@ -394,6 +427,7 @@ public class LoopManiaWorldController {
             winningCondition.setWrapText(true);
             winningCondition.setText("Winning Conditions:Looping reaches 100 & Gold reaches 600 & EXP reaches 1000");
 
+            // save the game
             saveGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent arg0) {
@@ -401,7 +435,7 @@ public class LoopManiaWorldController {
                     System.out.print("save game");
                 }
             });
-
+            // exit to main menu
             exitMenu.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent arg0) {
@@ -409,33 +443,46 @@ public class LoopManiaWorldController {
                     switchToMainMenu();
                 }
             });
+            // continue
+            continueGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent arg0) {
+                    displayBattlePane.setVisible(false);
+                    startTimer();
+                }
+            });
+
             // init the display of heath point, gold and exp
             characterInfo.getChildren().clear();
-            characterInfo.setPadding(new Insets(10));
-            characterInfo.setVgap(10);
             HBox hBox = new HBox();
             hBox.setSpacing(10);
             hBox.setAlignment(Pos.CENTER_LEFT);
+            hBox.setLayoutX(20);
+            hBox.setLayoutY(23);
             ImageView imageView = new ImageView();
             imageView.setImage(heartImage);
             healthPointText = new Label();
             healthPointText.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,16));
             healthPointText.setTextFill(new Color(0.9,0,0,1));
             hBox.getChildren().addAll(imageView,healthPointText);
-            characterInfo.add(hBox, 0,0);
+            characterInfo.getChildren().add(hBox);
             hBox = new HBox();
             hBox.setSpacing(10);
             hBox.setAlignment(Pos.CENTER_LEFT);
+            hBox.setLayoutX(140);
+            hBox.setLayoutY(23);
             imageView = new ImageView();
             imageView.setImage(goldPileslImage);
             goldText = new Label();
             goldText.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,16));
             goldText.setTextFill(new Color(0,0.9,0,1));
             hBox.getChildren().addAll(imageView,goldText);
-            characterInfo.add(hBox, 0,1);
+            characterInfo.getChildren().add(hBox);
             hBox = new HBox();
             hBox.setSpacing(10);
             hBox.setAlignment(Pos.CENTER_LEFT);
+            hBox.setLayoutX(230);
+            hBox.setLayoutY(27);
             Label label = new Label("EXP");
             label.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,16));
             label.setTextFill(new Color(0.64,0.28,0.64,1));
@@ -443,17 +490,43 @@ public class LoopManiaWorldController {
             expText.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,16));
             expText.setTextFill(new Color(0.64,0.28,0.64,1));
             hBox.getChildren().addAll(label,expText);
-            characterInfo.add(hBox, 0,2);
+            characterInfo.getChildren().add(hBox);
         }
         timeline.play();
     }
 
     public void updateDisplay(){
+        // lose the game if the health of the character is equal to or less than zero
+        if(world.getCharacter().getHealth() <= 0){
+            defeat();
+        }
+        // loop reaches 100
+        if(world.getRoundsNum() > 100){
+            // victory
+            if((world.getCharacter().getGold() < 600 || world.getCharacter().getEXP() < 1000)){
+                defeat();
+            }else{ // defeat
+                victory();
+            }
+        }
         // update the dispaly of number of the round
         roundsNumLabel.setText(String.format("ROUND: %d/100", world.getRoundsNum()));
         healthPointText.setText(String.format("%d/100", world.getCharacter().getHealth()));
         goldText.setText(String.format("%d", world.getCharacter().getGold()));
         expText.setText(String.format("%d", world.getCharacter().getEXP()));
+        damageLabel.setText(String.format("%d", world.getCharacter().getAggressivity()));
+        defenceLabel.setText(String.format("%d", world.getCharacter().getDefense()));
+        alliesLabel.setText(String.format("%d", world.getCharacter().getSoldiers().size()));
+        
+        // display allies
+        alliesView.getChildren().clear();
+        int count = world.getCharacter().getSoldiers().size();
+        for(int i = 0; i < count; i++){
+            ImageView imageView  = new ImageView();
+            imageView.setImage(soldierImage);
+            imageView.setLayoutX(40*i+50);
+            alliesView.getChildren().add(imageView);
+        }
     }
 
     /**
@@ -972,10 +1045,20 @@ public class LoopManiaWorldController {
     }
 
     public void setMainMenuSwitcher(MenuSwitcher mainMenuSwitcher){
-        // TODO = possibly set other menu switchers
+        // DONE = possibly set other menu switchers
         this.mainMenuSwitcher = mainMenuSwitcher;
     }
-
+    public void setDefeatSwitcher(MenuSwitcher defeatSwitcher,DefeatPageController defeatPageController){
+        // DONE = possibly set other menu switchers
+        this.defeatSwitcher = defeatSwitcher;
+        this.defeatPageController = defeatPageController;
+    }
+    public void setVictorySwitcher(MenuSwitcher victorySwitcher,VictoryPageController victoryPageController){
+        // DONE = possibly set other menu switchers
+        this.victorySwitcher = victorySwitcher;
+        this.victoryPageController = victoryPageController;
+    }
+    
     @FXML
     private void switchToMainMenu(){
         // DONE = possibly set other menu switchers
@@ -1144,7 +1227,36 @@ public class LoopManiaWorldController {
     public Mode getModeReq(){
         return mainMenuController.getMode_req();
     }
-
+    public AnchorPane getStorePane(){
+        return storePane;
+    }
+    public Label getTitleLabel(){
+        return titleLabel;
+    }
+    /**
+     * victory
+     */
+    public void victory(){
+        pause();
+        heroCastleBuilding.closeStore();
+        victoryPageController.update(world);
+        victorySwitcher.switchMenu();
+    }
+    /**
+     * default
+     */
+    public void defeat(){
+        pause();
+        heroCastleBuilding.closeStore();
+        defeatPageController.update(world);
+        defeatSwitcher.switchMenu();
+    }
+    /**
+     * show the battle details
+     */
+    public void showBattleResult(){
+        displayBattlePane.setVisible(true);
+    }
     /**
      * we added this method to help with debugging so you could check your code is running on the application thread.
      * By running everything on the application thread, you will not need to worry about implementing locks, which is outside the scope of the course.

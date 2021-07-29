@@ -84,6 +84,10 @@ public class LoopManiaWorld {
     private boolean UsedTheOneRing = false;    
     private boolean IsFight = false;
     private boolean IsDead = false;
+
+    private int slugsNum;
+    private int zombiesNum;
+    private int vampiresNum;
     /**
      * create the world (constructor)
      * 
@@ -370,9 +374,9 @@ public class LoopManiaWorld {
         } else if(character.getHealth() <= 0) {
             if (goalCheck()) {
                 // game end
-                System.out.print("you have meet the conditio, Game successful!");
+                System.out.print("you have meet the condition, Game successful!");
             } else {
-                System.out.print("you have not meet the conditio, Game fail!");
+                System.out.print("you have not meet the condition, Game fail!");
 
             }
             setIsDead(true);
@@ -1001,28 +1005,28 @@ public class LoopManiaWorld {
      */
     public Item GetEquippedFromUnequippedByCoordinates(int srcX, int srcY, int destX, int destY) {
         Item item = getUnequippedInventoryItemEntityByCoordinates(srcX, srcY);
-        if (destX == 0 & destY == 0) {
+        if (destX == 1 & destY == 0) {
             if (item instanceof Sword || item instanceof Stake || item instanceof Staff) {
                 removeUnequippedInventoryItemByCoordinates(srcX, srcY);
                 item.setPosition(destX, destY);
             } else {
                 return null;
             }
-        } else if (destX == 1 && destY == 0) {
+        } else if (destX == 0 && destY == 1) {
             if (item instanceof Armour || item instanceof Helmet) {
                 removeUnequippedInventoryItemByCoordinates(srcX, srcY);
                 item.setPosition(destX, destY);
             } else {
                 return null;
             }
-        } else if (destX == 2 && destY == 0) {
+        } else if (destX == 1 && destY == 1) {
             if (item instanceof Shield) {
                 removeUnequippedInventoryItemByCoordinates(srcX, srcY);
                 item.setPosition(destX, destY);
             } else {
                 return null;
             }
-        } else if (destX == 3 && destY == 0) {
+        } else if (destX == 2 && destY == 1) {
             if (item instanceof TheOneRing) {
                 removeUnequippedInventoryItemByCoordinates(srcX, srcY);
                 item.setPosition(destX, destY);
@@ -1116,5 +1120,15 @@ public class LoopManiaWorld {
      */
     public boolean getIsDead() {
         return this.IsDead;
+    }
+
+    public int getSlugsNum(){
+        return slugsNum;
+    }
+    public int getZombiesNum(){
+        return zombiesNum;
+    }
+    public int getVampiresNum(){
+        return vampiresNum;
     }
 }

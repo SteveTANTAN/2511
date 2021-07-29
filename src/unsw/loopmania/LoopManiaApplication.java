@@ -15,7 +15,7 @@ import javafx.stage.WindowEvent;
  * run main method from this class
  */
 public class LoopManiaApplication extends Application {
-    // TODO = possibly add other menus?
+    // DONE = possibly add other menus?
 
     /**
      * the controller for the game. Stored as a field so can terminate it when click exit button
@@ -53,6 +53,20 @@ public class LoopManiaApplication extends Application {
         Parent mainMenuRoot = menuLoader.load();
         mainMenuController.init();
 
+        // load victory interface
+        VictoryPageController victoryPageController = new VictoryPageController();
+        FXMLLoader victoryLoader = new FXMLLoader(getClass().getResource("VictoryPageView.fxml"));
+        victoryLoader.setController(victoryPageController);
+        Parent victoryRoot = victoryLoader.load();
+        victoryPageController.init();
+
+        // load defeat interface
+        DefeatPageController defeatPageController = new DefeatPageController();
+        FXMLLoader defeatLoader = new FXMLLoader(getClass().getResource("DefeatPageView.fxml"));
+        defeatLoader.setController(defeatPageController);
+        Parent defeatRoot = defeatLoader.load();
+        defeatPageController.init();
+
         // create new scene with the main menu (so we start with the main menu)
         Scene scene = new Scene(homeRoot);
         
@@ -68,7 +82,19 @@ public class LoopManiaApplication extends Application {
         mainController.setMainMenuSwitcher(() -> {
             switchToRoot(scene, homeRoot, primaryStage);
         });
-        
+        mainController.setDefeatSwitcher(() -> {
+            switchToRoot(scene, defeatRoot, primaryStage);
+        },defeatPageController);
+        mainController.setVictorySwitcher(() -> {
+            switchToRoot(scene, victoryRoot, primaryStage);
+        },victoryPageController);
+        victoryPageController.setMainMenuSwitcher(() -> {
+            switchToRoot(scene, homeRoot, primaryStage);
+        });
+        defeatPageController.setMainMenuSwitcher(() -> {
+            switchToRoot(scene, homeRoot, primaryStage);
+        });
+
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
