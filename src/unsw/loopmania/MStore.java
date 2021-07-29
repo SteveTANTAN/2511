@@ -9,30 +9,28 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class MStore {
 
-    private Stage buyStage;
-    private Stage sellStage;
-    private Stage currentStage;
+    private AnchorPane storePane;
+    private VBox buyPane;
+    private VBox sellPane;
+    private int currentPaneIndex;
     private LoopManiaWorldController loopManiaWorldController;
     private ImageView[] buyImageView;
     private ImageView[] unequippedImageView;
-    private VBox mBox;
 
     private enum ITEM_TYPE{
         ARMOUR, SHIELD, HELMET,STAKE,STAFF, SWORD,HEALTHPOTION, THEONERING, ARMOUR_SLOT, SHIELD_SLOT,HELMET_SLOT,SWORD_SLOT,EMPTY_SLOT
@@ -65,15 +63,14 @@ public class MStore {
         20, 20, 20, 10, 15, 10, 10
     };
 
-    private int healthPotion;
-    private int protectiveItem;
     private Mode modeReq;
     private Context context;
     /**
      * MStore constructor
      * @param loopManiaWorldController
      */
-    public MStore(LoopManiaWorldController loopManiaWorldController){       
+    public MStore(LoopManiaWorldController loopManiaWorldController){     
+        storePane = loopManiaWorldController.getStorePane();  
         // items
         itemsImages = new HashMap<>();
         itemsImages.put(ITEM_TYPE.ARMOUR, images[0]);
@@ -93,28 +90,25 @@ public class MStore {
         buyImageView = new ImageView[7];
         unequippedImageView = new ImageView[16];
         this.loopManiaWorldController = loopManiaWorldController;
-        initBuyStage();
-        initSellStage();
-        currentStage = buyStage;
+        initBuyPane();
+        initSellPane();
+        storePane.toFront();
+        storePane.setVisible(false);
+        currentPaneIndex = 1;
     }
 
     /**
      * buy interface
      */
-    public void initBuyStage(){
+    public void initBuyPane(){
         String[] str = {
             "20 gold","20 gold","20 gold","10 gold","15 gold","10 gold"
         };
 
-        buyStage = new Stage();
-        int width =  256;
-        int height = 480;
-        VBox box = new VBox();
-        box.setStyle("-fx-opacity: 0.9;");
-        Scene scene = new Scene(box, width, height);
-        scene.setFill(null);
-        buyStage.initStyle(StageStyle.TRANSPARENT);
-        buyStage.setScene(scene);
+        buyPane = new VBox();
+        buyPane.setAlignment(Pos.CENTER);
+        buyPane.setLayoutX(20);
+        buyPane.setVisible(false);
 
         // title
         HBox hBox = new HBox();
@@ -123,7 +117,7 @@ public class MStore {
         Label title = new Label("STORE-Click to buy / sell");
         title.setFont(new Font(15));
         hBox.getChildren().add(title);
-        box.getChildren().add(hBox);
+        buyPane.getChildren().add(hBox);
 
 
         // items which can be bought
@@ -146,7 +140,7 @@ public class MStore {
                 buyImageView[i*2+j].setOnMouseClicked(new ImageViewClick(1, i*2+j));
             }
         }
-        box.getChildren().add(gridPane);
+        buyPane.getChildren().add(gridPane);
 
         // health potion
         hBox = new HBox();
@@ -162,7 +156,7 @@ public class MStore {
         Text text = new Text("10 gold");
         vBox.getChildren().add(text);
         hBox.getChildren().add(vBox);
-        box.getChildren().add(hBox);
+        buyPane.getChildren().add(hBox);
 
 
         // buttions
@@ -178,30 +172,27 @@ public class MStore {
 
         toSellBtn.setOnAction((ActionEvent e)->{
             updateItems();
-            sellStage.show();
+            sellPane.setVisible(true);
             close();
-            currentStage = sellStage;
+            currentPaneIndex = 2;
         });
         closeBtn.setOnAction((ActionEvent e)->{
             close();
+            storePane.setVisible(false);
             loopManiaWorldController.startTimer();
         });
-        box.getChildren().add(gridPane);
+        buyPane.getChildren().add(gridPane);
+        storePane.getChildren().add(buyPane);
     }
 
     /**
      * sell interface
      */
-    public void initSellStage(){
-        sellStage = new Stage();
-        int width =  256;
-        int height = 480;
-        mBox = new VBox();
-        mBox.setStyle("-fx-opacity: 0.9;");
-        Scene scene = new Scene(mBox, width, height);
-        scene.setFill(null);
-        sellStage.initStyle(StageStyle.TRANSPARENT);
-        sellStage.setScene(scene);
+    public void initSellPane(){
+        sellPane = new VBox();
+        sellPane.setAlignment(Pos.CENTER);
+        sellPane.setLayoutX(20);
+        sellPane.setVisible(false);
 
         // title
         HBox hBox = new HBox();
@@ -210,7 +201,7 @@ public class MStore {
         Label title = new Label("STORE-Click to buy / sell");
         title.setFont(new Font(15));
         hBox.getChildren().add(title);
-        mBox.getChildren().add(hBox);
+        sellPane.getChildren().add(hBox);
 
         
         // unequipped
@@ -226,7 +217,7 @@ public class MStore {
                 unequippedGridPane.add(unequippedImageView[i*4+j], j, i);
             }
         }
-        mBox.getChildren().add(unequippedGridPane);
+        sellPane.getChildren().add(unequippedGridPane);
         
         // set mouse click events
         for(int i = 0; i < 16; i++){
@@ -238,30 +229,24 @@ public class MStore {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(20));
         gridPane.setHgap(60);
-        Button toSellBtn = new Button("To Buy");
-        gridPane.add(toSellBtn, 0, 0);
+        Button toBuyBtn = new Button("To Buy");
+        gridPane.add(toBuyBtn, 0, 0);
 
         Button closeBtn = new Button("Close");
         gridPane.add(closeBtn, 1, 0);
 
-        toSellBtn.setOnAction((ActionEvent e)->{
-            buyStage.show();
+        toBuyBtn.setOnAction((ActionEvent e)->{
+            buyPane.setVisible(true);
             close();
-            currentStage = buyStage;
+            currentPaneIndex = 1;
         });
         closeBtn.setOnAction((ActionEvent e)->{
             close();
+            storePane.setVisible(false);
             loopManiaWorldController.startTimer();
         });
-        mBox.getChildren().add(gridPane);
-    }
-
-    public void setStorePosition(){
-        Stage primaryStage = loopManiaWorldController.getPrimayStage();
-        buyStage.setX(primaryStage.getX());
-        buyStage.setY(primaryStage.getY()+41);
-        sellStage.setX(primaryStage.getX());
-        sellStage.setY(primaryStage.getY()+41);
+        sellPane.getChildren().add(gridPane);
+        storePane.getChildren().add(sellPane);
     }
 
     /**
@@ -302,13 +287,15 @@ public class MStore {
      * show the interface
      */
     public void show(){
-        setStorePosition();
         modeReq = loopManiaWorldController.getModeReq();
         Character character = loopManiaWorldController.getLoopManiaWorld().getCharacter();
         context = new Context(modeReq.mode, prices, character, loopManiaWorldController);
-        currentStage.show();
-        healthPotion = 0;
-        protectiveItem = 0;
+        if(currentPaneIndex == 1){
+            buyPane.setVisible(true);
+        }else{
+            sellPane.setVisible(true);
+        }
+        storePane.setVisible(true);
         // update items which can be sold
         updateItems();
     }
@@ -317,8 +304,12 @@ public class MStore {
      * close the interface
      */
     public void close(){
-        currentStage.close();
-        currentStage = buyStage;
+        if(currentPaneIndex == 1){
+            buyPane.setVisible(false);
+        }else{
+            sellPane.setVisible(false);
+        }
+        currentPaneIndex = 1;
     }
 
     /**
@@ -414,7 +405,7 @@ public class MStore {
                 character.setGold(character.getGold()+price);
                 // remove the item from the unequipped inventory
                 loopManiaWorldController.getLoopManiaWorld().removeUnequippedInventoryItemByCoordinates(x, y);
-                mBox.getChildren().remove(unequippedImageView[index]);
+                sellPane.getChildren().remove(unequippedImageView[index]);
                 unequippedImageView[index].setImage(itemsImages.get(ITEM_TYPE.EMPTY_SLOT));
             }
             loopManiaWorldController.updateDisplay();
