@@ -523,6 +523,21 @@ public class LoopManiaWorld {
                         new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 0);
                 break;
             }
+            case ANDURIL: {
+                item = new Anduril(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),
+                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 9, 0, 30);
+                break;
+            }
+            case TREESTUMP: {
+                item = new TreeStump(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),
+                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 30);
+                break;
+            }
+            case DOGGIECOIN: {
+                item = new DoggieCoin(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),
+                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 0);
+                break;
+            }
             default:
                 break;
         }
@@ -1006,7 +1021,7 @@ public class LoopManiaWorld {
     public Item GetEquippedFromUnequippedByCoordinates(int srcX, int srcY, int destX, int destY) {
         Item item = getUnequippedInventoryItemEntityByCoordinates(srcX, srcY);
         if (destX == 1 & destY == 0) {
-            if (item instanceof Sword || item instanceof Stake || item instanceof Staff) {
+            if (item instanceof Sword || item instanceof Stake || item instanceof Staff || item instanceof Anduril) {
                 removeUnequippedInventoryItemByCoordinates(srcX, srcY);
                 item.setPosition(destX, destY);
             } else {
@@ -1020,7 +1035,7 @@ public class LoopManiaWorld {
                 return null;
             }
         } else if (destX == 1 && destY == 1) {
-            if (item instanceof Shield) {
+            if (item instanceof Shield || item instanceof TreeStump) {
                 removeUnequippedInventoryItemByCoordinates(srcX, srcY);
                 item.setPosition(destX, destY);
             } else {
@@ -1063,6 +1078,11 @@ public class LoopManiaWorld {
             character.setShield(item);
         } else if (item instanceof TheOneRing) {
             character.setTheOneRing(item);
+        } else if (item instanceof Anduril) {
+            character.setAggressivity(basicDamage + item.getDamageValue());
+            character.setWeapon(item);
+        } else if (item instanceof TreeStump) {
+            character.setShield(item);
         }
     }
 
