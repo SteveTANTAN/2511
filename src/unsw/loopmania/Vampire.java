@@ -3,12 +3,12 @@ package unsw.loopmania;
 import java.util.Random;
 
 public class Vampire extends BasicEnemy{
-
+    private Building building;
     /**
      * constructor of vampire
      * @param position position
      */
-    public Vampire(PathPosition position) {
+    public Vampire(PathPosition position,Building building) {
         super(position);
         super.setHealth(32);
         super.setAggressivity(15);
@@ -17,6 +17,7 @@ public class Vampire extends BasicEnemy{
         super.setGoldDefeated(5);
         super.setEXP(8);
         super.setName("Vampire");
+        this.building = building;
     }
 
     /**
@@ -32,5 +33,8 @@ public class Vampire extends BasicEnemy{
         else{
             moveDownPath();
         }
+    }
+    public Building getVampireCastleBuilding(){
+        return building;
     }
 }

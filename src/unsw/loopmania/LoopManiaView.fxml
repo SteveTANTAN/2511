@@ -19,7 +19,7 @@
 
 <!-- anchorPaneRoot is the background of the main game -->
 <AnchorPane fx:id="anchorPaneRoot" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" onKeyPressed="#handleKeyPress">
-   <AnchorPane fx:id="storePane" prefHeight="480" prefWidth="256" layoutX="48" layoutY="78">
+   <AnchorPane fx:id="storePane" prefHeight="480" prefWidth="256" layoutX="48" layoutY="96">
       <style>
          -fx-background-color: rgb(255, 255, 255, 0.9);
       </style>
@@ -28,12 +28,12 @@
       <style>
          -fx-background-color: rgb(255, 255, 255, 0.8);
       </style>
-      <VBox alignment="CENTER" prefWidth="256" prefHeight="50" layoutY="10">
-            <Label text="VICTORY">
+      <VBox alignment="CENTER" prefWidth="256" prefHeight="60" layoutY="5">
+            <Label fx:id="battleStatus">
                 <style>
                      -fx-font-size: 14pt;
                      -fx-font-weight: bold;
-                     -fx-text-fill:rgb(123, 77, 18, 1)
+                     -fx-text-fill:rgb(123, 77, 18, 1);
                 </style>
             </Label>
         </VBox>
@@ -42,7 +42,7 @@
                 <style>
                      -fx-font-size: 12pt;
                      -fx-font-weight: bold;
-                     -fx-text-fill:rgb(255, 255, 255, 1)
+                     -fx-text-fill:black;
                 </style>
             </Label>
         </VBox>
@@ -87,7 +87,7 @@
             </style>
             <HBox prefWidth="256" prefHeight="480">
                <padding>
-                  <Insets bottom="0.0" left="0.0" right="0.0" top="19.0" />
+                  <Insets bottom="0.0" left="0.0" right="0.0" top="37.0" />
                </padding>
                <!-- VBox is used to stack items vertically top to bottom -->
                <VBox>
@@ -104,30 +104,12 @@
 
                         </children>
                      </GridPane>
-
-                     <!-- this BorderPane contains the ground under the cards and the cards -->
-                     <BorderPane>
-                        <bottom>
-                              <!-- cards GridPane holds the cards which can be used on the map -->
-                              <GridPane fx:id="cards" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-                                 <columnConstraints>
-                                    <ColumnConstraints />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints />
-                                 </rowConstraints>
-                                 <children>
-
-                                 </children>
-                              </GridPane>
-                        </bottom>
-                     </BorderPane>
                   </children>
                </VBox>
             </HBox>
          </HBox>
          <VBox spacing="15">
-            <HBox spacing="30" alignment="CENTER" prefHeight="192" prefWidth="320">
+            <HBox alignment="CENTER" prefHeight="192" prefWidth="320">
                <style>
                      -fx-background-color: rgb(245, 154, 35, 1);
                      -fx-background-radius: 16px;
@@ -137,12 +119,12 @@
                      -fx-border-color: rgb(207, 115, 23, 1);
                </style>
                <padding>
-                  <Insets bottom="0.0" left="0.0" right="0.0" top="20.0" />
+                  <Insets bottom="0.0" left="0.0" right="0.0" top="14.0" />
                </padding>
                <AnchorPane>
                   <!-- equippedItems contains the equipment equipped by the character in special slots -->
                   <!-- TODO = extend this to have slots for equipping armour, shields, helmets, and any other equippable items -->
-                  <GridPane fx:id="equippedItems" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" layoutY="32">
+                  <GridPane fx:id="equippedItems" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" layoutY="34">
                      <columnConstraints>
                         <ColumnConstraints />
                      </columnConstraints>
@@ -176,19 +158,36 @@
                         </ImageView>
                      </children>
                   </GridPane>
+                  <!-- unequippedInventory is for unequipped items, which can be dragged into the equipped inventory -->
+                  <GridPane fx:id="unequippedInventory" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"  prefHeight="128" layoutX="120">
+                     <columnConstraints>
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                     </rowConstraints>
+                     <children>
+                        
+                     </children>
+                  </GridPane>
+                  <!-- this BorderPane contains the ground under the cards and the cards -->
+                  <BorderPane layoutX="0" layoutY="134">
+                     <bottom>
+                           <!-- cards GridPane holds the cards which can be used on the map -->
+                           <GridPane fx:id="cards" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+                              <columnConstraints>
+                                 <ColumnConstraints />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints />
+                              </rowConstraints>
+                              <children>
+
+                              </children>
+                           </GridPane>
+                     </bottom>
+                  </BorderPane>
                </AnchorPane>
-               <!-- unequippedInventory is for unequipped items, which can be dragged into the equipped inventory -->
-               <GridPane fx:id="unequippedInventory" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"  prefHeight="128">
-                  <columnConstraints>
-                     <ColumnConstraints />
-                  </columnConstraints>
-                  <rowConstraints>
-                     <RowConstraints />
-                  </rowConstraints>
-                  <children>
-                     
-                  </children>
-               </GridPane>
             </HBox>
             <AnchorPane fx:id="characterInfo"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" 
                prefWidth="320" prefHeight="80">
@@ -280,7 +279,7 @@
                         </children>
                      </AnchorPane>
                      <VBox fx:id="description"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" 
-                     prefWidth="240" prefHeight="130" layoutX="40" layoutY="50">
+                     prefWidth="240" prefHeight="130" layoutX="40" layoutY="50" alignment="TOP_CENTER">
                         <children>
                            
                         </children>

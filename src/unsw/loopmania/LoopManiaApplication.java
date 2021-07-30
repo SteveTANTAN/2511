@@ -3,12 +3,10 @@ package unsw.loopmania;
 import java.io.IOException;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
  * the main application
@@ -21,7 +19,7 @@ public class LoopManiaApplication extends Application {
      * the controller for the game. Stored as a field so can terminate it when click exit button
      */
     private LoopManiaWorldController mainController;
-
+    private  Parent gameRoot;
     @Override
     public void start(Stage primaryStage) throws IOException {
         // set title on top of window bar
@@ -37,14 +35,6 @@ public class LoopManiaApplication extends Application {
         homeLoader.setController(homePageController);
         Parent homeRoot = homeLoader.load();
         homePageController.init();
-
-        // load the main game
-        LoopManiaWorldControllerLoader loopManiaLoader = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json");
-        mainController = loopManiaLoader.loadController();
-        FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
-        gameLoader.setController(mainController);
-        Parent gameRoot = gameLoader.load();
-        
 
         // load the main menu
         MainMenuController mainMenuController = new MainMenuController();
@@ -73,44 +63,42 @@ public class LoopManiaApplication extends Application {
         // set functions which are activated when button click to switch menu is pressed
         // e.g. from main menu to start the game, or from the game to return to main menu
         homePageController.setMainMenuSwitcher(() -> {
+            // build up a new game
+            try {
+                LoopManiaWorldControllerLoader loopManiaLoader = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json");
+                mainController = loopManiaLoader.loadController();
+                FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
+                gameLoader.setController(mainController);
+                gameRoot = gameLoader.load();
+                mainController.setPrimaryStage(primaryStage);
+                mainController.setMainMenuController(mainMenuController);
+
+                mainController.setMainMenuSwitcher(() -> {
+                    switchToRoot(scene, homeRoot, primaryStage);
+                });
+                mainController.setDefeatSwitcher(() -> {
+                    switchToRoot(scene, defeatRoot, primaryStage);
+                },defeatPageController);
+                mainController.setVictorySwitcher(() -> {
+                    switchToRoot(scene, victoryRoot, primaryStage);
+                },victoryPageController);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             switchToRoot(scene, mainMenuRoot, primaryStage);
         });
         mainMenuController.setGameSwitcher(() -> {
             switchToRoot(scene, gameRoot, primaryStage);
             mainController.startTimer();
         });
-        mainController.setMainMenuSwitcher(() -> {
-            switchToRoot(scene, homeRoot, primaryStage);
-        });
-        mainController.setDefeatSwitcher(() -> {
-            switchToRoot(scene, defeatRoot, primaryStage);
-        },defeatPageController);
-        mainController.setVictorySwitcher(() -> {
-            switchToRoot(scene, victoryRoot, primaryStage);
-        },victoryPageController);
-        victoryPageController.setMainMenuSwitcher(() -> {
-            switchToRoot(scene, homeRoot, primaryStage);
-        });
-        defeatPageController.setMainMenuSwitcher(() -> {
-            switchToRoot(scene, homeRoot, primaryStage);
-        });
-
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                mainController.closeStore();
-            }
-        });
-        mainController.setPrimaryStage(primaryStage);
-        mainController.setMainMenuController(mainMenuController);
+        
         // deploy the main onto the stage
-        gameRoot.requestFocus();
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        switchToRoot(scene, homeRoot, primaryStage);
     }
 
     @Override
     public void stop(){
+        if(mainController == null) return;
         // wrap up activities when exit program
         mainController.terminate();
     }

@@ -15,14 +15,13 @@ public class VictoryPageController {
     @FXML
     private Label infoLabel;
 
-    private MenuSwitcher mainMenuSwitcher;    
 
     public void init(){
         exitGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent arg0) {
                 // exit game
-                mainMenuSwitcher.switchMenu();
+                System.exit(0);
             }
 		});
         infoLabel.setWrapText(true);
@@ -30,8 +29,5 @@ public class VictoryPageController {
     public void update(LoopManiaWorld world){
         infoLabel.setText(String.format("You have defeated %d slugs,%d zombies and %d vampires in %d rounds.", world.getSlugsNum(),
             world.getZombiesNum(),world.getVampiresNum(),world.getRoundsNum()));
-    }
-    public void setMainMenuSwitcher(MenuSwitcher mainMenuSwitcher){
-        this.mainMenuSwitcher = mainMenuSwitcher;
     }
 }

@@ -31,6 +31,7 @@ public class HeroCastleBuilding extends Building{
     public boolean work(Character character, LoopManiaWorldController loopManiaWorldController){
         LoopManiaWorld world = loopManiaWorldController.getLoopManiaWorld();
         if(characterIsInHerosCastle(world.getCharacter())){
+            System.out.println(1);
             if(!hasShowStore){
                 // show the store
                 loopManiaWorldController.pause();
@@ -40,6 +41,7 @@ public class HeroCastleBuilding extends Building{
             }else{
                 hasShowStore = false;
                 world.addRoundsNum();
+                loopManiaWorldController.setFocus();
             }
             List<BasicEnemy> retList = world.spawnEnemiesByBuilding();
             for(BasicEnemy enemy : retList){

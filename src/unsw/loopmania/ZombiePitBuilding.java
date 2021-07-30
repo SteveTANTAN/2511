@@ -23,7 +23,7 @@ public class ZombiePitBuilding extends Building {
      */
     public List<BasicEnemy> spawnZombie(LoopManiaWorld world){
         List<BasicEnemy> retList = new ArrayList<>();
-        retList.add(world.spawnAZombie(getX(),getY()));
+        retList.add(world.spawnAZombie(getX(),getY(),this));
         return retList;
     }
 }

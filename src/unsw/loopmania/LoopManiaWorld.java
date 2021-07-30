@@ -56,6 +56,11 @@ public class LoopManiaWorld {
     private List<Item> unequippedInventoryItems;
 
     /**
+     * list of items
+     */
+    private List<Item> equippedInventoryItems;
+
+    /**
      * list of building entities
      */
     private List<Building> buildingEntities;
@@ -88,6 +93,12 @@ public class LoopManiaWorld {
     private int slugsNum;
     private int zombiesNum;
     private int vampiresNum;
+
+    int encounterSlugsNum = 0;
+    int encounterZombiesNum = 0;
+    int encounterVampiresNum = 0;
+
+    private String battleItem;
     /**
      * create the world (constructor)
      * 
@@ -104,6 +115,7 @@ public class LoopManiaWorld {
         enemies = new ArrayList<>();
         cardEntities = new ArrayList<>();
         unequippedInventoryItems = new ArrayList<>();
+        equippedInventoryItems = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
         //this.goalCondition = 
@@ -190,6 +202,9 @@ public class LoopManiaWorld {
         List<BasicEnemy> possibleSupporEnemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> fightEnemies = new ArrayList<BasicEnemy>();
         IsFight = false;
+        encounterSlugsNum = 0;
+        encounterZombiesNum = 0;
+        encounterVampiresNum = 0;
         for (BasicEnemy e: enemies){
             // Pythagoras: a^2+b^2 < radius^2 to see if within radius
             // implement different RHS on this inequality, based on influence radii and battle radii
@@ -198,6 +213,7 @@ public class LoopManiaWorld {
                 case "Slug":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
                         fightEnemies.add(e);
+                        encounterSlugsNum += 1;
                     } else {
                         possibleSupporEnemies.add(e);
                     }
@@ -205,6 +221,7 @@ public class LoopManiaWorld {
                 case "Zombie":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 4){
                         fightEnemies.add(e);
+                        encounterZombiesNum += 1;
                     } else {
                         possibleSupporEnemies.add(e);
                     }
@@ -212,6 +229,7 @@ public class LoopManiaWorld {
                 case "Vampire":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 4){
                         fightEnemies.add(e);
+                        encounterVampiresNum += 1;
                     } else {
                         possibleSupporEnemies.add(e);
                     }
@@ -243,6 +261,7 @@ public class LoopManiaWorld {
 
 
         List<BasicEnemy> tranceEnemies = new ArrayList<BasicEnemy>();
+        
         // fight with enemies
         while (!fightEnemies.isEmpty() && character.getHealth() > 0) {
             CommonAttack commonAttack = new CommonAttack();
@@ -355,7 +374,6 @@ public class LoopManiaWorld {
                 }
             }
         }
-
         // kill all defeated enemies
         for (BasicEnemy e: defeatedEnemies){
             // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
@@ -363,6 +381,9 @@ public class LoopManiaWorld {
             // due to mutating list we're iterating over
             System.out.println("The character kill the " + e.getName() + "!");
             killEnemy(e);
+            if(e instanceof Slug) addSlugsNum(1);
+            else if(e instanceof Zombie) addZombiesNum(1);
+            else if(e instanceof Vampire) addVampiresNum(1);
         }
 
         // character HP check
@@ -374,9 +395,9 @@ public class LoopManiaWorld {
         } else if(character.getHealth() <= 0) {
             if (goalCheck()) {
                 // game end
-                System.out.print("you have meet the condition, Game successful!");
+                System.out.print("you have meet the conditio, Game successful!");
             } else {
-                System.out.print("you have not meet the condition, Game fail!");
+                System.out.print("you have not meet the conditio, Game fail!");
 
             }
             setIsDead(true);
@@ -449,6 +470,10 @@ public class LoopManiaWorld {
                 card = new CampfireCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
                 break;
             }
+            case Oblivion: {
+                card = new OblivionCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                break;
+            }
             default:
                 break;
         }
@@ -510,7 +535,7 @@ public class LoopManiaWorld {
             }
             case SHIELD: {
                 item = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),
-                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 20);
+                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 1, 20);
                 break;
             }
             case HELMET: {
@@ -564,9 +589,9 @@ public class LoopManiaWorld {
             addUnequippedItem(ITEMS_TYPE.HELMET);
         } else if (rd > 5 && rd <= 6) {
             loadCard(CARDS_TYPE.VAMPIRECASTLE);
-        } else if (rd > 6 && rd <= 7) {
+        }else if (rd > 6 && rd <= 7) {
             loadCard(CARDS_TYPE.ZOMBIEPIT);
-        } else if (rd > 7 && rd <= 8) {
+        }else if (rd > 7 && rd <= 8) {
             loadCard(CARDS_TYPE.TOWER);
         } else if (rd > 8 && rd <= 9) {
             loadCard(CARDS_TYPE.TRAP);
@@ -582,7 +607,27 @@ public class LoopManiaWorld {
             character.setGold(character.getGold() + 2); // gold
         } else if (rd > 18 && rd <= 21) {
             character.setEXP(character.getEXP() + 2); // exp
-        } else if (rd > 21 && rd <= 100) {
+        } else if (rd > 21 && rd < 100) {
+            if(buildingEntities.size() <= 2){
+                if (rd > 21 && rd <= 22) {
+                    loadCard(CARDS_TYPE.Oblivion);
+                }
+            }
+            else if(buildingEntities.size() < 5){
+                if (rd > 21 && rd <= 24) {
+                    loadCard(CARDS_TYPE.Oblivion);
+                }
+            }
+            else if(buildingEntities.size() < 7){
+                if (rd > 21 && rd <= 25) {
+                    loadCard(CARDS_TYPE.Oblivion);
+                }
+            }
+            else{
+                if (rd > 21 && rd <= 26) {
+                    loadCard(CARDS_TYPE.Oblivion);
+                }
+            }
             // nothing
         }
         moveBasicEnemies();
@@ -745,7 +790,9 @@ public class LoopManiaWorld {
                     new SimpleIntegerProperty(buildingNodeY));
         }
 
-        buildingEntities.add(newBuilding);
+        if(newBuilding != null){
+            buildingEntities.add(newBuilding);
+        }
 
         // destroy the card
         card.destroy();
@@ -808,10 +855,14 @@ public class LoopManiaWorld {
         return unequippedInventoryItems;
     }
 
+    public List<Item> getEquippedInventoryItems(){
+        return equippedInventoryItems;
+    }
+
     /**
      * spawn a zombie
      */
-    public BasicEnemy spawnAZombie(int x, int y) {
+    public BasicEnemy spawnAZombie(int x, int y, Building building) {
 
         // find a adjacent position in the path
         int[] dx = { 0, 1, 0, -1 };
@@ -835,7 +886,7 @@ public class LoopManiaWorld {
         // spawn a zombie in the position (x,y)
         Pair<Integer, Integer> pos = new Pair<>(x, y);
         int indexInPath = orderedPath.indexOf(pos);
-        Zombie zombie = new Zombie(new PathPosition(indexInPath, orderedPath));
+        Zombie zombie = new Zombie(new PathPosition(indexInPath, orderedPath),building);
         enemies.add(zombie);
         return zombie;
     }
@@ -843,7 +894,7 @@ public class LoopManiaWorld {
     /**
      * spawn a vampire
      */
-    public Vampire spawnAVampire(int x, int y) {
+    public Vampire spawnAVampire(int x, int y,Building building) {
         // find a adjacent position in the path
         int[] dx = { 0, 1, 0, -1 };
         int[] dy = { -1, 0, 1, 0 };
@@ -866,7 +917,7 @@ public class LoopManiaWorld {
         // spawn a zombie in the position (x,y)
         Pair<Integer, Integer> pos = new Pair<>(x, y);
         int indexInPath = orderedPath.indexOf(pos);
-        Vampire vampire = new Vampire(new PathPosition(indexInPath, orderedPath));
+        Vampire vampire = new Vampire(new PathPosition(indexInPath, orderedPath),building);
         enemies.add(vampire);
         return vampire;
     }
@@ -1121,14 +1172,40 @@ public class LoopManiaWorld {
     public boolean getIsDead() {
         return this.IsDead;
     }
-
+    public void addSlugsNum(int num){
+        slugsNum += num;
+    }
     public int getSlugsNum(){
         return slugsNum;
+    }
+    public void addZombiesNum(int num){
+        zombiesNum += num;
     }
     public int getZombiesNum(){
         return zombiesNum;
     }
+    public void addVampiresNum(int num){
+        vampiresNum += num;
+    }
     public int getVampiresNum(){
         return vampiresNum;
+    }
+    public String getBattleItem(){
+        return battleItem;
+    }
+    public int getencounterSlugsNum(){
+        return encounterSlugsNum;
+    }
+    public int getEncounterZombiesNum(){
+        return encounterZombiesNum;
+    }
+    public int getencounterVampiresNum(){
+        return encounterVampiresNum;
+    }
+    public List<Building> getBuildingEntities(){
+        return buildingEntities;
+    }
+    public List<BasicEnemy> getEnemies(){
+        return enemies;
     }
 }

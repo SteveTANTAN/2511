@@ -3,11 +3,12 @@ package unsw.loopmania;
 import java.util.Random;
 
 public class Zombie extends BasicEnemy{
+    private Building building;
     /**
      * constructor of zombie
      * @param position position
      */
-    public Zombie(PathPosition position) {
+    public Zombie(PathPosition position, Building building) {
         super(position);
         super.setHealth(18);
         super.setAggressivity(8);
@@ -16,6 +17,7 @@ public class Zombie extends BasicEnemy{
         super.setGoldDefeated(3);
         super.setEXP(5);
         super.setName("Zombie");
+        this.building = building;
     } 
 
     /**
@@ -31,5 +33,8 @@ public class Zombie extends BasicEnemy{
         else{
             moveDownPath();
         }
+    }
+    public Building getZombieBuilding(){
+        return building;
     }
 }
