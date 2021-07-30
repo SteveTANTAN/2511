@@ -31,8 +31,6 @@ public class CommonAttack implements Attack{
                     hurt = e.getAggressivity();
                     soldier.setHealth(soldier.getHealth() - hurt);
                     if (soldier.getHealth() <= 0) {
-                        soldier.destroy();
-                        c.getSoldiers().get(0).destroy();
                         c.getSoldiers().remove(0);
                     }
                 }

@@ -1,5 +1,6 @@
 package unsw.loopmania;
 
+import java.util.List;
 import java.util.Random;
 
 public class Vampire extends BasicEnemy{
@@ -17,6 +18,7 @@ public class Vampire extends BasicEnemy{
         super.setGoldDefeated(5);
         super.setEXP(8);
         super.setName("Vampire");
+        super.setLevel("Monster");
     }
 
     /**
@@ -31,6 +33,28 @@ public class Vampire extends BasicEnemy{
         }
         else{
             moveDownPath();
+        }
+    }
+
+    @Override
+    public void attack(Character c, List<BasicEnemy> trancedEnemies, List<BasicEnemy> enemies,BasicEnemy e) {
+        int randomNum = new Random().nextInt(10);
+        CommonAttack ca = new CommonAttack();
+        if (randomNum < 3) {
+            if (c.getShield() instanceof Shield) {
+                int index = new Random().nextInt(10);
+                if (index < 4) {
+                    VampireAttack va = new VampireAttack();
+                    va.hit(c, trancedEnemies, enemies, e, "enemy");
+                } else {
+                    ca.hit(c, trancedEnemies, enemies, e, "enemy");
+                }
+            } else {
+                VampireAttack va = new VampireAttack();
+                va.hit(c, trancedEnemies, enemies, e, "enemy");
+            }
+        } else {
+            ca.hit(c, trancedEnemies, enemies, e, "enemy");
         }
     }
 }

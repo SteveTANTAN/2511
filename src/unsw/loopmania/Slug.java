@@ -1,5 +1,7 @@
 package unsw.loopmania;
 
+import java.util.List;
+
 public class Slug extends BasicEnemy{
     /**
      * slug constructor
@@ -14,5 +16,12 @@ public class Slug extends BasicEnemy{
         super.setGoldDefeated(1);
         super.setEXP(2);
         super.setName("Slug");
+        super.setLevel("Monster");
+    }
+
+    @Override
+    public void attack(Character c, List<BasicEnemy> trancedEnemies, List<BasicEnemy> enemies,BasicEnemy e) {
+        CommonAttack ca = new CommonAttack();
+        ca.hit(c, trancedEnemies, enemies, e, "enemy");
     }
 }

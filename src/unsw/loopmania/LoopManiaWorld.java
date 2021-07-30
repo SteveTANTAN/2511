@@ -181,12 +181,7 @@ public class LoopManiaWorld {
         enemies.remove(enemy);
     }
 
-    /**
-     * run the expected battles in the world, based on current world state
-     * @return list of enemies which have been killed
-     */
-    public List<BasicEnemy> runBattles() {
-        List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
+    private List<BasicEnemy> fight() {
         List<BasicEnemy> possibleSupporEnemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> fightEnemies = new ArrayList<BasicEnemy>();
         IsFight = false;
@@ -195,9 +190,12 @@ public class LoopManiaWorld {
             // implement different RHS on this inequality, based on influence radii and battle radii
             // add enemy to fight list and possible support list
             switch (e.getName()) {
+                case "Doggie":
+                case "ElanMuske":
                 case "Slug":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
                         fightEnemies.add(e);
+                        IsFight = true;
                     } else {
                         possibleSupporEnemies.add(e);
                     }
@@ -205,6 +203,7 @@ public class LoopManiaWorld {
                 case "Zombie":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 4){
                         fightEnemies.add(e);
+                        IsFight = true;
                     } else {
                         possibleSupporEnemies.add(e);
                     }
@@ -212,6 +211,7 @@ public class LoopManiaWorld {
                 case "Vampire":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 4){
                         fightEnemies.add(e);
+                        IsFight = true;
                     } else {
                         possibleSupporEnemies.add(e);
                     }
@@ -224,6 +224,8 @@ public class LoopManiaWorld {
         if (IsFight) {
             for (BasicEnemy e: possibleSupporEnemies){
                 switch (e.getName()) {
+                    case "Dogie":
+                    case "ElanMuske":
                     case "Slug":
                         if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
                             fightEnemies.add(e);
@@ -240,9 +242,17 @@ public class LoopManiaWorld {
             }
 
         }
+        return fightEnemies;
+    }
 
-
+    /**
+     * run the expected battles in the world, based on current world state
+     * @return list of enemies which have been killed
+     */
+    public List<BasicEnemy> runBattles() {
+        List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> tranceEnemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> fightEnemies = fight();
         // fight with enemies
         while (!fightEnemies.isEmpty() && character.getHealth() > 0) {
             CommonAttack commonAttack = new CommonAttack();
@@ -255,7 +265,6 @@ public class LoopManiaWorld {
                     }
                 }
             }
-
             // fight with trance enemies case
             if (!tranceEnemies.isEmpty()) {
                 for (BasicEnemy b:tranceEnemies) {
@@ -283,7 +292,7 @@ public class LoopManiaWorld {
             }
             // normal fight (enemy)
             for (BasicEnemy e:fightEnemies) {
-                int randomNum = new Random().nextInt(10);
+                /*int randomNum = new Random().nextInt(10);
                 if (e.getName().equals("Zombie")) {
                     if (randomNum < 3 && !character.getSoldiers().isEmpty()) {
                         ZombieAttack za = new ZombieAttack();
@@ -308,14 +317,17 @@ public class LoopManiaWorld {
                     } else {
                         commonAttack.hit(character, tranceEnemies, enemies, e, "enemy");
                     }
+                } else if (e.getName().equals("Doggie")) {
+                    e.attack(character, tranceEnemies, fightEnemies, e);
                 } else {
                     commonAttack.hit(character, tranceEnemies, fightEnemies, e, "enemy");
-                }
+                }*/
+                e.attack(character, tranceEnemies, fightEnemies, e);
             }
 
             // allied soldier fight case
-            if (!fightEnemies.isEmpty()) {
-                for (int a = 0; a < character.getSoldiers().size(); a++) {
+            for (int a = 0; a < character.getSoldiers().size(); a++) {
+                if (!fightEnemies.isEmpty()) {
                     commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "soldier");
                     if (fightEnemies.get(0).getHealth() <= 0) {
                         defeatedEnemies.add(fightEnemies.get(0));
@@ -329,7 +341,7 @@ public class LoopManiaWorld {
                     commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "character");
                 } else if (character.getWeapon() instanceof Staff) {
                     int random = new Random().nextInt(10);
-                    if (random == 2) {
+                    if (random == 2 && (fightEnemies.get(0).getLevel()).equals("Monster")) {
                         StaffAttack sa = new StaffAttack();
                         sa.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "null");
                     } else {
@@ -355,7 +367,6 @@ public class LoopManiaWorld {
                 }
             }
         }
-
         // kill all defeated enemies
         for (BasicEnemy e: defeatedEnemies){
             // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
