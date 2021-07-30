@@ -30,8 +30,10 @@
 |    Sword	    |            6	         |    -	   |   10  |
 |    Stake	    | 4 (but 12 for vampire) |    -	   |   10  |
 |    Staff	    |            2	         |    -	   |   15  |
+|    Anduil	    |   9 (but 27 for boss)	 |    -	   |   30  |
 |    Armour	    |            -	         |    3	   |   20  |
-|    Shield	    |            -	         |    1	   |   20  |
+|    Shield	    |            -	         |    -	   |   20  |
+|   TreeStump   |            -	         |    -	   |   30  |
 |    Helmet	    |            -	         |    1	   |   20  |
 | Health potion |            -	         |    -	   |   10  |
 

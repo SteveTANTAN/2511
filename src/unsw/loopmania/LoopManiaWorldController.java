@@ -60,7 +60,7 @@ enum DRAGGABLE_TYPE{
  * equiment type
  */ 
 enum ITEMS_TYPE{
-    SWORD, STAKE, STAFF, ARMOUR, SHIELD, HELMET, THEONERING, HEALTHPOTION
+    SWORD, STAKE, STAFF, ARMOUR, SHIELD, HELMET, THEONERING, HEALTHPOTION, ANDURIL, TREESTUMP, DOGGIECOIN
 }
 
 /**
@@ -210,6 +210,9 @@ public class LoopManiaWorldController {
     private Image helmetImage;
     private Image theOneRingImage;
     private Image emptyTheOneRingImage;
+    private Image andurilImage;
+    private Image doggieCoinImage;
+    private Image treeStumpImage;
     
     private Image heroCastlImage;
 
@@ -293,6 +296,9 @@ public class LoopManiaWorldController {
         zombieImage = new Image((new File("src/images/zombie.png")).toURI().toString());
         vampireImage = new Image((new File("src/images/vampire.png")).toURI().toString());
         swordImage = new Image((new File("src/images/basic_sword.png")).toURI().toString());
+        andurilImage = new Image((new File("src/images/anduril_flame_of_the_west.png")).toURI().toString());
+        treeStumpImage = new Image((new File("src/images/tree_stump.png")).toURI().toString());
+        doggieCoinImage = new Image((new File("src/images/doggiecoin.png")).toURI().toString());
 
         towerBuildingImage = new Image((new File("src/images/tower.png")).toURI().toString());
         zombiePitBuildingImage = new Image((new File("src/images/zombie_pit.png")).toURI().toString());
@@ -624,7 +630,10 @@ public class LoopManiaWorldController {
             loadCardByType(CARDS_TYPE.values()[index]);
         }
 
-        int rd = new Random().nextInt(100);
+        //if (enemy instanceof Doggie) {
+            //loadItemByType(ITEMS_TYPE.DOGGIECOIN);
+        //} 
+        int rd = new Random().nextInt(110);
         if (rd < 20) {
             loadItemByType(ITEMS_TYPE.SWORD);    
         } else if (rd >= 20 && rd < 35) {
@@ -641,7 +650,11 @@ public class LoopManiaWorldController {
             loadItemByType(ITEMS_TYPE.THEONERING);  
         } else if (rd >= 90 && rd <= 100) {
             world.getCharacter().setHealth(world.getCharacter().getHealth() + 50); // health potion
-        }
+        } /*else if ((enemy instanceof Doggie || enemy instanceof ElanMuske) && (rd >= 100 && rd <= 105)) {
+            loadItemByType(ITEMS_TYPE.ANDURIL);
+        } else if ((enemy instanceof Doggie || enemy instanceof ElanMuske) && (rd >= 105 && rd <= 110)) {
+            loadItemByType(ITEMS_TYPE.TREESTUMP);
+        }*/
         world.getCharacter().setGold(world.getCharacter().getGold() + enemy.getGoldDefeated());
         world.getCharacter().setEXP(world.getCharacter().getEXP() + enemy.getEXP());
     }
@@ -711,6 +724,12 @@ public class LoopManiaWorldController {
             view = new ImageView(helmetImage);
         } else if (item instanceof TheOneRing) {
             view = new ImageView(theOneRingImage);
+        } else if (item instanceof Anduril) {
+            view = new ImageView(andurilImage);
+        } else if (item instanceof TreeStump) {
+            view = new ImageView(treeStumpImage);
+        } else if (item instanceof DoggieCoin) {
+            view = new ImageView(doggieCoinImage);
         }
 
         addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);

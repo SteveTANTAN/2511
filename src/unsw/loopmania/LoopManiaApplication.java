@@ -1,11 +1,14 @@
 package unsw.loopmania;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 /**
@@ -20,6 +23,15 @@ public class LoopManiaApplication extends Application {
      */
     private LoopManiaWorldController mainController;
     private  Parent gameRoot;
+    /*
+    static Media sound = new Media(new File("src/BGM/BGM2.mp3").toURI().toString());
+    static MediaPlayer mp = new MediaPlayer(sound);
+    mp.setOnEndOfMedia(new Runnable) {
+        public void run() {
+            mp.seek(Duration.ZERO);
+        }
+    };*/
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         // set title on top of window bar

@@ -18,6 +18,8 @@ public class Character extends MovingEntity {
     private int gold;
     private EXP EXP;
     private boolean attackEnhance;
+    private boolean stupor;
+    private int stuporTurn;
 
     /**
      * constructor of character
@@ -30,6 +32,8 @@ public class Character extends MovingEntity {
         setHealth(100);
         setAggressivity(4);
         soldiers = new ArrayList<AlliedSoldier>();
+        stupor = false;
+        stuporTurn = 0;
     }
 
     /**
@@ -210,6 +214,22 @@ public class Character extends MovingEntity {
      */
     public void setTheOneRing(Item ring) {
         this.theOneRing = ring;
+    }
+
+    public boolean getStupor() {
+        return this.stupor;
+    }
+
+    public void setStupor(boolean b) {
+        this.stupor = b;
+    }
+
+    public int getStuporTurn() {
+        return this.stuporTurn;
+    }
+
+    public void setStuporTurn(int i) {
+        this.stuporTurn = i;
     }
 
 }

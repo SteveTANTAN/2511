@@ -1,5 +1,6 @@
 package unsw.loopmania;
 
+import java.util.List;
 import java.util.Random;
 
 
@@ -16,6 +17,7 @@ public class BasicEnemy extends MovingEntity {
     private int attackRange;
     private int supportRange;
     private int tranceTurn;
+    private String level;
 
     /**
      * constructor of basic enemy
@@ -166,5 +168,17 @@ public class BasicEnemy extends MovingEntity {
      */
     public int getEXP(){
         return exp;
+    }
+
+    public void attack(Character c, List<BasicEnemy> trancedEnemies, List<BasicEnemy> enemies,BasicEnemy e) {
+
+    }
+
+    public void setLevel(String l) {
+        this.level = l;
+    }
+
+    public String getLevel() {
+        return this.level;
     }
 }
