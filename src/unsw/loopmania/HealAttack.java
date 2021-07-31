@@ -22,6 +22,8 @@ public class HealAttack implements Attack{
                 hurt = hurt / 2;
             } else if (c.getArmour() instanceof Helmet) {
                 hurt = hurt - 5;
+            } else if (c.getShield() instanceof TreeStump) {
+                hurt = hurt / 3;
             }
             if (hurt < 0) {
                 hurt = 0;

@@ -191,7 +191,7 @@ public class LoopManiaWorld {
             // add enemy to fight list and possible support list
             switch (e.getName()) {
                 case "Doggie":
-                case "ElanMuske":
+                case "Elan Muske":
                 case "Slug":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
                         fightEnemies.add(e);
@@ -199,7 +199,7 @@ public class LoopManiaWorld {
                     } else {
                         possibleSupporEnemies.add(e);
                     }
-                    break;                
+                    break;
                 case "Zombie":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 4){
                         fightEnemies.add(e);
@@ -225,7 +225,7 @@ public class LoopManiaWorld {
             for (BasicEnemy e: possibleSupporEnemies){
                 switch (e.getName()) {
                     case "Dogie":
-                    case "ElanMuske":
+                    case "Elan Muske":
                     case "Slug":
                         if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
                             fightEnemies.add(e);
@@ -350,6 +350,9 @@ public class LoopManiaWorld {
                 } else if (character.getWeapon() instanceof Stake) {
                     StakeAttack ak = new StakeAttack();
                     ak.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "null");
+                } else if (character.getWeapon() instanceof Anduril) {
+                    AndurilAttack aa = new AndurilAttack();
+                    aa.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "null");
                 } else {
                     commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "character");
                 }
