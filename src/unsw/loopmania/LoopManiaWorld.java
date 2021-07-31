@@ -337,24 +337,31 @@ public class LoopManiaWorld {
             }
             // normal fight with equipment (character)
             if (!fightEnemies.isEmpty()) {
-                if (character.getWeapon() instanceof Sword) {
-                    commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "character");
-                } else if (character.getWeapon() instanceof Staff) {
-                    int random = new Random().nextInt(10);
-                    if (random == 2 && (fightEnemies.get(0).getLevel()).equals("Monster")) {
-                        StaffAttack sa = new StaffAttack();
-                        sa.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "null");
+                if (character.getStupor()) {
+                    character.setStuporTurn(character.getStuporTurn() - 1);
+                    if (character.getStuporTurn() == 0) {
+                        character.setStupor(false);
+                    }
+                } else {
+                    if (character.getWeapon() instanceof Sword) {
+                        commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "character");
+                    } else if (character.getWeapon() instanceof Staff) {
+                        int random = new Random().nextInt(10);
+                        if (random == 2 && (fightEnemies.get(0).getLevel()).equals("Monster")) {
+                            StaffAttack sa = new StaffAttack();
+                            sa.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "null");
+                        } else {
+                            commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "character");
+                        }
+                    } else if (character.getWeapon() instanceof Stake) {
+                        StakeAttack ak = new StakeAttack();
+                        ak.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "null");
+                    } else if (character.getWeapon() instanceof Anduril) {
+                        AndurilAttack aa = new AndurilAttack();
+                        aa.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "null");
                     } else {
                         commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "character");
                     }
-                } else if (character.getWeapon() instanceof Stake) {
-                    StakeAttack ak = new StakeAttack();
-                    ak.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "null");
-                } else if (character.getWeapon() instanceof Anduril) {
-                    AndurilAttack aa = new AndurilAttack();
-                    aa.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "null");
-                } else {
-                    commonAttack.hit(character, tranceEnemies, fightEnemies, fightEnemies.get(0), "character");
                 }
             }
 
