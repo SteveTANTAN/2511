@@ -506,6 +506,9 @@ public class LoopManiaWorldController {
         if(world.getCharacter().getHealth() <= 0){
             defeat();
         }
+        if (world.goalCheck()) {
+            victory();
+        }
         // loop reaches 100
         if(world.getRoundsNum() > 100){
             // victory
