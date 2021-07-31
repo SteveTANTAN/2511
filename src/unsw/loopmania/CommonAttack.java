@@ -21,6 +21,8 @@ public class CommonAttack implements Attack{
                         hurt = hurt / 2;
                     } else if (c.getArmour() instanceof Helmet) {
                         hurt = hurt - 5;
+                    } else if (c.getShield() instanceof TreeStump && e.getLevel().equals("Boss")) {
+                        hurt = hurt / 3;
                     }
                     if (hurt < 0) {
                         hurt = 0;
