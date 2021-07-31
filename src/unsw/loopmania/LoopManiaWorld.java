@@ -1090,7 +1090,8 @@ public class LoopManiaWorld {
      */
 
     public boolean goalCheck() {
-        return this.goalCondition.goalCheck(character.getGold(), character.getEXP(), roundsNum);
+        this.goalCondition.setCurrentStatus(character.getGold(), character.getEXP(), roundsNum);
+        return this.goalCondition.goalCheck();
 
     }
 
@@ -1103,6 +1104,7 @@ public class LoopManiaWorld {
     public void setGoalCondition(Goal goalCondition) {
         this.goalCondition = goalCondition;
     }
+
     /**
      * setting is_dead  condition
      * 
