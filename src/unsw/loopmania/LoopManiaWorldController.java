@@ -186,11 +186,12 @@ public class LoopManiaWorldController {
     private Image villageCardImage;
     private Image trapCardImage;
     private Image campfireCardImage;
-    private Image basicEnemyImage;
+    private Image slugImage;
     private Image zombieImage;
     private Image vampireImage;
-    private Image swordImage;
-
+    private Image doggieImage;
+    private Image elanMuskeImage;
+    
     private Image towerBuildingImage;
     private Image zombiePitBuildingImage;
     private Image vampireCastleBuildingImage;
@@ -198,6 +199,7 @@ public class LoopManiaWorldController {
     private Image villageBuildingImage;
     private Image trapBuildingImage;
     private Image campfireBuildingImage;
+    private Image swordImage;
     private Image stakeImage;
     private Image staffImage;
     private Image armourImage;
@@ -282,7 +284,9 @@ public class LoopManiaWorldController {
         villageCardImage = new Image((new File("src/images/village_card.png")).toURI().toString());
         trapCardImage = new Image((new File("src/images/trap_card.png")).toURI().toString());
         campfireCardImage = new Image((new File("src/images/campfire_card.png")).toURI().toString());
-        basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
+        slugImage = new Image((new File("src/images/slug.png")).toURI().toString());
+        doggieImage = new Image((new File("src/images/doggie.png")).toURI().toString());
+        elanMuskeImage = new Image((new File("src/images/ElanMuske.png")).toURI().toString());
         zombieImage = new Image((new File("src/images/zombie.png")).toURI().toString());
         vampireImage = new Image((new File("src/images/vampire.png")).toURI().toString());
         swordImage = new Image((new File("src/images/basic_sword.png")).toURI().toString());
@@ -603,9 +607,13 @@ public class LoopManiaWorldController {
             loadCardByType(CARDS_TYPE.values()[index]);
         }
 
-        //if (enemy instanceof Doggie) {
-            //loadItemByType(ITEMS_TYPE.DOGGIECOIN);
-        //} 
+        if (enemy instanceof Doggie) {
+            loadItemByType(ITEMS_TYPE.DOGGIECOIN);
+        } 
+        if (enemy instanceof ElanMuske) {
+            ElanMuske e = (ElanMuske) enemy;
+            e.notifyObservers(50);
+        } 
         int rd = new Random().nextInt(110);
         if (rd < 20) {
             loadItemByType(ITEMS_TYPE.SWORD);    
@@ -623,11 +631,11 @@ public class LoopManiaWorldController {
             loadItemByType(ITEMS_TYPE.THEONERING);  
         } else if (rd >= 90 && rd <= 100) {
             world.getCharacter().setHealth(world.getCharacter().getHealth() + 50); // health potion
-        } /*else if ((enemy instanceof Doggie || enemy instanceof ElanMuske) && (rd >= 100 && rd <= 105)) {
+        } else if ((enemy instanceof Doggie || enemy instanceof ElanMuske) && (rd >= 100 && rd <= 105)) {
             loadItemByType(ITEMS_TYPE.ANDURIL);
         } else if ((enemy instanceof Doggie || enemy instanceof ElanMuske) && (rd >= 105 && rd <= 110)) {
             loadItemByType(ITEMS_TYPE.TREESTUMP);
-        }*/
+        }
         world.getCharacter().setGold(world.getCharacter().getGold() + enemy.getGoldDefeated());
         world.getCharacter().setEXP(world.getCharacter().getEXP() + enemy.getEXP());
     }
@@ -719,8 +727,14 @@ public class LoopManiaWorldController {
         else if(enemy instanceof Vampire){
             view = new ImageView(vampireImage);
         }
-        else if(enemy instanceof BasicEnemy){
-            view = new ImageView(basicEnemyImage);
+        else if(enemy instanceof Slug){
+            view = new ImageView(slugImage);
+        } 
+        else if(enemy instanceof Doggie){
+            view = new ImageView(doggieImage);
+        }
+        else if(enemy instanceof ElanMuske){
+            view = new ImageView(elanMuskeImage);
         }
         addEntity(enemy, view);
         squares.getChildren().add(view);

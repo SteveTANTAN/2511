@@ -164,9 +164,25 @@ public class LoopManiaWorld {
         List<BasicEnemy> spawningEnemies = new ArrayList<>();
         if (pos != null) {
             int indexInPath = orderedPath.indexOf(pos);
-            Slug enemy = new Slug(new PathPosition(indexInPath, orderedPath));
-            enemies.add(enemy);
-            spawningEnemies.add(enemy);
+            Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
+            enemies.add(slug);
+            spawningEnemies.add(slug);
+            if (roundsNum > 20) {
+                Doggie doggie = new Doggie(new PathPosition(indexInPath, orderedPath));
+                enemies.add(doggie);
+                spawningEnemies.add(doggie);
+            }
+            if (roundsNum > 40 && character.getEXP() > 1000) {
+                ElanMuske elanMuske = new ElanMuske(new PathPosition(indexInPath, orderedPath));
+                for (Item item: unequippedInventoryItems) {
+                    if (item instanceof DoggieCoin) {
+                        elanMuske.registerObserver((DoggieCoin)item);
+                    }
+                }
+                elanMuske.notifyObservers(500);
+                enemies.add(elanMuske);
+                spawningEnemies.add(elanMuske);               
+            }
         }
         return spawningEnemies;
     }
@@ -191,7 +207,7 @@ public class LoopManiaWorld {
             // add enemy to fight list and possible support list
             switch (e.getName()) {
                 case "Doggie":
-                case "ElanMuske":
+                case "Elan Muske":
                 case "Slug":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
                         fightEnemies.add(e);
@@ -225,7 +241,7 @@ public class LoopManiaWorld {
             for (BasicEnemy e: possibleSupporEnemies){
                 switch (e.getName()) {
                     case "Dogie":
-                    case "ElanMuske":
+                    case "Elan Muske":
                     case "Slug":
                         if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
                             fightEnemies.add(e);
@@ -546,7 +562,7 @@ public class LoopManiaWorld {
             }
             case DOGGIECOIN: {
                 item = new DoggieCoin(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),
-                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 0);
+                        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), 0, 0, 40);
                 break;
             }
             default:
