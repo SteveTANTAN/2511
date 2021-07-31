@@ -49,7 +49,7 @@ public class Character extends MovingEntity {
      * @param health character health value
      */
     public void setHealth(int health) {
-        this.health = Math.min(health, 100);
+        this.health = Math.max(Math.min(health, 100), 0);
     }
 
     /**

@@ -20,5 +20,4 @@ public class Armour extends Item {
         setDefenseValue(defenseValue);
         setPrice(price);
     }
-
 }

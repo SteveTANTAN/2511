@@ -69,7 +69,7 @@ public class EnemyTest {
         int currentPositionInPath = 5;
         PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);
 
-        Zombie zombie = new Zombie(pathPosition);
+        Zombie zombie = new Zombie(pathPosition,null);
         assertEquals(zombie.getX(), 3);
         assertEquals(zombie.getY(), 2);
         assertEquals(zombie.getHealth(), 18);
@@ -105,7 +105,7 @@ public class EnemyTest {
         int currentPositionInPath = 4;
         PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);
 
-        Vampire vampire = new Vampire(pathPosition);
+        Vampire vampire = new Vampire(pathPosition,null);
         assertEquals(vampire.getX(), 3);
         assertEquals(vampire.getY(), 1);
         assertEquals(vampire.getHealth(), 32);

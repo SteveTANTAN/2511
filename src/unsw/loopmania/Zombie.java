@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Zombie extends BasicEnemy{
+    private Building building;
 
     private List<BasicEnemy> intefactors;
 
@@ -12,7 +13,7 @@ public class Zombie extends BasicEnemy{
      * constructor of zombie
      * @param position position
      */
-    public Zombie(PathPosition position) {
+    public Zombie(PathPosition position, Building building) {
         super(position);
         super.setHealth(18);
         super.setAggressivity(8);
@@ -23,6 +24,7 @@ public class Zombie extends BasicEnemy{
         super.setName("Zombie");
         super.setLevel("Monster");
         intefactors = new ArrayList<BasicEnemy>();
+        this.building = building;
     } 
 
     /**
@@ -39,6 +41,9 @@ public class Zombie extends BasicEnemy{
             moveDownPath();
         }
     }
+    public Building getZombieBuilding(){
+        return building;
+    }
 
     @Override
     public void attack(Character c, List<BasicEnemy> trancedEnemies, List<BasicEnemy> enemies,BasicEnemy e) {
@@ -51,7 +56,7 @@ public class Zombie extends BasicEnemy{
         }
         if (randomNum < 3 && !c.getSoldiers().isEmpty()) {
             c.getSoldiers().remove(0);
-            Zombie z = new Zombie(c.getPosition());
+            Zombie z = new Zombie(c.getPosition(),null);
             this.intefactors.add(z);
         } else {
             ca.hit(c, trancedEnemies, enemies, e, "enemy");

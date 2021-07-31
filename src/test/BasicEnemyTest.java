@@ -101,7 +101,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Zombie e = new Zombie(Pp);
+        Zombie e = new Zombie(Pp,null);
         assertEquals(e.getAggressivity(), 8);
         e.setAggressivity(1);
         assertEquals(e.getAggressivity(), 1);
@@ -112,7 +112,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Zombie e = new Zombie(Pp);
+        Zombie e = new Zombie(Pp,null);
         assertEquals(e.getHealth(), 18);
         e.setHealth(1);
         assertEquals(e.getHealth(), 1);
@@ -123,7 +123,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Zombie e = new Zombie(Pp);
+        Zombie e = new Zombie(Pp,null);
     
         assertEquals(e.getAttackRange(), 2);
         e.setAttackRange(1);
@@ -135,7 +135,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Zombie e = new Zombie(Pp);
+        Zombie e = new Zombie(Pp,null);
         
         assertEquals(e.getSupportRange(), 0);
         e.setSupportRange(2);
@@ -147,7 +147,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Zombie e = new Zombie(Pp);
+        Zombie e = new Zombie(Pp,null);
         assertEquals(e.getName(), "Zombie");
         e.setName("Jeffery");
         assertEquals(e.getName(), "Jeffery");
@@ -158,7 +158,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Zombie e = new Zombie(Pp);
+        Zombie e = new Zombie(Pp,null);
         assertEquals(e.getGoldDefeated(), 3);
         e.setGoldDefeated(2);
         assertEquals(e.getGoldDefeated(), 2);
@@ -169,7 +169,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Zombie e = new Zombie(Pp);
+        Zombie e = new Zombie(Pp,null);
         assertEquals(e.getEXP(), 5);
         e.setEXP(1);
         assertEquals(e.getEXP(), 1);
@@ -180,7 +180,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         assertEquals(e.getAggressivity(), 15);
         e.setAggressivity(1);
         assertEquals(e.getAggressivity(), 1);
@@ -191,7 +191,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         assertEquals(e.getHealth(), 32);
         e.setHealth(1);
         assertEquals(e.getHealth(), 1);
@@ -202,7 +202,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Vampire e = new Vampire(Pp);;
+        Vampire e = new Vampire(Pp,null);;
     
         assertEquals(e.getAttackRange(), 2);
         e.setAttackRange(1);
@@ -214,7 +214,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         
         assertEquals(e.getSupportRange(), 2);
         e.setSupportRange(1);
@@ -226,7 +226,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         assertEquals(e.getName(), "Vampire");
         e.setName("Victor");
         assertEquals(e.getName(), "Victor");
@@ -237,7 +237,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         assertEquals(e.getGoldDefeated(), 5);
         e.setGoldDefeated(2);
         assertEquals(e.getGoldDefeated(), 2);
@@ -248,7 +248,7 @@ public class BasicEnemyTest {
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         assertEquals(e.getEXP(), 8);
         e.setEXP(1);
         assertEquals(e.getEXP(), 1);

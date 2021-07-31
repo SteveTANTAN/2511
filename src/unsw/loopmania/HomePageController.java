@@ -33,9 +33,6 @@ public class HomePageController {
     @FXML
     private HBox newgame;
 
-    @FXML
-    private HBox mContinue;
-
     private MenuSwitcher mainMenuSwitcher;
 
     public void init(){
@@ -57,29 +54,12 @@ public class HomePageController {
         newgame.setSpacing(30);
         newgame.getChildren().add(label);
 
-        label = new Label("CONTINUE");
-        label.setFont(Font.font("Microsoft YaHei",FontWeight.BOLD,14));
-        label.setTextFill(new Color(1,1,1,1));
-        imageView = new ImageView();
-        imageView.setImage(new Image((new File("src/images/basic_sword.png")).toURI().toString()));
-        mContinue.getChildren().add(imageView);
-        mContinue.setSpacing(30);
-        mContinue.getChildren().add(label);
-
         newgame.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
             public void handle(MouseEvent arg0) {
                 // new game
                 mainMenuSwitcher.switchMenu();
-            }
-		});
-
-        mContinue.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent arg0) {
-                tips.setText("No game archive,please start a new game!");
             }
 		});
 

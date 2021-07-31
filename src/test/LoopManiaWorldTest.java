@@ -102,7 +102,7 @@ public class LoopManiaWorldTest {
         world.convertCardToBuildingByCoordinates(0,0,2,1);
         world.convertCardToBuildingByCoordinates(0,0,1,3);
         
-        world.spawnAZombie(2,1);
+        world.spawnAZombie(2,1,null);
 
         int currentPositionInPath = 8;
         PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);

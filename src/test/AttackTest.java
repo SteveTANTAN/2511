@@ -52,7 +52,7 @@ public class AttackTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         ca.hit(Character, trancedEnemies, enemies, e, "enemy");
         assertEquals(Character.getHealth(), 85);
     }
@@ -65,7 +65,7 @@ public class AttackTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         VampireAttack va = new VampireAttack();
         va.hit(Character, trancedEnemies, enemies, e, "enemy");
         assertNotEquals(Character.getHealth(), 85);
@@ -79,8 +79,8 @@ public class AttackTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
-        Vampire e = new Vampire(Pp);
-        Zombie z = new Zombie(Pp);
+        Vampire e = new Vampire(Pp,null);
+        Zombie z = new Zombie(Pp,null);
         enemies.add(z);
         VampireAttack va = new VampireAttack();
         va.hit(Character, trancedEnemies, enemies, e, "allied");
@@ -95,7 +95,7 @@ public class AttackTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         Slug s= new Slug(Pp);
         trancedEnemies.add(s);
         VampireAttack va = new VampireAttack();
@@ -111,8 +111,8 @@ public class AttackTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
-        Vampire e = new Vampire(Pp);
-        Vampire v = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
+        Vampire v = new Vampire(Pp,null);
         trancedEnemies.add(v);
         VampireAttack va = new VampireAttack();
         va.hit(Character, trancedEnemies, enemies, e, "enemy");
@@ -129,7 +129,7 @@ public class AttackTest {
         Character Character = new Character(Pp);
         Helmet h = new Helmet(null, null, 0, 0, 0);
         Character.setArmour(h);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         VampireAttack va = new VampireAttack();
         va.hit(Character, trancedEnemies, enemies, e, "enemy");
         assertNotEquals(Character.getHealth(), 90);
@@ -145,7 +145,7 @@ public class AttackTest {
         Character Character = new Character(Pp);
         Armour a= new Armour(null, null, 0, 0, 0);
         Character.setArmour(a);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         VampireAttack va = new VampireAttack();
         va.hit(Character, trancedEnemies, enemies, e, "enemy");
         assertNotEquals(Character.getHealth(), 93);
@@ -160,7 +160,7 @@ public class AttackTest {
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         Character.setDefense(30);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         VampireAttack va = new VampireAttack();
         va.hit(Character, trancedEnemies, enemies, e, "enemy");
         assertEquals(Character.getHealth(), 100);
@@ -176,7 +176,7 @@ public class AttackTest {
         AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));
         Character Character = new Character(Pp);
         Character.addSoldier(soldier);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         VampireAttack va = new VampireAttack();
         va.hit(Character, trancedEnemies, enemies, e, "enemy");
         assertEquals(Character.getSoldiers().size(), 0);
@@ -190,7 +190,7 @@ public class AttackTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
-        Zombie e = new Zombie(Pp);
+        Zombie e = new Zombie(Pp,null);
         ca.hit(Character, trancedEnemies, enemies, e, "enemy");
         assertEquals(Character.getHealth(), 92);
     }
@@ -206,7 +206,7 @@ public class AttackTest {
         AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));
         Character.addSoldier(soldier);
         assertEquals(Character.getSoldiers().size(), 1);
-        Zombie e = new Zombie(Pp);
+        Zombie e = new Zombie(Pp,null);
         ZombieAttack za = new ZombieAttack();
         za.hit(Character, trancedEnemies, enemies, e, "enemy");
         assertEquals(Character.getSoldiers().size(), 0);
@@ -296,7 +296,7 @@ public class AttackTest {
         Character Character = new Character(Pp);
         Stake s = new Stake(null, null, 0, 0, 0);
         Character.setWeapon(s);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         StakeAttack sa = new StakeAttack();
         sa.hit(Character, trancedEnemies, enemies, e, "character");
         assertEquals(e.getHealth(), 20);
@@ -314,7 +314,7 @@ public class AttackTest {
         Helmet h = new Helmet(null, null, 0, 0, 0);
         Character.setWeapon(s);
         Character.setArmour(h);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         StakeAttack sa = new StakeAttack();
         sa.hit(Character, trancedEnemies, enemies, e, "character");
         assertEquals(e.getHealth(), 22);
@@ -330,7 +330,7 @@ public class AttackTest {
         Character Character = new Character(Pp);
         Stake s = new Stake(null, null, 0, 0, 0);
         Character.setWeapon(s);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         assertEquals(e.getTranceTurn(), 0);
         StaffAttack sa = new StaffAttack();
         sa.hit(Character, trancedEnemies, enemies, e, "character");
@@ -349,7 +349,7 @@ public class AttackTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         Slug v = new Slug(Pp);
         trancedEnemies.add(v);
         ca.hit(Character, trancedEnemies, enemies, e, "enemy");
@@ -365,7 +365,7 @@ public class AttackTest {
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         Character.addSoldier(soldier);
         ca.hit(Character, trancedEnemies, enemies, e, "enemy");
         assertEquals(Character.getSoldiers().size(), 0);
@@ -395,7 +395,7 @@ public class AttackTest {
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
         AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         ca.hit(Character, trancedEnemies, enemies, e, "soldier");
         assertEquals(e.getHealth(), 32);
         Character.addSoldier(soldier);
@@ -411,7 +411,7 @@ public class AttackTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         ca.hit(Character, trancedEnemies, enemies, e, "slug");
         assertEquals(e.getHealth(), 28);
     }
@@ -424,7 +424,7 @@ public class AttackTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         ca.hit(Character, trancedEnemies, enemies, e, "zombie");
         assertEquals(e.getHealth(), 24);
     }
@@ -437,7 +437,7 @@ public class AttackTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         ca.hit(Character, trancedEnemies, enemies, e, "vampire");
         assertEquals(e.getHealth(), 17);
     }
@@ -450,7 +450,7 @@ public class AttackTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Character Character = new Character(Pp);
-        Vampire e = new Vampire(Pp);
+        Vampire e = new Vampire(Pp,null);
         ca.hit(Character, trancedEnemies, enemies, e, "null");
         assertEquals(e.getHealth(), 32);
     }

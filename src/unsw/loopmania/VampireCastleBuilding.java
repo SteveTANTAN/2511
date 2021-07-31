@@ -25,7 +25,7 @@ public class VampireCastleBuilding extends Building {
     public List<BasicEnemy> spawnVampires(LoopManiaWorld world){
         List<BasicEnemy> retList = new ArrayList<>();
         if(counter == 5){
-            retList.add(world.spawnAVampire(getX(),getY()));
+            retList.add(world.spawnAVampire(getX(),getY(),this));
             counter = 1;
         }else{
             counter++;

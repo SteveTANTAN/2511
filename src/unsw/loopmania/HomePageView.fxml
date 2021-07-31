@@ -30,12 +30,6 @@
                     -fx-background-radius: 3px;
                 </style>
             </HBox>
-            <HBox fx:id="mContinue" prefWidth="180" prefHeight="50" layoutY="20" alignment="CENTER">
-                <style>
-                    -fx-background-color: rgb(123, 77, 18, 1);
-                    -fx-background-radius: 3px;
-                </style>
-            </HBox>
         </children>
         </VBox>
     </AnchorPane>
