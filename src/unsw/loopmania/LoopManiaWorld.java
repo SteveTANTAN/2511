@@ -1090,7 +1090,7 @@ public class LoopManiaWorld {
      */
 
     public boolean goalCheck() {
-        this.goalCondition.setCurrentStatus(character.getGold(), character.getEXP(), roundsNum);
+        this.goalCondition.setCurrentStatus(character.getGold(), character.getEXP(), roundsNum, false);
         return this.goalCondition.goalCheck();
 
     }

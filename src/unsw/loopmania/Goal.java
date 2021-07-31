@@ -9,6 +9,7 @@ public class Goal {
     public int gold;
     public int exp;
     public int turns;
+    public boolean bosses;
 
     public Goal(JSONObject condition){
 
@@ -16,10 +17,11 @@ public class Goal {
 
     }
 
-    public void setCurrentStatus (int gold, int exp, int turns){
+    public void setCurrentStatus (int gold, int exp, int turns,boolean bosses){
         this.gold = gold;
         this.exp = exp;
         this.turns = turns;
+        this.bosses = bosses;
     }
     /**
      * checking if it meets the specifct condition
@@ -36,6 +38,8 @@ public class Goal {
                 return exp >= quantity;
             case "cycles" :
                 return turns >= quantity;
+            case "bosses" :
+                return bosses;
             default:
                 break;
         }
@@ -63,12 +67,13 @@ public class Goal {
             String rela = conditions.getString("goal");
             if (rela.equals("AND")) {
                 AndGoal andgoal = new AndGoal(this.conditions);
-                andgoal.setCurrentStatus(gold, exp, turns);
+
+                andgoal.setCurrentStatus(gold, exp, turns, bosses);
                 return andgoal.subgoalcheck();
 
             } else {
                 OrGoal orgoal = new OrGoal(this.conditions);
-                orgoal.setCurrentStatus(gold, exp, turns);
+                orgoal.setCurrentStatus(gold, exp, turns, bosses);
                 return orgoal.subgoalcheck();
             }
 
