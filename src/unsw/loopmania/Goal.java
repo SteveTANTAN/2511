@@ -23,6 +23,21 @@ public class Goal {
         this.turns = turns;
         this.bosses = bosses;
     }
+    public String goal_to_string(){
+        String fronted = conditions.toString();
+        fronted = fronted.replace("{", "\n");
+        fronted = fronted.replace("}", "");
+        fronted = fronted.replace("\"","");
+        fronted = fronted.replace("[","(");
+        fronted = fronted.replace("]",")");
+        fronted = fronted.replace("quantity","");
+        fronted = fronted.replace("goal:","   ");
+        fronted = fronted.replace("subgoals:","");
+        fronted = fronted + "\n";
+        return fronted;
+        System.out.printf(fronted);
+    }
+
     /**
      * checking if it meets the specifct condition
      * 
@@ -52,6 +67,7 @@ public class Goal {
      * @return Boolean
      */
     public boolean goalCheck() {
+        //goal_to_string();
         if (conditions == null) {
             return false;
 
@@ -80,5 +96,6 @@ public class Goal {
 
         }
     }
+    
 
 }
