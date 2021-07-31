@@ -35,7 +35,7 @@ public class Goal {
         fronted = fronted.replace("subgoals:","");
         fronted = fronted + "\n";
         return fronted;
-        System.out.printf(fronted);
+        //System.out.printf(fronted);
     }
 
     /**
