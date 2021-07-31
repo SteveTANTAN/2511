@@ -9,12 +9,12 @@ public class ElanMuske extends BasicEnemy implements DoggieCoinObserver{
 
     public ElanMuske(PathPosition position) {
         super(position);
-        super.setHealth(2); // 32
-        super.setAggressivity(1); //15
+        super.setHealth(40); 
+        super.setAggressivity(27); 
         super.setSupportRange(1);
         super.setAttackRange(1);
-        super.setGoldDefeated(5);
-        super.setEXP(8);
+        super.setGoldDefeated(20);
+        super.setEXP(500);
         super.setName("Elan Muske");
         super.setLevel("Boss");
     }
