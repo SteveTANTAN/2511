@@ -56,7 +56,7 @@ public class Zombie extends BasicEnemy{
         }
         if (randomNum < 3 && !c.getSoldiers().isEmpty()) {
             c.getSoldiers().remove(0);
-            Zombie z = new Zombie(c.getPosition());
+            Zombie z = new Zombie(c.getPosition(),null);
             this.intefactors.add(z);
         } else {
             ca.hit(c, trancedEnemies, enemies, e, "enemy");

@@ -159,9 +159,6 @@ public class LoopManiaWorldController {
     private HBox continueGame;
 
     @FXML
-    private HBox saveGame;
-
-    @FXML
     private Label gameStatus;
 
     @FXML
@@ -452,15 +449,7 @@ public class LoopManiaWorldController {
             roundsNumLabel.setPadding(new Insets(0,0,0,10));
             winningCondition.setWrapText(true);
             winningCondition.setText("Winning Conditions:Looping reaches 100 & Gold reaches 600 & EXP reaches 1000");
-
-            // save the game
-            saveGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent arg0) {
-                    // save game
-                    System.out.print("save game");
-                }
-            });
+            //winningCondition.setText(world.goal_print());
             // exit to main menu
             exitMenu.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
