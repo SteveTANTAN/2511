@@ -14,5 +14,5 @@ public interface DoggieCoinObserver {
 	/**
 	 * notify observer
 	 */
-	void notifyObservers();
+	void notifyObservers(int newPrice);
 }
