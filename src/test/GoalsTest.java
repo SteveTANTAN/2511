@@ -1,22 +1,10 @@
 package test;
 
 import org.junit.jupiter.api.Test;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
-import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.Gold;
@@ -25,23 +13,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 import org.javatuples.Pair;
-import org.json.JSONObject;
-import org.json.JSONTokener;
+
 
 import javafx.beans.property.SimpleIntegerProperty;
 
-import unsw.loopmania.Armour;
 import unsw.loopmania.Character;
-import unsw.loopmania.HealthPotion;
-import unsw.loopmania.Helmet;
-import unsw.loopmania.LoopManiaWorld;
+
 import unsw.loopmania.PathPosition;
 
 import unsw.loopmania.Stake;
 import unsw.loopmania.Sword;
-import unsw.loopmania.TheOneRing;
+
 import unsw.loopmania.Goal;
-import unsw.loopmania.ModeReq;
+
 import unsw.loopmania.ModeContext;
 import unsw.loopmania.Mode;
 import unsw.loopmania.ModeBerserker;
@@ -97,16 +81,14 @@ public class GoalsTest {
 
 
         Goal gold = new Goal(goalcondition);
-        assertEquals(gold.goalCheckHelp("gold", 5, 1, 1, 1), false);
-        assertEquals(gold.goalCheck(1, 1, 1), false);
+        assertEquals(gold.goalCheckHelp("gold", 5), false);
+        assertEquals(gold.goalCheck(), false);
 
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
         orderedPath.add(new Pair<Integer, Integer>(0,0));
-        PathPosition pathPosition = new PathPosition(0, orderedPath);
         LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
         world.setGoalCondition(gold);
 
-        Character character = new Character(pathPosition);
         
     }
     @Test
@@ -139,16 +121,14 @@ public class GoalsTest {
 
 
         Goal gold = new Goal(goalcondition);
-        assertEquals(gold.goalCheckHelp("experience", 5, 10, 10, 10), true);
-        assertEquals(gold.goalCheck(1, 500, 1), false);
+        assertEquals(gold.goalCheckHelp("experience", 5), true);
+        assertEquals(gold.goalCheck(), false);
 
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
         orderedPath.add(new Pair<Integer, Integer>(0,0));
-        PathPosition pathPosition = new PathPosition(0, orderedPath);
         LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
         world.setGoalCondition(gold);
 
-        Character character = new Character(pathPosition);
         
     }
     // { "goal": "AND", "subgoals":
@@ -163,7 +143,6 @@ public class GoalsTest {
 
     @Test
     public void goal_test_middle_complex(){
-        JSONArray a1 = new JSONArray();
         JSONObject o1 = new JSONObject();
         o1.put("goal", "experience");
         o1.put("quantity", 200);
@@ -181,21 +160,18 @@ public class GoalsTest {
 
 
         Goal gold = new Goal(goalcondition);
-        assertEquals(gold.goalCheckHelp("gold", 5, 1, 1, 50), false);
-        assertEquals(gold.goalCheck(1, 200, 1), false);
+        assertEquals(gold.goalCheckHelp("gold", 5), false);
+        assertEquals(gold.goalCheck(), false);
 
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
         orderedPath.add(new Pair<Integer, Integer>(0,0));
-        PathPosition pathPosition = new PathPosition(0, orderedPath);
         LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
         world.setGoalCondition(gold);
 
-        Character character = new Character(pathPosition);
         
     }
     @Test
     public void goal_test_middle_complex2(){
-        JSONArray a1 = new JSONArray();
         JSONObject o1 = new JSONObject();
         o1.put("goal", "experience");
         o1.put("quantity", 200);
@@ -213,8 +189,8 @@ public class GoalsTest {
 
 
         Goal gold = new Goal(goalcondition);
-        assertEquals(gold.goalCheckHelp("cycles", 5, 1, 1, 10), true);
-        assertEquals(gold.goalCheck(100, 1, 1), false);
+        assertEquals(gold.goalCheckHelp("cycles", 5), true);
+        //assertEquals(gold.goalCheck(100, 1, 1), false);
 
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
         orderedPath.add(new Pair<Integer, Integer>(0,0));
@@ -222,7 +198,6 @@ public class GoalsTest {
         LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
         world.setGoalCondition(gold);
 
-        Character character = new Character(pathPosition);
         
     }
     @Test
@@ -232,14 +207,13 @@ public class GoalsTest {
     //   ]
     // }
     public void goal_test_middle_EASY(){
-        JSONArray a1 = new JSONArray();
         JSONObject goalcondition = new JSONObject();
         goalcondition.put("goal", "experience");
         goalcondition.put("quantity", 200);
 
         Goal gold = new Goal(goalcondition);
-        assertEquals(gold.goalCheckHelp("gold", 5, 1, 1, 1), false);
-        assertEquals(gold.goalCheck(1, 1, 1), false);
+        assertEquals(gold.goalCheckHelp("gold", 5), false);
+        assertEquals(gold.goalCheck(), false);
 
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
         orderedPath.add(new Pair<Integer, Integer>(0,0));
@@ -263,8 +237,8 @@ public class GoalsTest {
         goalcondition.put("quantity", 200);
 
         Goal gold = new Goal(goalcondition);
-        assertEquals(gold.goalCheckHelp("gold", 5, 1, 1, 1), false);
-        assertEquals(gold.goalCheck(1, 1, 1), false);
+        assertEquals(gold.goalCheckHelp("gold", 5), false);
+        assertEquals(gold.goalCheck(), false);
 
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
         orderedPath.add(new Pair<Integer, Integer>(0,0));
@@ -272,7 +246,6 @@ public class GoalsTest {
         LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
         world.setGoalCondition(gold);
 
-        Character character = new Character(pathPosition);
         
     }
     @Test

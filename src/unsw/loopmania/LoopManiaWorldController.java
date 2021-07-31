@@ -536,6 +536,9 @@ public class LoopManiaWorldController {
             showBattleResult("VICTORY");
         }
 
+        if (world.goalCheck()) {
+            victory();
+        }
         // loop reaches 100
         if(world.getRoundsNum() > 100){
             // victory
