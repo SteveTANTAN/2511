@@ -1125,7 +1125,9 @@ public class LoopManiaWorld {
         return this.goalCondition.goalCheck();
 
     }
-
+    public String goal_print(){
+        return this.goalCondition.goal_to_string();
+    }
     /**
      * setting the goal condition
      * 
@@ -1164,4 +1166,5 @@ public class LoopManiaWorld {
     public int getVampiresNum(){
         return vampiresNum;
     }
+
 }
