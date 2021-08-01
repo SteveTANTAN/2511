@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BuildingTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">test</a> &gt; <span class="el_source">BuildingTest.java</span></div><h1>BuildingTest.java</h1><pre class="source lang-java linenums">package test;
+
+import static org.junit.Assume.assumeNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import org.junit.Test;
+
+import javafx.beans.property.SimpleIntegerProperty;
+
+import org.javatuples.Pair;
+import unsw.loopmania.BarrackBuilding;
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Building;
+import unsw.loopmania.CampfireBuilding;
+import unsw.loopmania.Card;
+import unsw.loopmania.Character;
+import unsw.loopmania.LoopManiaWorld;
+import unsw.loopmania.OblivionCard;
+import unsw.loopmania.PathPosition;
+import unsw.loopmania.Slug;
+import unsw.loopmania.TowerBuilding;
+import unsw.loopmania.TrapBuilding;
+import unsw.loopmania.Vampire;
+import unsw.loopmania.VampireCastleBuilding;
+import unsw.loopmania.VillageBuilding;
+import unsw.loopmania.Zombie;
+import unsw.loopmania.ZombiePitBuilding;
+
+<span class="fc" id="L33">public class BuildingTest{</span>
+    @Test
+    public void TowerBuildingTest(){
+<span class="fc" id="L36">        TowerBuilding building = new TowerBuilding(new SimpleIntegerProperty(2), new SimpleIntegerProperty(1));</span>
+<span class="fc" id="L37">        assertEquals(building.getX(), 2);</span>
+<span class="fc" id="L38">        assertEquals(building.getY(), 1);</span>
+
+<span class="fc" id="L40">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L41">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L42">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L43">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L44">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L45">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L46">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L47">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L48">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L49">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L50">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L51">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L52">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L53">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+
+<span class="fc" id="L55">        int currentPositionInPath = 2;</span>
+<span class="fc" id="L56">        PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L57">        Slug slug = new Slug(pathPosition);</span>
+<span class="fc" id="L58">        enemies.add(slug);</span>
+
+<span class="fc" id="L60">        currentPositionInPath = 6;</span>
+<span class="fc" id="L61">        pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L62">        slug = new Slug(pathPosition);</span>
+<span class="fc" id="L63">        enemies.add(slug);</span>
+
+<span class="fc" id="L65">        List&lt;BasicEnemy&gt; deadEnemies = building.work(enemies);</span>
+<span class="fc" id="L66">        assertEquals(deadEnemies.size(), 1);</span>
+<span class="fc" id="L67">        assertEquals(deadEnemies.get(0), enemies.get(0));</span>
+<span class="fc" id="L68">    }</span>
+
+    @Test
+    public void ZombiePitBuildingTest(){
+<span class="fc" id="L72">        ZombiePitBuilding building = new ZombiePitBuilding(new SimpleIntegerProperty(2), new SimpleIntegerProperty(2));</span>
+<span class="fc" id="L73">        assertEquals(building.getX(), 2);</span>
+<span class="fc" id="L74">        assertEquals(building.getY(), 2);</span>
+
+<span class="fc" id="L76">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L77">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L78">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L79">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L80">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L81">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L82">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L83">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L84">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L85">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L86">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L87">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L88">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L89">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L90">        List&lt;BasicEnemy&gt; enemies = building.spawnZombie(world);</span>
+<span class="fc" id="L91">        assertEquals(enemies.size(), 1);</span>
+<span class="fc" id="L92">    }</span>
+
+    @Test
+    public void VampireCastleBuildingTest(){
+<span class="fc" id="L96">        VampireCastleBuilding building = new VampireCastleBuilding(new SimpleIntegerProperty(2), new SimpleIntegerProperty(2));</span>
+<span class="fc" id="L97">        assertEquals(building.getX(), 2);</span>
+<span class="fc" id="L98">        assertEquals(building.getY(), 2);</span>
+
+<span class="fc" id="L100">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L101">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L102">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L103">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L104">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L105">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L106">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L107">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L108">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L109">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L110">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L111">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L112">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L113">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L114">        List&lt;BasicEnemy&gt; enemies = building.spawnVampires(world);</span>
+<span class="fc" id="L115">        assertEquals(enemies.size(), 1);</span>
+<span class="fc" id="L116">        enemies = building.spawnVampires(world);</span>
+<span class="fc" id="L117">        assertEquals(enemies.size(), 0);</span>
+<span class="fc" id="L118">        enemies = building.spawnVampires(world);</span>
+<span class="fc" id="L119">        assertEquals(enemies.size(), 0);</span>
+<span class="fc" id="L120">        enemies = building.spawnVampires(world);</span>
+<span class="fc" id="L121">        assertEquals(enemies.size(), 0);</span>
+<span class="fc" id="L122">        enemies = building.spawnVampires(world);</span>
+<span class="fc" id="L123">        assertEquals(enemies.size(), 0);</span>
+<span class="fc" id="L124">        enemies = building.spawnVampires(world);</span>
+<span class="fc" id="L125">        assertEquals(enemies.size(), 1);</span>
+<span class="fc" id="L126">    }</span>
+
+    @Test
+    public void BarrackBuildingTest(){
+<span class="fc" id="L130">        BarrackBuilding building = new BarrackBuilding(new SimpleIntegerProperty(3), new SimpleIntegerProperty(1));</span>
+<span class="fc" id="L131">        assertEquals(building.getX(), 3);</span>
+<span class="fc" id="L132">        assertEquals(building.getY(), 1);</span>
+
+<span class="fc" id="L134">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L135">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L136">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L137">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L138">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L139">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L140">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L141">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L142">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L143">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L144">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L145">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L146">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+
+<span class="fc" id="L148">        int currentPositionInPath = 4;</span>
+<span class="fc" id="L149">        PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L150">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L151">        building.work(character);</span>
+<span class="fc" id="L152">        assertEquals(character.getSoldiers().size(), 1);</span>
+
+<span class="fc" id="L154">        currentPositionInPath = 5;</span>
+<span class="fc" id="L155">        pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L156">        character = new Character(pathPosition);</span>
+<span class="fc" id="L157">        building.work(character);</span>
+<span class="fc" id="L158">        assertEquals(character.getSoldiers().size(), 0);</span>
+<span class="fc" id="L159">    }</span>
+
+    @Test
+    public void VillageBuildingTest(){
+<span class="fc" id="L163">        VillageBuilding building = new VillageBuilding(new SimpleIntegerProperty(0), new SimpleIntegerProperty(1));</span>
+<span class="fc" id="L164">        assertEquals(building.getX(), 0);</span>
+<span class="fc" id="L165">        assertEquals(building.getY(), 1);</span>
+
+<span class="fc" id="L167">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L168">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L169">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L170">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L171">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L172">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L173">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L174">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L175">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L176">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L177">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L178">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L179">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+
+<span class="fc" id="L181">        int currentPositionInPath = 10;</span>
+<span class="fc" id="L182">        PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L183">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L184">        character.setHealth(40);</span>
+<span class="fc" id="L185">        assertEquals(character.getHealth(), 40);</span>
+<span class="fc" id="L186">        building.work(character);</span>
+<span class="fc" id="L187">        assertEquals(character.getHealth(), 40);</span>
+
+<span class="fc" id="L189">        currentPositionInPath = 11;</span>
+<span class="fc" id="L190">        pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L191">        character = new Character(pathPosition);</span>
+<span class="fc" id="L192">        character.setHealth(52);</span>
+<span class="fc" id="L193">        assertEquals(character.getHealth(), 52);</span>
+<span class="fc" id="L194">        building.work(character);</span>
+<span class="fc" id="L195">        assertEquals(character.getHealth(), 72);</span>
+<span class="fc" id="L196">    }</span>
+
+    @Test
+    public void TrapBuildingTest(){
+<span class="fc" id="L200">        TrapBuilding building = new TrapBuilding(new SimpleIntegerProperty(0), new SimpleIntegerProperty(3));</span>
+<span class="fc" id="L201">        assertEquals(building.getX(), 0);</span>
+<span class="fc" id="L202">        assertEquals(building.getY(), 3);</span>
+
+<span class="fc" id="L204">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L205">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L206">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L207">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L208">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L209">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L210">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L211">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L212">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L213">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L214">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L215">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L216">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+
+<span class="fc" id="L218">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L219">        int currentPositionInPath = 9;</span>
+<span class="fc" id="L220">        PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L221">        Slug slug = new Slug(pathPosition);</span>
+<span class="fc" id="L222">        slug.setHealth(10);</span>
+<span class="fc" id="L223">        enemies.add(slug);</span>
+
+<span class="fc" id="L225">        currentPositionInPath = 9;</span>
+<span class="fc" id="L226">        pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L227">        slug = new Slug(pathPosition);</span>
+<span class="fc" id="L228">        slug.setHealth(22);</span>
+<span class="fc" id="L229">        enemies.add(slug);</span>
+
+<span class="fc" id="L231">        List&lt;BasicEnemy&gt; deadEnemies = building.work(enemies);</span>
+<span class="fc" id="L232">        assertEquals(deadEnemies.size(), 1);</span>
+<span class="fc" id="L233">        assertEquals(enemies.get(1).getHealth(), 10);</span>
+<span class="fc" id="L234">    }</span>
+
+    @Test
+    public void CampfireBuildingTest(){
+<span class="fc" id="L238">        CampfireBuilding building = new CampfireBuilding(new SimpleIntegerProperty(2), new SimpleIntegerProperty(2));</span>
+<span class="fc" id="L239">        assertEquals(building.getX(), 2);</span>
+<span class="fc" id="L240">        assertEquals(building.getY(), 2);</span>
+
+<span class="fc" id="L242">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L243">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L244">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L245">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L246">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L247">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L248">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L249">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L250">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L251">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L252">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L253">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L254">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+
+<span class="fc" id="L256">        int currentPositionInPath = 5;</span>
+<span class="fc" id="L257">        PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L258">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L259">        assertEquals(building.work(character), true);</span>
+
+<span class="fc" id="L261">        currentPositionInPath = 1;</span>
+<span class="fc" id="L262">        pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L263">        character = new Character(pathPosition);</span>
+<span class="fc" id="L264">        assertEquals(building.work(character), false);</span>
+<span class="fc" id="L265">    }</span>
+    @Test
+    public void OblivionDemolishOrdinaryBuildingTest(){
+<span class="fc" id="L268">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L269">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L270">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L271">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L272">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L273">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L274">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L275">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L276">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L277">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L278">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L279">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L280">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L281">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+        
+        // add buildings
+<span class="fc" id="L284">        List&lt;Building&gt; buildings = world.getBuildingEntities();</span>
+<span class="fc" id="L285">        CampfireBuilding building1 = new CampfireBuilding(new SimpleIntegerProperty(2), new SimpleIntegerProperty(2));</span>
+<span class="fc" id="L286">        assertEquals(building1.getX(), 2);</span>
+<span class="fc" id="L287">        assertEquals(building1.getY(), 2);</span>
+<span class="fc" id="L288">        buildings.add(building1);</span>
+
+<span class="fc" id="L290">        BarrackBuilding building2 = new BarrackBuilding(new SimpleIntegerProperty(0), new SimpleIntegerProperty(3));</span>
+<span class="fc" id="L291">        assertEquals(building2.getX(), 0);</span>
+<span class="fc" id="L292">        assertEquals(building2.getY(), 3);</span>
+<span class="fc" id="L293">        buildings.add(building2);</span>
+
+<span class="fc" id="L295">        VillageBuilding building3 = new VillageBuilding(new SimpleIntegerProperty(3), new SimpleIntegerProperty(2));</span>
+<span class="fc" id="L296">        assertEquals(building3.getX(), 3);</span>
+<span class="fc" id="L297">        assertEquals(building3.getY(), 2);</span>
+<span class="fc" id="L298">        buildings.add(building3);</span>
+
+
+        // add oblivion card
+<span class="fc" id="L302">        List&lt;Card&gt; cardEntities = world.getCardsEntities();</span>
+<span class="fc" id="L303">        Card card = new OblivionCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L304">        cardEntities.add(card);</span>
+<span class="fc" id="L305">        assertEquals(card.getX(), 0);</span>
+<span class="fc" id="L306">        assertEquals(card.getY(), 0);</span>
+        
+<span class="fc" id="L308">        Building mBuilding = null;</span>
+<span class="fc bfc" id="L309" title="All 2 branches covered.">        for(Building building : buildings){</span>
+<span class="pc bpc" id="L310" title="1 of 4 branches missed.">            if(building.getX() == 0 &amp;&amp; building.getY() == 3){</span>
+<span class="fc" id="L311">                mBuilding = building;</span>
+            }
+<span class="fc" id="L313">        }</span>
+<span class="fc" id="L314">        assumeNotNull(mBuilding);</span>
+
+
+        // check whether the building was removed
+<span class="fc" id="L318">        Building newBuilding = world.convertCardToBuildingByCoordinates(card.getX(), card.getY(), 0, 3);</span>
+<span class="fc" id="L319">        assertNull(newBuilding);</span>
+<span class="fc" id="L320">        assertEquals(0, cardEntities.size());</span>
+<span class="fc" id="L321">        buildings.remove(building2);</span>
+<span class="fc" id="L322">        building2.destroy();</span>
+<span class="fc" id="L323">        assertEquals(buildings.size(),2);</span>
+
+<span class="fc" id="L325">        mBuilding = null;</span>
+<span class="fc bfc" id="L326" title="All 2 branches covered.">        for(Building building : buildings){</span>
+<span class="pc bpc" id="L327" title="3 of 4 branches missed.">            if(building.getX() == 0 &amp;&amp; building.getY() == 3){</span>
+<span class="nc" id="L328">                mBuilding = building;</span>
+            }
+<span class="fc" id="L330">        }</span>
+<span class="fc" id="L331">        assertNull(mBuilding);</span>
+<span class="fc" id="L332">    }</span>
+    @Test
+    public void OblivionDemolishZombiePitBuildingTest(){
+<span class="fc" id="L335">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L336">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L337">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L338">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L339">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L340">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L341">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L342">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L343">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L344">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L345">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L346">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L347">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L348">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+        
+        // add buildings
+<span class="fc" id="L351">        List&lt;Building&gt; buildings = world.getBuildingEntities();</span>
+<span class="fc" id="L352">        ZombiePitBuilding building1 = new ZombiePitBuilding(new SimpleIntegerProperty(2), new SimpleIntegerProperty(1));</span>
+<span class="fc" id="L353">        assertEquals(building1.getX(), 2);</span>
+<span class="fc" id="L354">        assertEquals(building1.getY(), 1);</span>
+<span class="fc" id="L355">        buildings.add(building1);</span>
+
+<span class="fc" id="L357">        List&lt;BasicEnemy&gt; enemies = world.getEnemies();</span>
+<span class="fc" id="L358">        int currentPositionInPath = 2;</span>
+<span class="fc" id="L359">        PathPosition position = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L360">        enemies.add(new Zombie(position, building1));</span>
+
+<span class="fc" id="L362">        BarrackBuilding building2 = new BarrackBuilding(new SimpleIntegerProperty(0), new SimpleIntegerProperty(3));</span>
+<span class="fc" id="L363">        assertEquals(building2.getX(), 0);</span>
+<span class="fc" id="L364">        assertEquals(building2.getY(), 3);</span>
+<span class="fc" id="L365">        buildings.add(building2);</span>
+
+        // add oblivion card
+<span class="fc" id="L368">        List&lt;Card&gt; cardEntities = world.getCardsEntities();</span>
+<span class="fc" id="L369">        Card card = new OblivionCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L370">        cardEntities.add(card);</span>
+<span class="fc" id="L371">        assertEquals(card.getX(), 0);</span>
+<span class="fc" id="L372">        assertEquals(card.getY(), 0);</span>
+        
+<span class="fc" id="L374">        Building mBuilding = null;</span>
+<span class="fc bfc" id="L375" title="All 2 branches covered.">        for(Building building : buildings){</span>
+<span class="pc bpc" id="L376" title="1 of 4 branches missed.">            if(building.getX() == 0 &amp;&amp; building.getY() == 3){</span>
+<span class="fc" id="L377">                mBuilding = building;</span>
+            }
+<span class="fc" id="L379">        }</span>
+<span class="fc" id="L380">        assumeNotNull(mBuilding);</span>
+
+        // check whether the building was removed
+<span class="fc" id="L383">        Building newBuilding = world.convertCardToBuildingByCoordinates(card.getX(), card.getY(), 0, 3);</span>
+<span class="fc" id="L384">        assertNull(newBuilding);</span>
+<span class="fc" id="L385">        assertEquals(0, cardEntities.size());</span>
+<span class="fc" id="L386">        buildings.remove(building2);</span>
+<span class="fc" id="L387">        building2.destroy();</span>
+
+<span class="fc" id="L389">        Iterator&lt;BasicEnemy&gt; it = enemies.iterator();</span>
+<span class="fc bfc" id="L390" title="All 2 branches covered.">        while(it.hasNext()){</span>
+<span class="fc" id="L391">            BasicEnemy enemy = it.next();</span>
+<span class="pc bpc" id="L392" title="2 of 4 branches missed.">            if(enemy instanceof Zombie &amp;&amp; ((Zombie)enemy).getZombieBuilding()==building1){</span>
+<span class="fc" id="L393">                enemy.destroy();</span>
+<span class="fc" id="L394">                it.remove();</span>
+            }
+<span class="fc" id="L396">        }</span>
+<span class="fc" id="L397">        assertEquals(buildings.size(),1);</span>
+<span class="fc" id="L398">        assertEquals(0, enemies.size());</span>
+
+<span class="fc" id="L400">        mBuilding = null;</span>
+<span class="fc bfc" id="L401" title="All 2 branches covered.">        for(Building building : buildings){</span>
+<span class="pc bpc" id="L402" title="3 of 4 branches missed.">            if(building.getX() == 0 &amp;&amp; building.getY() == 3){</span>
+<span class="nc" id="L403">                mBuilding = building;</span>
+            }
+<span class="fc" id="L405">        }</span>
+<span class="fc" id="L406">        assertNull(mBuilding);</span>
+<span class="fc" id="L407">    }</span>
+    @Test
+    public void OblivionDemolishVampireCastleBuildingTest(){
+<span class="fc" id="L410">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L411">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L412">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L413">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L414">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L415">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L416">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L417">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L418">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L419">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L420">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L421">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L422">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L423">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+        
+        // add buildings
+<span class="fc" id="L426">        List&lt;Building&gt; buildings = world.getBuildingEntities();</span>
+<span class="fc" id="L427">        VampireCastleBuilding building1 = new VampireCastleBuilding(new SimpleIntegerProperty(2), new SimpleIntegerProperty(1));</span>
+<span class="fc" id="L428">        assertEquals(building1.getX(), 2);</span>
+<span class="fc" id="L429">        assertEquals(building1.getY(), 1);</span>
+<span class="fc" id="L430">        buildings.add(building1);</span>
+
+<span class="fc" id="L432">        List&lt;BasicEnemy&gt; enemies = world.getEnemies();</span>
+<span class="fc" id="L433">        int currentPositionInPath = 2;</span>
+<span class="fc" id="L434">        PathPosition position = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L435">        enemies.add(new Vampire(position, building1));</span>
+<span class="fc" id="L436">        currentPositionInPath = 3;</span>
+<span class="fc" id="L437">        position = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L438">        enemies.add(new Vampire(position, building1));</span>
+
+<span class="fc" id="L440">        BarrackBuilding building2 = new BarrackBuilding(new SimpleIntegerProperty(0), new SimpleIntegerProperty(3));</span>
+<span class="fc" id="L441">        assertEquals(building2.getX(), 0);</span>
+<span class="fc" id="L442">        assertEquals(building2.getY(), 3);</span>
+<span class="fc" id="L443">        buildings.add(building2);</span>
+
+        // add oblivion card
+<span class="fc" id="L446">        List&lt;Card&gt; cardEntities = world.getCardsEntities();</span>
+<span class="fc" id="L447">        Card card = new OblivionCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L448">        cardEntities.add(card);</span>
+<span class="fc" id="L449">        assertEquals(card.getX(), 0);</span>
+<span class="fc" id="L450">        assertEquals(card.getY(), 0);</span>
+        
+<span class="fc" id="L452">        Building mBuilding = null;</span>
+<span class="fc bfc" id="L453" title="All 2 branches covered.">        for(Building building : buildings){</span>
+<span class="pc bpc" id="L454" title="1 of 4 branches missed.">            if(building.getX() == 0 &amp;&amp; building.getY() == 3){</span>
+<span class="fc" id="L455">                mBuilding = building;</span>
+            }
+<span class="fc" id="L457">        }</span>
+<span class="fc" id="L458">        assumeNotNull(mBuilding);</span>
+
+        // check whether the building was removed
+<span class="fc" id="L461">        Building newBuilding = world.convertCardToBuildingByCoordinates(card.getX(), card.getY(), 0, 3);</span>
+<span class="fc" id="L462">        assertNull(newBuilding);</span>
+<span class="fc" id="L463">        assertEquals(0, cardEntities.size());</span>
+<span class="fc" id="L464">        buildings.remove(building2);</span>
+<span class="fc" id="L465">        building2.destroy();</span>
+
+<span class="fc" id="L467">        Iterator&lt;BasicEnemy&gt; it = enemies.iterator();</span>
+<span class="fc bfc" id="L468" title="All 2 branches covered.">        while(it.hasNext()){</span>
+<span class="fc" id="L469">            BasicEnemy enemy = it.next();</span>
+<span class="pc bpc" id="L470" title="2 of 4 branches missed.">            if(enemy instanceof Vampire &amp;&amp; ((Vampire)enemy).getVampireCastleBuilding()==building1){</span>
+<span class="fc" id="L471">                enemy.destroy();</span>
+<span class="fc" id="L472">                it.remove();</span>
+            }
+<span class="fc" id="L474">        }</span>
+<span class="fc" id="L475">        assertEquals(buildings.size(),1);</span>
+<span class="fc" id="L476">        assertEquals(0, enemies.size());</span>
+
+<span class="fc" id="L478">        mBuilding = null;</span>
+<span class="fc bfc" id="L479" title="All 2 branches covered.">        for(Building building : buildings){</span>
+<span class="pc bpc" id="L480" title="3 of 4 branches missed.">            if(building.getX() == 0 &amp;&amp; building.getY() == 3){</span>
+<span class="nc" id="L481">                mBuilding = building;</span>
+            }
+<span class="fc" id="L483">        }</span>
+<span class="fc" id="L484">        assertNull(mBuilding);</span>
+<span class="fc" id="L485">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

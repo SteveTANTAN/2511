@@ -1,0 +1,1414 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoopManiaWorldTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">test</a> &gt; <span class="el_source">LoopManiaWorldTest.java</span></div><h1>LoopManiaWorldTest.java</h1><pre class="source lang-java linenums">package test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+import org.javatuples.Pair;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.Test;
+
+import unsw.loopmania.Anduril;
+import unsw.loopmania.Armour;
+import unsw.loopmania.BarrackBuilding;
+import unsw.loopmania.BarrackCard;
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Building;
+import unsw.loopmania.CARDS_TYPE;
+import unsw.loopmania.Card;
+import unsw.loopmania.Character;
+import unsw.loopmania.Doggie;
+import unsw.loopmania.ElanMuske;
+import unsw.loopmania.Goal;
+import unsw.loopmania.LoopManiaWorld;
+import unsw.loopmania.PathPosition;
+import unsw.loopmania.Slug;
+import unsw.loopmania.Vampire;
+import unsw.loopmania.Helmet;
+import unsw.loopmania.ITEMS_TYPE;
+import unsw.loopmania.Item;
+import unsw.loopmania.Shield;
+import unsw.loopmania.Staff;
+import unsw.loopmania.Stake;
+import unsw.loopmania.Sword;
+import unsw.loopmania.TheOneRing;
+import unsw.loopmania.TreeStump;
+import unsw.loopmania.VampireCastleBuilding;
+import unsw.loopmania.VampireCastleCard;
+import unsw.loopmania.VillageBuilding;
+import unsw.loopmania.Zombie;
+
+<span class="fc" id="L46">public class LoopManiaWorldTest {</span>
+    @Test
+    public void loadCardTest(){
+<span class="fc" id="L49">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L50">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L51">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L52">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L53">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L54">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L55">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L56">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L57">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L58">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L59">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L60">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L61">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L62">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+        
+<span class="fc" id="L64">        Card card = world.loadCard(CARDS_TYPE.BARRACK);</span>
+<span class="fc" id="L65">        assertEquals(card instanceof BarrackCard, true);</span>
+
+<span class="fc" id="L67">        card = world.loadCard(CARDS_TYPE.VAMPIRECASTLE);</span>
+<span class="fc" id="L68">        assertEquals(card instanceof VampireCastleCard, true);</span>
+<span class="fc" id="L69">    }</span>
+
+    @Test
+    public void convertCardToBuildingByCoordinates(){
+<span class="fc" id="L73">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L74">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L75">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L76">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L77">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L78">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L79">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L80">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L81">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L82">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L83">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L84">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L85">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L86">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+        
+<span class="fc" id="L88">        world.loadCard(CARDS_TYPE.BARRACK);</span>
+<span class="fc" id="L89">        world.loadCard(CARDS_TYPE.VAMPIRECASTLE);</span>
+<span class="fc" id="L90">        world.loadCard(CARDS_TYPE.VILLAGE);</span>
+
+<span class="fc" id="L92">        Building building = world.convertCardToBuildingByCoordinates(0,0,0,2);</span>
+<span class="fc" id="L93">        assertEquals(building instanceof BarrackBuilding, true);</span>
+
+<span class="fc" id="L95">        building = world.convertCardToBuildingByCoordinates(0,0,1,1);</span>
+<span class="fc" id="L96">        assertEquals(building instanceof VampireCastleBuilding, true);</span>
+
+<span class="fc" id="L98">        building = world.convertCardToBuildingByCoordinates(0,0,1,3);</span>
+<span class="fc" id="L99">        assertEquals(building instanceof VillageBuilding, true);</span>
+<span class="fc" id="L100">    }</span>
+
+    @Test
+    public void buildingFunctionTest(){
+<span class="fc" id="L104">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L105">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L106">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L107">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L108">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L109">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L110">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L111">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L112">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L113">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L114">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L115">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L116">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L117">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L118">        world.loadCard(CARDS_TYPE.TRAP);</span>
+<span class="fc" id="L119">        world.loadCard(CARDS_TYPE.TOWER);</span>
+<span class="fc" id="L120">        world.loadCard(CARDS_TYPE.VILLAGE);</span>
+
+<span class="fc" id="L122">        world.convertCardToBuildingByCoordinates(0,0,2,0);</span>
+<span class="fc" id="L123">        world.convertCardToBuildingByCoordinates(0,0,2,1);</span>
+<span class="fc" id="L124">        world.convertCardToBuildingByCoordinates(0,0,1,3);</span>
+        
+<span class="fc" id="L126">        world.spawnAZombie(2,1,null);</span>
+
+<span class="fc" id="L128">        int currentPositionInPath = 8;</span>
+<span class="fc" id="L129">        PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L130">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L131">        character.setHealth(40);</span>
+<span class="fc" id="L132">        world.setCharacter(character);</span>
+<span class="fc" id="L133">        List&lt;BasicEnemy&gt; deadEnemies = world.buildingFunction();</span>
+<span class="fc" id="L134">        assertEquals(character.getHealth(), 60);</span>
+<span class="fc" id="L135">        assertEquals(deadEnemies.size(), 1);</span>
+<span class="fc" id="L136">    }</span>
+
+    @Test
+    public void checkAdjacentPathTest(){
+<span class="fc" id="L140">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L141">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L142">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L143">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L144">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L145">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L146">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L147">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L148">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L149">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L150">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L151">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L152">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L153">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+
+<span class="fc" id="L155">        assertEquals(world.checkAdjacentPath(1, 2), true);</span>
+<span class="fc" id="L156">        assertEquals(world.checkAdjacentPath(2, 2), true);</span>
+<span class="fc" id="L157">        assertEquals(world.checkAdjacentPath(0, 1), false);</span>
+<span class="fc" id="L158">        assertEquals(world.checkAdjacentPath(1, 2), true);</span>
+<span class="fc" id="L159">    }</span>
+
+    @Test
+    public void spawnEnemiesByBuilding(){
+<span class="fc" id="L163">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L164">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L165">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L166">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L167">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L168">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L169">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L170">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L171">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L172">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L173">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L174">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L175">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L176">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+
+<span class="fc" id="L178">        world.loadCard(CARDS_TYPE.ZOMBIEPIT);</span>
+<span class="fc" id="L179">        world.loadCard(CARDS_TYPE.VAMPIRECASTLE);</span>
+
+<span class="fc" id="L181">        world.convertCardToBuildingByCoordinates(0,0,1,2);</span>
+<span class="fc" id="L182">        world.convertCardToBuildingByCoordinates(0,0,2,2);</span>
+
+<span class="fc" id="L184">        List&lt;BasicEnemy&gt; retLis = world.spawnEnemiesByBuilding();</span>
+<span class="fc" id="L185">        assertEquals(retLis.size(), 2);</span>
+<span class="fc" id="L186">        retLis = world.spawnEnemiesByBuilding();</span>
+<span class="fc" id="L187">        assertEquals(retLis.size(), 1);</span>
+<span class="fc" id="L188">        retLis = world.spawnEnemiesByBuilding();</span>
+<span class="fc" id="L189">        assertEquals(retLis.size(), 1);</span>
+<span class="fc" id="L190">        retLis = world.spawnEnemiesByBuilding();</span>
+<span class="fc" id="L191">        assertEquals(retLis.size(), 1);</span>
+<span class="fc" id="L192">        retLis = world.spawnEnemiesByBuilding();</span>
+<span class="fc" id="L193">        assertEquals(retLis.size(), 1);</span>
+<span class="fc" id="L194">        retLis = world.spawnEnemiesByBuilding();</span>
+<span class="fc" id="L195">        assertEquals(retLis.size(), 2);</span>
+<span class="fc" id="L196">    }</span>
+
+    @Test
+    public void checkInPathTest(){
+<span class="fc" id="L200">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L201">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L202">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L203">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L204">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L205">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L206">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L207">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L208">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L209">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L210">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L211">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L212">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L213">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+
+<span class="fc" id="L215">        assertEquals(world.checkInPath(1, 2), false);</span>
+<span class="fc" id="L216">        assertEquals(world.checkInPath(2, 2), false);</span>
+<span class="fc" id="L217">        assertEquals(world.checkInPath(2, 3), true);</span>
+<span class="fc" id="L218">        assertEquals(world.checkInPath(0, 2), true);</span>
+<span class="fc" id="L219">    }</span>
+
+    @Test
+    public void removeCardTest(){
+<span class="fc" id="L223">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L224">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L225">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L226">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L227">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L228">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L229">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L230">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L231">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L232">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L233">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L234">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L235">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L236">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+        
+<span class="fc" id="L238">        Card card1 = world.loadCard(CARDS_TYPE.TRAP);</span>
+<span class="fc" id="L239">        Card card2 = world.loadCard(CARDS_TYPE.TOWER);</span>
+<span class="fc" id="L240">        world.loadCard(CARDS_TYPE.VILLAGE);</span>
+
+<span class="fc" id="L242">        world.removeCard(2);</span>
+<span class="fc" id="L243">        assertEquals(world.getLastCardEntity(), card2);</span>
+
+<span class="fc" id="L245">        world.removeCard(1);</span>
+<span class="fc" id="L246">        assertEquals(world.getLastCardEntity(), card1);</span>
+
+<span class="fc" id="L248">        world.removeCard(0);</span>
+<span class="fc" id="L249">        assertEquals(world.getLastCardEntity(), null);</span>
+<span class="fc" id="L250">    }</span>
+
+    @Test
+    public void getLastCardEntityTest(){
+<span class="fc" id="L254">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L255">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L256">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L257">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L258">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L259">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L260">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L261">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L262">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L263">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L264">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L265">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L266">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L267">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+        
+<span class="fc" id="L269">        Card card = world.loadCard(CARDS_TYPE.TRAP);</span>
+<span class="fc" id="L270">        assertEquals(world.getLastCardEntity(), card);</span>
+<span class="fc" id="L271">        card = world.loadCard(CARDS_TYPE.TOWER);</span>
+<span class="fc" id="L272">        assertEquals(world.getLastCardEntity(), card);</span>
+<span class="fc" id="L273">        card = world.loadCard(CARDS_TYPE.VILLAGE);</span>
+<span class="fc" id="L274">        assertEquals(world.getLastCardEntity(), card);</span>
+<span class="fc" id="L275">    }</span>
+
+    @Test
+    public void addUnequippedItemTest(){
+<span class="fc" id="L279">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L280">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L281">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L282">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L283">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L284">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L285">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L286">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L287">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L288">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L289">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L290">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L291">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L292">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+        
+<span class="fc" id="L294">        Item item = world.addUnequippedItem(ITEMS_TYPE.SWORD);</span>
+<span class="fc" id="L295">        assertEquals(item instanceof Sword, true);</span>
+
+<span class="fc" id="L297">        Item item2 = world.addUnequippedItem(ITEMS_TYPE.STAFF);</span>
+<span class="fc" id="L298">        assertEquals(item2 instanceof Staff, true);</span>
+
+<span class="fc" id="L300">        Item item3 = world.addUnequippedItem(ITEMS_TYPE.STAKE);</span>
+<span class="fc" id="L301">        assertEquals(item3 instanceof Stake, true);</span>
+
+<span class="fc" id="L303">        Item item4 = world.addUnequippedItem(ITEMS_TYPE.SHIELD);</span>
+<span class="fc" id="L304">        assertEquals(item4 instanceof Shield, true);</span>
+
+<span class="fc" id="L306">        Item item5 = world.addUnequippedItem(ITEMS_TYPE.ARMOUR);</span>
+<span class="fc" id="L307">        assertEquals(item5 instanceof Armour, true);</span>
+
+<span class="fc" id="L309">        Item item6 = world.addUnequippedItem(ITEMS_TYPE.HELMET);</span>
+<span class="fc" id="L310">        assertEquals(item6 instanceof Helmet, true);</span>
+
+<span class="fc" id="L312">        Item item7 = world.addUnequippedItem(ITEMS_TYPE.ANDURIL);</span>
+<span class="fc" id="L313">        assertEquals(item7 instanceof Anduril, true);</span>
+
+<span class="fc" id="L315">        Item item8 = world.addUnequippedItem(ITEMS_TYPE.TREESTUMP);</span>
+<span class="fc" id="L316">        assertEquals(item8 instanceof TreeStump, true);</span>
+
+<span class="fc" id="L318">        Item item9 = world.addUnequippedItem(ITEMS_TYPE.THEONERING);</span>
+<span class="fc" id="L319">        assertEquals(item9 instanceof TheOneRing, true);</span>
+<span class="fc" id="L320">    }</span>
+
+    @Test
+    public void addUnequippedItemFullCaseTest(){
+<span class="fc" id="L324">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L325">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L326">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L327">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L328">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L329">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L330">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L331">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L332">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L333">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L334">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L335">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L336">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L337">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L338">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L339">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L340">        world.setCharacter(character);</span>
+<span class="fc bfc" id="L341" title="All 2 branches covered.">        for (int i = 0; i &lt; 16; i++) {</span>
+<span class="fc" id="L342">            Item item = world.addUnequippedItem(ITEMS_TYPE.SWORD);</span>
+<span class="fc" id="L343">            assertEquals(item instanceof Sword, true);</span>
+        }
+<span class="fc" id="L345">        assertEquals(character.getGold(), 0);</span>
+<span class="fc" id="L346">        assertEquals(character.getEXP(), 0);</span>
+<span class="fc" id="L347">        Item item = world.addUnequippedItem(ITEMS_TYPE.SWORD);</span>
+<span class="fc" id="L348">        assertEquals(item instanceof Sword, true);</span>
+<span class="fc" id="L349">        assertEquals(character.getGold(), 2);</span>
+<span class="fc" id="L350">        assertEquals(character.getEXP(), 5);        </span>
+
+<span class="fc" id="L352">    }</span>
+    @Test
+    public void GRUnequippedInventoryItemByCoordinatesTest(){
+<span class="fc" id="L355">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L356">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L357">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L358">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L359">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L360">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L361">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L362">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L363">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L364">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L365">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L366">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L367">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L368">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+        
+<span class="fc" id="L370">        world.addUnequippedItem(ITEMS_TYPE.SWORD);</span>
+<span class="fc" id="L371">        assertEquals(world.getUnequippedInventoryItems().size(), 1);</span>
+<span class="fc" id="L372">        world.removeUnequippedInventoryItemByCoordinates(0, 0);</span>
+<span class="fc" id="L373">        assertEquals(world.getUnequippedInventoryItems().size(), 0);</span>
+<span class="fc" id="L374">    }</span>
+
+    @Test
+    public void GetEquippedFromUnequippedByCoordinatesTest(){
+<span class="fc" id="L378">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L379">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L380">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L381">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L382">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L383">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L384">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L385">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L386">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L387">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L388">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L389">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L390">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L391">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+        
+<span class="fc" id="L393">        Item item = world.addUnequippedItem(ITEMS_TYPE.SWORD);</span>
+<span class="fc" id="L394">        world.addEquippedInventoryItems(item);</span>
+<span class="fc" id="L395">        assertEquals(world.getEquippedInventoryItems().get(0), item);</span>
+<span class="fc" id="L396">        assertEquals(world.getEquippedInventoryItems().size(), 1);</span>
+<span class="fc" id="L397">        assertEquals(item instanceof Sword, true);</span>
+<span class="fc" id="L398">    }</span>
+
+    @Test
+    public void setCharacterEquipmentTest(){
+<span class="fc" id="L402">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L403">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L404">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L405">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L406">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L407">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L408">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L409">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L410">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L411">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L412">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L413">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L414">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L415">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L416">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L417">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L418">        world.setCharacter(character);</span>
+<span class="fc" id="L419">        assertEquals(world.getCharacter(), character);</span>
+
+<span class="fc" id="L421">        world.addUnequippedItem(ITEMS_TYPE.SWORD);</span>
+<span class="fc" id="L422">        Item item = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 0);</span>
+<span class="fc" id="L423">        assertEquals(world.getUnequippedInventoryItems().size(), 0);</span>
+<span class="fc" id="L424">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L425">        world.setCharacterEquipment(character, item);</span>
+<span class="fc" id="L426">        assertEquals(character.getAggressivity(), 10);</span>
+
+<span class="fc" id="L428">        world.addUnequippedItem(ITEMS_TYPE.STAKE);</span>
+<span class="fc" id="L429">        Item item2 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 0);</span>
+<span class="fc" id="L430">        assertEquals(world.getUnequippedInventoryItems().size(), 0);</span>
+<span class="fc" id="L431">        assertEquals(character.getAggressivity(), 10);</span>
+<span class="fc" id="L432">        world.setCharacterEquipment(character, item2);</span>
+<span class="fc" id="L433">        assertEquals(character.getAggressivity(), 8);</span>
+
+<span class="fc" id="L435">        world.addUnequippedItem(ITEMS_TYPE.STAFF);</span>
+<span class="fc" id="L436">        Item item4 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 0);</span>
+<span class="fc" id="L437">        assertEquals(world.getUnequippedInventoryItems().size(), 0);</span>
+<span class="fc" id="L438">        assertEquals(character.getAggressivity(), 8);</span>
+<span class="fc" id="L439">        world.setCharacterEquipment(character, item4);</span>
+<span class="fc" id="L440">        assertEquals(character.getAggressivity(), 6);</span>
+
+<span class="fc" id="L442">        world.addUnequippedItem(ITEMS_TYPE.ANDURIL);</span>
+<span class="fc" id="L443">        Item item8 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 0);</span>
+<span class="fc" id="L444">        assertEquals(world.getUnequippedInventoryItems().size(), 0);</span>
+<span class="fc" id="L445">        assertEquals(character.getAggressivity(), 6);</span>
+<span class="fc" id="L446">        world.setCharacterEquipment(character, item8);</span>
+<span class="fc" id="L447">        assertEquals(character.getAggressivity(), 13);</span>
+
+<span class="fc" id="L449">        world.addUnequippedItem(ITEMS_TYPE.ARMOUR);</span>
+<span class="fc" id="L450">        Item item3 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 0, 1);</span>
+<span class="fc" id="L451">        assertEquals(world.getUnequippedInventoryItems().size(), 0);</span>
+<span class="fc" id="L452">        assertEquals(character.getDefense(), 0);</span>
+<span class="fc" id="L453">        world.setCharacterEquipment(character, item3);</span>
+<span class="fc" id="L454">        assertEquals(character.getDefense(), 3);</span>
+
+<span class="fc" id="L456">        world.addUnequippedItem(ITEMS_TYPE.HELMET);</span>
+<span class="fc" id="L457">        Item item5 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 0, 1);</span>
+<span class="fc" id="L458">        assertEquals(world.getUnequippedInventoryItems().size(), 0);</span>
+<span class="fc" id="L459">        assertEquals(character.getDefense(), 3);</span>
+<span class="fc" id="L460">        world.setCharacterEquipment(character, item5);</span>
+<span class="fc" id="L461">        assertEquals(character.getDefense(), 1);</span>
+
+<span class="fc" id="L463">        world.addUnequippedItem(ITEMS_TYPE.SHIELD);</span>
+<span class="fc" id="L464">        Item item6 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 1);</span>
+<span class="fc" id="L465">        assertEquals(world.getUnequippedInventoryItems().size(), 0);</span>
+<span class="fc" id="L466">        assertEquals(character.getDefense(), 1);</span>
+<span class="fc" id="L467">        world.setCharacterEquipment(character, item6);</span>
+<span class="fc" id="L468">        assertEquals(character.getDefense(), 1);</span>
+
+<span class="fc" id="L470">        world.addUnequippedItem(ITEMS_TYPE.TREESTUMP);</span>
+<span class="fc" id="L471">        Item item7 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 1);</span>
+<span class="fc" id="L472">        assertEquals(world.getUnequippedInventoryItems().size(), 0);</span>
+<span class="fc" id="L473">        assertEquals(character.getDefense(), 1);</span>
+<span class="fc" id="L474">        world.setCharacterEquipment(character, item7);</span>
+<span class="fc" id="L475">        assertEquals(character.getDefense(), 1);</span>
+
+<span class="fc" id="L477">        world.addUnequippedItem(ITEMS_TYPE.THEONERING);</span>
+<span class="fc" id="L478">        Item item9 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 2, 1);</span>
+<span class="fc" id="L479">        assertEquals(world.getUnequippedInventoryItems().size(), 0);</span>
+<span class="fc" id="L480">        world.setCharacterEquipment(character, item9);</span>
+<span class="fc" id="L481">        assertEquals(world.GetUsedTheOneRing(), false);</span>
+<span class="fc" id="L482">    }</span>
+
+    @Test
+    public void GSetUsedTheOneRingTest(){
+<span class="fc" id="L486">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L487">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L488">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L489">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L490">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L491">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L492">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L493">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L494">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L495">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L496">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L497">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L498">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L499">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L500">        world.addUnequippedItem(ITEMS_TYPE.THEONERING);</span>
+<span class="fc" id="L501">        world.GetEquippedFromUnequippedByCoordinates(0, 0, 2, 1);</span>
+<span class="fc" id="L502">        assertEquals(world.GetUsedTheOneRing(), false);</span>
+<span class="fc" id="L503">        world.setUsedTheOneRing(true);</span>
+<span class="fc" id="L504">        assertEquals(world.GetUsedTheOneRing(), true);</span>
+<span class="fc" id="L505">    }</span>
+
+    @Test
+    public void getLastUnequippedInventoryItemTest(){
+<span class="fc" id="L509">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L510">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L511">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L512">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L513">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L514">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L515">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L516">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L517">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L518">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L519">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L520">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L521">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L522">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L523">        Item item = world.addUnequippedItem(ITEMS_TYPE.THEONERING);</span>
+<span class="fc" id="L524">        assertEquals(world.getUnequippedInventoryItems().size(), 1);</span>
+<span class="fc" id="L525">        assertEquals(world.getUnequippedInventoryItems().get(0), item);</span>
+<span class="fc" id="L526">        assertEquals(world.getLastUnequippedInventoryItem(), item);</span>
+<span class="fc" id="L527">    }</span>
+
+    @Test
+    public void getFirstAvailableSlotForItemTest(){
+<span class="fc" id="L531">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L532">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L533">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L534">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L535">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L536">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L537">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L538">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L539">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L540">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L541">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L542">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L543">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L544">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L545">        world.addUnequippedItem(ITEMS_TYPE.THEONERING);</span>
+<span class="fc" id="L546">        assertEquals(world.getFirstAvailableSlotForItem(), new Pair&lt;Integer, Integer&gt;(1, 0));</span>
+<span class="fc" id="L547">        world.addUnequippedItem(ITEMS_TYPE.SWORD);</span>
+<span class="fc" id="L548">        assertEquals(world.getFirstAvailableSlotForItem(), new Pair&lt;Integer, Integer&gt;(2, 0));</span>
+<span class="fc" id="L549">    }</span>
+    
+    @Test
+    public void removeItemByPositionInUnequippedInventoryItemsTest(){
+<span class="fc" id="L553">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L554">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L555">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L556">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L557">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L558">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L559">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L560">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L561">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L562">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L563">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L564">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L565">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L566">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L567">        world.addUnequippedItem(ITEMS_TYPE.THEONERING);</span>
+<span class="fc" id="L568">        assertEquals(world.getUnequippedInventoryItems().size(), 1);</span>
+<span class="fc" id="L569">        world.removeItemByPositionInUnequippedInventoryItems(0);</span>
+<span class="fc" id="L570">        assertEquals(world.getUnequippedInventoryItems().size(), 0);</span>
+<span class="fc" id="L571">    }</span>
+
+    @Test
+    public void removeUnequippedInventoryItemTest(){
+<span class="fc" id="L575">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L576">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L577">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L578">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L579">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L580">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L581">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L582">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L583">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L584">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L585">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L586">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L587">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L588">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L589">        Item item = world.addUnequippedItem(ITEMS_TYPE.THEONERING);</span>
+<span class="fc" id="L590">        assertEquals(world.getUnequippedInventoryItems().size(), 1);</span>
+<span class="fc" id="L591">        world.removeUnequippedInventoryItem(item);</span>
+<span class="fc" id="L592">        assertEquals(world.getUnequippedInventoryItems().size(), 0);</span>
+<span class="fc" id="L593">    }</span>
+
+    @Test
+    public void getUnequippedInventoryItemEntityByCoordinatesTest(){
+<span class="fc" id="L597">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L598">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L599">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L600">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L601">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L602">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L603">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L604">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L605">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L606">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L607">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L608">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L609">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L610">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L611">        Item item = world.addUnequippedItem(ITEMS_TYPE.THEONERING);</span>
+<span class="fc" id="L612">        assertEquals(world.getUnequippedInventoryItemEntityByCoordinates(0,0), item);</span>
+<span class="fc" id="L613">    }</span>
+
+    @Test
+    public void getWidthHeightTest(){
+<span class="fc" id="L617">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L618">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L619">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L620">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L621">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L622">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L623">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L624">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L625">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L626">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L627">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L628">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L629">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L630">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L631">        assertEquals(world.getWidth(), 4);</span>
+<span class="fc" id="L632">        assertEquals(world.getHeight(), 4);</span>
+<span class="fc" id="L633">    }</span>
+
+    @Test
+    public void possiblySpawnEnemies(){
+<span class="fc" id="L637">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L638">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L639">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L640">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L641">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L642">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L643">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L644">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L645">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L646">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L647">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L648">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L649">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L650">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L651">        assertEquals(world.getRoundsNum(), 0);</span>
+<span class="fc" id="L652">        world.addRoundsNum();</span>
+<span class="fc" id="L653">        assertEquals(world.getRoundsNum(), 1);</span>
+<span class="fc" id="L654">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L655">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L656">        world.setCharacter(character);</span>
+<span class="fc" id="L657">        world.possiblySpawnEnemies();</span>
+        // spawn enemy is probability, so it will increase test time.
+        /*
+        while (world.getEnemies().isEmpty()) {
+            world.possiblySpawnEnemies();   
+        }
+        assertEquals(world.getEnemies().get(0) instanceof Slug, true);
+        for (int i = 0; i &lt; 21; i++) {
+            world.addRoundsNum();
+        }
+        assertEquals(world.getRoundsNum(), 21);
+        while (!(world.getEnemies().get(world.getEnemies().size() - 1) instanceof Doggie)) {
+            world.possiblySpawnEnemies();   
+        }
+        assertEquals(world.getEnemies().get(world.getEnemies().size() - 1) instanceof Doggie, true);
+        assertEquals(world.getBossNum(), 1);
+        for (int i = 0; i &lt; 20; i++) {
+            world.addRoundsNum();
+        }
+        assertEquals(world.getRoundsNum(), 41);      
+        character.setEXP(10001);
+        assertEquals(character.getEXP(), 10001); 
+        while (!(world.getEnemies().get(world.getEnemies().size() - 1) instanceof ElanMuske)) {
+            world.possiblySpawnEnemies();   
+        }
+        assertEquals(world.getEnemies().get(world.getEnemies().size() - 1) instanceof ElanMuske, true);
+        assertEquals(world.getBossNum(), 2);*/
+<span class="fc" id="L684">        assertEquals(world.getBossNum(), 0);</span>
+<span class="fc" id="L685">        world.setBossNum(world.getBossNum() + 1);</span>
+<span class="fc" id="L686">        assertEquals(world.getBossNum(), 1);</span>
+<span class="fc" id="L687">    }</span>
+
+
+    @Test
+    public void battleDetails1Test(){
+<span class="fc" id="L692">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L693">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L694">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L695">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L696">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L697">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L698">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L699">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L700">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L701">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L702">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L703">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L704">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L705">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L706">        int currentPositionInPath = 2;</span>
+<span class="fc" id="L707">        PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L708">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L709">        character.setHealth(100);</span>
+<span class="fc" id="L710">        world.setCharacter(character);</span>
+
+<span class="fc" id="L712">        currentPositionInPath = 3;</span>
+<span class="fc" id="L713">        pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L714">        Slug slug = new Slug(pathPosition);</span>
+<span class="fc" id="L715">        List&lt;BasicEnemy&gt; enemies = world.getEnemies();</span>
+<span class="fc" id="L716">        enemies.add(slug);</span>
+
+<span class="fc" id="L718">        int healthPt = world.getCharacter().getHealth();</span>
+<span class="fc" id="L719">        world.runBattles();</span>
+<span class="fc" id="L720">        int lossBlood = Math.max(healthPt-world.getCharacter().getHealth(), 0);</span>
+
+<span class="fc" id="L722">        int slugsNum = world.getencounterSlugsNum();</span>
+<span class="fc" id="L723">        int zombiesNum = world.getEncounterZombiesNum();</span>
+<span class="fc" id="L724">        int vampiresNum = world.getencounterVampiresNum();</span>
+
+<span class="fc" id="L726">        assertFalse(world.getIsDead());</span>
+<span class="fc" id="L727">        assertEquals(slugsNum, 1);</span>
+<span class="fc" id="L728">        assertEquals(zombiesNum, 0);</span>
+<span class="fc" id="L729">        assertEquals(vampiresNum, 0);</span>
+<span class="fc" id="L730">        assertEquals(lossBlood, 12);</span>
+<span class="fc" id="L731">    }</span>
+    @Test
+    public void battleDetails2Test(){
+<span class="fc" id="L734">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L735">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L736">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L737">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L738">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L739">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L740">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L741">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L742">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L743">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L744">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L745">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L746">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L747">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L748">        int currentPositionInPath = 2;</span>
+<span class="fc" id="L749">        PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L750">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L751">        character.setHealth(100);</span>
+<span class="fc" id="L752">        world.setCharacter(character);</span>
+
+
+        // set goal
+<span class="fc" id="L756">        JSONObject json = new JSONObject();</span>
+<span class="fc" id="L757">        json.put(&quot;goal&quot;,&quot;AND&quot;);</span>
+<span class="fc" id="L758">        JSONArray jsonArray = new JSONArray();</span>
+<span class="fc" id="L759">        JSONObject tmp = new JSONObject();</span>
+<span class="fc" id="L760">        tmp.put(&quot;goal&quot;,&quot;cycles&quot;);</span>
+<span class="fc" id="L761">        tmp.put(&quot;quantity&quot;,10);</span>
+<span class="fc" id="L762">        jsonArray.put(tmp);</span>
+<span class="fc" id="L763">        tmp = new JSONObject();</span>
+<span class="fc" id="L764">        tmp.put(&quot;goal&quot;,&quot;OR&quot;);</span>
+<span class="fc" id="L765">        JSONArray jsonArray1 = new JSONArray();</span>
+<span class="fc" id="L766">        JSONObject tmp1 = new JSONObject();</span>
+<span class="fc" id="L767">        tmp1.put(&quot;goal&quot;,&quot;experience&quot;);</span>
+<span class="fc" id="L768">        tmp1.put(&quot;quantity&quot;,200);</span>
+<span class="fc" id="L769">        jsonArray1.put(tmp1);</span>
+<span class="fc" id="L770">        tmp1 = new JSONObject();</span>
+<span class="fc" id="L771">        tmp1.put(&quot;goal&quot;,&quot;gold&quot;);</span>
+<span class="fc" id="L772">        tmp1.put(&quot;quantity&quot;,200);</span>
+<span class="fc" id="L773">        jsonArray1.put(tmp1);</span>
+<span class="fc" id="L774">        tmp.put(&quot;subgoals&quot;,jsonArray1);</span>
+<span class="fc" id="L775">        jsonArray.put(tmp);</span>
+<span class="fc" id="L776">        json.put(&quot;subgoals&quot;,jsonArray);</span>
+<span class="fc" id="L777">        world.setGoalCondition(new Goal(json));</span>
+        
+        // ad enemies
+<span class="fc" id="L780">        currentPositionInPath = 3;</span>
+<span class="fc" id="L781">        pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L782">        Slug slug = new Slug(pathPosition);</span>
+<span class="fc" id="L783">        List&lt;BasicEnemy&gt; enemies = world.getEnemies();</span>
+<span class="fc" id="L784">        enemies.add(slug);</span>
+
+<span class="fc" id="L786">        currentPositionInPath = 1;</span>
+<span class="fc" id="L787">        Zombie zombie = new Zombie(pathPosition,null);</span>
+<span class="fc" id="L788">        enemies.add(zombie);</span>
+
+        // check
+<span class="fc" id="L791">        int healthPt = world.getCharacter().getHealth();</span>
+<span class="fc" id="L792">        world.runBattles();</span>
+<span class="fc" id="L793">        int lossBlood = Math.max(healthPt-world.getCharacter().getHealth(), 0);</span>
+
+<span class="fc" id="L795">        int slugsNum = world.getencounterSlugsNum();</span>
+<span class="fc" id="L796">        int zombiesNum = world.getEncounterZombiesNum();</span>
+<span class="fc" id="L797">        int vampiresNum = world.getencounterVampiresNum();</span>
+
+<span class="fc" id="L799">        assertFalse(world.getIsDead());</span>
+<span class="fc" id="L800">        assertEquals(slugsNum, 1);</span>
+<span class="fc" id="L801">        assertEquals(zombiesNum, 1);</span>
+<span class="fc" id="L802">        assertEquals(vampiresNum, 0);</span>
+<span class="fc" id="L803">        assertEquals(lossBlood, 76);</span>
+<span class="fc" id="L804">    }</span>
+    @Test
+    public void battleDetails3Test(){
+<span class="fc" id="L807">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L808">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L809">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L810">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L811">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L812">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L813">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L814">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L815">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L816">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L817">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L818">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L819">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L820">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L821">        int currentPositionInPath = 2;</span>
+<span class="fc" id="L822">        PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L823">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L824">        character.setHealth(100);</span>
+<span class="fc" id="L825">        world.setCharacter(character);</span>
+
+        // set goal
+<span class="fc" id="L828">        JSONObject json = new JSONObject();</span>
+<span class="fc" id="L829">        json.put(&quot;goal&quot;,&quot;AND&quot;);</span>
+<span class="fc" id="L830">        JSONArray jsonArray = new JSONArray();</span>
+<span class="fc" id="L831">        JSONObject tmp = new JSONObject();</span>
+<span class="fc" id="L832">        tmp.put(&quot;goal&quot;,&quot;cycles&quot;);</span>
+<span class="fc" id="L833">        tmp.put(&quot;quantity&quot;,10);</span>
+<span class="fc" id="L834">        jsonArray.put(tmp);</span>
+<span class="fc" id="L835">        tmp = new JSONObject();</span>
+<span class="fc" id="L836">        tmp.put(&quot;goal&quot;,&quot;OR&quot;);</span>
+<span class="fc" id="L837">        JSONArray jsonArray1 = new JSONArray();</span>
+<span class="fc" id="L838">        JSONObject tmp1 = new JSONObject();</span>
+<span class="fc" id="L839">        tmp1.put(&quot;goal&quot;,&quot;experience&quot;);</span>
+<span class="fc" id="L840">        tmp1.put(&quot;quantity&quot;,200);</span>
+<span class="fc" id="L841">        jsonArray1.put(tmp1);</span>
+<span class="fc" id="L842">        tmp1 = new JSONObject();</span>
+<span class="fc" id="L843">        tmp1.put(&quot;goal&quot;,&quot;gold&quot;);</span>
+<span class="fc" id="L844">        tmp1.put(&quot;quantity&quot;,200);</span>
+<span class="fc" id="L845">        jsonArray1.put(tmp1);</span>
+<span class="fc" id="L846">        tmp.put(&quot;subgoals&quot;,jsonArray1);</span>
+<span class="fc" id="L847">        jsonArray.put(tmp);</span>
+<span class="fc" id="L848">        json.put(&quot;subgoals&quot;,jsonArray);</span>
+<span class="fc" id="L849">        world.setGoalCondition(new Goal(json));</span>
+        
+        // add enemies
+<span class="fc" id="L852">        currentPositionInPath = 3;</span>
+<span class="fc" id="L853">        pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L854">        Slug slug = new Slug(pathPosition);</span>
+<span class="fc" id="L855">        List&lt;BasicEnemy&gt; enemies = world.getEnemies();</span>
+<span class="fc" id="L856">        enemies.add(slug);</span>
+
+<span class="fc" id="L858">        currentPositionInPath = 1;</span>
+<span class="fc" id="L859">        Vampire vampire = new Vampire(pathPosition,null);</span>
+<span class="fc" id="L860">        enemies.add(vampire);</span>
+
+        // check
+<span class="fc" id="L863">        int healthPt = world.getCharacter().getHealth();</span>
+<span class="fc" id="L864">        world.runBattles();</span>
+<span class="fc" id="L865">        int lossBlood = Math.max(healthPt-world.getCharacter().getHealth(), 0);</span>
+
+<span class="fc" id="L867">        int slugsNum = world.getencounterSlugsNum();</span>
+<span class="fc" id="L868">        int zombiesNum = world.getEncounterZombiesNum();</span>
+<span class="fc" id="L869">        int vampiresNum = world.getencounterVampiresNum();</span>
+
+<span class="fc" id="L871">        assertTrue(world.getIsDead());</span>
+<span class="fc" id="L872">        assertEquals(slugsNum, 1);</span>
+<span class="fc" id="L873">        assertEquals(zombiesNum, 0);</span>
+<span class="fc" id="L874">        assertEquals(vampiresNum, 1);</span>
+<span class="fc" id="L875">        assertEquals(lossBlood, 100);</span>
+<span class="fc" id="L876">    }</span>
+    @Test
+    public void addVampiresNumTest(){
+<span class="fc" id="L879">        LoopManiaWorld world = new LoopManiaWorld(4, 4, null);</span>
+<span class="fc" id="L880">        world.addVampiresNum(5);</span>
+<span class="fc" id="L881">        assertEquals(5,world.getVampiresNum());</span>
+<span class="fc" id="L882">        world.addVampiresNum(3);</span>
+<span class="fc" id="L883">        assertEquals(8,world.getVampiresNum());</span>
+<span class="fc" id="L884">    }</span>
+
+    @Test
+    public void addDoggieskesNumTest(){
+<span class="fc" id="L888">        LoopManiaWorld world = new LoopManiaWorld(4, 4, null);</span>
+<span class="fc" id="L889">        world.addDoggieskesNum(3);</span>
+<span class="fc" id="L890">        assertEquals(3,world.getDoggieskesNum());</span>
+<span class="fc" id="L891">        world.addDoggieskesNum(2);</span>
+<span class="fc" id="L892">        assertEquals(5,world.getDoggieskesNum());</span>
+<span class="fc" id="L893">    }</span>
+
+    @Test
+    public void addElanMuskesNumTest(){
+<span class="fc" id="L897">        LoopManiaWorld world = new LoopManiaWorld(4, 4, null);</span>
+<span class="fc" id="L898">        world.addElanMuskesNum(6);</span>
+<span class="fc" id="L899">        assertEquals(6,world.getElanMuskesNum());</span>
+<span class="fc" id="L900">        world.addElanMuskesNum(3);</span>
+<span class="fc" id="L901">        assertEquals(9,world.getElanMuskesNum());</span>
+<span class="fc" id="L902">    }</span>
+
+    @Test
+    public void goal_printTest(){
+<span class="fc" id="L906">        LoopManiaWorld world = new LoopManiaWorld(4, 4, null);</span>
+<span class="fc" id="L907">        JSONObject conditions = new JSONObject();</span>
+<span class="fc" id="L908">        conditions.put(&quot;goal&quot;,&quot;AND&quot;);</span>
+<span class="fc" id="L909">        JSONArray jsonArray = new JSONArray();</span>
+<span class="fc" id="L910">        JSONObject tmp = new JSONObject();</span>
+<span class="fc" id="L911">        tmp.put(&quot;goal&quot;,&quot;cycles&quot;);</span>
+<span class="fc" id="L912">        tmp.put(&quot;quantity&quot;,10);</span>
+<span class="fc" id="L913">        jsonArray.put(tmp);</span>
+<span class="fc" id="L914">        tmp = new JSONObject();</span>
+<span class="fc" id="L915">        tmp.put(&quot;goal&quot;,&quot;OR&quot;);</span>
+<span class="fc" id="L916">        JSONArray jsonArray1 = new JSONArray();</span>
+<span class="fc" id="L917">        JSONObject tmp1 = new JSONObject();</span>
+<span class="fc" id="L918">        tmp1.put(&quot;goal&quot;,&quot;experience&quot;);</span>
+<span class="fc" id="L919">        tmp1.put(&quot;quantity&quot;,200);</span>
+<span class="fc" id="L920">        jsonArray1.put(tmp1);</span>
+<span class="fc" id="L921">        tmp1 = new JSONObject();</span>
+<span class="fc" id="L922">        tmp1.put(&quot;goal&quot;,&quot;gold&quot;);</span>
+<span class="fc" id="L923">        tmp1.put(&quot;quantity&quot;,200);</span>
+<span class="fc" id="L924">        jsonArray1.put(tmp1);</span>
+<span class="fc" id="L925">        tmp.put(&quot;subgoals&quot;,jsonArray1);</span>
+<span class="fc" id="L926">        jsonArray.put(tmp);</span>
+<span class="fc" id="L927">        conditions.put(&quot;subgoals&quot;,jsonArray);</span>
+<span class="fc" id="L928">        world.setGoalCondition(new Goal(conditions));</span>
+
+<span class="fc" id="L930">        int loopNum = (Integer)conditions.getJSONArray(&quot;subgoals&quot;).getJSONObject(0).get(&quot;quantity&quot;);</span>
+<span class="fc" id="L931">        int goldAuount = (Integer)conditions.getJSONArray(&quot;subgoals&quot;).getJSONObject(1).getJSONArray(&quot;subgoals&quot;).getJSONObject(0).get(&quot;quantity&quot;);</span>
+<span class="fc" id="L932">        int expAmount = (Integer)conditions.getJSONArray(&quot;subgoals&quot;).getJSONObject(1).getJSONArray(&quot;subgoals&quot;).getJSONObject(1).get(&quot;quantity&quot;);</span>
+<span class="fc" id="L933">        assertTrue(world.goal_print().equals(String.format(&quot;Winning Conditions:Looping reaches %d &amp; Gold reaches %d &amp; EXP reaches %d&quot;, loopNum,goldAuount,expAmount)));</span>
+<span class="fc" id="L934">    }</span>
+
+    @Test
+    public void getSlugsNumTest(){
+<span class="fc" id="L938">        LoopManiaWorld world = new LoopManiaWorld(4, 4, null);</span>
+<span class="fc" id="L939">        world.addSlugsNum(5);</span>
+<span class="fc" id="L940">        assertEquals(5, world.getSlugsNum());</span>
+<span class="fc" id="L941">        world.addSlugsNum(3);</span>
+<span class="fc" id="L942">        assertEquals(8, world.getSlugsNum());</span>
+<span class="fc" id="L943">    }</span>
+
+    @Test
+    public void getZombiesNumTest(){
+<span class="fc" id="L947">        LoopManiaWorld world = new LoopManiaWorld(4, 4, null);</span>
+<span class="fc" id="L948">        world.addZombiesNum(3);</span>
+<span class="fc" id="L949">        assertEquals(3, world.getZombiesNum());</span>
+<span class="fc" id="L950">        world.addZombiesNum(3);</span>
+<span class="fc" id="L951">        assertEquals(6, world.getZombiesNum());</span>
+<span class="fc" id="L952">    }</span>
+
+    @Test
+    public void getVampiresNumTest(){
+<span class="fc" id="L956">        LoopManiaWorld world = new LoopManiaWorld(4, 4, null);</span>
+<span class="fc" id="L957">        world.addVampiresNum(12);</span>
+<span class="fc" id="L958">        assertEquals(12, world.getVampiresNum());</span>
+<span class="fc" id="L959">        world.addVampiresNum(10);</span>
+<span class="fc" id="L960">        assertEquals(22, world.getVampiresNum());</span>
+<span class="fc" id="L961">    }</span>
+
+    @Test
+    public void getDoggieskesTest(){
+<span class="fc" id="L965">        LoopManiaWorld world = new LoopManiaWorld(4, 4, null);</span>
+<span class="fc" id="L966">        world.addDoggieskesNum(5);</span>
+<span class="fc" id="L967">        assertEquals(5, world.getDoggieskesNum());</span>
+<span class="fc" id="L968">        world.addDoggieskesNum(3);</span>
+<span class="fc" id="L969">        assertEquals(8, world.getDoggieskesNum());</span>
+<span class="fc" id="L970">    }</span>
+
+    @Test
+    public void getElanMuskesNumTest(){
+<span class="fc" id="L974">        LoopManiaWorld world = new LoopManiaWorld(4, 4, null);</span>
+<span class="fc" id="L975">        world.addElanMuskesNum(3);</span>
+<span class="fc" id="L976">        assertEquals(3, world.getElanMuskesNum());</span>
+<span class="fc" id="L977">        world.addElanMuskesNum(2);</span>
+<span class="fc" id="L978">        assertEquals(5, world.getElanMuskesNum());</span>
+<span class="fc" id="L979">    }</span>
+
+    @Test
+    public void getEncounterDoggiesNumTest(){
+        
+<span class="fc" id="L984">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L985">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L986">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L987">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L988">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L989">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L990">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L991">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L992">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L993">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L994">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L995">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L996">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L997">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L998">        int currentPositionInPath = 2;</span>
+<span class="fc" id="L999">        PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L1000">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L1001">        character.setHealth(100);</span>
+<span class="fc" id="L1002">        world.setCharacter(character);</span>
+
+        // set the goal
+<span class="fc" id="L1005">        JSONObject conditions = new JSONObject();</span>
+<span class="fc" id="L1006">        conditions.put(&quot;goal&quot;,&quot;AND&quot;);</span>
+<span class="fc" id="L1007">        JSONArray jsonArray = new JSONArray();</span>
+<span class="fc" id="L1008">        JSONObject tmp = new JSONObject();</span>
+<span class="fc" id="L1009">        tmp.put(&quot;goal&quot;,&quot;cycles&quot;);</span>
+<span class="fc" id="L1010">        tmp.put(&quot;quantity&quot;,10);</span>
+<span class="fc" id="L1011">        jsonArray.put(tmp);</span>
+<span class="fc" id="L1012">        tmp = new JSONObject();</span>
+<span class="fc" id="L1013">        tmp.put(&quot;goal&quot;,&quot;OR&quot;);</span>
+<span class="fc" id="L1014">        JSONArray jsonArray1 = new JSONArray();</span>
+<span class="fc" id="L1015">        JSONObject tmp1 = new JSONObject();</span>
+<span class="fc" id="L1016">        tmp1.put(&quot;goal&quot;,&quot;experience&quot;);</span>
+<span class="fc" id="L1017">        tmp1.put(&quot;quantity&quot;,200);</span>
+<span class="fc" id="L1018">        jsonArray1.put(tmp1);</span>
+<span class="fc" id="L1019">        tmp1 = new JSONObject();</span>
+<span class="fc" id="L1020">        tmp1.put(&quot;goal&quot;,&quot;gold&quot;);</span>
+<span class="fc" id="L1021">        tmp1.put(&quot;quantity&quot;,200);</span>
+<span class="fc" id="L1022">        jsonArray1.put(tmp1);</span>
+<span class="fc" id="L1023">        tmp.put(&quot;subgoals&quot;,jsonArray1);</span>
+<span class="fc" id="L1024">        jsonArray.put(tmp);</span>
+<span class="fc" id="L1025">        conditions.put(&quot;subgoals&quot;,jsonArray);</span>
+<span class="fc" id="L1026">        world.setGoalCondition(new Goal(conditions));</span>
+
+
+        // add doggies
+<span class="fc" id="L1030">        currentPositionInPath = 3;</span>
+<span class="fc" id="L1031">        List&lt;BasicEnemy&gt; enemies = world.getEnemies();</span>
+<span class="fc" id="L1032">        Doggie doggie = new Doggie(new PathPosition(currentPositionInPath, orderedPath));</span>
+<span class="fc" id="L1033">        enemies.add(doggie);</span>
+
+<span class="fc" id="L1035">        world.runBattles();</span>
+<span class="fc" id="L1036">        assertEquals(1, world.getEncounterDoggiesNum());</span>
+<span class="fc" id="L1037">    }</span>
+
+    @Test
+    public void getEncounterElanMuskesNumTest(){
+<span class="fc" id="L1041">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1042">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L1043">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L1044">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L1045">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L1046">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L1047">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L1048">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L1049">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L1050">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L1051">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L1052">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L1053">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L1054">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L1055">        int currentPositionInPath = 2;</span>
+<span class="fc" id="L1056">        PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);</span>
+<span class="fc" id="L1057">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L1058">        character.setHealth(100);</span>
+<span class="fc" id="L1059">        world.setCharacter(character);</span>
+
+        // set the goal
+<span class="fc" id="L1062">        JSONObject conditions = new JSONObject();</span>
+<span class="fc" id="L1063">        conditions.put(&quot;goal&quot;,&quot;AND&quot;);</span>
+<span class="fc" id="L1064">        JSONArray jsonArray = new JSONArray();</span>
+<span class="fc" id="L1065">        JSONObject tmp = new JSONObject();</span>
+<span class="fc" id="L1066">        tmp.put(&quot;goal&quot;,&quot;cycles&quot;);</span>
+<span class="fc" id="L1067">        tmp.put(&quot;quantity&quot;,10);</span>
+<span class="fc" id="L1068">        jsonArray.put(tmp);</span>
+<span class="fc" id="L1069">        tmp = new JSONObject();</span>
+<span class="fc" id="L1070">        tmp.put(&quot;goal&quot;,&quot;OR&quot;);</span>
+<span class="fc" id="L1071">        JSONArray jsonArray1 = new JSONArray();</span>
+<span class="fc" id="L1072">        JSONObject tmp1 = new JSONObject();</span>
+<span class="fc" id="L1073">        tmp1.put(&quot;goal&quot;,&quot;experience&quot;);</span>
+<span class="fc" id="L1074">        tmp1.put(&quot;quantity&quot;,200);</span>
+<span class="fc" id="L1075">        jsonArray1.put(tmp1);</span>
+<span class="fc" id="L1076">        tmp1 = new JSONObject();</span>
+<span class="fc" id="L1077">        tmp1.put(&quot;goal&quot;,&quot;gold&quot;);</span>
+<span class="fc" id="L1078">        tmp1.put(&quot;quantity&quot;,200);</span>
+<span class="fc" id="L1079">        jsonArray1.put(tmp1);</span>
+<span class="fc" id="L1080">        tmp.put(&quot;subgoals&quot;,jsonArray1);</span>
+<span class="fc" id="L1081">        jsonArray.put(tmp);</span>
+<span class="fc" id="L1082">        conditions.put(&quot;subgoals&quot;,jsonArray);</span>
+<span class="fc" id="L1083">        world.setGoalCondition(new Goal(conditions));</span>
+
+
+        // add elanmuskes
+<span class="fc" id="L1087">        currentPositionInPath = 3;</span>
+<span class="fc" id="L1088">        List&lt;BasicEnemy&gt; enemies = world.getEnemies();</span>
+<span class="fc" id="L1089">        ElanMuske elanMuske = new ElanMuske(new PathPosition(currentPositionInPath, orderedPath));</span>
+<span class="fc" id="L1090">        enemies.add(elanMuske);</span>
+
+<span class="fc" id="L1092">        currentPositionInPath = 8;</span>
+<span class="fc" id="L1093">        elanMuske = new ElanMuske(new PathPosition(currentPositionInPath, orderedPath));</span>
+<span class="fc" id="L1094">        enemies.add(elanMuske);</span>
+
+<span class="fc" id="L1096">        world.runBattles();</span>
+<span class="fc" id="L1097">        assertEquals(1, world.getencounterElanMuskesNum());</span>
+<span class="fc" id="L1098">    }</span>
+
+    @Test
+    public void KillEnemyTest(){
+<span class="fc" id="L1102">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1103">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L1104">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L1105">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L1106">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L1107">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L1108">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L1109">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L1110">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L1111">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L1112">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L1113">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L1114">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L1115">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L1116">        Slug s = new Slug(null);</span>
+<span class="fc" id="L1117">        List&lt;BasicEnemy&gt; enemy = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1118">        world.getEnemies().add(s);</span>
+<span class="fc" id="L1119">        world.killEnemy(s);</span>
+<span class="fc" id="L1120">        assertEquals(enemy.size(), 0);</span>
+<span class="fc" id="L1121">    }</span>
+
+    @Test
+    public void fightElanMuskeTest(){
+<span class="fc" id="L1125">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1126">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L1127">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L1128">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L1129">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L1130">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L1131">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L1132">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L1133">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L1134">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L1135">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L1136">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L1137">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L1138">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L1139">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L1140">        ElanMuske e = new ElanMuske(Pp);</span>
+<span class="fc" id="L1141">        Character c = new Character(Pp);</span>
+<span class="fc" id="L1142">        world.setCharacter(c);</span>
+<span class="fc" id="L1143">        world.getEnemies().add(e);</span>
+<span class="fc bfc" id="L1144" title="All 2 branches covered.">        while (world.getencounterElanMuskesNum() == 0) {</span>
+<span class="fc" id="L1145">            world.fight();</span>
+        }
+<span class="fc" id="L1147">        assertEquals(world.getencounterElanMuskesNum(), 1);</span>
+<span class="fc" id="L1148">    }</span>
+
+    @Test
+    public void fightDoggieTest(){
+<span class="fc" id="L1152">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1153">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L1154">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L1155">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L1156">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L1157">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L1158">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L1159">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L1160">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L1161">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L1162">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L1163">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L1164">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L1165">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L1166">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L1167">        Doggie e = new Doggie(Pp);</span>
+<span class="fc" id="L1168">        Character c = new Character(Pp);</span>
+<span class="fc" id="L1169">        world.setCharacter(c);</span>
+<span class="fc" id="L1170">        world.getEnemies().add(e);</span>
+<span class="fc" id="L1171">        world.fight();</span>
+<span class="fc" id="L1172">        assertEquals(world.getEncounterDoggiesNum(), 1);</span>
+<span class="fc" id="L1173">        PathPosition p = new PathPosition(5, orderedPath);</span>
+<span class="fc" id="L1174">        Doggie s = new Doggie(p);</span>
+<span class="fc" id="L1175">        world.getEnemies().add(s);</span>
+<span class="fc" id="L1176">        world.fight();</span>
+<span class="fc" id="L1177">        assertEquals(world.getEncounterDoggiesNum(), 1);</span>
+<span class="fc" id="L1178">    }</span>
+
+    @Test
+    public void fightSlugTest(){
+<span class="fc" id="L1182">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1183">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L1184">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L1185">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L1186">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L1187">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L1188">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L1189">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L1190">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L1191">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L1192">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L1193">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L1194">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L1195">        PathPosition Pp = new PathPosition(2, orderedPath);</span>
+<span class="fc" id="L1196">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L1197">        Slug e = new Slug(Pp);</span>
+<span class="fc" id="L1198">        Character c = new Character(Pp);</span>
+<span class="fc" id="L1199">        world.setCharacter(c);</span>
+<span class="fc" id="L1200">        world.getEnemies().add(e);</span>
+<span class="fc" id="L1201">        world.fight();</span>
+<span class="fc" id="L1202">        assertEquals(world.getencounterSlugsNum(), 1);</span>
+<span class="fc" id="L1203">        PathPosition p = new PathPosition(5, orderedPath);</span>
+<span class="fc" id="L1204">        Zombie s = new Zombie(p, null);</span>
+<span class="fc" id="L1205">        world.getEnemies().add(s);</span>
+<span class="fc" id="L1206">        world.fight();</span>
+<span class="fc" id="L1207">        assertEquals(world.getEncounterZombiesNum(), 0);</span>
+<span class="fc" id="L1208">        Vampire v = new Vampire(p, null);</span>
+<span class="fc" id="L1209">        world.getEnemies().add(v);</span>
+<span class="fc" id="L1210">        world.fight();</span>
+<span class="fc" id="L1211">        assertEquals(world.getencounterVampiresNum(), 1);</span>
+<span class="fc" id="L1212">    }</span>
+
+    @Test
+    public void fightZombieTest(){
+<span class="fc" id="L1216">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1217">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L1218">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L1219">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L1220">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L1221">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L1222">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L1223">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L1224">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L1225">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L1226">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L1227">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L1228">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L1229">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L1230">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L1231">        Zombie e = new Zombie(Pp, null);</span>
+<span class="fc" id="L1232">        Character c = new Character(Pp);</span>
+<span class="fc" id="L1233">        world.setCharacter(c);</span>
+<span class="fc" id="L1234">        world.getEnemies().add(e);</span>
+<span class="fc" id="L1235">        world.fight();</span>
+<span class="fc" id="L1236">        assertEquals(world.getEncounterZombiesNum(), 1);</span>
+<span class="fc" id="L1237">        PathPosition p = new PathPosition(5, orderedPath);</span>
+<span class="fc" id="L1238">        Zombie s = new Zombie(p, null);</span>
+<span class="fc" id="L1239">        world.getEnemies().add(s);</span>
+<span class="fc" id="L1240">        world.fight();</span>
+<span class="fc" id="L1241">        assertEquals(world.getEncounterZombiesNum(), 1);</span>
+<span class="fc" id="L1242">    }</span>
+
+    @Test
+    public void fightVampireTest(){
+<span class="fc" id="L1246">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1247">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L1248">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L1249">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L1250">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L1251">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L1252">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L1253">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L1254">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L1255">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L1256">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L1257">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L1258">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L1259">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L1260">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L1261">        Vampire e = new Vampire(Pp, null);</span>
+<span class="fc" id="L1262">        Character c = new Character(Pp);</span>
+<span class="fc" id="L1263">        world.setCharacter(c);</span>
+<span class="fc" id="L1264">        world.getEnemies().add(e);</span>
+<span class="fc" id="L1265">        world.fight();</span>
+<span class="fc" id="L1266">        assertEquals(world.getencounterVampiresNum(), 1);</span>
+<span class="fc" id="L1267">        PathPosition p = new PathPosition(5, orderedPath);</span>
+<span class="fc" id="L1268">        Vampire s = new Vampire(p, null);</span>
+<span class="fc" id="L1269">        world.getEnemies().add(s);</span>
+<span class="fc" id="L1270">        world.fight();</span>
+<span class="fc" id="L1271">        assertEquals(world.getencounterVampiresNum(), 1);</span>
+<span class="fc" id="L1272">    }</span>
+
+    @Test
+    public void battleTest1(){
+<span class="fc" id="L1276">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1277">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L1278">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L1279">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L1280">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L1281">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L1282">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L1283">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L1284">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L1285">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L1286">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L1287">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L1288">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L1289">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L1290">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L1291">        Slug e = new Slug(Pp);</span>
+<span class="fc" id="L1292">        Character c = new Character(Pp);</span>
+<span class="fc" id="L1293">        world.setCharacter(c);</span>
+<span class="fc" id="L1294">        world.getEnemies().add(e);</span>
+<span class="fc" id="L1295">        world.fight();</span>
+<span class="fc" id="L1296">        world.runBattles();</span>
+<span class="fc" id="L1297">        assertEquals(world.getEnemies().size(), 0);</span>
+<span class="fc" id="L1298">        assertEquals(world.getSlugsNum(), 1);</span>
+<span class="fc" id="L1299">    }</span>
+
+    @Test
+    public void battleTest2(){
+<span class="fc" id="L1303">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1304">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L1305">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L1306">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L1307">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L1308">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L1309">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L1310">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L1311">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L1312">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L1313">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L1314">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L1315">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L1316">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L1317">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L1318">        Zombie e = new Zombie(Pp, null);</span>
+<span class="fc" id="L1319">        Character c = new Character(Pp);</span>
+<span class="fc" id="L1320">        world.setCharacter(c);</span>
+<span class="fc" id="L1321">        world.getEnemies().add(e);</span>
+<span class="fc" id="L1322">        world.fight();</span>
+<span class="fc" id="L1323">        world.runBattles();</span>
+<span class="fc" id="L1324">        assertEquals(world.getEnemies().size(), 0);</span>
+<span class="fc" id="L1325">        assertEquals(world.getZombiesNum(), 1);</span>
+<span class="fc" id="L1326">    }</span>
+
+    @Test
+    public void battleTest3(){
+<span class="fc" id="L1330">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1331">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L1332">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L1333">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L1334">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L1335">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L1336">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L1337">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L1338">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L1339">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L1340">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L1341">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L1342">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L1343">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L1344">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L1345">        Vampire e = new Vampire(Pp, null);</span>
+<span class="fc" id="L1346">        Character c = new Character(Pp);</span>
+<span class="fc" id="L1347">        c.setDefense(10);</span>
+<span class="fc" id="L1348">        world.setCharacter(c);</span>
+<span class="fc" id="L1349">        world.getEnemies().add(e);</span>
+<span class="fc" id="L1350">        world.fight();</span>
+<span class="fc" id="L1351">        world.runBattles();</span>
+<span class="fc" id="L1352">        assertEquals(world.getEnemies().size(), 0);</span>
+<span class="fc" id="L1353">        assertEquals(world.getVampiresNum(), 1);</span>
+<span class="fc" id="L1354">    }</span>
+
+    @Test
+    public void battleTest4(){
+<span class="fc" id="L1358">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1359">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L1360">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L1361">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L1362">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L1363">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L1364">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L1365">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L1366">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L1367">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L1368">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L1369">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L1370">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L1371">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L1372">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L1373">        Doggie e = new Doggie(Pp);</span>
+<span class="fc" id="L1374">        Character c = new Character(Pp);</span>
+<span class="fc" id="L1375">        c.setDefense(20);</span>
+<span class="fc" id="L1376">        world.setCharacter(c);</span>
+<span class="fc" id="L1377">        world.getEnemies().add(e);</span>
+<span class="fc" id="L1378">        world.fight();</span>
+<span class="fc" id="L1379">        world.runBattles();</span>
+<span class="fc" id="L1380">        assertEquals(world.getEnemies().size(), 0);</span>
+<span class="fc" id="L1381">        assertEquals(world.getDoggieskesNum(), 1);</span>
+<span class="fc" id="L1382">    }</span>
+
+    @Test
+    public void battleTest5(){
+<span class="fc" id="L1386">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1387">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L1388">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,0));</span>
+<span class="fc" id="L1389">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,0));</span>
+<span class="fc" id="L1390">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,0));</span>
+<span class="fc" id="L1391">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,1));</span>
+<span class="fc" id="L1392">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,2));</span>
+<span class="fc" id="L1393">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(3,3));</span>
+<span class="fc" id="L1394">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(2,3));</span>
+<span class="fc" id="L1395">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,3));</span>
+<span class="fc" id="L1396">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,3));</span>
+<span class="fc" id="L1397">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,2));</span>
+<span class="fc" id="L1398">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,1));</span>
+<span class="fc" id="L1399">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L1400">        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);</span>
+<span class="fc" id="L1401">        ElanMuske e = new ElanMuske(Pp);</span>
+<span class="fc" id="L1402">        Character c = new Character(Pp);</span>
+<span class="fc" id="L1403">        c.setDefense(25);</span>
+<span class="fc" id="L1404">        c.setAggressivity(100);</span>
+<span class="fc" id="L1405">        world.setCharacter(c);</span>
+<span class="fc" id="L1406">        world.getEnemies().add(e);</span>
+<span class="fc bfc" id="L1407" title="All 2 branches covered.">        while (world.getencounterElanMuskesNum() == 0) {</span>
+<span class="fc" id="L1408">            world.runBattles();</span>
+        }
+<span class="fc" id="L1410">        assertEquals(world.getEnemies().size(), 0);</span>
+<span class="fc" id="L1411">        assertEquals(world.getElanMuskesNum(), 1);</span>
+<span class="fc" id="L1412">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

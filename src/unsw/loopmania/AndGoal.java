@@ -14,8 +14,8 @@ public class AndGoal extends Goal{
     public boolean subgoalcheck() {
         Goal goal1 = new Goal(goals.getJSONObject(0));
         Goal goal2 = new Goal(goals.getJSONObject(1));
-        goal1.setCurrentStatus(gold, exp, turns, bosses);
-        goal2.setCurrentStatus(gold, exp, turns, bosses);
+        goal1.setCurrentStatus(gold.getGoal(), exp.getGoal(), turns.getGoal(), bosses.getGoal());
+        goal2.setCurrentStatus(gold.getGoal(), exp.getGoal(), turns.getGoal(), bosses.getGoal());
 
 
         return goal1.goalCheck() && goal2.goalCheck();
