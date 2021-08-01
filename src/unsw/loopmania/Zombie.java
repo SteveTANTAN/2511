@@ -64,6 +64,9 @@ public class Zombie extends BasicEnemy{
         }
     }
 
+    /** 
+     * get intefactors
+    */
     public List<BasicEnemy> getIntefactors() {
         return this.intefactors;
     }

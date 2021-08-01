@@ -3,7 +3,9 @@ package unsw.loopmania;
 import java.util.List;
 
 public class AndurilAttack implements Attack{
-
+    /**
+     * hit with anduril
+     */
     @Override
     public void hit(Character c, List<BasicEnemy> trancedEnemies, List<BasicEnemy> enemies, BasicEnemy e, String who) {
         int hurt = 0;

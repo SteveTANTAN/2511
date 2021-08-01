@@ -25,6 +25,7 @@ public class DefeatPageController {
 		});
         infoLabel.setWrapText(true);
     }
+    
     public void update(LoopManiaWorld world){
         infoLabel.setText(String.format("You have defeated %d slugs, %d zombies, %d vampires, %d doggies and %d elanmuskes in %d rounds.", world.getSlugsNum(),
             world.getZombiesNum(),world.getVampiresNum(),world.getDoggieskesNum(),world.getElanMuskesNum(),world.getRoundsNum()));

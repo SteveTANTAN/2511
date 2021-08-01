@@ -17,12 +17,24 @@ public class Goal {
 
     }
 
+    /**
+     * set current status 
+     * @param gold
+     * @param exp
+     * @param turns
+     * @param bosses
+     */
     public void setCurrentStatus (int gold, int exp, int turns,boolean bosses){
         this.gold = gold;
         this.exp = exp;
         this.turns = turns;
         this.bosses = bosses;
     }
+
+    /**
+     * print all goals in string form
+     * @return goal in string form
+     */
     public String goal_to_string(){        
         int loopNum = (Integer)conditions.getJSONArray("subgoals").getJSONObject(0).get("quantity");
         int goldAuount = (Integer)conditions.getJSONArray("subgoals").getJSONObject(1).getJSONArray("subgoals").getJSONObject(0).get("quantity");

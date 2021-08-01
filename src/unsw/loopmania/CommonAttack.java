@@ -3,6 +3,9 @@ package unsw.loopmania;
 import java.util.List;
 
 public class CommonAttack implements Attack{
+    /**
+     * character and enemy common attack
+     */
     @Override
     public void hit(Character c, List<BasicEnemy> trancedEnemies, List<BasicEnemy> enemies,BasicEnemy e, String who) {
         int hurt;
