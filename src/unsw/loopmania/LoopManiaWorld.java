@@ -91,6 +91,7 @@ public class LoopManiaWorld {
     private int slugsNum;
     private int zombiesNum;
     private int vampiresNum;
+    private int bossNum;
 
     int encounterSlugsNum = 0;
     int encounterZombiesNum = 0;
@@ -141,6 +142,24 @@ public class LoopManiaWorld {
     }
 
     /**
+     * get world boss number
+     * 
+     * @return boss number
+     */
+    public int getBossNum() {
+        return bossNum;
+    }
+
+    /**
+     * set world boss number
+     * 
+     * @return boss number
+     */
+    public void setBossNum(int newNum) {
+        this.bossNum = newNum;
+    }
+
+    /**
      * set the character. This is necessary because it is loaded as a special entity
      * out of the file
      * 
@@ -182,6 +201,7 @@ public class LoopManiaWorld {
                     Doggie doggie = new Doggie(new PathPosition(indexInPath, orderedPath));
                     enemies.add(doggie);
                     spawningEnemies.add(doggie);
+                    setBossNum(getBossNum() + 1);  
                 }
             }
             if (roundsNum > 40 && character.getEXP() > 1000) {
@@ -195,6 +215,7 @@ public class LoopManiaWorld {
                     elanMuske.notifyObservers(80);
                     enemies.add(elanMuske);
                     spawningEnemies.add(elanMuske);
+                    setBossNum(getBossNum() + 1);  
                 }               
             }
         }
@@ -682,7 +703,7 @@ public class LoopManiaWorld {
      * 
      * @param item item to be removed
      */
-    private void removeUnequippedInventoryItem(Entity item) {
+    public void removeUnequippedInventoryItem(Entity item) {
         item.destroy();
         unequippedInventoryItems.remove(item);
     }
@@ -695,7 +716,7 @@ public class LoopManiaWorld {
      * @param y y index from 0 to height-1
      * @return unequipped inventory item at the input position
      */
-    private Item getUnequippedInventoryItemEntityByCoordinates(int x, int y) {
+    public Item getUnequippedInventoryItemEntityByCoordinates(int x, int y) {
         for (Item e : unequippedInventoryItems) {
             if ((e.getX() == x) && (e.getY() == y)) {
                 return e;
@@ -710,7 +731,7 @@ public class LoopManiaWorld {
      * 
      * @param index index from 0 to length-1
      */
-    private void removeItemByPositionInUnequippedInventoryItems(int index) {
+    public void removeItemByPositionInUnequippedInventoryItems(int index) {
         Entity item = unequippedInventoryItems.get(index);
         item.destroy();
         unequippedInventoryItems.remove(index);
@@ -722,7 +743,7 @@ public class LoopManiaWorld {
      * 
      * @return x,y coordinate pair
      */
-    private Pair<Integer, Integer> getFirstAvailableSlotForItem() {
+    public Pair<Integer, Integer> getFirstAvailableSlotForItem() {
         // first available slot for an item...
         // IMPORTANT - have to check by y then x, since trying to find first available
         // slot defined by looking row by row
@@ -753,7 +774,6 @@ public class LoopManiaWorld {
      * move all enemies
      */
     private void moveBasicEnemies() {
-        // TODO = expand to more types of enemy
         for (BasicEnemy e : enemies) {
             e.move();
         }
@@ -1129,6 +1149,7 @@ public class LoopManiaWorld {
                 return null;
             }
         }
+        equippedInventoryItems.add(item);
         return item;
     }
 

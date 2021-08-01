@@ -9,6 +9,8 @@ import java.util.List;
 import org.javatuples.Pair;
 import org.junit.Test;
 
+import unsw.loopmania.Anduril;
+import unsw.loopmania.Armour;
 import unsw.loopmania.BarrackBuilding;
 import unsw.loopmania.BarrackCard;
 import unsw.loopmania.BasicEnemy;
@@ -16,8 +18,20 @@ import unsw.loopmania.Building;
 import unsw.loopmania.CARDS_TYPE;
 import unsw.loopmania.Card;
 import unsw.loopmania.Character;
+import unsw.loopmania.Doggie;
+import unsw.loopmania.ElanMuske;
+import unsw.loopmania.Helmet;
+import unsw.loopmania.ITEMS_TYPE;
+import unsw.loopmania.Item;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
+import unsw.loopmania.Shield;
+import unsw.loopmania.Slug;
+import unsw.loopmania.Staff;
+import unsw.loopmania.Stake;
+import unsw.loopmania.Sword;
+import unsw.loopmania.TheOneRing;
+import unsw.loopmania.TreeStump;
 import unsw.loopmania.VampireCastleBuilding;
 import unsw.loopmania.VampireCastleCard;
 import unsw.loopmania.VillageBuilding;
@@ -251,5 +265,391 @@ public class LoopManiaWorldTest {
         assertEquals(world.getLastCardEntity(), card);
         card = world.loadCard(CARDS_TYPE.VILLAGE);
         assertEquals(world.getLastCardEntity(), card);
+    }
+
+    @Test
+    public void addUnequippedItem(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        
+        Item item = world.addUnequippedItem(ITEMS_TYPE.SWORD);
+        assertEquals(item instanceof Sword, true);
+
+        Item item2 = world.addUnequippedItem(ITEMS_TYPE.STAFF);
+        assertEquals(item2 instanceof Staff, true);
+
+        Item item3 = world.addUnequippedItem(ITEMS_TYPE.STAKE);
+        assertEquals(item3 instanceof Stake, true);
+
+        Item item4 = world.addUnequippedItem(ITEMS_TYPE.SHIELD);
+        assertEquals(item4 instanceof Shield, true);
+
+        Item item5 = world.addUnequippedItem(ITEMS_TYPE.ARMOUR);
+        assertEquals(item5 instanceof Armour, true);
+
+        Item item6 = world.addUnequippedItem(ITEMS_TYPE.HELMET);
+        assertEquals(item6 instanceof Helmet, true);
+
+        Item item7 = world.addUnequippedItem(ITEMS_TYPE.ANDURIL);
+        assertEquals(item7 instanceof Anduril, true);
+
+        Item item8 = world.addUnequippedItem(ITEMS_TYPE.TREESTUMP);
+        assertEquals(item8 instanceof TreeStump, true);
+
+        Item item9 = world.addUnequippedItem(ITEMS_TYPE.THEONERING);
+        assertEquals(item9 instanceof TheOneRing, true);
+    }
+
+    @Test
+    public void GRUnequippedInventoryItemByCoordinatesTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        
+        world.addUnequippedItem(ITEMS_TYPE.SWORD);
+        assertEquals(world.getUnequippedInventoryItems().size(), 1);
+        world.removeUnequippedInventoryItemByCoordinates(0, 0);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+    }
+
+    @Test
+    public void GetEquippedFromUnequippedByCoordinatesTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        
+        Item oitem = world.addUnequippedItem(ITEMS_TYPE.SWORD);
+        assertEquals(oitem.getX(), 0);
+        assertEquals(oitem.getY(), 0);
+        Item item = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 0);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+        assertEquals(world.getEquippedInventoryItems().get(0), item);
+        assertEquals(world.getEquippedInventoryItems().size(), 1);
+        assertEquals(item instanceof Sword, true);
+        assertEquals(item.getX(), 1);
+        assertEquals(item.getY(), 0);
+    }
+
+    @Test
+    public void setCharacterEquipmentTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        PathPosition pathPosition = new PathPosition(0, orderedPath);
+        Character character = new Character(pathPosition);
+        world.setCharacter(character);
+        assertEquals(world.getCharacter(), character);
+
+        world.addUnequippedItem(ITEMS_TYPE.SWORD);
+        Item item = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 0);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+        assertEquals(character.getAggressivity(), 4);
+        world.setCharacterEquipment(character, item);
+        assertEquals(character.getAggressivity(), 10);
+
+        world.addUnequippedItem(ITEMS_TYPE.STAKE);
+        Item item2 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 0);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+        assertEquals(character.getAggressivity(), 10);
+        world.setCharacterEquipment(character, item2);
+        assertEquals(character.getAggressivity(), 8);
+
+        world.addUnequippedItem(ITEMS_TYPE.STAFF);
+        Item item4 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 0);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+        assertEquals(character.getAggressivity(), 8);
+        world.setCharacterEquipment(character, item4);
+        assertEquals(character.getAggressivity(), 6);
+
+        world.addUnequippedItem(ITEMS_TYPE.ANDURIL);
+        Item item8 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 0);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+        assertEquals(character.getAggressivity(), 6);
+        world.setCharacterEquipment(character, item8);
+        assertEquals(character.getAggressivity(), 13);
+
+        world.addUnequippedItem(ITEMS_TYPE.ARMOUR);
+        Item item3 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 0, 1);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+        assertEquals(character.getDefense(), 0);
+        world.setCharacterEquipment(character, item3);
+        assertEquals(character.getDefense(), 3);
+
+        world.addUnequippedItem(ITEMS_TYPE.HELMET);
+        Item item5 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 0, 1);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+        assertEquals(character.getDefense(), 3);
+        world.setCharacterEquipment(character, item5);
+        assertEquals(character.getDefense(), 1);
+
+        world.addUnequippedItem(ITEMS_TYPE.SHIELD);
+        Item item6 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 1);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+        assertEquals(character.getDefense(), 1);
+        world.setCharacterEquipment(character, item6);
+        assertEquals(character.getDefense(), 1);
+
+        world.addUnequippedItem(ITEMS_TYPE.TREESTUMP);
+        Item item7 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 1);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+        assertEquals(character.getDefense(), 1);
+        world.setCharacterEquipment(character, item7);
+        assertEquals(character.getDefense(), 1);
+
+        world.addUnequippedItem(ITEMS_TYPE.THEONERING);
+        Item item9 = world.GetEquippedFromUnequippedByCoordinates(0, 0, 2, 1);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+        world.setCharacterEquipment(character, item9);
+        assertEquals(world.GetUsedTheOneRing(), false);
+    }
+
+    @Test
+    public void GSetUsedTheOneRingTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        world.addUnequippedItem(ITEMS_TYPE.THEONERING);
+        world.GetEquippedFromUnequippedByCoordinates(0, 0, 2, 1);
+        assertEquals(world.GetUsedTheOneRing(), false);
+        world.setUsedTheOneRing(true);
+        assertEquals(world.GetUsedTheOneRing(), true);
+    }
+
+    @Test
+    public void getLastUnequippedInventoryItemTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        Item item = world.addUnequippedItem(ITEMS_TYPE.THEONERING);
+        assertEquals(world.getUnequippedInventoryItems().size(), 1);
+        assertEquals(world.getUnequippedInventoryItems().get(0), item);
+        assertEquals(world.getLastUnequippedInventoryItem(), item);
+    }
+
+    @Test
+    public void getFirstAvailableSlotForItemTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        world.addUnequippedItem(ITEMS_TYPE.THEONERING);
+        assertEquals(world.getFirstAvailableSlotForItem(), new Pair<Integer, Integer>(1, 0));
+        world.addUnequippedItem(ITEMS_TYPE.SWORD);
+        assertEquals(world.getFirstAvailableSlotForItem(), new Pair<Integer, Integer>(2, 0));
+    }
+    
+    @Test
+    public void removeItemByPositionInUnequippedInventoryItemsTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        world.addUnequippedItem(ITEMS_TYPE.THEONERING);
+        assertEquals(world.getUnequippedInventoryItems().size(), 1);
+        world.removeItemByPositionInUnequippedInventoryItems(0);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+    }
+
+    @Test
+    public void removeUnequippedInventoryItemTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        Item item = world.addUnequippedItem(ITEMS_TYPE.THEONERING);
+        assertEquals(world.getUnequippedInventoryItems().size(), 1);
+        world.removeUnequippedInventoryItem(item);
+        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+    }
+
+    @Test
+    public void getUnequippedInventoryItemEntityByCoordinatesTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        Item item = world.addUnequippedItem(ITEMS_TYPE.THEONERING);
+        assertEquals(world.getUnequippedInventoryItemEntityByCoordinates(0,0), item);
+    }
+
+    @Test
+    public void getWidthHeightTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        assertEquals(world.getWidth(), 4);
+        assertEquals(world.getHeight(), 4);
+    }
+
+    @Test
+    public void possiblySpawnEnemies(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        assertEquals(world.getRoundsNum(), 0);
+        world.addRoundsNum();
+        assertEquals(world.getRoundsNum(), 1);
+        PathPosition pathPosition = new PathPosition(0, orderedPath);
+        Character character = new Character(pathPosition);
+        world.setCharacter(character);
+        world.possiblySpawnEnemies();
+        // spawn enemy is probability, so it will increase test time.
+        /*
+        while (world.getEnemies().isEmpty()) {
+            world.possiblySpawnEnemies();   
+        }
+        assertEquals(world.getEnemies().get(0) instanceof Slug, true);
+        for (int i = 0; i < 21; i++) {
+            world.addRoundsNum();
+        }
+        assertEquals(world.getRoundsNum(), 21);
+        while (!(world.getEnemies().get(world.getEnemies().size() - 1) instanceof Doggie)) {
+            world.possiblySpawnEnemies();   
+        }
+        assertEquals(world.getEnemies().get(world.getEnemies().size() - 1) instanceof Doggie, true);
+        assertEquals(world.getBossNum(), 1);
+        for (int i = 0; i < 20; i++) {
+            world.addRoundsNum();
+        }
+        assertEquals(world.getRoundsNum(), 41);      
+        character.setEXP(10001);
+        assertEquals(character.getEXP(), 10001); 
+        while (!(world.getEnemies().get(world.getEnemies().size() - 1) instanceof ElanMuske)) {
+            world.possiblySpawnEnemies();   
+        }
+        assertEquals(world.getEnemies().get(world.getEnemies().size() - 1) instanceof ElanMuske, true);
+        assertEquals(world.getBossNum(), 2);*/
+        assertEquals(world.getBossNum(), 0);
+        world.setBossNum(world.getBossNum() + 1);
+        assertEquals(world.getBossNum(), 1);
     }
 }

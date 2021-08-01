@@ -17,7 +17,7 @@ public class EXP {
      * @return 
      */
     public void setCurrentEXP(int aim){
-        CurrentEXP = Math.min(aim, 1000);
+        CurrentEXP = aim;
     } 
     /**
      * GETTING current EXP
