@@ -62,4 +62,8 @@ public class Zombie extends BasicEnemy{
             ca.hit(c, trancedEnemies, enemies, e, "enemy");
         }
     }
+
+    public List<BasicEnemy> getIntefactors() {
+        return this.intefactors;
+    }
 }

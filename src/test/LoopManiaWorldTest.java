@@ -16,11 +16,16 @@ import unsw.loopmania.Building;
 import unsw.loopmania.CARDS_TYPE;
 import unsw.loopmania.Card;
 import unsw.loopmania.Character;
+import unsw.loopmania.Doggie;
+import unsw.loopmania.ElanMuske;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
+import unsw.loopmania.Slug;
+import unsw.loopmania.Vampire;
 import unsw.loopmania.VampireCastleBuilding;
 import unsw.loopmania.VampireCastleCard;
 import unsw.loopmania.VillageBuilding;
+import unsw.loopmania.Zombie;
 
 public class LoopManiaWorldTest {
     @Test
@@ -252,4 +257,319 @@ public class LoopManiaWorldTest {
         card = world.loadCard(CARDS_TYPE.VILLAGE);
         assertEquals(world.getLastCardEntity(), card);
     }
+
+    @Test
+    public void KillEnemyTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        Slug s = new Slug(null);
+        List<BasicEnemy> enemy = new ArrayList<>();
+        world.getEnemies().add(s);
+        world.killEnemy(s);
+        assertEquals(enemy.size(), 0);
+    }
+
+    @Test
+    public void fightElanMuskeTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        ElanMuske e = new ElanMuske(Pp);
+        Character c = new Character(Pp);
+        world.setCharacter(c);
+        world.getEnemies().add(e);
+        while (world.getencounterElanMuskeNum() == 0) {
+            world.fight();
+        }
+        assertEquals(world.getencounterElanMuskeNum(), 1);
+    }
+
+    @Test
+    public void fightDoggieTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        Doggie e = new Doggie(Pp);
+        Character c = new Character(Pp);
+        world.setCharacter(c);
+        world.getEnemies().add(e);
+        world.fight();
+        assertEquals(world.getencounterDoggieNum(), 1);
+        PathPosition p = new PathPosition(5, orderedPath);
+        Doggie s = new Doggie(p);
+        world.getEnemies().add(s);
+        world.fight();
+        assertEquals(world.getencounterDoggieNum(), 1);
+    }
+
+    @Test
+    public void fightSlugTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        PathPosition Pp = new PathPosition(2, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        Slug e = new Slug(Pp);
+        Character c = new Character(Pp);
+        world.setCharacter(c);
+        world.getEnemies().add(e);
+        world.fight();
+        assertEquals(world.getencounterSlugsNum(), 1);
+        PathPosition p = new PathPosition(5, orderedPath);
+        Zombie s = new Zombie(p, null);
+        world.getEnemies().add(s);
+        world.fight();
+        assertEquals(world.getencounterSlugsNum(), 1);
+        Vampire v = new Vampire(p, null);
+        world.getEnemies().add(v);
+        world.fight();
+        assertEquals(world.getencounterVampiresNum(), 1);
+    }
+
+    @Test
+    public void fightZombieTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        Zombie e = new Zombie(Pp, null);
+        Character c = new Character(Pp);
+        world.setCharacter(c);
+        world.getEnemies().add(e);
+        world.fight();
+        assertEquals(world.getEncounterZombiesNum(), 1);
+        PathPosition p = new PathPosition(5, orderedPath);
+        Zombie s = new Zombie(p, null);
+        world.getEnemies().add(s);
+        world.fight();
+        assertEquals(world.getEncounterZombiesNum(), 1);
+    }
+
+    @Test
+    public void fightVampireTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        Vampire e = new Vampire(Pp, null);
+        Character c = new Character(Pp);
+        world.setCharacter(c);
+        world.getEnemies().add(e);
+        world.fight();
+        assertEquals(world.getencounterVampiresNum(), 1);
+        PathPosition p = new PathPosition(5, orderedPath);
+        Vampire s = new Vampire(p, null);
+        world.getEnemies().add(s);
+        world.fight();
+        assertEquals(world.getencounterVampiresNum(), 1);
+    }
+
+    @Test
+    public void battleTest1(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        Slug e = new Slug(Pp);
+        Character c = new Character(Pp);
+        world.setCharacter(c);
+        world.getEnemies().add(e);
+        world.fight();
+        world.runBattles();
+        assertEquals(world.getEnemies().size(), 0);
+        assertEquals(world.getSlugsNum(), 1);
+    }
+
+    @Test
+    public void battleTest2(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        Zombie e = new Zombie(Pp, null);
+        Character c = new Character(Pp);
+        world.setCharacter(c);
+        world.getEnemies().add(e);
+        world.fight();
+        world.runBattles();
+        assertEquals(world.getEnemies().size(), 0);
+        assertEquals(world.getZombiesNum(), 1);
+    }
+
+    @Test
+    public void battleTest3(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        Vampire e = new Vampire(Pp, null);
+        Character c = new Character(Pp);
+        c.setDefense(10);
+        world.setCharacter(c);
+        world.getEnemies().add(e);
+        world.fight();
+        world.runBattles();
+        assertEquals(world.getEnemies().size(), 0);
+        assertEquals(world.getVampiresNum(), 1);
+    }
+
+    @Test
+    public void battleTest4(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        Doggie e = new Doggie(Pp);
+        Character c = new Character(Pp);
+        c.setDefense(20);
+        world.setCharacter(c);
+        world.getEnemies().add(e);
+        world.fight();
+        world.runBattles();
+        assertEquals(world.getEnemies().size(), 0);
+        assertEquals(world.getDoggiesNum(), 1);
+    }
+
+    @Test
+    public void battleTest5(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        ElanMuske e = new ElanMuske(Pp);
+        Character c = new Character(Pp);
+        c.setDefense(25);
+        c.setAggressivity(100);
+        world.setCharacter(c);
+        world.getEnemies().add(e);
+        while (world.getencounterElanMuskeNum() == 0) {
+            world.runBattles();
+        }
+        assertEquals(world.getEnemies().size(), 0);
+        assertEquals(world.getElanMuskeNum(), 1);
+    }
+
 }

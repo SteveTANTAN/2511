@@ -1,6 +1,7 @@
 package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,20 +13,26 @@ import javafx.beans.property.SimpleIntegerProperty;
 import org.javatuples.Pair;
 
 import unsw.loopmania.AlliedSoldier;
+import unsw.loopmania.AndurilAttack;
 import unsw.loopmania.Armour;
 import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.Character;
 import unsw.loopmania.CommonAttack;
+import unsw.loopmania.Doggie;
+import unsw.loopmania.DoggieAttack;
+import unsw.loopmania.ElanMuske;
+import unsw.loopmania.HealAttack;
 import unsw.loopmania.Helmet;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Slug;
 import unsw.loopmania.StaffAttack;
 import unsw.loopmania.Stake;
 import unsw.loopmania.StakeAttack;
+import unsw.loopmania.TreeStump;
 import unsw.loopmania.Vampire;
 import unsw.loopmania.VampireAttack;
 import unsw.loopmania.Zombie;
-import unsw.loopmania.ZombieAttack;
+//import unsw.loopmania.ZombieAttack;
 
 public class AttackTest {
 
@@ -195,7 +202,7 @@ public class AttackTest {
         assertEquals(Character.getHealth(), 92);
     }
 
-    @Test
+    /*@Test
     public void ZombieAttackTest1(){
         List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
@@ -210,7 +217,7 @@ public class AttackTest {
         ZombieAttack za = new ZombieAttack();
         za.hit(Character, trancedEnemies, enemies, e, "enemy");
         assertEquals(Character.getSoldiers().size(), 0);
-    }
+    }*/
 
     @Test
     public void AmmourTest(){
@@ -255,6 +262,36 @@ public class AttackTest {
         Slug e = new Slug(Pp);
         ca.hit(Character, trancedEnemies, enemies, e, "character");
         assertEquals(e.getHealth(), 10);
+    }
+
+    @Test
+    public void TreeStumpTest1(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character Character = new Character(Pp);
+        TreeStump Hm = new TreeStump(null, null, 0, 0, 0);
+        Character.setShield(Hm);
+        Slug e = new Slug(Pp);
+        ca.hit(Character, trancedEnemies, enemies, e, "enemy");
+        assertEquals(Character.getHealth(), 96);
+    }
+
+    @Test
+    public void TreeStumpTest2(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character Character = new Character(Pp);
+        TreeStump Hm = new TreeStump(null, null, 0, 0, 0);
+        Character.setShield(Hm);
+        Doggie e = new Doggie(Pp);
+        ca.hit(Character, trancedEnemies, enemies, e, "enemy");
+        assertEquals(Character.getHealth(), 93);
     }
 
     @Test
@@ -453,5 +490,192 @@ public class AttackTest {
         Vampire e = new Vampire(Pp,null);
         ca.hit(Character, trancedEnemies, enemies, e, "null");
         assertEquals(e.getHealth(), 32);
+    }
+
+    @Test
+    public void AndurilAttackedTestBoss(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character c = new Character(Pp);
+        AndurilAttack aa = new AndurilAttack();
+        Doggie e = new Doggie(Pp);
+        aa.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(18, e.getHealth());
+    }
+
+    @Test
+    public void AndurilAttackedTestMonster(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character c = new Character(Pp);
+        AndurilAttack aa = new AndurilAttack();
+        Slug e = new Slug(Pp);
+        aa.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(8, e.getHealth());
+    }
+
+    @Test
+    public void AndurilAttackedTestMonsterHelmet(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character c = new Character(Pp);
+        Helmet h = new Helmet(null, null, 0, 0, 0);
+        c.setArmour(h);
+        AndurilAttack aa = new AndurilAttack();
+        Slug e = new Slug(Pp);
+        aa.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(10, e.getHealth());
+    }
+
+    @Test
+    public void DoggieAttackedTest(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character c = new Character(Pp);
+        DoggieAttack d = new DoggieAttack();
+        Doggie e = new Doggie(Pp);
+        d.hit(c, trancedEnemies, enemies, e, null);
+        assertTrue(c.getStupor());
+        assertEquals(c.getStuporTurn(), 5);
+    }
+
+    @Test
+    public void HealAttackedTest1(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character c = new Character(Pp);
+        HealAttack d = new HealAttack();
+        ElanMuske e = new ElanMuske(Pp);
+        enemies.add(e);
+        d.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(c.getHealth(), 73);
+    }
+
+    @Test
+    public void HealAttackedTest2(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character c = new Character(Pp);
+        AlliedSoldier s = new AlliedSoldier(null, null);
+        c.addSoldier(s);
+        assertEquals(c.getSoldiers().size(), 1);
+        HealAttack d = new HealAttack();
+        ElanMuske e = new ElanMuske(Pp);
+        e.setAggressivity(1);
+        enemies.add(e);
+        d.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(c.getSoldiers().size(), 1);
+        e.setAggressivity(15);
+        d.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(c.getSoldiers().size(), 0);
+    }
+    
+    @Test
+    public void HealAttackedTest3(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character c = new Character(Pp);
+        Slug s = new Slug(Pp);
+        trancedEnemies.add(s);
+        assertEquals(trancedEnemies.size(), 1);
+        HealAttack d = new HealAttack();
+        ElanMuske e = new ElanMuske(Pp);
+        enemies.add(e);
+        e.setAggressivity(1);
+        d.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(trancedEnemies.size(), 1);
+        e.setAggressivity(15);
+        d.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(trancedEnemies.size(), 0);
+    }
+
+    @Test
+    public void HealAttackedTest4(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character c = new Character(Pp);
+        Armour a = new Armour(null, null, 0, 0, 0);
+        c.setArmour(a);
+        HealAttack d = new HealAttack();
+        ElanMuske e = new ElanMuske(Pp);
+        enemies.add(e);
+        d.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(c.getHealth(), 87);
+    }
+
+    @Test
+    public void HealAttackedTest5(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character c = new Character(Pp);
+        Helmet a = new Helmet(null, null, 0, 0, 0);
+        c.setArmour(a);
+        HealAttack d = new HealAttack();
+        ElanMuske e = new ElanMuske(Pp);
+        enemies.add(e);
+        d.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(c.getHealth(), 78);
+    }
+
+    @Test
+    public void HealAttackedTest6(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character c = new Character(Pp);
+        TreeStump a = new TreeStump(null, null, 0, 0, 0);
+        c.setShield(a);
+        HealAttack d = new HealAttack();
+        ElanMuske e = new ElanMuske(Pp);
+        enemies.add(e);
+        d.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(c.getHealth(), 91);
+        c.setDefense(30);
+        d.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(c.getHealth(), 91);
+    }
+
+    @Test
+    public void HealAttackedTest7(){
+        List<BasicEnemy> enemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> trancedEnemies = new ArrayList<BasicEnemy>();
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<Pair<Integer, Integer>>();
+        orderedPath.add(new Pair<Integer, Integer>(1,1));
+        PathPosition Pp = new PathPosition(0, orderedPath);
+        Character c = new Character(Pp);
+        HealAttack d = new HealAttack();
+        ElanMuske e = new ElanMuske(Pp);
+        enemies.add(e);
+        d.hit(c, trancedEnemies, enemies, e, null);
+        assertEquals(e.getHealth(), 45);
     }
 }

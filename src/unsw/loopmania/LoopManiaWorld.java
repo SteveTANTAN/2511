@@ -91,6 +91,8 @@ public class LoopManiaWorld {
     private int slugsNum;
     private int zombiesNum;
     private int vampiresNum;
+    private int DoggiesNum;
+    private int ElanMuskeNum;
 
     int encounterSlugsNum = 0;
     int encounterZombiesNum = 0;
@@ -206,12 +208,12 @@ public class LoopManiaWorld {
      * 
      * @param enemy enemy to be killed
      */
-    private void killEnemy(BasicEnemy enemy) {
+    public void killEnemy(BasicEnemy enemy) {
         enemy.destroy();
         enemies.remove(enemy);
     }
 
-    private List<BasicEnemy> fight() {
+    public List<BasicEnemy> fight() {
         List<BasicEnemy> possibleSupporEnemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> fightEnemies = new ArrayList<BasicEnemy>();
         IsFight = false;
@@ -279,16 +281,17 @@ public class LoopManiaWorld {
         if (IsFight) {
             for (BasicEnemy e: possibleSupporEnemies){
                 switch (e.getName()) {
-                    case "Dogie":
+                    /*case "Dogie":
                     case "Elan Muske":
                     case "Slug":
                         if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
                             fightEnemies.add(e);
                         }
-                        break;
+                        break;*/
                     case "Vampire":
                         if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 9){
                             fightEnemies.add(e);
+                            encounterVampiresNum += 1;
                         }
                         break;
                     default:
@@ -413,6 +416,8 @@ public class LoopManiaWorld {
             if(e instanceof Slug) addSlugsNum(1);
             else if(e instanceof Zombie) addZombiesNum(1);
             else if(e instanceof Vampire) addVampiresNum(1);
+            else if(e instanceof Doggie) addDoggiesNum(1);
+            else if(e instanceof ElanMuske) addElanMuskeNum(1);
         }
 
         // character HP check
@@ -1243,6 +1248,18 @@ public class LoopManiaWorld {
     public int getVampiresNum(){
         return vampiresNum;
     }
+    public void addDoggiesNum(int num){
+        DoggiesNum += num;
+    }
+    public int getDoggiesNum(){
+        return DoggiesNum;
+    }
+    public void addElanMuskeNum(int num){
+        ElanMuskeNum += num;
+    }
+    public int getElanMuskeNum(){
+        return ElanMuskeNum;
+    }
     public String getBattleItem(){
         return battleItem;
     }
@@ -1254,6 +1271,12 @@ public class LoopManiaWorld {
     }
     public int getencounterVampiresNum(){
         return encounterVampiresNum;
+    }
+    public int getencounterElanMuskeNum(){
+        return encounterElanMuske;
+    }
+    public int getencounterDoggieNum(){
+        return encounterDoggie;
     }
     public List<Building> getBuildingEntities(){
         return buildingEntities;
