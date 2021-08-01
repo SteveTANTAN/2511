@@ -15,7 +15,9 @@ public class AndurilAttack implements Attack{
         } else {
             hurt = hurt + c.getAggressivity();
         }
+        //System.out.println(hurt);
         e.setHealth(e.getHealth() - hurt);
+        
     }
     
 }

@@ -15,10 +15,12 @@
 |                 | Health point | Damage value | Defense | Supportradius | Battle radius | Gold achieved by defeating | EXP |
 | :-------------: | :----------: | :----------: | :-----: | :-----------: | :-----------: | :------------------------: | :-: |
 |    Character	  |      100	 |       4	    |    0	  |       -	      |       -	      |               -	           |  -  |
-|      Slug       |      12	     |       4	    |    0	  |       1	      |       1	      |               1	           |  2  |
-|     Zombie      |      18	     |       8	    |    0	  |       0	      |       2	      |               3	           |  5  |
-|     Vampire     |	     32      |       15	    |    0	  |       3	      |       2	      |               5	           |  8  |
+|      Slug       |      12	     |       4	    |    0	  |       1	      |       1	      |               1	           |  20 |
+|     Zombie      |      18	     |       8	    |    0	  |       0	      |       2	      |               3	           |  40 |
+|     Vampire     |	     32      |       15	    |    0	  |       3	      |       2	      |               5	           |  60 |
 | Allied soldiers |	     15	     |       5	    |    0	  |       -	      |       -	      |               -	           |  -  |
+|     Doggie      |	     30      |       21	    |    0	  |       1	      |       1	      |               10           |  80 |
+|    ElanMuske    |	     40      |       27	    |    0	  |       1	      |       1	      |               20           | 100 |
 
 
 <br/><br/><p>
@@ -36,6 +38,7 @@
 |   TreeStump   |            -	         |    -	   |   30  |
 |    Helmet	    |            -	         |    1	   |   20  |
 | Health potion |            -	         |    -	   |   10  |
+|  DoggieCoin   |            -	         |    -	   |   40  |
 
 <br/><br/><p>
 *	Refresh probability of items and cards are list below:
@@ -53,14 +56,16 @@
 
 |	                  | Loot from enemies | Pick up from tiles | Oldest card replaced |
 | :-----------------: | :---------------: | :----------------: | :------------------: |
-|    Health potion    |		    10%	      |         3%	       |	       1%	      |
+|    Health potion    |		    9%	      |         3%	       |	       1%	      |
 |        Sword        |		    20%       |         1%	       |	       1%	      |
 |        Stake        |		    15%	      |         1%	       |	       1%	      |
 |        Staff 	      | 		10%	      |         1%	       |	       1%	      |
 |        Armour       |		    10%	      |         1%	       |	       1%         |
 |        Shield       |		    15%	      |         1%	       |	       1%	      |
 |        Helmet       |		    15%	      |         1%	       |	       1%	      |
-|    The one ring     |		    5%        |         -	       |	       -		  |
+|    The one ring     |		    2%        |         -	       |	       -		  |
+|        Anduril      |		    2%        |         -	       |	       -		  |
+|      TreeStump      |		    2%        |         -	       |	       -		  |
 |         gold        |		   100%       |         3%	       |	      100%		  |
 |         EXP         |		   100%       |         3%	       |	      100%		  |
 
@@ -70,9 +75,9 @@
 *   When selling equipment at Hero's Castle, the character can only get **40%** of gold when normally purchasing.
 *   When the oldest equipment is replaced in the unequipped inventory, the character can only get **20%** of gold when normally purchasing.
 *   When the oldest card is replaced, the character can get **1-5** golds.
-*	When the oldest card/equipment is replaced, the character can get **2** points of EXP.
+*	When the oldest card/equipment is replaced, the character can get **5** points of EXP.
 *	When the character picks up the gold spawns randomly on path tiles, the overall gold amount increases **2**.
-*	When the character picks up the EXP spawns randomly on path tiles, the overall EXP amount increases **2**.
+*	When the character picks up the EXP spawns randomly on path tiles, the overall EXP amount increases **5**.
 *	Rare items cannot be bought or traded in Hero castle.
 *	One Health potion can refill **50** character HP value.
 *	Enemies cannot use weapons, gold or health potions.
@@ -107,3 +112,12 @@
 *   Helmet can reduce **5** damage value for enemy, reduce **2** damage value for character.
 *   Vampire hold **30%** chance critical hit, critical hit value between **1-10**.
 *   Zombie hold **30%** chance infecte allied soilder.
+*   DoggieCoin will **double** price when ElanMuske apper.
+*   DoggieCoin will **half** price when the character defeat ElanMuske.
+*   The charater have **20%** fight with ElanMuske.
+*   When the character equiped Anduril fight with boss, Anduril will hit **3 times** damage.
+*   When the character equiped TreeStump fight with boss, TreeStump will reduce boss **2/3** damage.
+*   Doggie will hold **20%** stuns the character during the battle.
+*   ElanMuske will hit character also heal the enemys at same time during the battle.
+*   After 40 rounds and more than 10000EXP, ElanMuske have **20%** spawned.
+*   After 20 rounds, Doggie have **50%** spawned.

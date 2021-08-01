@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.management.MBeanAttributeInfo;
 
 import org.codefx.libfx.listener.handle.ListenerHandle;
 import org.codefx.libfx.listener.handle.ListenerHandles;
@@ -12,7 +11,6 @@ import org.codefx.libfx.listener.handle.ListenerHandles;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -53,16 +51,6 @@ import java.io.File;
 enum DRAGGABLE_TYPE{
     CARD,
     ITEM
-}
-
-
-
-
-/**
- * equiment type
- */ 
-enum ITEMS_TYPE{
-    SWORD, STAKE, STAFF, ARMOUR, SHIELD, HELMET, THEONERING, HEALTHPOTION, ANDURIL, TREESTUMP, DOGGIECOIN
 }
 
 /**
@@ -190,7 +178,6 @@ public class LoopManiaWorldController {
     private Image trapCardImage;
     private Image campfireCardImage;
     private Image oblivionCardImage;
-    private Image basicEnemyImage;
     private Image slugImage;
     private Image zombieImage;
     private Image vampireImage;
@@ -294,7 +281,6 @@ public class LoopManiaWorldController {
         trapCardImage = new Image((new File("src/images/trap_card.png")).toURI().toString());
         campfireCardImage = new Image((new File("src/images/campfire_card.png")).toURI().toString());
         oblivionCardImage = new Image((new File("src/images/oblivion_card.png")).toURI().toString());
-        basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
         slugImage = new Image((new File("src/images/slug.png")).toURI().toString());
         doggieImage = new Image((new File("src/images/doggie.png")).toURI().toString());
         elanMuskeImage = new Image((new File("src/images/ElanMuske.png")).toURI().toString());
@@ -628,12 +614,14 @@ public class LoopManiaWorldController {
 
         if (enemy instanceof Doggie) {
             loadItemByType(ITEMS_TYPE.DOGGIECOIN);
+            world.setBossNum(world.getBossNum() - 1);
         } 
         if (enemy instanceof ElanMuske) {
             ElanMuske e = (ElanMuske) enemy;
-            e.notifyObservers(50);
-        } 
-        int rd = new Random().nextInt(110);
+            e.notifyObservers(20);
+            world.setBossNum(world.getBossNum() - 1);
+        }
+        int rd = new Random().nextInt(100);
         if (rd < 20) {
             loadItemByType(ITEMS_TYPE.SWORD);    
         } else if (rd >= 20 && rd < 35) {
@@ -646,13 +634,13 @@ public class LoopManiaWorldController {
             loadItemByType(ITEMS_TYPE.SHIELD);  
         } else if (rd >= 70 && rd < 85) {
             loadItemByType(ITEMS_TYPE.HELMET);  
-        } else if (rd >= 85 && rd < 90) {
-            loadItemByType(ITEMS_TYPE.THEONERING);  
-        } else if (rd >= 90 && rd <= 100) {
+        } else if (rd >= 85 && rd < 95) {
             world.getCharacter().setHealth(world.getCharacter().getHealth() + 50); // health potion
-        } else if ((enemy instanceof Doggie || enemy instanceof ElanMuske) && (rd >= 100 && rd <= 105)) {
+        } else if (rd >= 94 && rd < 96) {
+            loadItemByType(ITEMS_TYPE.THEONERING);  
+        } else if (rd >= 96 && rd < 98) {
             loadItemByType(ITEMS_TYPE.ANDURIL);
-        } else if ((enemy instanceof Doggie || enemy instanceof ElanMuske) && (rd >= 105 && rd <= 110)) {
+        } else if (rd >= 98 && rd < 100) {
             loadItemByType(ITEMS_TYPE.TREESTUMP);
         }
         world.getCharacter().setGold(world.getCharacter().getGold() + enemy.getGoldDefeated());
@@ -812,12 +800,10 @@ public class LoopManiaWorldController {
      * @param targetGridPane the gridpane the human player should be dragging to (but we of course cannot guarantee they will do so)
      */
     private void buildNonEntityDragHandlers(DRAGGABLE_TYPE draggableType, GridPane sourceGridPane, GridPane targetGridPane){
-        // TODO = be more selective about where something can be dropped
         // for example, in the specification, villages can only be dropped on path, whilst vampire castles cannot go on the path
 
         gridPaneSetOnDragDropped.put(draggableType, new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
-                // TODO = for being more selective about where something can be dropped, consider applying additional if-statement logic
                 /*
                  *you might want to design the application so dropping at an invalid location drops at the most recent valid location hovered over,
                  * or simply allow the card/item to return to its slot (the latter is easier, as you won't have to store the last valid drop location!)
@@ -945,6 +931,7 @@ public class LoopManiaWorldController {
                                             }
                                         }
                                         world.setCharacterEquipment(world.getCharacter(), currentItem);
+                                        world.addEquippedInventoryItems(currentItem);
 
                                         // add the item in the list
                                         for(Item mItem : world.getEquippedInventoryItems()){
@@ -1109,7 +1096,7 @@ public class LoopManiaWorldController {
                     // these do not affect visibility of original image...
                     // https://stackoverflow.com/questions/41088095/javafx-drag-and-drop-to-gridpane
                     gridPaneNodeSetOnDragEntered.put(draggableType, new EventHandler<DragEvent>() {
-                        // TODO = be more selective about whether highlighting changes - if it cannot be dropped in the location, the location shouldn't be highlighted!
+                        // be more selective about whether highlighting changes - if it cannot be dropped in the location, the location shouldn't be highlighted!
                         public void handle(DragEvent event) {
                             if (currentlyDraggedType == draggableType){
                             //The drag-and-drop gesture entered the target
@@ -1122,7 +1109,7 @@ public class LoopManiaWorldController {
                         }
                     });
                     gridPaneNodeSetOnDragExited.put(draggableType, new EventHandler<DragEvent>() {
-                        // TODO = since being more selective about whether highlighting changes, you could program the game so if the new highlight location is invalid the highlighting doesn't change, or leave this as-is
+                        // since being more selective about whether highlighting changes, you could program the game so if the new highlight location is invalid the highlighting doesn't change, or leave this as-is
                         public void handle(DragEvent event) {
                             if (currentlyDraggedType == draggableType){
                                 n.setOpacity(1);
@@ -1227,7 +1214,7 @@ public class LoopManiaWorldController {
      * @param node
      */
     private void trackPosition(Entity entity, Node node) {
-        // TODO = tweak this slightly to remove items from the equipped inventory?
+        // tweak this slightly to remove items from the equipped inventory?
         GridPane.setColumnIndex(node, entity.getX());
         GridPane.setRowIndex(node, entity.getY());
 

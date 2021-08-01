@@ -20,7 +20,7 @@ public class Zombie extends BasicEnemy{
         super.setSupportRange(0);
         super.setAttackRange(2);
         super.setGoldDefeated(3);
-        super.setEXP(5);
+        super.setEXP(40);
         super.setName("Zombie");
         super.setLevel("Monster");
         intefactors = new ArrayList<BasicEnemy>();
