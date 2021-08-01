@@ -245,12 +245,8 @@ public class GoalsTest {
         PathPosition pathPosition = new PathPosition(0, orderedPath);
         LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
         world.setGoalCondition(gold);
-
-        Character character = new Character(pathPosition);
-        world.setCharacter(character);
-
-        
     }
+
     @Test
     public void mode (){
 

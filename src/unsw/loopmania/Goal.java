@@ -6,10 +6,10 @@ import org.json.JSONObject;
 public class Goal {
     public JSONObject conditions;
     public LoopManiaWorld loopManiaWorld;
-    public int gold;
-    public int exp;
-    public int turns;
-    public boolean bosses;
+    public GoldGoal gold = new GoldGoal();
+    public EXPGoal exp = new EXPGoal();
+    public CyclesGoal turns = new CyclesGoal();
+    public BossGoal bosses = new BossGoal();
 
     public Goal(JSONObject condition){
 
@@ -25,10 +25,10 @@ public class Goal {
      * @param bosses
      */
     public void setCurrentStatus (int gold, int exp, int turns,boolean bosses){
-        this.gold = gold;
-        this.exp = exp;
-        this.turns = turns;
-        this.bosses = bosses;
+        this.gold.setGoal(gold);
+        this.exp.setGoal(exp);
+        this.turns.setGoal(turns);
+        this.bosses.setGoal(bosses);
     }
 
     /**
@@ -36,10 +36,22 @@ public class Goal {
      * @return goal in string form
      */
     public String goal_to_string(){        
-        int loopNum = (Integer)conditions.getJSONArray("subgoals").getJSONObject(0).get("quantity");
-        int goldAuount = (Integer)conditions.getJSONArray("subgoals").getJSONObject(1).getJSONArray("subgoals").getJSONObject(0).get("quantity");
-        int expAmount = (Integer)conditions.getJSONArray("subgoals").getJSONObject(1).getJSONArray("subgoals").getJSONObject(1).get("quantity");
-        return String.format("Winning Conditions:Looping reaches %d & Gold reaches %d & EXP reaches %d", loopNum,goldAuount,expAmount);
+        String fronted = conditions.toString();
+        fronted = fronted.replace("{", "");
+        fronted = fronted.replace("}", "");
+        fronted = fronted.replace("\"","");
+        fronted = fronted.replace("[","(");
+        fronted = fronted.replace("]",")");
+        fronted = fronted.replace("quantity","");
+        fronted = fronted.replace("goal:","");
+        fronted = fronted.replace("subgoals:","");
+        fronted = fronted.replace(",","");
+        fronted = fronted.replace("AND"," AND ");
+        fronted = fronted.replace("OR"," OR ");
+        fronted = "WINING CONDITIONS: "+ fronted;
+
+        return fronted;
+
     }
 
     /**
@@ -52,13 +64,13 @@ public class Goal {
         
         switch (type) {
             case "gold" :
-                return gold >= quantity;
+                return gold.getGoal() >= quantity;
             case "experience" :
-                return exp >= quantity;
+                return exp.getGoal() >= quantity;
             case "cycles" :
-                return turns >= quantity;
+                return turns.getGoal() >= quantity;
             case "bosses" :
-                return bosses;
+                return bosses.getGoal();
             default:
                 break;
         }
@@ -87,12 +99,12 @@ public class Goal {
             if (rela.equals("AND")) {
                 AndGoal andgoal = new AndGoal(this.conditions);
 
-                andgoal.setCurrentStatus(gold, exp, turns, bosses);
+                andgoal.setCurrentStatus(gold.getGoal(), exp.getGoal(), turns.getGoal(), bosses.getGoal());
                 return andgoal.subgoalcheck();
 
             } else {
                 OrGoal orgoal = new OrGoal(this.conditions);
-                orgoal.setCurrentStatus(gold, exp, turns, bosses);
+                orgoal.setCurrentStatus(gold.getGoal(), exp.getGoal(), turns.getGoal(), bosses.getGoal());
                 return orgoal.subgoalcheck();
             }
 
