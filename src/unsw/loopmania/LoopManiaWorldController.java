@@ -635,11 +635,11 @@ public class LoopManiaWorldController {
             loadItemByType(ITEMS_TYPE.HELMET);  
         } else if (rd >= 85 && rd < 95) {
             world.getCharacter().setHealth(world.getCharacter().getHealth() + 50); // health potion
-        } else if (rd >= 94 && rd < 96) {
+        } else if (rd >= 94 && rd < 96 && world.getRoundsNum() > 10) {
             loadItemByType(ITEMS_TYPE.THEONERING);  
-        } else if (rd >= 96 && rd < 98) {
+        } else if (rd >= 96 && rd < 98 && world.getRoundsNum() > 10) {
             loadItemByType(ITEMS_TYPE.ANDURIL);
-        } else if (rd >= 98 && rd < 100) {
+        } else if (rd >= 98 && rd < 100 && world.getRoundsNum() > 10) {
             loadItemByType(ITEMS_TYPE.TREESTUMP);
         }
         world.getCharacter().setGold(world.getCharacter().getGold() + enemy.getGoldDefeated());

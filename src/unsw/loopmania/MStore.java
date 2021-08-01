@@ -420,7 +420,7 @@ public class MStore {
                     price = ((Anduril)item).getPrice();
                 }
                 else if(item instanceof DoggieCoin){
-                    price = ((DoggieCoin)item).getPrice();
+                    price = (((DoggieCoin)item).getPrice())*5/2;
                 }
                 else if(item instanceof TreeStump){
                     price = ((TreeStump)item).getPrice();

@@ -8,7 +8,7 @@ public class Doggie extends BasicEnemy{
     public Doggie(PathPosition position) {
         super(position);
         super.setHealth(30); 
-        super.setAggressivity(21); 
+        super.setAggressivity(21);
         super.setSupportRange(1);
         super.setAttackRange(1);
         super.setGoldDefeated(10);
