@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public class OblivionCard extends Card{
     /**
-     * constructor of trap card
+     * constructor of oblivion card
      * @param x SimpleIntegerProperty 
      * @param y SimpleIntegerProperty 
      */

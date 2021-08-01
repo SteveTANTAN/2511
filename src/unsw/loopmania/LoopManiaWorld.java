@@ -201,7 +201,7 @@ public class LoopManiaWorld {
             spawningEnemies.add(slug);
             int rd = new Random().nextInt(10);
             if (roundsNum > 20) {
-                if (rd < 5) {
+                if (rd < 3) {
                     Doggie doggie = new Doggie(new PathPosition(indexInPath, orderedPath));
                     enemies.add(doggie);
                     spawningEnemies.add(doggie);
@@ -1290,18 +1290,38 @@ public class LoopManiaWorld {
     public int getVampiresNum(){
         return vampiresNum;
     }
+
+    /**
+     * add doggie number
+     * @param num
+     */
     public void addDoggieskesNum(int num){
         doggiesNum += num;
     }
+
+    /**
+     * get doggie number
+     * @return
+     */
     public int getDoggieskesNum(){
         return doggiesNum;
     }
+
+    /**
+     * add elanmuske number 
+     * @param num
+     */
     public void addElanMuskesNum(int num){
         elanmuskeNum += num;
     }
+ 
+    /**
+     * get elanmuske number
+     */
     public int getElanMuskesNum(){
         return elanmuskeNum;
     }
+
     /**
      * get battle item
      * @return battle item
@@ -1333,9 +1353,19 @@ public class LoopManiaWorld {
     public int getencounterVampiresNum(){
         return encounterVampiresNum;
     }
+    
+    /**
+     * get encounter doggie number
+     * @return
+     */
     public int getEncounterDoggiesNum(){
         return encounterDoggiesNum;
     }
+
+    /**
+     * get encounter elanmuske number
+     * @return
+     */
     public int getencounterElanMuskesNum(){
         return encounterElanmuskeNum;
     }
@@ -1355,6 +1385,10 @@ public class LoopManiaWorld {
     public List<BasicEnemy> getEnemies(){
         return enemies;
     }
+
+    /**
+     * get cards entities
+     */
     public List<Card> getCardsEntities(){
         return cardEntities;
     }

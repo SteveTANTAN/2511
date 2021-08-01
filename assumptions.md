@@ -120,5 +120,6 @@
 *   Doggie will hold **20%** stuns the character during the battle.
 *   ElanMuske will hit character also heal the enemys at same time during the battle.
 *   After 40 rounds and more than 10000EXP, ElanMuske have **20%** spawned.
-*   After 20 rounds, Doggie have **50%** spawned.
+*   After 20 rounds, Doggie have **30%** spawned.
 *   Rare items can olny obtained by defeating enemies with a small chance and after **10** cycles.
+*   The character have a lower chance to lose one randomly item from unequipped inventory.

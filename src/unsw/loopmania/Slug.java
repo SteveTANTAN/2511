@@ -19,6 +19,9 @@ public class Slug extends BasicEnemy{
         super.setLevel("Monster");
     }
 
+    /**
+     * slug attack
+     */
     @Override
     public void attack(Character c, List<BasicEnemy> trancedEnemies, List<BasicEnemy> enemies,BasicEnemy e) {
         CommonAttack ca = new CommonAttack();
