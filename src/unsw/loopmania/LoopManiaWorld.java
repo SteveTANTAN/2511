@@ -231,12 +231,12 @@ public class LoopManiaWorld {
      * 
      * @param enemy enemy to be killed
      */
-    private void killEnemy(BasicEnemy enemy) {
+    public void killEnemy(BasicEnemy enemy) {
         enemy.destroy();
         enemies.remove(enemy);
     }
 
-    private List<BasicEnemy> fight() {
+    public List<BasicEnemy> fight() {
         List<BasicEnemy> possibleSupporEnemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> fightEnemies = new ArrayList<BasicEnemy>();
         IsFight = false;
@@ -295,16 +295,10 @@ public class LoopManiaWorld {
         if (IsFight) {
             for (BasicEnemy e: possibleSupporEnemies){
                 switch (e.getName()) {
-                    case "Dogie":
-                    case "Elan Muske":
-                    case "Slug":
-                        if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
-                            fightEnemies.add(e);
-                        }
-                        break;
                     case "Vampire":
                         if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 9){
                             fightEnemies.add(e);
+                            encounterVampiresNum += 1;
                         }
                         break;
                     default:
