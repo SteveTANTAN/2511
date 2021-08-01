@@ -436,8 +436,7 @@ public class LoopManiaWorldController {
 
             roundsNumLabel.setPadding(new Insets(0,0,0,10));
             winningCondition.setWrapText(true);
-            winningCondition.setText("Winning Conditions:Looping reaches 100 & Gold reaches 600 & EXP reaches 1000");
-            //winningCondition.setText(world.goal_print());
+            winningCondition.setText(world.goal_print());
             // exit to main menu
             exitMenu.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override

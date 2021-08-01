@@ -23,20 +23,11 @@ public class Goal {
         this.turns = turns;
         this.bosses = bosses;
     }
-    public String goal_to_string(){
-        String fronted = conditions.toString();
-        fronted = fronted.replace("{", "\n");
-        fronted = fronted.replace("}", "");
-        fronted = fronted.replace("\"","");
-        fronted = fronted.replace("[","(");
-        fronted = fronted.replace("]",")");
-        fronted = fronted.replace("quantity","");
-        fronted = fronted.replace("goal:","   ");
-        fronted = fronted.replace("subgoals:","");
-        fronted = fronted + "\n";
-        
-        System.out.printf(fronted);
-        return fronted;
+    public String goal_to_string(){        
+        int loopNum = (Integer)conditions.getJSONArray("subgoals").getJSONObject(0).get("quantity");
+        int goldAuount = (Integer)conditions.getJSONArray("subgoals").getJSONObject(1).getJSONArray("subgoals").getJSONObject(0).get("quantity");
+        int expAmount = (Integer)conditions.getJSONArray("subgoals").getJSONObject(1).getJSONArray("subgoals").getJSONObject(1).get("quantity");
+        return String.format("Winning Conditions:Looping reaches %d & Gold reaches %d & EXP reaches %d", loopNum,goldAuount,expAmount);
     }
 
     /**

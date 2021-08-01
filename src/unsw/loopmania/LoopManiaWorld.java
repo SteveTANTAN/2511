@@ -252,25 +252,8 @@ public class LoopManiaWorld {
             // implement different RHS on this inequality, based on influence radii and battle radii
             // add enemy to fight list and possible support list
             switch (e.getName()) {
-                case "Elan Muske":
-                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
-                        int rd = new Random().nextInt(10);
-                        if (rd < 2) {
-                            fightEnemies.add(e);
-                            encounterElanMuske += 1;
-                            IsFight = true;
-                        } 
-                    }
-                    break;
                 case "Doggie":
-                    if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
-                        fightEnemies.add(e);
-                        encounterDoggie += 1;
-                        IsFight = true;
-                    } else {
-                        possibleSupporEnemies.add(e);
-                    }
-                    break;
+                case "Elan Muske":
                 case "Slug":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
                         fightEnemies.add(e);
@@ -1098,7 +1081,7 @@ public class LoopManiaWorld {
 
             // campfire
             if (building instanceof CampfireBuilding) {
-                hasAttackEnhance = ((CampfireBuilding) building).work(character);
+                hasAttackEnhance = hasAttackEnhance || ((CampfireBuilding) building).work(character);
             }
 
             // trap
@@ -1116,10 +1099,7 @@ public class LoopManiaWorld {
             }
         }
 
-        if (hasAttackEnhance) {
-            character.setAttackEnhance(true);
-        }
-
+        character.setAttackEnhance(hasAttackEnhance);
         return deadEnemies;
     }
 
