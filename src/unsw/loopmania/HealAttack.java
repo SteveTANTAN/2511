@@ -4,6 +4,9 @@ import java.util.List;
 
 public class HealAttack implements Attack{
 
+    /**
+     * elan muske heal attack
+     */
     @Override
     public void hit(Character c, List<BasicEnemy> trancedEnemies, List<BasicEnemy> enemies, BasicEnemy e, String who) {
         int currentHealth = enemies.get(0).getHealth();

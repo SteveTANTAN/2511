@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Doggie extends BasicEnemy{
-
+    /**
+     * constructor
+     * @param position 
+     */
     public Doggie(PathPosition position) {
         super(position);
         super.setHealth(30); 
@@ -16,6 +19,10 @@ public class Doggie extends BasicEnemy{
         super.setName("Doggie");
         super.setLevel("Boss");
     }
+
+    /**
+     * doggie attack
+     */
     @Override
     public void attack(Character c, List<BasicEnemy> trancedEnemies, List<BasicEnemy> enemies,BasicEnemy e) {
         int index = new Random().nextInt(10);

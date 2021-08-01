@@ -194,7 +194,7 @@ public class GoalsTest {
 
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
         orderedPath.add(new Pair<Integer, Integer>(0,0));
-        PathPosition pathPosition = new PathPosition(0, orderedPath);
+        //PathPosition pathPosition = new PathPosition(0, orderedPath);
         LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
         world.setGoalCondition(gold);
 
@@ -222,6 +222,7 @@ public class GoalsTest {
         world.setGoalCondition(gold);
 
         Character character = new Character(pathPosition);
+        world.setCharacter(character);
         
     }
     @Test

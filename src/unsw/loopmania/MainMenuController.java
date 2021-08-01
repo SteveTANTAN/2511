@@ -42,7 +42,7 @@ public class MainMenuController {
     private HBox BerserkerBox;
 
 
-    private MenuSwitcher mainMenuSwitcher;
+    //private MenuSwitcher mainMenuSwitcher;
 
     public void setGameSwitcher(MenuSwitcher gameSwitcher){
         this.gameSwitcher = gameSwitcher;

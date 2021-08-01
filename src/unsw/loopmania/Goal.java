@@ -17,12 +17,24 @@ public class Goal {
 
     }
 
+    /**
+     * set current status 
+     * @param gold
+     * @param exp
+     * @param turns
+     * @param bosses
+     */
     public void setCurrentStatus (int gold, int exp, int turns,boolean bosses){
         this.gold.setGoal(gold);
         this.exp.setGoal(exp);
         this.turns.setGoal(turns);
         this.bosses.setGoal(bosses);
     }
+
+    /**
+     * print all goals in string form
+     * @return goal in string form
+     */
     public String goal_to_string(){        
         String fronted = conditions.toString();
         fronted = fronted.replace("{", "");

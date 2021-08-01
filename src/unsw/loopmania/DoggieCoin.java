@@ -4,6 +4,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class DoggieCoin extends Item implements Observer{
 
+    /**
+     * constructor of doggin coin
+     * @param x             SimpleIntegerProperty
+     * @param y             SimpleIntegerProperty
+     * @param damageValue   damage value
+     * @param defenseValue  defense value
+     * @param price         price
+     */
     public DoggieCoin(SimpleIntegerProperty x, SimpleIntegerProperty y, int damageValue, int defenseValue, int price) {
         super(x, y, damageValue, defenseValue, price);
         setDamageValue(damageValue);
@@ -11,6 +19,9 @@ public class DoggieCoin extends Item implements Observer{
         setPrice(price);
     }
 
+    /**
+     * update doggie coin price
+     */
     @Override
     public void updatePrice(int price) {
         setPrice(price);

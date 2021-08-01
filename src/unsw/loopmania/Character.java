@@ -216,18 +216,34 @@ public class Character extends MovingEntity {
         this.theOneRing = ring;
     }
 
+    /**
+     * get stun state
+     * @return stun state
+     */
     public boolean getStupor() {
         return this.stupor;
     }
 
+    /**
+     * set stun state
+     * @param b stun state
+     */
     public void setStupor(boolean b) {
         this.stupor = b;
     }
 
+    /**
+     * get stun turn
+     * @return stun turn
+     */
     public int getStuporTurn() {
         return this.stuporTurn;
     }
 
+    /**
+     * set stun turn
+     * @param i stun turn
+     */
     public void setStuporTurn(int i) {
         this.stuporTurn = i;
     }

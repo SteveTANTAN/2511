@@ -1,5 +1,5 @@
 package unsw.loopmania;
-import unsw.loopmania.Mode;
+//import unsw.loopmania.Mode;
 
 public interface ModeReq {
 
