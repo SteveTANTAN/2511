@@ -24,10 +24,22 @@ public class Goal {
         this.bosses.setGoal(bosses);
     }
     public String goal_to_string(){        
-        int loopNum = (Integer)conditions.getJSONArray("subgoals").getJSONObject(0).get("quantity");
-        int goldAuount = (Integer)conditions.getJSONArray("subgoals").getJSONObject(1).getJSONArray("subgoals").getJSONObject(0).get("quantity");
-        int expAmount = (Integer)conditions.getJSONArray("subgoals").getJSONObject(1).getJSONArray("subgoals").getJSONObject(1).get("quantity");
-        return String.format("Winning Conditions:Looping reaches %d & Gold reaches %d & EXP reaches %d", loopNum,goldAuount,expAmount);
+        String fronted = conditions.toString();
+        fronted = fronted.replace("{", "");
+        fronted = fronted.replace("}", "");
+        fronted = fronted.replace("\"","");
+        fronted = fronted.replace("[","(");
+        fronted = fronted.replace("]",")");
+        fronted = fronted.replace("quantity","");
+        fronted = fronted.replace("goal:","");
+        fronted = fronted.replace("subgoals:","");
+        fronted = fronted.replace(",","");
+        fronted = fronted.replace("AND"," AND ");
+        fronted = fronted.replace("OR"," OR ");
+        fronted = "WINING CONDITIONS: "+ fronted;
+
+        return fronted;
+
     }
 
     /**
@@ -59,17 +71,16 @@ public class Goal {
      * @return Boolean
      */
     public boolean goalCheck() {
-        //goal_to_string();
-        if (conditions == null) {
-            return false;
 
-        }
 
         //System.out.printf(conditions.toString(4));
         // if it's the only one level goal
         if (!conditions.has("subgoals")) {
-            
+            if ((conditions.getString("goal")).equals("bosses")){
+                return goalCheckHelp("bosses", 0);
+            }
             return goalCheckHelp(conditions.getString("goal"), conditions.getInt("quantity"));
+            
         } else{
             // otherwise at least level2
             String rela = conditions.getString("goal");

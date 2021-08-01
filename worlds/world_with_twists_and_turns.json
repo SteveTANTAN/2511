@@ -5,8 +5,8 @@
   "goal-condition": { "goal": "AND", "subgoals":
     [ { "goal": "cycles", "quantity": 100 },
       { "goal": "OR", "subgoals":
-        [ {"goal": "experience", "quantity": 100000 },
-          {"goal": "gold", "quantity": 10000 }
+        [ {"goal": "experience", "quantity": 1234 },
+          { "goal": "bosses" }
         ]
       }
     ]
