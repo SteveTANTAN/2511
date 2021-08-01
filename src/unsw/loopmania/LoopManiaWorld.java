@@ -1195,7 +1195,12 @@ public class LoopManiaWorld {
     public void setUsedTheOneRing(boolean tf) {
         this.UsedTheOneRing = tf;
     }
-
+    public boolean bossDeadAll() {
+        if (getBossNum()== 0) {
+            return true;
+        }
+        return false;
+    }
     /**
      * check if meet the goal condition
      * 
@@ -1204,7 +1209,7 @@ public class LoopManiaWorld {
      */
 
     public boolean goalCheck() {
-        this.goalCondition.setCurrentStatus(character.getGold(), character.getEXP(), roundsNum, false);
+        this.goalCondition.setCurrentStatus(character.getGold(), character.getEXP(), roundsNum, bossDeadAll());
         return this.goalCondition.goalCheck();
 
     }
