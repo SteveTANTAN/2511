@@ -527,7 +527,7 @@ public class LoopManiaWorldController {
             defeat();
         }
         // update the dispaly of number of the round
-        roundsNumLabel.setText(String.format("ROUND: %d/100", world.getRoundsNum()));
+        roundsNumLabel.setText(String.format("ROUND: %d", world.getRoundsNum()));
         healthPointText.setText(String.format("%d/100", world.getCharacter().getHealth()));
         goldText.setText(String.format("%d", world.getCharacter().getGold()));
         expText.setText(String.format("%d", world.getCharacter().getEXP()));
