@@ -98,7 +98,7 @@ public class BasicEnemyTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Slug e = new Slug(Pp);
-        assertEquals(e.getEXP(), 50);
+        assertEquals(e.getEXP(), 20);
         e.setEXP(1);
         assertEquals(e.getEXP(), 1);
     }
@@ -201,7 +201,7 @@ public class BasicEnemyTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Zombie e = new Zombie(Pp,null);
-        assertEquals(e.getEXP(), 100);
+        assertEquals(e.getEXP(), 40);
         e.setEXP(1);
         assertEquals(e.getEXP(), 1);
     }
@@ -314,7 +314,7 @@ public class BasicEnemyTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Vampire e = new Vampire(Pp,null);
-        assertEquals(e.getEXP(), 200);
+        assertEquals(e.getEXP(), 60);
         e.setEXP(1);
         assertEquals(e.getEXP(), 1);
     }
@@ -508,7 +508,7 @@ public class BasicEnemyTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         Doggie e = new Doggie(Pp);
-        assertEquals(e.getEXP(), 300);
+        assertEquals(e.getEXP(), 80);
         e.setEXP(1);
         assertEquals(e.getEXP(), 1);
     }
@@ -620,7 +620,7 @@ public class BasicEnemyTest {
         orderedPath.add(new Pair<Integer, Integer>(1,1));
         PathPosition Pp = new PathPosition(0, orderedPath);
         ElanMuske e = new ElanMuske(Pp);
-        assertEquals(e.getEXP(), 500);
+        assertEquals(e.getEXP(), 100);
         e.setEXP(1);
         assertEquals(e.getEXP(), 1);
     }

@@ -12,7 +12,7 @@ public class Doggie extends BasicEnemy{
         super.setSupportRange(1);
         super.setAttackRange(1);
         super.setGoldDefeated(10);
-        super.setEXP(300);
+        super.setEXP(80);
         super.setName("Doggie");
         super.setLevel("Boss");
     }
