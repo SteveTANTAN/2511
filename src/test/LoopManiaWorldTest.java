@@ -22,20 +22,17 @@ import unsw.loopmania.Building;
 import unsw.loopmania.CARDS_TYPE;
 import unsw.loopmania.Card;
 import unsw.loopmania.Character;
+import unsw.loopmania.Doggie;
+import unsw.loopmania.ElanMuske;
 import unsw.loopmania.Goal;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Slug;
 import unsw.loopmania.Vampire;
-import unsw.loopmania.Doggie;
-import unsw.loopmania.ElanMuske;
 import unsw.loopmania.Helmet;
 import unsw.loopmania.ITEMS_TYPE;
 import unsw.loopmania.Item;
-import unsw.loopmania.LoopManiaWorld;
-import unsw.loopmania.PathPosition;
 import unsw.loopmania.Shield;
-import unsw.loopmania.Slug;
 import unsw.loopmania.Staff;
 import unsw.loopmania.Stake;
 import unsw.loopmania.Sword;
@@ -845,5 +842,227 @@ public void battleDetails3Test(){
     assertEquals(zombiesNum, 0);
     assertEquals(vampiresNum, 1);
     assertEquals(lossBlood, 100);
+}
+@Test
+public void addVampiresNumTest(){
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, null);
+    world.addVampiresNum(5);
+    assertEquals(5,world.getVampiresNum());
+    world.addVampiresNum(3);
+    assertEquals(8,world.getVampiresNum());
+}
+
+@Test
+public void addDoggieskesNumTest(){
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, null);
+    world.addDoggieskesNum(3);
+    assertEquals(3,world.getDoggieskesNum());
+    world.addDoggieskesNum(2);
+    assertEquals(5,world.getDoggieskesNum());
+}
+
+@Test
+public void addElanMuskesNumTest(){
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, null);
+    world.addElanMuskesNum(6);
+    assertEquals(6,world.getElanMuskesNum());
+    world.addElanMuskesNum(3);
+    assertEquals(9,world.getElanMuskesNum());
+}
+
+@Test
+public void goal_printTest(){
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, null);
+    JSONObject conditions = new JSONObject();
+    conditions.put("goal","AND");
+    JSONArray jsonArray = new JSONArray();
+    JSONObject tmp = new JSONObject();
+    tmp.put("goal","cycles");
+    tmp.put("quantity",10);
+    jsonArray.put(tmp);
+    tmp = new JSONObject();
+    tmp.put("goal","OR");
+    JSONArray jsonArray1 = new JSONArray();
+    JSONObject tmp1 = new JSONObject();
+    tmp1.put("goal","experience");
+    tmp1.put("quantity",200);
+    jsonArray1.put(tmp1);
+    tmp1 = new JSONObject();
+    tmp1.put("goal","gold");
+    tmp1.put("quantity",200);
+    jsonArray1.put(tmp1);
+    tmp.put("subgoals",jsonArray1);
+    jsonArray.put(tmp);
+    conditions.put("subgoals",jsonArray);
+    world.setGoalCondition(new Goal(conditions));
+
+    int loopNum = (Integer)conditions.getJSONArray("subgoals").getJSONObject(0).get("quantity");
+    int goldAuount = (Integer)conditions.getJSONArray("subgoals").getJSONObject(1).getJSONArray("subgoals").getJSONObject(0).get("quantity");
+    int expAmount = (Integer)conditions.getJSONArray("subgoals").getJSONObject(1).getJSONArray("subgoals").getJSONObject(1).get("quantity");
+    assertTrue(world.goal_print().equals(String.format("Winning Conditions:Looping reaches %d & Gold reaches %d & EXP reaches %d", loopNum,goldAuount,expAmount)));
+}
+
+@Test
+public void getSlugsNumTest(){
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, null);
+    world.addSlugsNum(5);
+    assertEquals(5, world.getSlugsNum());
+    world.addSlugsNum(3);
+    assertEquals(8, world.getSlugsNum());
+}
+
+@Test
+public void getZombiesNumTest(){
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, null);
+    world.addZombiesNum(3);
+    assertEquals(3, world.getZombiesNum());
+    world.addZombiesNum(3);
+    assertEquals(6, world.getZombiesNum());
+}
+
+@Test
+public void getVampiresNumTest(){
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, null);
+    world.addVampiresNum(12);
+    assertEquals(12, world.getVampiresNum());
+    world.addVampiresNum(10);
+    assertEquals(22, world.getVampiresNum());
+}
+
+@Test
+public void getDoggieskesTest(){
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, null);
+    world.addDoggieskesNum(5);
+    assertEquals(5, world.getDoggieskesNum());
+    world.addDoggieskesNum(3);
+    assertEquals(8, world.getDoggieskesNum());
+}
+
+@Test
+public void getElanMuskesNumTest(){
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, null);
+    world.addElanMuskesNum(3);
+    assertEquals(3, world.getElanMuskesNum());
+    world.addElanMuskesNum(2);
+    assertEquals(5, world.getElanMuskesNum());
+}
+
+@Test
+public void getEncounterDoggiesNumTest(){
+    
+    List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+    orderedPath.add(new Pair<Integer, Integer>(0,0));
+    orderedPath.add(new Pair<Integer, Integer>(1,0));
+    orderedPath.add(new Pair<Integer, Integer>(2,0));
+    orderedPath.add(new Pair<Integer, Integer>(3,0));
+    orderedPath.add(new Pair<Integer, Integer>(3,1));
+    orderedPath.add(new Pair<Integer, Integer>(3,2));
+    orderedPath.add(new Pair<Integer, Integer>(3,3));
+    orderedPath.add(new Pair<Integer, Integer>(2,3));
+    orderedPath.add(new Pair<Integer, Integer>(1,3));
+    orderedPath.add(new Pair<Integer, Integer>(0,3));
+    orderedPath.add(new Pair<Integer, Integer>(0,2));
+    orderedPath.add(new Pair<Integer, Integer>(0,1));
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+    int currentPositionInPath = 2;
+    PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);
+    Character character = new Character(pathPosition);
+    character.setHealth(100);
+    world.setCharacter(character);
+
+    // set the goal
+    JSONObject conditions = new JSONObject();
+    conditions.put("goal","AND");
+    JSONArray jsonArray = new JSONArray();
+    JSONObject tmp = new JSONObject();
+    tmp.put("goal","cycles");
+    tmp.put("quantity",10);
+    jsonArray.put(tmp);
+    tmp = new JSONObject();
+    tmp.put("goal","OR");
+    JSONArray jsonArray1 = new JSONArray();
+    JSONObject tmp1 = new JSONObject();
+    tmp1.put("goal","experience");
+    tmp1.put("quantity",200);
+    jsonArray1.put(tmp1);
+    tmp1 = new JSONObject();
+    tmp1.put("goal","gold");
+    tmp1.put("quantity",200);
+    jsonArray1.put(tmp1);
+    tmp.put("subgoals",jsonArray1);
+    jsonArray.put(tmp);
+    conditions.put("subgoals",jsonArray);
+    world.setGoalCondition(new Goal(conditions));
+
+
+    // add doggies
+    currentPositionInPath = 3;
+    List<BasicEnemy> enemies = world.getEnemies();
+    Doggie doggie = new Doggie(new PathPosition(currentPositionInPath, orderedPath));
+    enemies.add(doggie);
+
+    world.runBattles();
+    assertEquals(1, world.getEncounterDoggiesNum());
+}
+
+@Test
+public void getEncounterElanMuskesNumTest(){
+    List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+    orderedPath.add(new Pair<Integer, Integer>(0,0));
+    orderedPath.add(new Pair<Integer, Integer>(1,0));
+    orderedPath.add(new Pair<Integer, Integer>(2,0));
+    orderedPath.add(new Pair<Integer, Integer>(3,0));
+    orderedPath.add(new Pair<Integer, Integer>(3,1));
+    orderedPath.add(new Pair<Integer, Integer>(3,2));
+    orderedPath.add(new Pair<Integer, Integer>(3,3));
+    orderedPath.add(new Pair<Integer, Integer>(2,3));
+    orderedPath.add(new Pair<Integer, Integer>(1,3));
+    orderedPath.add(new Pair<Integer, Integer>(0,3));
+    orderedPath.add(new Pair<Integer, Integer>(0,2));
+    orderedPath.add(new Pair<Integer, Integer>(0,1));
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+    int currentPositionInPath = 2;
+    PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);
+    Character character = new Character(pathPosition);
+    character.setHealth(100);
+    world.setCharacter(character);
+
+    // set the goal
+    JSONObject conditions = new JSONObject();
+    conditions.put("goal","AND");
+    JSONArray jsonArray = new JSONArray();
+    JSONObject tmp = new JSONObject();
+    tmp.put("goal","cycles");
+    tmp.put("quantity",10);
+    jsonArray.put(tmp);
+    tmp = new JSONObject();
+    tmp.put("goal","OR");
+    JSONArray jsonArray1 = new JSONArray();
+    JSONObject tmp1 = new JSONObject();
+    tmp1.put("goal","experience");
+    tmp1.put("quantity",200);
+    jsonArray1.put(tmp1);
+    tmp1 = new JSONObject();
+    tmp1.put("goal","gold");
+    tmp1.put("quantity",200);
+    jsonArray1.put(tmp1);
+    tmp.put("subgoals",jsonArray1);
+    jsonArray.put(tmp);
+    conditions.put("subgoals",jsonArray);
+    world.setGoalCondition(new Goal(conditions));
+
+
+    // add elanmuskes
+    currentPositionInPath = 3;
+    List<BasicEnemy> enemies = world.getEnemies();
+    ElanMuske elanMuske = new ElanMuske(new PathPosition(currentPositionInPath, orderedPath));
+    enemies.add(elanMuske);
+
+    currentPositionInPath = 8;
+    elanMuske = new ElanMuske(new PathPosition(currentPositionInPath, orderedPath));
+    enemies.add(elanMuske);
+
+    world.runBattles();
+    assertEquals(1, world.getencounterElanMuskesNum());
 }
 }
