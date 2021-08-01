@@ -33,7 +33,7 @@ public class MStore {
     private ImageView[] unequippedImageView;
 
     private enum ITEM_TYPE{
-        ARMOUR, SHIELD, HELMET,STAKE,STAFF, SWORD,HEALTHPOTION, THEONERING, ARMOUR_SLOT, SHIELD_SLOT,HELMET_SLOT,SWORD_SLOT,EMPTY_SLOT
+        ARMOUR, SHIELD, HELMET,STAKE,STAFF, SWORD,HEALTHPOTION, THEONERING, ANDURIL, TREESTUMP, DOGGIECOIN, ARMOUR_SLOT, SHIELD_SLOT,HELMET_SLOT,SWORD_SLOT,EMPTY_SLOT
     };
              
     private Map<ITEM_TYPE,Image> itemsImages;
@@ -50,6 +50,9 @@ public class MStore {
         new Image((new File("src/images/stake.png")).toURI().toString()),
         new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString()),
         new Image((new File("src/images/the_one_ring.png")).toURI().toString()),
+        new Image((new File("src/images/anduril_flame_of_the_west.png")).toURI().toString()),
+        new Image((new File("src/images/doggiecoin.png")).toURI().toString()),
+        new Image((new File("src/images/tree_stump.png")).toURI().toString()),
         new Image((new File("src/images/armour_slot.png")).toURI().toString()),
         new Image((new File("src/images/helmet_slot.png")).toURI().toString()),
         new Image((new File("src/images/sword_unequipped.png")).toURI().toString()),
@@ -81,11 +84,14 @@ public class MStore {
         itemsImages.put(ITEM_TYPE.STAKE, images[5]);
         itemsImages.put(ITEM_TYPE.HEALTHPOTION, images[6]);
         itemsImages.put(ITEM_TYPE.THEONERING, images[7]);
-        itemsImages.put(ITEM_TYPE.ARMOUR_SLOT, images[8]);
-        itemsImages.put(ITEM_TYPE.HELMET_SLOT, images[9]);
-        itemsImages.put(ITEM_TYPE.SWORD_SLOT, images[10]);
-        itemsImages.put(ITEM_TYPE.SHIELD_SLOT, images[11]);
-        itemsImages.put(ITEM_TYPE.EMPTY_SLOT, images[12]);
+        itemsImages.put(ITEM_TYPE.ANDURIL, images[8]);
+        itemsImages.put(ITEM_TYPE.DOGGIECOIN, images[9]);
+        itemsImages.put(ITEM_TYPE.TREESTUMP, images[10]);
+        itemsImages.put(ITEM_TYPE.ARMOUR_SLOT, images[11]);
+        itemsImages.put(ITEM_TYPE.HELMET_SLOT, images[12]);
+        itemsImages.put(ITEM_TYPE.SWORD_SLOT, images[13]);
+        itemsImages.put(ITEM_TYPE.SHIELD_SLOT, images[14]);
+        itemsImages.put(ITEM_TYPE.EMPTY_SLOT, images[15]);
 
         buyImageView = new ImageView[7];
         unequippedImageView = new ImageView[16];
@@ -280,6 +286,15 @@ public class MStore {
             else if(item instanceof TheOneRing){
                 unequippedImageView[mIndex].setImage(itemsImages.get(ITEM_TYPE.THEONERING));
             }
+            else if(item instanceof Anduril){
+                unequippedImageView[mIndex].setImage(itemsImages.get(ITEM_TYPE.ANDURIL));
+            }
+            else if(item instanceof DoggieCoin){
+                unequippedImageView[mIndex].setImage(itemsImages.get(ITEM_TYPE.DOGGIECOIN));
+            }
+            else if(item instanceof TreeStump){
+                unequippedImageView[mIndex].setImage(itemsImages.get(ITEM_TYPE.TREESTUMP));
+            }
         }
     }
     
@@ -400,6 +415,15 @@ public class MStore {
                 }
                 else if(item instanceof TheOneRing){
                     price = ((TheOneRing)item).getPrice();
+                }
+                else if(item instanceof Anduril){
+                    price = ((Anduril)item).getPrice();
+                }
+                else if(item instanceof DoggieCoin){
+                    price = ((DoggieCoin)item).getPrice();
+                }
+                else if(item instanceof TreeStump){
+                    price = ((TreeStump)item).getPrice();
                 }
                 price = (int)(price*0.4);
                 character.setGold(character.getGold()+price);

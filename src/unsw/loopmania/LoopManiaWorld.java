@@ -93,12 +93,14 @@ public class LoopManiaWorld {
     private int slugsNum;
     private int zombiesNum;
     private int vampiresNum;
+    private int elanmuskeNum;
+    private int doggiesNum;
 
     int encounterSlugsNum = 0;
     int encounterZombiesNum = 0;
     int encounterVampiresNum = 0;
-
-    private String battleItem;
+    int encounterElanmuskeNum = 0;
+    int encounterDoggiesNum = 0;
     /**
      * create the world (constructor)
      * 
@@ -216,6 +218,8 @@ public class LoopManiaWorld {
         encounterSlugsNum = 0;
         encounterZombiesNum = 0;
         encounterVampiresNum = 0;
+        encounterDoggiesNum = 0;
+        encounterElanmuskeNum = 0;
         for (BasicEnemy e: enemies){
             // Pythagoras: a^2+b^2 < radius^2 to see if within radius
             // implement different RHS on this inequality, based on influence radii and battle radii
@@ -226,7 +230,13 @@ public class LoopManiaWorld {
                 case "Slug":
                     if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) <= 1){
                         fightEnemies.add(e);
-                        encounterSlugsNum += 1;
+                        if(e.getName().equals("Doggie")){
+                            encounterDoggiesNum += 1;
+                        }else if(e.getName().equals("Elan Muske")){
+                            encounterElanmuskeNum += 1;
+                        }else if(e.getName().equals("Slug")){
+                            encounterSlugsNum += 1;
+                        }
                         IsFight = true;
                     } else {
                         possibleSupporEnemies.add(e);
@@ -422,6 +432,8 @@ public class LoopManiaWorld {
             if(e instanceof Slug) addSlugsNum(1);
             else if(e instanceof Zombie) addZombiesNum(1);
             else if(e instanceof Vampire) addVampiresNum(1);
+            else if(e instanceof Doggie) addDoggieskesNum(1);
+            else if(e instanceof ElanMuske) addElanMuskesNum(1);
         }
 
         // character HP check
@@ -1215,7 +1227,9 @@ public class LoopManiaWorld {
     public void setGoalCondition(Goal goalCondition) {
         this.goalCondition = goalCondition;
     }
-
+    public int getMaximumLoop(){
+        return (Integer)goalCondition.conditions.getJSONArray("subgoals").getJSONObject(0).get("quantity");
+    }
     /**
      * setting is_dead  condition
      * 
@@ -1252,8 +1266,17 @@ public class LoopManiaWorld {
     public int getVampiresNum(){
         return vampiresNum;
     }
-    public String getBattleItem(){
-        return battleItem;
+    public void addDoggieskesNum(int num){
+        doggiesNum += num;
+    }
+    public int getDoggieskesNum(){
+        return doggiesNum;
+    }
+    public void addElanMuskesNum(int num){
+        elanmuskeNum += num;
+    }
+    public int getElanMuskesNum(){
+        return elanmuskeNum;
     }
     public int getencounterSlugsNum(){
         return encounterSlugsNum;
@@ -1264,11 +1287,19 @@ public class LoopManiaWorld {
     public int getencounterVampiresNum(){
         return encounterVampiresNum;
     }
+    public int getEncounterDoggiesNum(){
+        return encounterDoggiesNum;
+    }
+    public int getencounterElanMuskesNum(){
+        return encounterElanmuskeNum;
+    }
     public List<Building> getBuildingEntities(){
         return buildingEntities;
     }
     public List<BasicEnemy> getEnemies(){
         return enemies;
     }
-
+    public List<Card> getCardsEntities(){
+        return cardEntities;
+    }
 }
