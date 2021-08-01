@@ -51,16 +51,6 @@ enum DRAGGABLE_TYPE{
     ITEM
 }
 
-
-
-
-/**
- * equiment type
- */ 
-enum ITEMS_TYPE{
-    SWORD, STAKE, STAFF, ARMOUR, SHIELD, HELMET, THEONERING, HEALTHPOTION, ANDURIL, TREESTUMP, DOGGIECOIN
-}
-
 /**
  * A JavaFX controller for the world.
  * 
@@ -626,10 +616,12 @@ public class LoopManiaWorldController {
 
         if (enemy instanceof Doggie) {
             loadItemByType(ITEMS_TYPE.DOGGIECOIN);
+            world.setBossNum(world.getBossNum() - 1);
         } 
         if (enemy instanceof ElanMuske) {
             ElanMuske e = (ElanMuske) enemy;
             e.notifyObservers(20);
+            world.setBossNum(world.getBossNum() - 1);
         }
         int rd = new Random().nextInt(100);
         if (rd < 20) {
