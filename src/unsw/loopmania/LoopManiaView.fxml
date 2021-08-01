@@ -218,7 +218,7 @@
                   <Insets top="5" left="0" right="0" bottom="0"/>
                </padding>
                <VBox alignment="CENTER" prefWidth="320" prefHeight="60">
-                  <Label fx:id="titleLabel" text="STATUS">
+                  <Label fx:id="titleLabel" text="STATS">
                      <style>
                         -fx-font-size: 14pt;
                         -fx-font-weight: bold;
@@ -306,7 +306,7 @@
                      </style>
                      <Label alignment="CENTER" prefHeight="30" prefWidth="130" text="Exit to main menu">
                         <style>
-                           -fx-font-size: 10pt;
+                           -fx-font-size: 8pt;
                            -fx-font-weight: bold;
                            -fx-text-fill:rgb(255, 255, 255, 1)
                         </style>

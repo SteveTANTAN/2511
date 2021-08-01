@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CardTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">test</a> &gt; <span class="el_source">CardTest.java</span></div><h1>CardTest.java</h1><pre class="source lang-java linenums">package test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.Test;
+
+import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.BarrackCard;
+import unsw.loopmania.CampfireCard;
+import unsw.loopmania.OblivionCard;
+import unsw.loopmania.TowerCard;
+import unsw.loopmania.TrapCard;
+import unsw.loopmania.VampireCastleCard;
+import unsw.loopmania.VillageCard;
+import unsw.loopmania.ZombiePitCard;
+
+<span class="fc" id="L17">public class CardTest{</span>
+    @Test
+    public void TowerCardTest(){
+<span class="fc" id="L20">        TowerCard towerCard = new TowerCard(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L21">        assertEquals(towerCard.getX(), 0);</span>
+<span class="fc" id="L22">        assertEquals(towerCard.getY(), 0);</span>
+<span class="fc" id="L23">        assertEquals(towerCard.getName(), &quot;TOWER&quot;);</span>
+<span class="fc" id="L24">        assertEquals(towerCard.getDescription(), &quot;The defense tower has long range attack capability within a specific shooting radius.&quot;);</span>
+<span class="fc" id="L25">    }</span>
+    @Test
+    public void ZombieCardTest(){
+<span class="fc" id="L28">        ZombiePitCard zombiePitCard = new ZombiePitCard(new SimpleIntegerProperty(1) ,new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L29">        assertEquals(zombiePitCard.getX(), 1);</span>
+<span class="fc" id="L30">        assertEquals(zombiePitCard.getY(), 0);</span>
+<span class="fc" id="L31">        assertEquals(zombiePitCard.getName(), &quot;ZOMBIEPIT&quot;);</span>
+<span class="fc" id="L32">        assertEquals(zombiePitCard.getDescription(), &quot;Several zombies will come out each turn of the game.&quot;);</span>
+<span class="fc" id="L33">    }</span>
+    @Test
+    public void VampireCastleCardTest(){
+<span class="fc" id="L36">        VampireCastleCard vampireCastleCard = new VampireCastleCard(new SimpleIntegerProperty(2) ,new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L37">        assertEquals(vampireCastleCard.getX(), 2);</span>
+<span class="fc" id="L38">        assertEquals(vampireCastleCard.getY(), 0);</span>
+<span class="fc" id="L39">        assertEquals(vampireCastleCard.getName(), &quot;VAMPIRECASTLE&quot;);</span>
+<span class="fc" id="L40">        assertEquals(vampireCastleCard.getDescription(), &quot;Vampires will come out each 5 loops of the game.&quot;);</span>
+<span class="fc" id="L41">    }</span>
+    @Test
+    public void BarrackCardTest(){
+<span class="fc" id="L44">        BarrackCard barrackCard = new BarrackCard(new SimpleIntegerProperty(3) ,new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L45">        assertEquals(barrackCard.getX(), 3);</span>
+<span class="fc" id="L46">        assertEquals(barrackCard.getY(), 0);</span>
+<span class="fc" id="L47">        assertEquals(barrackCard.getName(), &quot;BARRACK&quot;);</span>
+<span class="fc" id="L48">        assertEquals(barrackCard.getDescription(), &quot;Character obtains one allied soldier for free when they pass through Barracks.&quot;);</span>
+<span class="fc" id="L49">    }</span>
+    @Test
+    public void VillageCardTest(){
+<span class="fc" id="L52">        VillageCard villageCard= new VillageCard(new SimpleIntegerProperty(4) ,new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L53">        assertEquals(villageCard.getX(), 4);</span>
+<span class="fc" id="L54">        assertEquals(villageCard.getY(), 0);</span>
+<span class="fc" id="L55">        assertEquals(villageCard.getName(), &quot;VILLAGE&quot;);</span>
+<span class="fc" id="L56">        assertEquals(villageCard.getDescription(), &quot;Character regains health when passing through.&quot;);</span>
+<span class="fc" id="L57">    }</span>
+    @Test
+    public void TrapCardTest(){
+<span class="fc" id="L60">        TrapCard trapCard = new TrapCard(new SimpleIntegerProperty(5) ,new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L61">        assertEquals(trapCard.getX(), 5);</span>
+<span class="fc" id="L62">        assertEquals(trapCard.getY(), 0);</span>
+<span class="fc" id="L63">        assertEquals(trapCard.getName(), &quot;TRAP&quot;);</span>
+<span class="fc" id="L64">        assertEquals(trapCard.getDescription(), &quot;If the enemies would be damaged if they touch those instruments.&quot;);</span>
+<span class="fc" id="L65">    }</span>
+    @Test
+    public void CampfireCardTest(){
+<span class="fc" id="L68">        CampfireCard campfireCard = new CampfireCard(new SimpleIntegerProperty(6) ,new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L69">        assertEquals(campfireCard.getX(), 6);</span>
+<span class="fc" id="L70">        assertEquals(campfireCard.getY(), 0);</span>
+<span class="fc" id="L71">        assertEquals(campfireCard.getName(), &quot;CAMPFIRE&quot;);</span>
+<span class="fc" id="L72">        assertEquals(campfireCard.getDescription(), &quot;There is a kind of radius attacking bonus, within its radius all kinds of attacking will be doubled.&quot;);</span>
+<span class="fc" id="L73">    }</span>
+    @Test
+    public void OblivionCardTest(){
+<span class="fc" id="L76">        OblivionCard oblivionCard = new OblivionCard(new SimpleIntegerProperty(6) ,new SimpleIntegerProperty(0));</span>
+<span class="fc" id="L77">        assertEquals(oblivionCard.getX(), 6);</span>
+<span class="fc" id="L78">        assertEquals(oblivionCard.getY(), 0);</span>
+<span class="fc" id="L79">        assertEquals(oblivionCard.getName(), &quot;Oblivion&quot;);</span>
+<span class="fc" id="L80">        assertEquals(oblivionCard.getDescription(), &quot;Use this card to demolish unwanted structures built before.&quot;);</span>
+<span class="fc" id="L81">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
