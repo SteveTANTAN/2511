@@ -352,16 +352,11 @@ public class LoopManiaWorldTest {
         orderedPath.add(new Pair<Integer, Integer>(0,1));
         LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
         
-        Item oitem = world.addUnequippedItem(ITEMS_TYPE.SWORD);
-        assertEquals(oitem.getX(), 0);
-        assertEquals(oitem.getY(), 0);
-        Item item = world.GetEquippedFromUnequippedByCoordinates(0, 0, 1, 0);
-        assertEquals(world.getUnequippedInventoryItems().size(), 0);
+        Item item = world.addUnequippedItem(ITEMS_TYPE.SWORD);
+        world.addEquippedInventoryItems(item);
         assertEquals(world.getEquippedInventoryItems().get(0), item);
         assertEquals(world.getEquippedInventoryItems().size(), 1);
         assertEquals(item instanceof Sword, true);
-        assertEquals(item.getX(), 1);
-        assertEquals(item.getY(), 0);
     }
 
     @Test

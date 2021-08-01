@@ -42,7 +42,7 @@ public class EnemyTest {
         assertEquals(slug.getSupportRange(), 1);
         assertEquals(slug.getAttackRange(), 1);
         assertEquals(slug.getGoldDefeated(), 1);
-        assertEquals(slug.getEXP(), 2);
+        assertEquals(slug.getEXP(), 20);
         assertEquals(slug.getName(), "Slug");
         int x = slug.getX();
         int y = slug.getY();
@@ -77,7 +77,7 @@ public class EnemyTest {
         assertEquals(zombie.getSupportRange(), 0);
         assertEquals(zombie.getAttackRange(), 2);
         assertEquals(zombie.getGoldDefeated(), 3);
-        assertEquals(zombie.getEXP(), 5);
+        assertEquals(zombie.getEXP(), 40);
         assertEquals(zombie.getName(), "Zombie");
 
         int x = zombie.getX();
@@ -113,7 +113,7 @@ public class EnemyTest {
         assertEquals(vampire.getSupportRange(), 2);
         assertEquals(vampire.getAttackRange(), 2);
         assertEquals(vampire.getGoldDefeated(), 5);
-        assertEquals(vampire.getEXP(), 8);
+        assertEquals(vampire.getEXP(), 60);
         assertEquals(vampire.getName(), "Vampire");
         int x = vampire.getX();
         int y = vampire.getY();

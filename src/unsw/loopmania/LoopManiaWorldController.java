@@ -927,6 +927,7 @@ public class LoopManiaWorldController {
                                             }
                                         }
                                         world.setCharacterEquipment(world.getCharacter(), currentItem);
+                                        world.addEquippedInventoryItems(currentItem);
 
                                         // add the item in the list
                                         for(Item mItem : world.getEquippedInventoryItems()){
@@ -1091,7 +1092,7 @@ public class LoopManiaWorldController {
                     // these do not affect visibility of original image...
                     // https://stackoverflow.com/questions/41088095/javafx-drag-and-drop-to-gridpane
                     gridPaneNodeSetOnDragEntered.put(draggableType, new EventHandler<DragEvent>() {
-                        // TODO = be more selective about whether highlighting changes - if it cannot be dropped in the location, the location shouldn't be highlighted!
+                        // be more selective about whether highlighting changes - if it cannot be dropped in the location, the location shouldn't be highlighted!
                         public void handle(DragEvent event) {
                             if (currentlyDraggedType == draggableType){
                             //The drag-and-drop gesture entered the target
@@ -1104,7 +1105,7 @@ public class LoopManiaWorldController {
                         }
                     });
                     gridPaneNodeSetOnDragExited.put(draggableType, new EventHandler<DragEvent>() {
-                        // TODO = since being more selective about whether highlighting changes, you could program the game so if the new highlight location is invalid the highlighting doesn't change, or leave this as-is
+                        // since being more selective about whether highlighting changes, you could program the game so if the new highlight location is invalid the highlighting doesn't change, or leave this as-is
                         public void handle(DragEvent event) {
                             if (currentlyDraggedType == draggableType){
                                 n.setOpacity(1);
@@ -1209,7 +1210,7 @@ public class LoopManiaWorldController {
      * @param node
      */
     private void trackPosition(Entity entity, Node node) {
-        // TODO = tweak this slightly to remove items from the equipped inventory?
+        // tweak this slightly to remove items from the equipped inventory?
         GridPane.setColumnIndex(node, entity.getX());
         GridPane.setRowIndex(node, entity.getY());
 
