@@ -59,17 +59,16 @@ public class Goal {
      * @return Boolean
      */
     public boolean goalCheck() {
-        //goal_to_string();
-        if (conditions == null) {
-            return false;
 
-        }
 
         //System.out.printf(conditions.toString(4));
         // if it's the only one level goal
         if (!conditions.has("subgoals")) {
-            
+            if ((conditions.getString("goal")).equals("bosses")){
+                return goalCheckHelp("bosses", 0);
+            }
             return goalCheckHelp(conditions.getString("goal"), conditions.getInt("quantity"));
+            
         } else{
             // otherwise at least level2
             String rela = conditions.getString("goal");

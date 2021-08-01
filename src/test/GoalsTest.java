@@ -121,7 +121,7 @@ public class GoalsTest {
 
 
         Goal gold = new Goal(goalcondition);
-        assertEquals(gold.goalCheckHelp("experience", 5), true);
+        assertEquals(gold.goalCheckHelp("experience", 5), false);
         assertEquals(gold.goalCheck(), false);
 
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
@@ -189,8 +189,8 @@ public class GoalsTest {
 
 
         Goal gold = new Goal(goalcondition);
-        assertEquals(gold.goalCheckHelp("cycles", 5), true);
-        //assertEquals(gold.goalCheck(100, 1, 1), false);
+        assertEquals(gold.goalCheckHelp("cycles", 5), false);
+        assertEquals(gold.goalCheck(), false);
 
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
         orderedPath.add(new Pair<Integer, Integer>(0,0));
@@ -231,13 +231,12 @@ public class GoalsTest {
     //   ]
     // }
     public void goal_test_middle_EASY2(){
-        JSONArray a1 = new JSONArray();
         JSONObject goalcondition = new JSONObject();
-        goalcondition.put("goal", "go");
+        goalcondition.put("goal", "bosses");
         goalcondition.put("quantity", 200);
 
         Goal gold = new Goal(goalcondition);
-        assertEquals(gold.goalCheckHelp("gold", 5), false);
+        assertEquals(gold.goalCheckHelp("123", 5), false);
         assertEquals(gold.goalCheck(), false);
 
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
@@ -245,6 +244,8 @@ public class GoalsTest {
         PathPosition pathPosition = new PathPosition(0, orderedPath);
         LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);
         world.setGoalCondition(gold);
+
+        Character character = new Character(pathPosition);
 
         
     }
