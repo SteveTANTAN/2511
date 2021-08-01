@@ -135,7 +135,7 @@ public class ItemsTest {
         assertEquals(doggieCoin.getDefenseValue(), 0);
         assertEquals(doggieCoin.getPrice(), 40);
         doggieCoin.updatePrice(80);
-        assertEquals(doggieCoin.getPrice(), 40);
+        assertEquals(doggieCoin.getPrice(), 80);
     }   
     //-----------------------------------------------------------------------------------//
     // test character equipped items
