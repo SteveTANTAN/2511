@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
 public class Zombie extends BasicEnemy{
     private Building building;
 
@@ -61,5 +62,9 @@ public class Zombie extends BasicEnemy{
         } else {
             ca.hit(c, trancedEnemies, enemies, e, "enemy");
         }
+    }
+
+    public List<BasicEnemy> getIntefactors() {
+        return this.intefactors;
     }
 }
