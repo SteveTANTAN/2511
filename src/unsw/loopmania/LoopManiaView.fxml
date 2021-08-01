@@ -37,7 +37,7 @@
                 </style>
             </Label>
         </VBox>
-        <VBox alignment="CENTER" prefWidth="200" prefHeight="80" layoutY="40" layoutX="28">
+        <VBox alignment="CENTER" prefWidth="200" prefHeight="100" layoutY="40" layoutX="28">
             <Label fx:id="infoLabel">
                 <style>
                      -fx-font-size: 12pt;

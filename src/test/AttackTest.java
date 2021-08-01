@@ -454,4 +454,6 @@ public class AttackTest {
         ca.hit(Character, trancedEnemies, enemies, e, "null");
         assertEquals(e.getHealth(), 32);
     }
+
+    
 }

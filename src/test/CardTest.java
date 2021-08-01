@@ -7,6 +7,7 @@ import org.junit.Test;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.BarrackCard;
 import unsw.loopmania.CampfireCard;
+import unsw.loopmania.OblivionCard;
 import unsw.loopmania.TowerCard;
 import unsw.loopmania.TrapCard;
 import unsw.loopmania.VampireCastleCard;
@@ -69,5 +70,13 @@ public class CardTest{
         assertEquals(campfireCard.getY(), 0);
         assertEquals(campfireCard.getName(), "CAMPFIRE");
         assertEquals(campfireCard.getDescription(), "There is a kind of radius attacking bonus, within its radius all kinds of attacking will be doubled.");
+    }
+    @Test
+    public void OblivionCardTest(){
+        OblivionCard oblivionCard = new OblivionCard(new SimpleIntegerProperty(6) ,new SimpleIntegerProperty(0));
+        assertEquals(oblivionCard.getX(), 6);
+        assertEquals(oblivionCard.getY(), 0);
+        assertEquals(oblivionCard.getName(), "Oblivion");
+        assertEquals(oblivionCard.getDescription(), "Use this card to demolish unwanted structures built before.");
     }
 }

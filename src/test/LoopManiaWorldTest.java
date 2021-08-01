@@ -1,12 +1,16 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 import org.javatuples.Pair;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import unsw.loopmania.Anduril;
@@ -18,6 +22,11 @@ import unsw.loopmania.Building;
 import unsw.loopmania.CARDS_TYPE;
 import unsw.loopmania.Card;
 import unsw.loopmania.Character;
+import unsw.loopmania.Goal;
+import unsw.loopmania.LoopManiaWorld;
+import unsw.loopmania.PathPosition;
+import unsw.loopmania.Slug;
+import unsw.loopmania.Vampire;
 import unsw.loopmania.Doggie;
 import unsw.loopmania.ElanMuske;
 import unsw.loopmania.Helmet;
@@ -35,6 +44,7 @@ import unsw.loopmania.TreeStump;
 import unsw.loopmania.VampireCastleBuilding;
 import unsw.loopmania.VampireCastleCard;
 import unsw.loopmania.VillageBuilding;
+import unsw.loopmania.Zombie;
 
 public class LoopManiaWorldTest {
     @Test
@@ -647,4 +657,193 @@ public class LoopManiaWorldTest {
         world.setBossNum(world.getBossNum() + 1);
         assertEquals(world.getBossNum(), 1);
     }
+
+
+@Test
+public void battleDetails1Test(){
+    List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+    orderedPath.add(new Pair<Integer, Integer>(0,0));
+    orderedPath.add(new Pair<Integer, Integer>(1,0));
+    orderedPath.add(new Pair<Integer, Integer>(2,0));
+    orderedPath.add(new Pair<Integer, Integer>(3,0));
+    orderedPath.add(new Pair<Integer, Integer>(3,1));
+    orderedPath.add(new Pair<Integer, Integer>(3,2));
+    orderedPath.add(new Pair<Integer, Integer>(3,3));
+    orderedPath.add(new Pair<Integer, Integer>(2,3));
+    orderedPath.add(new Pair<Integer, Integer>(1,3));
+    orderedPath.add(new Pair<Integer, Integer>(0,3));
+    orderedPath.add(new Pair<Integer, Integer>(0,2));
+    orderedPath.add(new Pair<Integer, Integer>(0,1));
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+    int currentPositionInPath = 2;
+    PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);
+    Character character = new Character(pathPosition);
+    character.setHealth(100);
+    world.setCharacter(character);
+
+    currentPositionInPath = 3;
+    pathPosition = new PathPosition(currentPositionInPath, orderedPath);
+    Slug slug = new Slug(pathPosition);
+    List<BasicEnemy> enemies = world.getEnemies();
+    enemies.add(slug);
+
+    int healthPt = world.getCharacter().getHealth();
+    world.runBattles();
+    int lossBlood = Math.max(healthPt-world.getCharacter().getHealth(), 0);
+
+    int slugsNum = world.getencounterSlugsNum();
+    int zombiesNum = world.getEncounterZombiesNum();
+    int vampiresNum = world.getencounterVampiresNum();
+
+    assertFalse(world.getIsDead());
+    assertEquals(slugsNum, 1);
+    assertEquals(zombiesNum, 0);
+    assertEquals(vampiresNum, 0);
+    assertEquals(lossBlood, 12);
+}
+@Test
+public void battleDetails2Test(){
+    List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+    orderedPath.add(new Pair<Integer, Integer>(0,0));
+    orderedPath.add(new Pair<Integer, Integer>(1,0));
+    orderedPath.add(new Pair<Integer, Integer>(2,0));
+    orderedPath.add(new Pair<Integer, Integer>(3,0));
+    orderedPath.add(new Pair<Integer, Integer>(3,1));
+    orderedPath.add(new Pair<Integer, Integer>(3,2));
+    orderedPath.add(new Pair<Integer, Integer>(3,3));
+    orderedPath.add(new Pair<Integer, Integer>(2,3));
+    orderedPath.add(new Pair<Integer, Integer>(1,3));
+    orderedPath.add(new Pair<Integer, Integer>(0,3));
+    orderedPath.add(new Pair<Integer, Integer>(0,2));
+    orderedPath.add(new Pair<Integer, Integer>(0,1));
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+    int currentPositionInPath = 2;
+    PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);
+    Character character = new Character(pathPosition);
+    character.setHealth(100);
+    world.setCharacter(character);
+
+
+    // set goal
+    JSONObject json = new JSONObject();
+    json.put("goal","AND");
+    JSONArray jsonArray = new JSONArray();
+    JSONObject tmp = new JSONObject();
+    tmp.put("goal","cycles");
+    tmp.put("quantity",10);
+    jsonArray.put(tmp);
+    tmp = new JSONObject();
+    tmp.put("goal","OR");
+    JSONArray jsonArray1 = new JSONArray();
+    JSONObject tmp1 = new JSONObject();
+    tmp1.put("goal","experience");
+    tmp1.put("quantity",200);
+    jsonArray1.put(tmp1);
+    tmp1 = new JSONObject();
+    tmp1.put("goal","gold");
+    tmp1.put("quantity",200);
+    jsonArray1.put(tmp1);
+    tmp.put("subgoals",jsonArray1);
+    jsonArray.put(tmp);
+    json.put("subgoals",jsonArray);
+    world.setGoalCondition(new Goal(json));
+    
+    // ad enemies
+    currentPositionInPath = 3;
+    pathPosition = new PathPosition(currentPositionInPath, orderedPath);
+    Slug slug = new Slug(pathPosition);
+    List<BasicEnemy> enemies = world.getEnemies();
+    enemies.add(slug);
+
+    currentPositionInPath = 1;
+    Zombie zombie = new Zombie(pathPosition,null);
+    enemies.add(zombie);
+
+    // check
+    int healthPt = world.getCharacter().getHealth();
+    world.runBattles();
+    int lossBlood = Math.max(healthPt-world.getCharacter().getHealth(), 0);
+
+    int slugsNum = world.getencounterSlugsNum();
+    int zombiesNum = world.getEncounterZombiesNum();
+    int vampiresNum = world.getencounterVampiresNum();
+
+    assertFalse(world.getIsDead());
+    assertEquals(slugsNum, 1);
+    assertEquals(zombiesNum, 1);
+    assertEquals(vampiresNum, 0);
+    assertEquals(lossBlood, 76);
+}
+@Test
+public void battleDetails3Test(){
+    List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+    orderedPath.add(new Pair<Integer, Integer>(0,0));
+    orderedPath.add(new Pair<Integer, Integer>(1,0));
+    orderedPath.add(new Pair<Integer, Integer>(2,0));
+    orderedPath.add(new Pair<Integer, Integer>(3,0));
+    orderedPath.add(new Pair<Integer, Integer>(3,1));
+    orderedPath.add(new Pair<Integer, Integer>(3,2));
+    orderedPath.add(new Pair<Integer, Integer>(3,3));
+    orderedPath.add(new Pair<Integer, Integer>(2,3));
+    orderedPath.add(new Pair<Integer, Integer>(1,3));
+    orderedPath.add(new Pair<Integer, Integer>(0,3));
+    orderedPath.add(new Pair<Integer, Integer>(0,2));
+    orderedPath.add(new Pair<Integer, Integer>(0,1));
+    LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+    int currentPositionInPath = 2;
+    PathPosition pathPosition = new PathPosition(currentPositionInPath, orderedPath);
+    Character character = new Character(pathPosition);
+    character.setHealth(100);
+    world.setCharacter(character);
+
+    // set goal
+    JSONObject json = new JSONObject();
+    json.put("goal","AND");
+    JSONArray jsonArray = new JSONArray();
+    JSONObject tmp = new JSONObject();
+    tmp.put("goal","cycles");
+    tmp.put("quantity",10);
+    jsonArray.put(tmp);
+    tmp = new JSONObject();
+    tmp.put("goal","OR");
+    JSONArray jsonArray1 = new JSONArray();
+    JSONObject tmp1 = new JSONObject();
+    tmp1.put("goal","experience");
+    tmp1.put("quantity",200);
+    jsonArray1.put(tmp1);
+    tmp1 = new JSONObject();
+    tmp1.put("goal","gold");
+    tmp1.put("quantity",200);
+    jsonArray1.put(tmp1);
+    tmp.put("subgoals",jsonArray1);
+    jsonArray.put(tmp);
+    json.put("subgoals",jsonArray);
+    world.setGoalCondition(new Goal(json));
+    
+    // add enemies
+    currentPositionInPath = 3;
+    pathPosition = new PathPosition(currentPositionInPath, orderedPath);
+    Slug slug = new Slug(pathPosition);
+    List<BasicEnemy> enemies = world.getEnemies();
+    enemies.add(slug);
+
+    currentPositionInPath = 1;
+    Vampire vampire = new Vampire(pathPosition,null);
+    enemies.add(vampire);
+
+    // check
+    int healthPt = world.getCharacter().getHealth();
+    world.runBattles();
+    int lossBlood = Math.max(healthPt-world.getCharacter().getHealth(), 0);
+
+    int slugsNum = world.getencounterSlugsNum();
+    int zombiesNum = world.getEncounterZombiesNum();
+    int vampiresNum = world.getencounterVampiresNum();
+
+    assertTrue(world.getIsDead());
+    assertEquals(slugsNum, 1);
+    assertEquals(zombiesNum, 0);
+    assertEquals(vampiresNum, 1);
+    assertEquals(lossBlood, 100);
+}
 }

@@ -36,6 +36,8 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 import java.util.EnumMap;
+import java.util.Iterator;
+
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -513,21 +515,17 @@ public class LoopManiaWorldController {
         // battle details
         if(world.getIsDead()){
             showBattleResult("DEFEAT");
-        }else if(world.getencounterSlugsNum() > 0 || world.getEncounterZombiesNum() > 0|| world.getencounterVampiresNum() > 0){
+        }else if(world.getencounterSlugsNum() > 0 || world.getEncounterZombiesNum() > 0|| world.getencounterVampiresNum() > 0
+        || world.getEncounterDoggiesNum() > 0|| world.getencounterElanMuskesNum() > 0){
             showBattleResult("VICTORY");
         }
 
         if (world.goalCheck()) {
             victory();
         }
-        // loop reaches 100
-        if(world.getRoundsNum() > 100){
-            // victory
-            if((world.getCharacter().getGold() < 600 || world.getCharacter().getEXP() < 1000)){
-                defeat();
-            }else{ // defeat
-                victory();
-            }
+        // loop reaches maximum
+        if(world.getRoundsNum() > world.getMaximumLoop() && !world.goalCheck()){
+            defeat();
         }
         // update the dispaly of number of the round
         roundsNumLabel.setText(String.format("ROUND: %d/100", world.getRoundsNum()));
@@ -725,6 +723,8 @@ public class LoopManiaWorldController {
         addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
         addEntity(item, view);
         unequippedInventory.getChildren().add(view);
+        view.setOnMouseEntered(new UnEquipmentMouseHoverHandler(item.getX(),item.getY()));
+        view.setOnMouseExited(new UnEquipmentMouseLeaveHandler());
     }
 
     /**
@@ -850,19 +850,23 @@ public class LoopManiaWorldController {
                                     }else{
                                         if(building instanceof ZombiePitBuilding){
                                             List<BasicEnemy> enemies = world.getEnemies();
-                                            for(BasicEnemy enemy : enemies){
+                                            Iterator<BasicEnemy> it = enemies.iterator();
+                                            while(it.hasNext()){
+                                                BasicEnemy enemy = it.next();
                                                 if(enemy instanceof Zombie && ((Zombie)enemy).getZombieBuilding()==building){
                                                     enemy.destroy();
-                                                    enemies.remove(enemy);
+                                                    it.remove();
                                                 }
                                             }
                                         }
                                         else if(building instanceof VampireCastleBuilding){
                                             List<BasicEnemy> enemies = world.getEnemies();
-                                            for(BasicEnemy enemy : enemies){
+                                            Iterator<BasicEnemy> it = enemies.iterator();
+                                            while(it.hasNext()){
+                                                BasicEnemy enemy = it.next();
                                                 if(enemy instanceof Vampire && ((Vampire)enemy).getVampireCastleBuilding()==building){
                                                     enemy.destroy();
-                                                    enemies.remove(enemy);
+                                                    it.remove();
                                                 }
                                             }
                                         }
@@ -1334,27 +1338,43 @@ public class LoopManiaWorldController {
             String description = "";
             if(mItem instanceof Armour){
                 name = "ARMOUR";
-                description = "Increase 3 defence";
+                description = "Provides defence and halves enemy attack.";
             }
             else if(mItem instanceof Helmet){
                 name = "HELMENT";
-                description = "Increase 1 defence";
+                description = "The damage inflicted by the Character and enemies are both reduced by a scalar value.";
             }
             else if(mItem instanceof Shield){
                 name = "SHIELD";
-                description = "Increase 1 defence";
+                description = "Critical vampire attacks have a 60% lower chance of occurring.";
             }
             else if(mItem instanceof Sword){
                 name = "SWORD";
-                description = "Deal 6 damage";
+                description = "A standard melee weapon. Increases damage dealt by Character.";
             }
             else if(mItem instanceof Stake){
-                name = "STAkE";
-                description = "Deal 4 damage";
+                name = "STAKE";
+                description = "A melee weapon causes very high damage to vampires.";
             }
             else if(mItem instanceof Staff){
                 name = "STAFF";
-                description = "Deal 2 damage";
+                description = "a random chance of transforming the attacked into an allied soldier temporarily.";
+            }
+            else if(mItem instanceof TheOneRing){
+                name = "THEONERING";
+                description = "Respawning with full health up to a single time when died.";
+            }
+            else if(mItem instanceof Anduril){
+                name = "ANDURIL";
+                description = "A very high damage sword which causes triple damage against bosses.";
+            }
+            else if(mItem instanceof TreeStump){
+                name = "TREESTUMP";
+                description = "A powerful shield providing higher defence against bosses.";
+            }
+            else if(mItem instanceof DoggieCoin){
+                name = "GOGGIECOIN";
+                description = "Randomly fluctuates in sellable price to an extraordinary extent.";
             }
             if(mItem != null){
                 cardDescription.show(name, description);
@@ -1366,6 +1386,86 @@ public class LoopManiaWorldController {
      * eventhandler used to respond to close the description of the equipment
      */
     private  class EquipmentMouseLeaveHandler implements EventHandler<MouseEvent>{
+        @Override
+        public void handle(MouseEvent e) {
+            cardDescription.close();
+        }
+        
+    }
+
+    /**
+     * eventhandler used to respond to view the description of the unequipped item
+     */
+    private  class UnEquipmentMouseHoverHandler implements EventHandler<MouseEvent>{
+        private int x;
+        private int y;
+        public UnEquipmentMouseHoverHandler(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+        @Override
+        public void handle(MouseEvent e) {
+
+            //find the item
+            Item mItem = null;
+            for(Item item : world.getUnequippedInventoryItems()){
+                if(item.getX() == x && item.getY() == y){
+                    mItem = item;
+                }
+            }
+
+            String name = "";
+            String description = "";
+            if(mItem instanceof Armour){
+                name = "ARMOUR";
+                description = "Provides defence and halves enemy attack.";
+            }
+            else if(mItem instanceof Helmet){
+                name = "HELMENT";
+                description = "The damage inflicted by the Character and enemies are both reduced by a scalar value.";
+            }
+            else if(mItem instanceof Shield){
+                name = "SHIELD";
+                description = "Critical vampire attacks have a 60% lower chance of occurring.";
+            }
+            else if(mItem instanceof Sword){
+                name = "SWORD";
+                description = "A standard melee weapon. Increases damage dealt by Character.";
+            }
+            else if(mItem instanceof Stake){
+                name = "STAKE";
+                description = "A melee weapon causes very high damage to vampires.";
+            }
+            else if(mItem instanceof Staff){
+                name = "STAFF";
+                description = "a random chance of transforming the attacked into an allied soldier temporarily.";
+            }
+            else if(mItem instanceof TheOneRing){
+                name = "THEONERING";
+                description = "Respawning with full health up to a single time when died.";
+            }
+            else if(mItem instanceof Anduril){
+                name = "ANDURIL";
+                description = "A very high damage sword which causes triple damage against bosses.";
+            }
+            else if(mItem instanceof TreeStump){
+                name = "TREESTUMP";
+                description = "A powerful shield providing higher defence against bosses.";
+            }
+            else if(mItem instanceof DoggieCoin){
+                name = "GOGGIECOIN";
+                description = "Randomly fluctuates in sellable price to an extraordinary extent.";
+            }
+            if(mItem != null){
+                cardDescription.show(name, description);
+            }
+        } 
+    }
+
+    /**
+     * eventhandler used to respond to close the description of the equipment
+     */
+    private  class UnEquipmentMouseLeaveHandler implements EventHandler<MouseEvent>{
         @Override
         public void handle(MouseEvent e) {
             cardDescription.close();
@@ -1442,6 +1542,8 @@ public class LoopManiaWorldController {
         int slugsNum = world.getencounterSlugsNum();
         int zombiesNum = world.getEncounterZombiesNum();
         int vampiresNum = world.getencounterVampiresNum();
+        int doggiesNum = world.getEncounterDoggiesNum();
+        int elanmuskesNum = world.getencounterElanMuskesNum();
         if(slugsNum > 0){
             if(tmp.length() > 0){
                 tmp.append(",");
@@ -1466,6 +1568,24 @@ public class LoopManiaWorldController {
             }
             tmp.append(String.format("%d vampire", vampiresNum));
             if(vampiresNum > 1){
+                tmp.append("s");
+            }
+        }
+        if(doggiesNum > 0){
+            if(tmp.length() > 0){
+                tmp.append(",");
+            }
+            tmp.append(String.format("%d doggie", doggiesNum));
+            if(doggiesNum > 1){
+                tmp.append("s");
+            }
+        }
+        if(elanmuskesNum > 0){
+            if(tmp.length() > 0){
+                tmp.append(",");
+            }
+            tmp.append(String.format("%d elanmuske", elanmuskesNum));
+            if(elanmuskesNum > 1){
                 tmp.append("s");
             }
         }
