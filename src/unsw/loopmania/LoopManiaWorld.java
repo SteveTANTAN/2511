@@ -204,7 +204,7 @@ public class LoopManiaWorld {
                     setBossNum(getBossNum() + 1);  
                 }
             }
-            if (roundsNum > 40 && character.getEXP() > 1000) {
+            if (roundsNum > 40 && character.getEXP() > 10000) {
                 if (rd < 2) {
                     ElanMuske elanMuske = new ElanMuske(new PathPosition(indexInPath, orderedPath));
                     for (Item item: unequippedInventoryItems) {
@@ -467,7 +467,7 @@ public class LoopManiaWorld {
             // give some cash/experience/item rewards for the discarding of the oldest card
             int rdGold = new Random().nextInt(5);
             character.setGold(character.getGold() + rdGold);
-            character.setEXP(character.getEXP() + 20);
+            character.setEXP(character.getEXP() + 5);
             int rd = new Random().nextInt(100);
             if (rd <= 0) {
                 addUnequippedItem(ITEMS_TYPE.SWORD);
@@ -557,7 +557,7 @@ public class LoopManiaWorld {
             // beginning of items
             // give some cash/experience rewards for the discarding of the oldest item
             character.setGold(character.getGold() + unequippedInventoryItems.get(0).getPrice() / 5);
-            character.setEXP(character.getEXP() + 20);
+            character.setEXP(character.getEXP() + 5);
             removeItemByPositionInUnequippedInventoryItems(0);
             firstAvailableSlot = getFirstAvailableSlotForItem();
         }
@@ -671,7 +671,7 @@ public class LoopManiaWorld {
         } else if (rd > 15 && rd <= 18) {
             character.setGold(character.getGold() + 2); // gold
         } else if (rd > 18 && rd <= 21) {
-            character.setEXP(character.getEXP() + 20); // exp
+            character.setEXP(character.getEXP() + 5); // exp
         } else if (rd > 21 && rd < 100) {
             if(buildingEntities.size() <= 2){
                 if (rd > 21 && rd <= 22) {
@@ -1149,7 +1149,6 @@ public class LoopManiaWorld {
                 return null;
             }
         }
-        equippedInventoryItems.add(item);
         return item;
     }
 
@@ -1246,41 +1245,108 @@ public class LoopManiaWorld {
     public boolean getIsDead() {
         return this.IsDead;
     }
+
+    /**
+     * add slus number
+     * @param num
+     */
     public void addSlugsNum(int num){
         slugsNum += num;
     }
+
+    /**
+     * get spwaned slug number
+     * @return slug number
+     */
     public int getSlugsNum(){
         return slugsNum;
     }
+
+    /**
+     * add zombie number
+     * @param zombie number
+     */
     public void addZombiesNum(int num){
         zombiesNum += num;
     }
+
+    /**
+     * get spawned zombie number
+     * @return zombie number
+     */
     public int getZombiesNum(){
         return zombiesNum;
     }
+
+    /**
+     * add vampire number
+     * @param vampire number
+     */
     public void addVampiresNum(int num){
         vampiresNum += num;
     }
+
+    /**
+     * get spawned vampire number
+     * @return vampire number
+     */
     public int getVampiresNum(){
         return vampiresNum;
     }
+
+    /**
+     * get battle item
+     * @return battle item
+     */
     public String getBattleItem(){
         return battleItem;
     }
+
+    /**
+     * get counterd slug number
+     * @return counterd slug number
+     */
     public int getencounterSlugsNum(){
         return encounterSlugsNum;
     }
+
+    /**
+     * get counterd zombie number
+     * @return counterd zombie number
+     */
     public int getEncounterZombiesNum(){
         return encounterZombiesNum;
     }
+
+    /**
+     * get counterd vampire number
+     * @return counterd vampire number
+     */
     public int getencounterVampiresNum(){
         return encounterVampiresNum;
     }
+
+    /**
+     * get buildings
+     * @return list of building
+     */
     public List<Building> getBuildingEntities(){
         return buildingEntities;
     }
+
+    /**
+     * get world enemies
+     * @return list of enemy
+     */
     public List<BasicEnemy> getEnemies(){
         return enemies;
     }
 
+    /**
+     * add item to equippedInventoryItems
+     * @param item
+     */
+    public void addEquippedInventoryItems(Item item) {
+        this.equippedInventoryItems.add(item);
+    }
 }

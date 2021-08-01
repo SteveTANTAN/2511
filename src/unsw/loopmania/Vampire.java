@@ -16,7 +16,7 @@ public class Vampire extends BasicEnemy{
         super.setSupportRange(2);
         super.setAttackRange(2);
         super.setGoldDefeated(5);
-        super.setEXP(200);
+        super.setEXP(60);
         super.setName("Vampire");
         super.setLevel("Monster");
         this.building = building;

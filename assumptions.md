@@ -15,12 +15,12 @@
 |                 | Health point | Damage value | Defense | Supportradius | Battle radius | Gold achieved by defeating | EXP |
 | :-------------: | :----------: | :----------: | :-----: | :-----------: | :-----------: | :------------------------: | :-: |
 |    Character	  |      100	 |       4	    |    0	  |       -	      |       -	      |               -	           |  -  |
-|      Slug       |      12	     |       4	    |    0	  |       1	      |       1	      |               1	           | 50 |
-|     Zombie      |      18	     |       8	    |    0	  |       0	      |       2	      |               3	           | 100 |
-|     Vampire     |	     32      |       15	    |    0	  |       3	      |       2	      |               5	           | 200 |
+|      Slug       |      12	     |       4	    |    0	  |       1	      |       1	      |               1	           |  20 |
+|     Zombie      |      18	     |       8	    |    0	  |       0	      |       2	      |               3	           |  40 |
+|     Vampire     |	     32      |       15	    |    0	  |       3	      |       2	      |               5	           |  60 |
 | Allied soldiers |	     15	     |       5	    |    0	  |       -	      |       -	      |               -	           |  -  |
-|     Doggie      |	     30      |       21	    |    0	  |       1	      |       1	      |               10           | 300 |
-|    ElanMuske    |	     40      |       27	    |    0	  |       1	      |       1	      |               20           | 500 |
+|     Doggie      |	     30      |       21	    |    0	  |       1	      |       1	      |               10           |  80 |
+|    ElanMuske    |	     40      |       27	    |    0	  |       1	      |       1	      |               20           | 100 |
 
 
 <br/><br/><p>
@@ -75,9 +75,9 @@
 *   When selling equipment at Hero's Castle, the character can only get **40%** of gold when normally purchasing.
 *   When the oldest equipment is replaced in the unequipped inventory, the character can only get **20%** of gold when normally purchasing.
 *   When the oldest card is replaced, the character can get **1-5** golds.
-*	When the oldest card/equipment is replaced, the character can get **20** points of EXP.
+*	When the oldest card/equipment is replaced, the character can get **5** points of EXP.
 *	When the character picks up the gold spawns randomly on path tiles, the overall gold amount increases **2**.
-*	When the character picks up the EXP spawns randomly on path tiles, the overall EXP amount increases **20**.
+*	When the character picks up the EXP spawns randomly on path tiles, the overall EXP amount increases **5**.
 *	Rare items cannot be bought or traded in Hero castle.
 *	One Health potion can refill **50** character HP value.
 *	Enemies cannot use weapons, gold or health potions.

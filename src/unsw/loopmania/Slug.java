@@ -14,7 +14,7 @@ public class Slug extends BasicEnemy{
         super.setSupportRange(1);
         super.setAttackRange(1);
         super.setGoldDefeated(1);
-        super.setEXP(50);
+        super.setEXP(20);
         super.setName("Slug");
         super.setLevel("Monster");
     }
