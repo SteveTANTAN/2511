@@ -483,6 +483,8 @@ public class LoopManiaWorld {
             } else {
                 // nothing
             }
+
+            
             // remove oldest card
             removeCard(0);
         }

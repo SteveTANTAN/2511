@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemsTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">test</a> &gt; <span class="el_source">ItemsTest.java</span></div><h1>ItemsTest.java</h1><pre class="source lang-java linenums">package test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.javatuples.Pair;
+import org.junit.Test;
+import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Anduril;
+import unsw.loopmania.Armour;
+import unsw.loopmania.Character;
+import unsw.loopmania.DoggieCoin;
+import unsw.loopmania.HealthPotion;
+import unsw.loopmania.Helmet;
+import unsw.loopmania.LoopManiaWorld;
+import unsw.loopmania.PathPosition;
+import unsw.loopmania.Shield;
+import unsw.loopmania.Staff;
+import unsw.loopmania.Stake;
+import unsw.loopmania.Sword;
+import unsw.loopmania.TheOneRing;
+import unsw.loopmania.TreeStump;
+
+<span class="fc" id="L26">public class ItemsTest {</span>
+
+    // test items created
+    @Test
+    public void SwordItemTest() {
+<span class="fc" id="L31">        Sword sword = new Sword(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 6, 0, 10);</span>
+<span class="fc" id="L32">        assertEquals(sword.getX(), 0);</span>
+<span class="fc" id="L33">        assertEquals(sword.getY(), 0);</span>
+<span class="fc" id="L34">        assertEquals(sword.getDamageValue(), 6);</span>
+<span class="fc" id="L35">        assertEquals(sword.getDefenseValue(), 0);</span>
+<span class="fc" id="L36">        assertEquals(sword.getPrice(), 10);</span>
+<span class="fc" id="L37">    }</span>
+
+    @Test
+    public void StakeItemTest() {
+<span class="fc" id="L41">        Stake stake = new Stake(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 4, 0, 10);</span>
+<span class="fc" id="L42">        assertEquals(stake.getX(), 0);</span>
+<span class="fc" id="L43">        assertEquals(stake.getY(), 0);</span>
+<span class="fc" id="L44">        assertEquals(stake.getDamageValue(), 4);</span>
+<span class="fc" id="L45">        assertEquals(stake.getDefenseValue(), 0);</span>
+<span class="fc" id="L46">        assertEquals(stake.getPrice(), 10);</span>
+<span class="fc" id="L47">    }</span>
+
+    @Test
+    public void StaffItemTest() {
+<span class="fc" id="L51">        Staff staff = new Staff(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 2, 0, 15);</span>
+<span class="fc" id="L52">        assertEquals(staff.getX(), 0);</span>
+<span class="fc" id="L53">        assertEquals(staff.getY(), 0);</span>
+<span class="fc" id="L54">        assertEquals(staff.getDamageValue(), 2);</span>
+<span class="fc" id="L55">        assertEquals(staff.getDefenseValue(), 0);</span>
+<span class="fc" id="L56">        assertEquals(staff.getPrice(), 15);</span>
+<span class="fc" id="L57">    }</span>
+
+    @Test
+    public void ArmourItemTest() {
+<span class="fc" id="L61">        Armour armour = new Armour(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 3, 20);</span>
+<span class="fc" id="L62">        assertEquals(armour.getX(), 0);</span>
+<span class="fc" id="L63">        assertEquals(armour.getY(), 0);</span>
+<span class="fc" id="L64">        assertEquals(armour.getDamageValue(), 0);</span>
+<span class="fc" id="L65">        assertEquals(armour.getDefenseValue(), 3);</span>
+<span class="fc" id="L66">        assertEquals(armour.getPrice(), 20);</span>
+<span class="fc" id="L67">    }</span>
+
+    @Test
+    public void ShieldItemTest() {
+<span class="fc" id="L71">        Shield shield = new Shield(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 0, 20);</span>
+<span class="fc" id="L72">        assertEquals(shield.getX(), 0);</span>
+<span class="fc" id="L73">        assertEquals(shield.getY(), 0);</span>
+<span class="fc" id="L74">        assertEquals(shield.getDamageValue(), 0);</span>
+<span class="fc" id="L75">        assertEquals(shield.getDefenseValue(), 0);</span>
+<span class="fc" id="L76">        assertEquals(shield.getPrice(), 20);</span>
+<span class="fc" id="L77">    }</span>
+
+    @Test
+    public void HelmetItemTest() {
+<span class="fc" id="L81">        Helmet helmet = new Helmet(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 1, 20);</span>
+<span class="fc" id="L82">        assertEquals(helmet.getX(), 0);</span>
+<span class="fc" id="L83">        assertEquals(helmet.getY(), 0);</span>
+<span class="fc" id="L84">        assertEquals(helmet.getDamageValue(), 0);</span>
+<span class="fc" id="L85">        assertEquals(helmet.getDefenseValue(), 1);</span>
+<span class="fc" id="L86">        assertEquals(helmet.getPrice(), 20);</span>
+<span class="fc" id="L87">    }</span>
+
+    @Test
+    public void TheOneRingItemTest() {
+<span class="fc" id="L91">        TheOneRing theOneRing = new TheOneRing(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 0, 0);</span>
+<span class="fc" id="L92">        assertEquals(theOneRing.getX(), 0);</span>
+<span class="fc" id="L93">        assertEquals(theOneRing.getY(), 0);</span>
+<span class="fc" id="L94">        assertEquals(theOneRing.getDamageValue(), 0);</span>
+<span class="fc" id="L95">        assertEquals(theOneRing.getDefenseValue(), 0);</span>
+<span class="fc" id="L96">        assertEquals(theOneRing.getPrice(), 0);</span>
+<span class="fc" id="L97">    }</span>
+
+    @Test
+    public void HealthPotionItemTest() {
+<span class="fc" id="L101">        HealthPotion healthPotion = new HealthPotion(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 0, 10);</span>
+<span class="fc" id="L102">        assertEquals(healthPotion.getX(), 0);</span>
+<span class="fc" id="L103">        assertEquals(healthPotion.getY(), 0);</span>
+<span class="fc" id="L104">        assertEquals(healthPotion.getDamageValue(), 0);</span>
+<span class="fc" id="L105">        assertEquals(healthPotion.getDefenseValue(), 0);</span>
+<span class="fc" id="L106">        assertEquals(healthPotion.getPrice(), 10);</span>
+<span class="fc" id="L107">    }</span>
+
+    @Test
+    public void AndurilItemTest() {
+<span class="fc" id="L111">        Anduril anduril = new Anduril(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 9, 0, 30);</span>
+<span class="fc" id="L112">        assertEquals(anduril.getX(), 0);</span>
+<span class="fc" id="L113">        assertEquals(anduril.getY(), 0);</span>
+<span class="fc" id="L114">        assertEquals(anduril.getDamageValue(), 9);</span>
+<span class="fc" id="L115">        assertEquals(anduril.getDefenseValue(), 0);</span>
+<span class="fc" id="L116">        assertEquals(anduril.getPrice(), 30);</span>
+<span class="fc" id="L117">    }</span>
+
+    @Test
+    public void TreeStumpItemTest() {
+<span class="fc" id="L121">        TreeStump treeStump = new TreeStump(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 0, 30);</span>
+<span class="fc" id="L122">        assertEquals(treeStump.getX(), 0);</span>
+<span class="fc" id="L123">        assertEquals(treeStump.getY(), 0);</span>
+<span class="fc" id="L124">        assertEquals(treeStump.getDamageValue(), 0);</span>
+<span class="fc" id="L125">        assertEquals(treeStump.getDefenseValue(), 0);</span>
+<span class="fc" id="L126">        assertEquals(treeStump.getPrice(), 30);</span>
+<span class="fc" id="L127">    }</span>
+
+    @Test
+    public void DoggieCoinTest() {
+<span class="fc" id="L131">        DoggieCoin doggieCoin = new DoggieCoin(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 0, 40);</span>
+<span class="fc" id="L132">        assertEquals(doggieCoin.getX(), 0);</span>
+<span class="fc" id="L133">        assertEquals(doggieCoin.getY(), 0);</span>
+<span class="fc" id="L134">        assertEquals(doggieCoin.getDamageValue(), 0);</span>
+<span class="fc" id="L135">        assertEquals(doggieCoin.getDefenseValue(), 0);</span>
+<span class="fc" id="L136">        assertEquals(doggieCoin.getPrice(), 40);</span>
+<span class="fc" id="L137">        doggieCoin.updatePrice(80);</span>
+<span class="nc" id="L138">        assertEquals(doggieCoin.getPrice(), 40);</span>
+<span class="nc" id="L139">    }   </span>
+    //-----------------------------------------------------------------------------------//
+    // test character equipped items
+    @Test
+    public void EquippedSwordTest() {
+<span class="fc" id="L144">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L145">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L146">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L147">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L148">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L149">        Sword sword = new Sword(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 6, 0, 10);</span>
+        // check character without equip sword
+<span class="fc" id="L151">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L152">        assertEquals(character.getDefense(), 0);</span>
+        // check charcter after equip sword
+<span class="fc" id="L154">        world.setCharacterEquipment(character, sword);</span>
+<span class="fc" id="L155">        assertEquals(character.getAggressivity(), 10);</span>
+<span class="fc" id="L156">        assertEquals(character.getDefense(), 0);       </span>
+<span class="fc" id="L157">    }</span>
+
+    @Test
+    public void EquippedStakeTest() {
+<span class="fc" id="L161">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L162">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L163">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L164">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L165">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L166">        Stake stake = new Stake(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 4, 0, 10);</span>
+        // check character without equip stake
+<span class="fc" id="L168">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L169">        assertEquals(character.getDefense(), 0);</span>
+        // check charcter after equip stake
+<span class="fc" id="L171">        world.setCharacterEquipment(character, stake);</span>
+<span class="fc" id="L172">        assertEquals(character.getAggressivity(), 8);</span>
+<span class="fc" id="L173">        assertEquals(character.getDefense(), 0);       </span>
+<span class="fc" id="L174">    }</span>
+
+    @Test
+    public void EquippedStaffTest() {
+<span class="fc" id="L178">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L179">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L180">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L181">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L182">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L183">        Staff staff = new Staff(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 2, 0, 15);</span>
+        // check character without equip staff
+<span class="fc" id="L185">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L186">        assertEquals(character.getDefense(), 0);</span>
+        // check charcter after equip staff
+<span class="fc" id="L188">        world.setCharacterEquipment(character, staff);</span>
+<span class="fc" id="L189">        assertEquals(character.getAggressivity(), 6);</span>
+<span class="fc" id="L190">        assertEquals(character.getDefense(), 0);       </span>
+<span class="fc" id="L191">    }  </span>
+    
+    @Test
+    public void EquippedArmourTest() {
+<span class="fc" id="L195">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L196">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L197">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L198">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L199">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L200">        Armour armour = new Armour(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 3, 20);</span>
+        // check character without equip armour
+<span class="fc" id="L202">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L203">        assertEquals(character.getDefense(), 0);</span>
+        // check charcter after equip armour
+<span class="fc" id="L205">        world.setCharacterEquipment(character, armour);</span>
+<span class="fc" id="L206">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L207">        assertEquals(character.getDefense(), 3);       </span>
+<span class="fc" id="L208">    } </span>
+
+    @Test
+    public void EquippedShieldTest() {
+<span class="fc" id="L212">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L213">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L214">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L215">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L216">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L217">        Shield shield = new Shield(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 0, 20);</span>
+        // check character without equip shield
+<span class="fc" id="L219">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L220">        assertEquals(character.getDefense(), 0);</span>
+        // check charcter after equip shield
+<span class="fc" id="L222">        world.setCharacterEquipment(character, shield);</span>
+<span class="fc" id="L223">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L224">        assertEquals(character.getDefense(), 0);       </span>
+<span class="fc" id="L225">    }</span>
+
+    @Test
+    public void EquippedHelmetTest() {
+<span class="fc" id="L229">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L230">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L231">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L232">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L233">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L234">        Helmet helmet = new Helmet(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 1, 20);</span>
+        // check character without equip helmet
+<span class="fc" id="L236">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L237">        assertEquals(character.getDefense(), 0);</span>
+        // check charcter after equip helmet
+<span class="fc" id="L239">        world.setCharacterEquipment(character, helmet);</span>
+<span class="fc" id="L240">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L241">        assertEquals(character.getDefense(), 1);       </span>
+<span class="fc" id="L242">    }</span>
+
+    @Test
+    public void EquippedAndurilTest() {
+<span class="fc" id="L246">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L247">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L248">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L249">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L250">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L251">        Anduril anduril = new Anduril(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 9, 0, 30);</span>
+        // check character without equip anduril
+<span class="fc" id="L253">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L254">        assertEquals(character.getDefense(), 0);</span>
+        // check charcter after equip sword
+<span class="fc" id="L256">        world.setCharacterEquipment(character, anduril);</span>
+<span class="fc" id="L257">        assertEquals(character.getAggressivity(), 13);</span>
+<span class="fc" id="L258">        assertEquals(character.getDefense(), 0);       </span>
+<span class="fc" id="L259">    }</span>
+
+    @Test
+    public void EquippedTreeStumpTest() {
+<span class="fc" id="L263">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L264">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L265">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L266">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L267">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L268">        TreeStump treeStump = new TreeStump(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 0, 30);</span>
+        // check character without equip treeStump
+<span class="fc" id="L270">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L271">        assertEquals(character.getDefense(), 0);</span>
+        // check charcter after equip treeStump
+<span class="fc" id="L273">        world.setCharacterEquipment(character, treeStump);</span>
+<span class="fc" id="L274">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L275">        assertEquals(character.getDefense(), 0);       </span>
+<span class="fc" id="L276">    }</span>
+
+    @Test
+    public void EquippedNewWeaponTest() {
+<span class="fc" id="L280">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L281">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L282">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L283">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L284">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L285">        Stake stake = new Stake(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 4, 0, 10);</span>
+        // check character without equip stake
+<span class="fc" id="L287">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L288">        assertEquals(character.getDefense(), 0);</span>
+        // check charcter after equip stake
+<span class="fc" id="L290">        world.setCharacterEquipment(character, stake);</span>
+<span class="fc" id="L291">        assertEquals(character.getAggressivity(), 8);</span>
+<span class="fc" id="L292">        assertEquals(character.getDefense(), 0); </span>
+        // check charcter equip a sword(new weapon)  
+<span class="fc" id="L294">        Sword sword = new Sword(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 6, 0, 10);</span>
+<span class="fc" id="L295">        world.setCharacterEquipment(character, sword);</span>
+<span class="fc" id="L296">        assertEquals(character.getAggressivity(), 10);</span>
+<span class="fc" id="L297">        assertEquals(character.getDefense(), 0);      </span>
+<span class="fc" id="L298">    }</span>
+
+    @Test
+    public void EquippedAllTest() {
+<span class="fc" id="L302">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L303">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(0,0));</span>
+<span class="fc" id="L304">        PathPosition pathPosition = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L305">        LoopManiaWorld world = new LoopManiaWorld(32, 21, orderedPath);</span>
+<span class="fc" id="L306">        Character character = new Character(pathPosition);</span>
+<span class="fc" id="L307">        Stake stake = new Stake(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 4, 0, 10);</span>
+        // check character without equip stake
+<span class="fc" id="L309">        assertEquals(character.getAggressivity(), 4);</span>
+<span class="fc" id="L310">        assertEquals(character.getDefense(), 0);</span>
+        // check charcter after equip stake
+<span class="fc" id="L312">        world.setCharacterEquipment(character, stake);</span>
+<span class="fc" id="L313">        assertEquals(character.getAggressivity(), 8);</span>
+<span class="fc" id="L314">        assertEquals(character.getDefense(), 0);  </span>
+        // check charcter after equip armour
+<span class="fc" id="L316">        Armour armour = new Armour(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 3, 20);</span>
+<span class="fc" id="L317">        world.setCharacterEquipment(character, armour);</span>
+<span class="fc" id="L318">        assertEquals(character.getAggressivity(), 8);</span>
+<span class="fc" id="L319">        assertEquals(character.getDefense(), 3); </span>
+        // check charcter after equip shield
+<span class="fc" id="L321">        Shield shield = new Shield(new SimpleIntegerProperty(0) ,new SimpleIntegerProperty(0), 0, 0, 20);</span>
+<span class="fc" id="L322">        world.setCharacterEquipment(character, shield);</span>
+<span class="fc" id="L323">        assertEquals(character.getAggressivity(), 8);</span>
+<span class="fc" id="L324">        assertEquals(character.getDefense(), 3);    </span>
+<span class="fc" id="L325">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

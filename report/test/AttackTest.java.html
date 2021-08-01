@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AttackTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">test</a> &gt; <span class="el_source">AttackTest.java</span></div><h1>AttackTest.java</h1><pre class="source lang-java linenums">package test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import javafx.beans.property.SimpleIntegerProperty;
+
+import org.javatuples.Pair;
+
+import unsw.loopmania.AlliedSoldier;
+import unsw.loopmania.Armour;
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
+import unsw.loopmania.CommonAttack;
+import unsw.loopmania.Helmet;
+import unsw.loopmania.PathPosition;
+import unsw.loopmania.Slug;
+import unsw.loopmania.StaffAttack;
+import unsw.loopmania.Stake;
+import unsw.loopmania.StakeAttack;
+import unsw.loopmania.Vampire;
+import unsw.loopmania.VampireAttack;
+import unsw.loopmania.Zombie;
+import unsw.loopmania.ZombieAttack;
+
+<span class="fc" id="L30">public class AttackTest {</span>
+
+<span class="fc" id="L32">    private CommonAttack ca = new CommonAttack();</span>
+        
+    @Test
+    public void slugAttackTest1(){
+<span class="fc" id="L36">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L37">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L38">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L39">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L40">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L41">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L42">        Slug e = new Slug(Pp);</span>
+<span class="fc" id="L43">        ca.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L44">        assertEquals(Character.getHealth(), 96);</span>
+<span class="fc" id="L45">    }</span>
+
+    @Test
+    public void VampireAttackTest(){
+<span class="fc" id="L49">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L50">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L51">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L52">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L53">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L54">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L55">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L56">        ca.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L57">        assertEquals(Character.getHealth(), 85);</span>
+<span class="fc" id="L58">    }</span>
+
+    @Test
+    public void VampireAttackTest1(){
+<span class="fc" id="L62">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L63">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L64">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L65">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L66">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L67">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L68">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L69">        VampireAttack va = new VampireAttack();</span>
+<span class="fc" id="L70">        va.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L71">        assertNotEquals(Character.getHealth(), 85);</span>
+<span class="fc" id="L72">    }</span>
+
+    @Test
+    public void VampireAttackTest2(){
+<span class="fc" id="L76">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L77">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L78">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L79">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L80">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L81">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L82">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L83">        Zombie z = new Zombie(Pp,null);</span>
+<span class="fc" id="L84">        enemies.add(z);</span>
+<span class="fc" id="L85">        VampireAttack va = new VampireAttack();</span>
+<span class="fc" id="L86">        va.hit(Character, trancedEnemies, enemies, e, &quot;allied&quot;);</span>
+<span class="fc" id="L87">        assertNotEquals(z.getHealth(), 3);</span>
+<span class="fc" id="L88">    }</span>
+
+    @Test
+    public void VampireAttackTest3(){
+<span class="fc" id="L92">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L93">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L94">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L95">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L96">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L97">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L98">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L99">        Slug s= new Slug(Pp);</span>
+<span class="fc" id="L100">        trancedEnemies.add(s);</span>
+<span class="fc" id="L101">        VampireAttack va = new VampireAttack();</span>
+<span class="fc" id="L102">        va.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L103">        assertNotEquals(s.getHealth(), 3);</span>
+<span class="fc" id="L104">    }</span>
+
+    @Test
+    public void VampireAttackTest4(){
+<span class="fc" id="L108">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L109">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L110">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L111">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L112">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L113">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L114">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L115">        Vampire v = new Vampire(Pp,null);</span>
+<span class="fc" id="L116">        trancedEnemies.add(v);</span>
+<span class="fc" id="L117">        VampireAttack va = new VampireAttack();</span>
+<span class="fc" id="L118">        va.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L119">        assertNotEquals(v.getHealth(), 3);</span>
+<span class="fc" id="L120">    }</span>
+
+    @Test
+    public void VampireAttackTest5(){
+<span class="fc" id="L124">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L125">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L126">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L127">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L128">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L129">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L130">        Helmet h = new Helmet(null, null, 0, 0, 0);</span>
+<span class="fc" id="L131">        Character.setArmour(h);</span>
+<span class="fc" id="L132">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L133">        VampireAttack va = new VampireAttack();</span>
+<span class="fc" id="L134">        va.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L135">        assertNotEquals(Character.getHealth(), 90);</span>
+<span class="fc" id="L136">    }</span>
+
+    @Test
+    public void VampireAttackTest6(){
+<span class="fc" id="L140">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L141">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L142">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L143">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L144">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L145">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L146">        Armour a= new Armour(null, null, 0, 0, 0);</span>
+<span class="fc" id="L147">        Character.setArmour(a);</span>
+<span class="fc" id="L148">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L149">        VampireAttack va = new VampireAttack();</span>
+<span class="fc" id="L150">        va.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L151">        assertNotEquals(Character.getHealth(), 93);</span>
+<span class="fc" id="L152">    }</span>
+
+    @Test
+    public void VampireAttackTest7(){
+<span class="fc" id="L156">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L157">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L158">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L159">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L160">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L161">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L162">        Character.setDefense(30);</span>
+<span class="fc" id="L163">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L164">        VampireAttack va = new VampireAttack();</span>
+<span class="fc" id="L165">        va.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L166">        assertEquals(Character.getHealth(), 100);</span>
+<span class="fc" id="L167">    }</span>
+
+    @Test
+    public void VampireAttackTest8(){
+<span class="fc" id="L171">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L172">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L173">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L174">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L175">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L176">        AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));</span>
+<span class="fc" id="L177">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L178">        Character.addSoldier(soldier);</span>
+<span class="fc" id="L179">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L180">        VampireAttack va = new VampireAttack();</span>
+<span class="fc" id="L181">        va.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L182">        assertEquals(Character.getSoldiers().size(), 0);</span>
+<span class="fc" id="L183">    }</span>
+
+    @Test
+    public void ZombiecommonAttackTest1(){
+<span class="fc" id="L187">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L188">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L189">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L190">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L191">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L192">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L193">        Zombie e = new Zombie(Pp,null);</span>
+<span class="fc" id="L194">        ca.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L195">        assertEquals(Character.getHealth(), 92);</span>
+<span class="fc" id="L196">    }</span>
+
+    @Test
+    public void ZombieAttackTest1(){
+<span class="fc" id="L200">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L201">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L202">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L203">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L204">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L205">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L206">        AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));</span>
+<span class="fc" id="L207">        Character.addSoldier(soldier);</span>
+<span class="fc" id="L208">        assertEquals(Character.getSoldiers().size(), 1);</span>
+<span class="fc" id="L209">        Zombie e = new Zombie(Pp,null);</span>
+<span class="fc" id="L210">        ZombieAttack za = new ZombieAttack();</span>
+<span class="fc" id="L211">        za.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L212">        assertEquals(Character.getSoldiers().size(), 0);</span>
+<span class="fc" id="L213">    }</span>
+
+    @Test
+    public void AmmourTest(){
+<span class="fc" id="L217">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L218">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L219">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L220">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L221">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L222">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L223">        Armour am = new Armour(null, null, 0, 0, 0);</span>
+<span class="fc" id="L224">        Character.setArmour(am);</span>
+<span class="fc" id="L225">        Slug e = new Slug(Pp);</span>
+<span class="fc" id="L226">        ca.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L227">        assertEquals(Character.getHealth(), 98);</span>
+<span class="fc" id="L228">    }</span>
+
+    @Test
+    public void HelmetTest1(){
+<span class="fc" id="L232">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L233">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L234">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L235">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L236">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L237">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L238">        Helmet Hm = new Helmet(null, null, 0, 0, 0);</span>
+<span class="fc" id="L239">        Character.setArmour(Hm);</span>
+<span class="fc" id="L240">        Slug e = new Slug(Pp);</span>
+<span class="fc" id="L241">        ca.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L242">        assertEquals(Character.getHealth(), 100);</span>
+<span class="fc" id="L243">    }</span>
+
+    @Test
+    public void HelmetTest2(){
+<span class="fc" id="L247">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L248">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L249">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L250">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L251">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L252">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L253">        Helmet Hm = new Helmet(null, null, 0, 0, 0);</span>
+<span class="fc" id="L254">        Character.setArmour(Hm);</span>
+<span class="fc" id="L255">        Slug e = new Slug(Pp);</span>
+<span class="fc" id="L256">        ca.hit(Character, trancedEnemies, enemies, e, &quot;character&quot;);</span>
+<span class="fc" id="L257">        assertEquals(e.getHealth(), 10);</span>
+<span class="fc" id="L258">    }</span>
+
+    @Test
+    public void CharacterTest(){
+<span class="fc" id="L262">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L263">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L264">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L265">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L266">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L267">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L268">        Slug e = new Slug(Pp);</span>
+<span class="fc" id="L269">        ca.hit(Character, trancedEnemies, enemies, e, &quot;character&quot;);</span>
+<span class="fc" id="L270">        assertEquals(e.getHealth(), 8);</span>
+<span class="fc" id="L271">    }</span>
+
+    @Test
+    public void CharacterTestWithStake(){
+<span class="fc" id="L275">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L276">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L277">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L278">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L279">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L280">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L281">        Stake s = new Stake(null, null, 0, 0, 0);</span>
+<span class="fc" id="L282">        StakeAttack sa = new StakeAttack();</span>
+<span class="fc" id="L283">        Character.setWeapon(s);</span>
+<span class="fc" id="L284">        Slug e = new Slug(Pp);</span>
+<span class="fc" id="L285">        sa.hit(Character, trancedEnemies, enemies, e, &quot;character&quot;);</span>
+<span class="fc" id="L286">        assertEquals(e.getHealth(), 8);</span>
+<span class="fc" id="L287">    }</span>
+
+    @Test
+    public void CharacterTestWithStake2(){
+<span class="fc" id="L291">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L292">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L293">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L294">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L295">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L296">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L297">        Stake s = new Stake(null, null, 0, 0, 0);</span>
+<span class="fc" id="L298">        Character.setWeapon(s);</span>
+<span class="fc" id="L299">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L300">        StakeAttack sa = new StakeAttack();</span>
+<span class="fc" id="L301">        sa.hit(Character, trancedEnemies, enemies, e, &quot;character&quot;);</span>
+<span class="fc" id="L302">        assertEquals(e.getHealth(), 20);</span>
+<span class="fc" id="L303">    }</span>
+
+    @Test
+    public void CharacterTestWithStake3(){
+<span class="fc" id="L307">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L308">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L309">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L310">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L311">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L312">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L313">        Stake s = new Stake(null, null, 0, 0, 0);</span>
+<span class="fc" id="L314">        Helmet h = new Helmet(null, null, 0, 0, 0);</span>
+<span class="fc" id="L315">        Character.setWeapon(s);</span>
+<span class="fc" id="L316">        Character.setArmour(h);</span>
+<span class="fc" id="L317">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L318">        StakeAttack sa = new StakeAttack();</span>
+<span class="fc" id="L319">        sa.hit(Character, trancedEnemies, enemies, e, &quot;character&quot;);</span>
+<span class="fc" id="L320">        assertEquals(e.getHealth(), 22);</span>
+<span class="fc" id="L321">    }</span>
+
+    @Test
+    public void CharacterTestWithStaff(){
+<span class="fc" id="L325">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L326">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L327">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L328">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L329">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L330">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L331">        Stake s = new Stake(null, null, 0, 0, 0);</span>
+<span class="fc" id="L332">        Character.setWeapon(s);</span>
+<span class="fc" id="L333">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L334">        assertEquals(e.getTranceTurn(), 0);</span>
+<span class="fc" id="L335">        StaffAttack sa = new StaffAttack();</span>
+<span class="fc" id="L336">        sa.hit(Character, trancedEnemies, enemies, e, &quot;character&quot;);</span>
+<span class="fc" id="L337">        assertEquals(e.getTranceTurn(), 5);</span>
+<span class="fc" id="L338">        e.setTranceTurn(2);</span>
+<span class="fc" id="L339">        assertEquals(e.getTranceTurn(), 2);</span>
+<span class="fc" id="L340">        assertEquals(trancedEnemies.size(), 1);</span>
+<span class="fc" id="L341">        assertEquals(enemies.size(), 0);</span>
+<span class="fc" id="L342">    }</span>
+
+    @Test
+    public void trancedEnemyBeAttackedTest(){
+<span class="fc" id="L346">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L347">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L348">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L349">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L350">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L351">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L352">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L353">        Slug v = new Slug(Pp);</span>
+<span class="fc" id="L354">        trancedEnemies.add(v);</span>
+<span class="fc" id="L355">        ca.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L356">        assertEquals(trancedEnemies.size(), 0);</span>
+<span class="fc" id="L357">    }</span>
+
+    @Test
+    public void soldierBeAttackedTest1(){
+<span class="fc" id="L361">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L362">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L363">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L364">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L365">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L366">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L367">        AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));</span>
+<span class="fc" id="L368">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L369">        Character.addSoldier(soldier);</span>
+<span class="fc" id="L370">        ca.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L371">        assertEquals(Character.getSoldiers().size(), 0);</span>
+<span class="fc" id="L372">    }</span>
+
+    @Test
+    public void soldierBeAttackedTest2(){
+<span class="fc" id="L376">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L377">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L378">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L379">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L380">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L381">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L382">        AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));</span>
+<span class="fc" id="L383">        Slug e = new Slug(Pp);</span>
+<span class="fc" id="L384">        Character.addSoldier(soldier);</span>
+<span class="fc" id="L385">        ca.hit(Character, trancedEnemies, enemies, e, &quot;enemy&quot;);</span>
+<span class="fc" id="L386">        assertEquals(Character.getSoldiers().size(), 1);</span>
+<span class="fc" id="L387">    }</span>
+
+    @Test
+    public void soldierCommonAttackedTest(){
+<span class="fc" id="L391">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L392">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L393">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L394">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L395">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L396">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L397">        AlliedSoldier soldier = new AlliedSoldier(new SimpleIntegerProperty(1),new SimpleIntegerProperty(1));</span>
+<span class="fc" id="L398">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L399">        ca.hit(Character, trancedEnemies, enemies, e, &quot;soldier&quot;);</span>
+<span class="fc" id="L400">        assertEquals(e.getHealth(), 32);</span>
+<span class="fc" id="L401">        Character.addSoldier(soldier);</span>
+<span class="fc" id="L402">        ca.hit(Character, trancedEnemies, enemies, e, &quot;soldier&quot;);</span>
+<span class="fc" id="L403">        assertEquals(e.getHealth(), 27);</span>
+<span class="fc" id="L404">    }</span>
+
+    @Test
+    public void slugCommonAttackedTest(){
+<span class="fc" id="L408">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L409">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L410">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L411">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L412">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L413">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L414">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L415">        ca.hit(Character, trancedEnemies, enemies, e, &quot;slug&quot;);</span>
+<span class="fc" id="L416">        assertEquals(e.getHealth(), 28);</span>
+<span class="fc" id="L417">    }</span>
+
+    @Test
+    public void zombieCommonAttackedTest(){
+<span class="fc" id="L421">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L422">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L423">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L424">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L425">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L426">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L427">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L428">        ca.hit(Character, trancedEnemies, enemies, e, &quot;zombie&quot;);</span>
+<span class="fc" id="L429">        assertEquals(e.getHealth(), 24);</span>
+<span class="fc" id="L430">    }</span>
+
+    @Test
+    public void vampireCommonAttackedTest(){
+<span class="fc" id="L434">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L435">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L436">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L437">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L438">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L439">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L440">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L441">        ca.hit(Character, trancedEnemies, enemies, e, &quot;vampire&quot;);</span>
+<span class="fc" id="L442">        assertEquals(e.getHealth(), 17);</span>
+<span class="fc" id="L443">    }</span>
+
+    @Test
+    public void nullCommonAttackedTest(){
+<span class="fc" id="L447">        List&lt;BasicEnemy&gt; enemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L448">        List&lt;BasicEnemy&gt; trancedEnemies = new ArrayList&lt;BasicEnemy&gt;();</span>
+<span class="fc" id="L449">        List&lt;Pair&lt;Integer, Integer&gt;&gt; orderedPath = new ArrayList&lt;Pair&lt;Integer, Integer&gt;&gt;();</span>
+<span class="fc" id="L450">        orderedPath.add(new Pair&lt;Integer, Integer&gt;(1,1));</span>
+<span class="fc" id="L451">        PathPosition Pp = new PathPosition(0, orderedPath);</span>
+<span class="fc" id="L452">        Character Character = new Character(Pp);</span>
+<span class="fc" id="L453">        Vampire e = new Vampire(Pp,null);</span>
+<span class="fc" id="L454">        ca.hit(Character, trancedEnemies, enemies, e, &quot;null&quot;);</span>
+<span class="fc" id="L455">        assertEquals(e.getHealth(), 32);</span>
+<span class="fc" id="L456">    }</span>
+
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

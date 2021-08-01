@@ -275,7 +275,7 @@ public class LoopManiaWorldTest {
     }
 
     @Test
-    public void addUnequippedItem(){
+    public void addUnequippedItemTest(){
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
         orderedPath.add(new Pair<Integer, Integer>(0,0));
         orderedPath.add(new Pair<Integer, Integer>(1,0));
@@ -319,6 +319,37 @@ public class LoopManiaWorldTest {
         assertEquals(item9 instanceof TheOneRing, true);
     }
 
+    @Test
+    public void addUnequippedItemFullCaseTest(){
+        List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
+        orderedPath.add(new Pair<Integer, Integer>(0,0));
+        orderedPath.add(new Pair<Integer, Integer>(1,0));
+        orderedPath.add(new Pair<Integer, Integer>(2,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,0));
+        orderedPath.add(new Pair<Integer, Integer>(3,1));
+        orderedPath.add(new Pair<Integer, Integer>(3,2));
+        orderedPath.add(new Pair<Integer, Integer>(3,3));
+        orderedPath.add(new Pair<Integer, Integer>(2,3));
+        orderedPath.add(new Pair<Integer, Integer>(1,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,3));
+        orderedPath.add(new Pair<Integer, Integer>(0,2));
+        orderedPath.add(new Pair<Integer, Integer>(0,1));
+        LoopManiaWorld world = new LoopManiaWorld(4, 4, orderedPath);
+        PathPosition pathPosition = new PathPosition(0, orderedPath);
+        Character character = new Character(pathPosition);
+        world.setCharacter(character);
+        for (int i = 0; i < 16; i++) {
+            Item item = world.addUnequippedItem(ITEMS_TYPE.SWORD);
+            assertEquals(item instanceof Sword, true);
+        }
+        assertEquals(character.getGold(), 0);
+        assertEquals(character.getEXP(), 0);
+        Item item = world.addUnequippedItem(ITEMS_TYPE.SWORD);
+        assertEquals(item instanceof Sword, true);
+        assertEquals(character.getGold(), 2);
+        assertEquals(character.getEXP(), 5);        
+
+    }
     @Test
     public void GRUnequippedInventoryItemByCoordinatesTest(){
         List<Pair<Integer, Integer>> orderedPath = new ArrayList<>();
